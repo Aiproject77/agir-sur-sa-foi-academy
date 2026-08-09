@@ -3,9 +3,9 @@ import { requireAuth } from "../../../lib/auth";
 import { UserStore } from "../../../lib/store";
 import { getCourseById } from "../../../lib/courses";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end();
-  const user = requireAuth(req, res);
+  const user = await requireAuth(req, res);
   if (!user) return;
 
   const { courseId, chapterId, timeSpent, completedAt } = req.body;
@@ -16,20 +16,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const existingProgress = (user as any).progress?.[courseId] || {};
   const completedChapters: string[] = existingProgress.completedChapters || [];
-  if (!completedChapters.includes(chapterId)) {
-    completedChapters.push(chapterId);
-  }
+  if (!completedChapters.includes(chapterId)) completedChapters.push(chapterId);
 
   const allCompleted = course.chapters.every((c) => completedChapters.includes(c.id));
 
-  UserStore.updateProgress(user.id, courseId, {
+  await UserStore.updateProgress(user.id, courseId, {
     completedChapters,
     timeSpent: (existingProgress.timeSpent || 0) + (timeSpent || 0),
-    completedAt: allCompleted
-      ? completedAt || new Date().toISOString()
-      : existingProgress.completedAt,
+    completedAt: allCompleted ? completedAt || new Date().toISOString() : existingProgress.completedAt,
     startedAt: existingProgress.startedAt || new Date().toISOString(),
-    lastAccessed: new Date().toISOString(),
     currentChapterId: chapterId,
   });
 

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Auth, UserStore, type User } from "./store";
+import { Auth, UserStore } from "./store";
 import cookie from "cookie";
 
 export function getTokenFromRequest(req: NextApiRequest): string | null {
@@ -7,10 +7,7 @@ export function getTokenFromRequest(req: NextApiRequest): string | null {
   return cookies.token || null;
 }
 
-export function requireAuth(
-  req: NextApiRequest,
-  res: NextApiResponse
-): (Omit<User, "password"> & { password?: string }) | null {
+export async function requireAuth(req: NextApiRequest, res: NextApiResponse) {
   const token = getTokenFromRequest(req);
   if (!token) {
     res.status(401).json({ error: "Not authenticated" });
@@ -21,7 +18,7 @@ export function requireAuth(
     res.status(401).json({ error: "Invalid token" });
     return null;
   }
-  const user = UserStore.findById(payload.id);
+  const user = await UserStore.findById(payload.id);
   if (!user) {
     res.status(401).json({ error: "User not found" });
     return null;
@@ -30,11 +27,8 @@ export function requireAuth(
   return safeUser;
 }
 
-export function requireAdmin(
-  req: NextApiRequest,
-  res: NextApiResponse
-): (Omit<User, "password"> & { password?: string }) | null {
-  const user = requireAuth(req, res);
+export async function requireAdmin(req: NextApiRequest, res: NextApiResponse) {
+  const user = await requireAuth(req, res);
   if (!user) return null;
   if (user.role !== "admin") {
     res.status(403).json({ error: "Admin access required" });
@@ -50,7 +44,7 @@ export function setAuthCookie(res: NextApiResponse, token: string) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 30, // 30 days
       path: "/",
     })
   );
