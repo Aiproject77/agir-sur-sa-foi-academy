@@ -134,7 +134,7 @@ export default function CoursePage() {
             <p style={{ margin: 0, color: "#15803d", fontSize: 15, fontWeight: 500 }}>
               You have completed this course!
             </p>
-            <Link href={`/courses/${course.slug}/certificate`} className="btn-gold" style={{ fontSize: 14, padding: "10px 22px" }}>
+            <Link href={`/courses/${course.slug}/certificate`} className="btn-primary" style={{ fontSize: 14, padding: "10px 22px" }}>
               View Certificate
             </Link>
           </div>

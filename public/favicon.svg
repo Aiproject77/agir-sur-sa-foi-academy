@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <circle cx="32" cy="32" r="30" fill="none" stroke="#0f0f0e" stroke-width="2"/>
-  <circle cx="32" cy="32" r="26" fill="none" stroke="#0f0f0e" stroke-width="1"/>
-  <text x="32" y="28" text-anchor="middle" font-family="serif" font-size="10" font-weight="bold" fill="#0f0f0e">ASF</text>
-  <text x="32" y="40" text-anchor="middle" font-family="serif" font-size="7" fill="#0f0f0e">ACADEMY</text>
+  <rect width="64" height="64" fill="#f5f3ee"/>
+  <circle cx="32" cy="32" r="28" fill="none" stroke="#0f0f0e" stroke-width="2.5"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="#0f0f0e" stroke-width="1"/>
+  <text x="32" y="26" text-anchor="middle" font-family="Georgia,serif" font-size="7" font-weight="bold" fill="#0f0f0e" letter-spacing="0.5">AGIR SUR SA</text>
+  <text x="32" y="36" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="900" fill="#0f0f0e">FOI</text>
+  <text x="32" y="45" text-anchor="middle" font-family="Georgia,serif" font-size="7" font-weight="bold" fill="#0f0f0e" letter-spacing="0.5">ACADEMY</text>
 </svg>

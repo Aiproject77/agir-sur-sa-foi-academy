@@ -14,6 +14,9 @@ export interface Chapter {
 }
 
 export interface Course {
+  titleFr?: string;
+  subtitleFr?: string;
+  descriptionFr?: string;
   id: string;
   slug: string;
   order: number;
@@ -31,6 +34,9 @@ export const COURSES: Course[] = [
     id: "course-1",
     slug: "led-by-gods-power",
     order: 1,
+    titleFr: "Conduit par la Puissance de Dieu",
+    subtitleFr: "Les yeux et les oreilles de l'Église",
+    descriptionFr: "Un cours sur les manifestations de révélation du Saint-Esprit : parole de connaissance, parole de sagesse, et discernement des esprits.",
     title: "Led by God's Power",
     subtitle: "The eyes and ears of the Church",
     description:
@@ -1066,6 +1072,9 @@ export const COURSES: Course[] = [
     id: "course-2",
     slug: "growing-in-gods-power",
     order: 2,
+    titleFr: "Grandir dans la Puissance de Dieu",
+    subtitleFr: "Le Corps de Christ et les manifestations d'adoration",
+    descriptionFr: "Un cours intermédiaire sur le Corps de Christ, la part du croyant en lui, et les manifestations d'adoration du Saint-Esprit.",
     title: "Growing in God's Power",
     subtitle: "The Body of Christ and worship manifestations",
     description:
@@ -1093,6 +1102,9 @@ export const COURSES: Course[] = [
     id: "course-3",
     slug: "administering-gods-power",
     order: 3,
+    titleFr: "Administrer la Puissance de Dieu",
+    subtitleFr: "Foi, miracles, guérisons et transmission",
+    descriptionFr: "Un cours avancé sur les manifestations de transmission : foi spéciale, opérations de miracles, et dons de guérisons — apporter la délivrance au peuple de Dieu.",
     title: "Administering God's Power",
     subtitle: "Faith, miracles, healing, and impartation",
     description:

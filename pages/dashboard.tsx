@@ -144,7 +144,7 @@ export default function Dashboard() {
                       {done && (
                         <Link
                           href={`/courses/${course.slug}/certificate`}
-                          className="btn-gold"
+                          className="btn-primary"
                           style={{ fontSize: 13, padding: "8px 18px" }}
                         >
                           View Certificate

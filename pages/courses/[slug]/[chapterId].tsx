@@ -399,7 +399,7 @@ export default function ChapterPage() {
                   <p style={{ color: "var(--text-muted)", fontSize: 15, marginBottom: "1.5rem" }}>
                     You have completed <strong>{course.title}</strong>! Your certificate is ready.
                   </p>
-                  <Link href={`/courses/${slug}/certificate`} className="btn-gold" style={{ fontSize: 16, padding: "14px 32px" }}>
+                  <Link href={`/courses/${slug}/certificate`} className="btn-primary" style={{ fontSize: 16, padding: "14px 32px" }}>
                     Get Your Certificate
                   </Link>
                 </div>

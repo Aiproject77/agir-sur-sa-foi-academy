@@ -108,7 +108,7 @@ export default function CertificatePage() {
           <div style={{ position: "absolute", bottom: 12, right: 12, width: 48, height: 48, borderBottom: "2px solid var(--gold)", borderRight: "2px solid var(--gold)" }} />
 
           <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: "1rem" }}>
-            Christian Family Fellowship Ministry
+            Acting on His Word Academy
           </p>
 
           <p style={{ fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "1.5rem" }}>
@@ -150,11 +150,11 @@ export default function CertificatePage() {
           <div style={{ display: "flex", justifyContent: "center", gap: "3rem", flexWrap: "wrap" }}>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Christian Family Fellowship Ministry</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Acting on His Word Academy</p>
             </div>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Christian Family Fellowship Ministry</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Acting on His Word Academy</p>
             </div>
           </div>
 
