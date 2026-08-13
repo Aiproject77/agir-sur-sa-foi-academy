@@ -18,6 +18,7 @@ export default function ChapterPage() {
   const [autoScroll, setAutoScroll] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [showContact, setShowContact] = useState(false);
+  const [lang, setLang] = useState<"en"|"fr">("en");
   const contentRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -30,6 +31,8 @@ export default function ChapterPage() {
   const prevChapter = chapterIndex > 0 ? course?.chapters[chapterIndex - 1] : null;
 
   useEffect(() => {
+    const savedLang = typeof window !== "undefined" ? localStorage.getItem("asf_lang") : null;
+    if (savedLang === "fr" || savedLang === "en") setLang(savedLang);
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((d) => {
@@ -177,9 +180,9 @@ export default function ChapterPage() {
   return (
     <>
       <Head>
-        <title>{chapter.title} — {course.title} — ASF Academy</title>
+        <title>{lang === "fr" && (chapter as any).titleFr ? (chapter as any).titleFr : chapter.title} — {course.title} — ASF Academy</title>
       </Head>
-      <NavBar user={user} />
+      <NavBar user={user} lang={lang} setLang={setLang} />
 
       {/* Chapter nav bar */}
       <div style={{
@@ -275,7 +278,7 @@ export default function ChapterPage() {
               <div
                 ref={contentRef}
                 className="chapter-content"
-                dangerouslySetInnerHTML={{ __html: chapter.content }}
+                dangerouslySetInnerHTML={{ __html: (lang === "fr" && (chapter as any).contentFr) ? (chapter as any).contentFr : chapter.content }}
                 style={{ fontSize: 16, lineHeight: 1.8, color: "var(--text-secondary)" }}
               />
               <div style={{ marginTop: "2.5rem", padding: "1.5rem", background: "var(--gold-light)", border: "1px solid #e0c87a", borderRadius: "var(--radius-lg)" }}>

@@ -10,10 +10,13 @@ export default function CoursePage() {
   const { slug } = router.query;
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [lang, setLang] = useState<"en"|"fr">("en");
 
   const course = typeof slug === "string" ? getCourseBySlug(slug) : null;
 
   useEffect(() => {
+    const s = typeof window !== "undefined" ? localStorage.getItem("asf_lang") : null;
+    if (s === "fr" || s === "en") setLang(s);
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((d) => {
@@ -44,7 +47,7 @@ export default function CoursePage() {
   if (user && !canAccess()) {
     return (
       <>
-        <NavBar user={user} />
+        <NavBar user={user} lang={lang} setLang={setLang} />
         <div style={{ maxWidth: 600, margin: "4rem auto", padding: "2rem 1.5rem", textAlign: "center" }}>
           <h2 style={{ marginBottom: "1rem" }}>Course Locked</h2>
           <p style={{ color: "var(--text-muted)", marginBottom: "1.5rem" }}>
@@ -69,10 +72,10 @@ export default function CoursePage() {
   return (
     <>
       <Head>
-        <title>{course.title} — ASF Academy</title>
+        <title>{lang === "fr" && (course as any).titleFr ? (course as any).titleFr : course.title} — ASF Academy</title>
         <meta name="description" content={course.description} />
       </Head>
-      <NavBar user={user} />
+      <NavBar user={user} lang={lang} setLang={setLang} />
 
       {/* Hero */}
       <div style={{
@@ -89,10 +92,10 @@ export default function CoursePage() {
             Course {courseIndex + 1} of {COURSES.length}
           </p>
           <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", color: "#fff", marginBottom: "0.75rem" }}>
-            {course.title}
+            {lang === "fr" && (course as any).titleFr ? (course as any).titleFr : course.title}
           </h1>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, maxWidth: 580, lineHeight: 1.7 }}>
-            {course.longDescription}
+            {lang === "fr" && (course as any).longDescriptionFr ? (course as any).longDescriptionFr : course.longDescription}
           </p>
           <div style={{ display: "flex", gap: 16, marginTop: "1.25rem", flexWrap: "wrap", fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
             <span>{course.chapters.length} chapters</span>
@@ -174,7 +177,7 @@ export default function CoursePage() {
                   {isDone ? "✓" : i + 1}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <p style={{ margin: 0, fontSize: 14, fontWeight: isCurrent ? 600 : 400, color: "var(--text-primary)" }}>{ch.title}</p>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: isCurrent ? 600 : 400, color: "var(--text-primary)" }}>{lang === "fr" && (ch as any).titleFr ? (ch as any).titleFr : ch.title}</p>
                   <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>{ch.duration} · Quiz included</p>
                 </div>
                 {isDone && <span style={{ fontSize: 12, color: "var(--green)", fontWeight: 500 }}>Done</span>}
