@@ -44,7 +44,7 @@ export default function CertificatePage() {
     );
   }
 
-  const completedDate = new Date(progress.completedAt).toLocaleDateString("en-US", {
+  const completedDate = new Date(progress.completedAt).toLocaleDateString("fr-FR", {
     year: "numeric", month: "long", day: "numeric",
   });
 
@@ -108,7 +108,7 @@ export default function CertificatePage() {
           <div style={{ position: "absolute", bottom: 12, right: 12, width: 48, height: 48, borderBottom: "2px solid var(--gold)", borderRight: "2px solid var(--gold)" }} />
 
           <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: "1rem" }}>
-            Acting on His Word Academy
+            Agir sur sa Foi Academy
           </p>
 
           <p style={{ fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "1.5rem" }}>
@@ -118,7 +118,7 @@ export default function CertificatePage() {
           <div style={{ width: 1, height: 30, background: "var(--border)", margin: "0 auto 1.5rem" }} />
 
           <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", color: "var(--text-primary)", marginBottom: "0.5rem" }}>
-            Acting on His Word Academy
+            Agir sur sa Foi Academy
           </h1>
 
           <p style={{ fontSize: 15, color: "var(--text-muted)", marginBottom: "2rem" }}>
@@ -150,11 +150,11 @@ export default function CertificatePage() {
           <div style={{ display: "flex", justifyContent: "center", gap: "3rem", flexWrap: "wrap" }}>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Acting on His Word Academy</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Agir sur sa Foi Academy</p>
             </div>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Acting on His Word Academy</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Agir sur sa Foi Academy</p>
             </div>
           </div>
 

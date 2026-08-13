@@ -16,7 +16,7 @@ export default function AdminDashboard() {
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((d) => {
-        if (!d.user || d.user.role !== "admin") { router.push("/"); return; }
+        if (!d.user || d.user.role !== "admin") { router.push("/auth/login"); return; }
         setUser(d.user);
         return Promise.all([
           fetch("/api/admin/stats").then((r) => r.json()),
@@ -25,47 +25,35 @@ export default function AdminDashboard() {
       })
       .then((results) => {
         if (!results) return;
-        const [statsData, studentsData] = results;
-        setStats(statsData);
-        setStudents(studentsData.students || []);
+        setStats(results[0]);
+        setStudents(results[1].students || []);
       })
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div style={{ padding: "3rem", textAlign: "center" }}>Loading...</div>;
+  if (loading) return <div style={{ padding: "3rem", textAlign: "center", color: "var(--text-muted)" }}>Chargement...</div>;
   if (!user) return null;
 
   return (
     <>
-      <Head><title>Admin Dashboard — ASF Academy</title></Head>
+      <Head><title>Administration — Agir sur sa Foi</title></Head>
       <NavBar user={user} />
 
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "2rem 1.5rem" }}>
         <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.75rem", marginBottom: 4 }}>Admin Dashboard</h1>
-          <p style={{ color: "var(--text-muted)" }}>Overview and student management</p>
+          <h1 style={{ fontSize: "1.75rem", marginBottom: 4 }}>Tableau de bord Admin</h1>
+          <p style={{ color: "var(--text-muted)" }}>Vue d'ensemble et gestion des étudiants</p>
         </div>
 
         {/* Stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginBottom: "2.5rem" }}>
           {[
-            { label: "Total Students", value: stats?.totalStudents || 0 },
-            { label: "Total Donations", value: `$${(stats?.totalDonations || 0).toFixed(2)} USD` },
-            ...COURSES.map((c) => ({
-              label: `${c.title} Enrolled`,
-              value: stats?.courseEnrollments?.[c.id] || 0,
-            })),
-            ...COURSES.map((c) => ({
-              label: `${c.title} Completed`,
-              value: stats?.courseCompletions?.[c.id] || 0,
-            })),
+            { label: "Total étudiants", value: stats?.totalStudents || 0 },
+            { label: "Total dons", value: `$${(stats?.totalDonations || 0).toFixed(2)} USD` },
+            ...COURSES.map((c) => ({ label: `Inscrits — ${c.title.split(' ').slice(0,2).join(' ')}`, value: stats?.courseEnrollments?.[c.id] || 0 })),
+            ...COURSES.map((c) => ({ label: `Terminés — ${c.title.split(' ').slice(0,2).join(' ')}`, value: stats?.courseCompletions?.[c.id] || 0 })),
           ].slice(0, 8).map((s) => (
-            <div key={s.label} style={{
-              background: "#fff",
-              border: "1px solid var(--border)",
-              borderRadius: "var(--radius)",
-              padding: "1rem",
-            }}>
+            <div key={s.label} style={{ background: "#fff", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "1rem" }}>
               <p style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</p>
               <p style={{ fontSize: 22, fontWeight: 700, color: "var(--text-primary)", margin: 0, fontFamily: "'Playfair Display', serif" }}>{s.value}</p>
             </div>
@@ -75,32 +63,26 @@ export default function AdminDashboard() {
         {/* Students table */}
         <div className="card" style={{ padding: 0, overflow: "hidden" }}>
           <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border)" }}>
-            <h2 style={{ fontSize: "1rem", margin: 0 }}>Students ({students.length})</h2>
+            <h2 style={{ fontSize: "1rem", margin: 0 }}>Étudiants ({students.length})</h2>
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ background: "var(--cream)" }}>
-                  {["Name", "Email", "Joined", "Course 1", "Course 2", "Course 3", "Donations"].map((h) => (
-                    <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 12, color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid var(--border)" }}>
-                      {h}
-                    </th>
+                  {["Nom", "Email", "Inscrit le", "Cours 1", "Cours 2", "Cours 3", "Dons"].map((h) => (
+                    <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 12, color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid var(--border)" }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {students.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>
-                      No students enrolled yet.
-                    </td>
-                  </tr>
+                  <tr><td colSpan={7} style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>Aucun étudiant inscrit pour le moment.</td></tr>
                 ) : students.map((s) => (
                   <tr key={s.id} style={{ borderBottom: "1px solid var(--border)" }}>
                     <td style={{ padding: "10px 14px", fontSize: 14, fontWeight: 500 }}>{s.name}</td>
                     <td style={{ padding: "10px 14px", fontSize: 13, color: "var(--text-muted)" }}>{s.email}</td>
                     <td style={{ padding: "10px 14px", fontSize: 13, color: "var(--text-muted)" }}>
-                      {new Date(s.createdAt).toLocaleDateString()}
+                      {new Date(s.createdAt || s.created_at).toLocaleDateString("fr-FR")}
                     </td>
                     {COURSES.map((c) => {
                       const p = s.progress?.[c.id];
@@ -110,20 +92,18 @@ export default function AdminDashboard() {
                           {p ? (
                             <div>
                               <div style={{ fontSize: 12, color: p.completedAt ? "var(--green)" : "var(--text-muted)" }}>
-                                {p.completedAt ? "Completed" : `${pct}%`}
+                                {p.completedAt ? "Terminé" : `${pct}%`}
                               </div>
                               <div className="progress-bar" style={{ width: 60, marginTop: 3 }}>
                                 <div className="progress-fill" style={{ width: pct + "%" }} />
                               </div>
                             </div>
-                          ) : (
-                            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Not started</span>
-                          )}
+                          ) : <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Non commencé</span>}
                         </td>
                       );
                     })}
                     <td style={{ padding: "10px 14px", fontSize: 14 }}>
-                      ${s.donations?.reduce((sum: number, d: any) => sum + d.amount, 0).toFixed(2)}
+                      ${(s.donations || []).reduce((sum: number, d: any) => sum + d.amount, 0).toFixed(2)}
                     </td>
                   </tr>
                 ))}

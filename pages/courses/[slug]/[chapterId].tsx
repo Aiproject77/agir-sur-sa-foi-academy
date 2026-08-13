@@ -18,7 +18,6 @@ export default function ChapterPage() {
   const [autoScroll, setAutoScroll] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [showContact, setShowContact] = useState(false);
-  const [lang, setLang] = useState<"en"|"fr">("en");
   const contentRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -31,8 +30,6 @@ export default function ChapterPage() {
   const prevChapter = chapterIndex > 0 ? course?.chapters[chapterIndex - 1] : null;
 
   useEffect(() => {
-    const savedLang = typeof window !== "undefined" ? localStorage.getItem("asf_lang") : null;
-    if (savedLang === "fr" || savedLang === "en") setLang(savedLang);
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((d) => {
@@ -180,9 +177,9 @@ export default function ChapterPage() {
   return (
     <>
       <Head>
-        <title>{lang === "fr" && (chapter as any).titleFr ? (chapter as any).titleFr : chapter.title} — {course.title} — ASF Academy</title>
+        <title>{chapter.title} — {course.title} — ASF Academy</title>
       </Head>
-      <NavBar user={user} lang={lang} setLang={setLang} />
+      <NavBar user={user} />
 
       {/* Chapter nav bar */}
       <div style={{
@@ -224,7 +221,7 @@ export default function ChapterPage() {
               cursor: "pointer",
             }}
           >
-            {autoScroll ? "Stop Scroll" : "Auto-Scroll"}
+            {autoScroll ? "Arrêter" : "Défilement auto"}
           </button>
           <button
             onClick={() => setShowContact(!showContact)}
@@ -278,7 +275,7 @@ export default function ChapterPage() {
               <div
                 ref={contentRef}
                 className="chapter-content"
-                dangerouslySetInnerHTML={{ __html: (lang === "fr" && (chapter as any).contentFr) ? (chapter as any).contentFr : chapter.content }}
+                dangerouslySetInnerHTML={{ __html: chapter.content }}
                 style={{ fontSize: 16, lineHeight: 1.8, color: "var(--text-secondary)" }}
               />
               <div style={{ marginTop: "2.5rem", padding: "1.5rem", background: "var(--gold-light)", border: "1px solid #e0c87a", borderRadius: "var(--radius-lg)" }}>
@@ -356,7 +353,7 @@ export default function ChapterPage() {
                       Question {i + 1}: {q.question}
                     </p>
                     <p style={{ fontSize: 13, color: "#b91c1c", marginBottom: 8 }}>
-                      Your answer: <em>{q.options[quizAnswers[i]] || "Not answered"}</em>
+                      Your answer: <em>{q.options[quizAnswers[i]] || "Sans réponse"}</em>
                     </p>
                     <p style={{ fontSize: 13, color: "#15803d", marginBottom: 8 }}>
                       Correct answer: <strong>{q.options[q.correct]}</strong>
@@ -527,7 +524,7 @@ function ContactForm({ subject, user, onClose }: { subject: string; user: any; o
           className="form-input"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Describe your question or concern..."
+          placeholder="Décrivez votre question..."
           rows={4}
           required
           style={{ resize: "vertical" }}
