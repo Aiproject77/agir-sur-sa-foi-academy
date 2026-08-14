@@ -14,41 +14,39 @@ export default function DonationWidget({ user, compact }: { user?: any; compact?
   const [isCustom, setIsCustom] = useState(false);
 
   function handleDonate() {
-    const key = isCustom ? "custom" : String(selected);
-    const link = STRIPE_LINKS[key];
+    const link = isCustom ? STRIPE_LINKS["custom"] : STRIPE_LINKS[String(selected)];
     if (link) window.open(link, "_blank");
   }
-
-  const containerStyle = compact
-    ? { padding: "1.5rem", background: "var(--cream)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)" }
-    : { background: "var(--cream-dark)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "3.5rem 1.5rem" };
 
   const canDonate = isCustom || selected !== null;
 
   return (
-    <section style={containerStyle}>
-      <div style={{ maxWidth: 600, margin: "0 auto" }}>
+    <section style={compact
+      ? { padding: "1.25rem", background: "var(--cream)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)" }
+      : { background: "var(--cream-dark)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "3rem 1rem" }
+    }>
+      <div style={{ maxWidth: 560, margin: "0 auto" }}>
         {!compact && (
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-            <p style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 700, marginBottom: 8 }}>
+            <p style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 700, marginBottom: 8 }}>
               Soutenir ce ministère
             </p>
-            <h2 style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }}>
+            <h2 style={{ fontSize: "clamp(1.4rem, 4vw, 1.75rem)", marginBottom: "0.75rem" }}>
               Aidez-nous à équiper plus de croyants
             </h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: 15, maxWidth: 460, margin: "0 auto" }}>
-              Tous les cours sont gratuits. Votre générosité rend cela possible et nous aide à atteindre plus de personnes avec la Parole de Dieu.
+            <p style={{ color: "var(--text-secondary)", fontSize: "0.9375rem", maxWidth: 440, margin: "0 auto" }}>
+              Tous les cours sont gratuits. Votre générosité rend cela possible.
             </p>
           </div>
         )}
         {compact && (
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", marginBottom: "1rem" }}>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", marginBottom: "0.75rem" }}>
             Soutenir ce ministère
           </h3>
         )}
 
-        {/* Montants prédéfinis */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
+        {/* Montants fixes */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 8 }}>
           {PRESET_AMOUNTS.map((a) => (
             <button
               key={a}
@@ -60,53 +58,54 @@ export default function DonationWidget({ user, compact }: { user?: any; compact?
           ))}
         </div>
 
-        {/* Bouton montant libre */}
+        {/* Montant libre */}
         <button
-          onClick={() => { setIsCustom(true); setSelected(null); }}
+          onClick={() => { setIsCustom(!isCustom); setSelected(null); }}
           style={{
-            width: "100%",
-            padding: "12px",
+            width: "100%", padding: "12px",
             border: `2px solid ${isCustom ? "var(--black)" : "var(--border)"}`,
             borderRadius: "var(--radius)",
             background: isCustom ? "var(--black)" : "#fff",
             color: isCustom ? "#fff" : "var(--text-secondary)",
-            fontSize: 14,
-            cursor: "pointer",
-            marginBottom: 16,
-            fontFamily: "Inter, sans-serif",
-            fontWeight: 500,
+            fontSize: "0.9375rem", cursor: "pointer", marginBottom: 12,
+            fontFamily: "Inter, sans-serif", fontWeight: 500,
             transition: "all 0.15s",
           }}
         >
-          {isCustom ? "✓ Montant libre sélectionné" : "Autre montant (libre)"}
+          {isCustom ? "✓ Montant libre sélectionné" : "Autre montant"}
         </button>
 
+        {/* Instruction montant libre */}
         {isCustom && (
-          <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 12, textAlign: "center" }}>
-            Vous pourrez entrer le montant de votre choix sur la page Stripe.
-          </p>
+          <div style={{
+            background: "#fffbf0", border: "1px solid #f0e0a0",
+            borderRadius: "var(--radius)", padding: "12px 14px", marginBottom: 12,
+          }}>
+            <p style={{ fontSize: "0.875rem", color: "#7a5c00", margin: 0, lineHeight: 1.5 }}>
+              <strong>Comment ça fonctionne :</strong> Cliquez sur le bouton ci-dessous. Sur la page Stripe, modifiez la <strong>quantité</strong> pour choisir votre montant (ex : quantité 25 = don de $25).
+            </p>
+          </div>
         )}
 
-        {/* Bouton donner → ouvre Stripe */}
+        {/* Bouton principal */}
         <button
           className="btn-primary"
-          style={{ width: "100%", fontSize: 16, padding: "14px" }}
+          style={{ width: "100%", fontSize: "1rem", padding: "14px", marginBottom: 12 }}
           onClick={handleDonate}
           disabled={!canDonate}
         >
           {isCustom
-            ? "Donner un montant libre →"
+            ? "Choisir mon montant sur Stripe →"
             : selected
             ? `Donner $${selected}.00 USD →`
             : "Choisir un montant"}
         </button>
 
         {/* Signaux de confiance */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 14, flexWrap: "wrap" }}>
-          {["Paiement sécurisé", "Via Stripe", "Reçu par email"].map((s, i, arr) => (
-            <span key={s} style={{ fontSize: 12, color: "var(--text-muted)", display: "flex", alignItems: "center", gap: 8 }}>
-              {s}
-              {i < arr.length - 1 && <span style={{ opacity: 0.4 }}>·</span>}
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+          {["Paiement sécurisé", "Via Stripe", "Reçu par courriel"].map((s, i, arr) => (
+            <span key={s} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.75rem", color: "var(--text-muted)" }}>
+              {s}{i < arr.length - 1 && <span style={{ opacity: 0.4 }}>·</span>}
             </span>
           ))}
         </div>

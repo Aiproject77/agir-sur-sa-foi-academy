@@ -45,7 +45,7 @@ export default function CoursePage() {
     return (
       <>
         <NavBar user={user} />
-        <div style={{ maxWidth: 600, margin: "4rem auto", padding: "2rem 1.5rem", textAlign: "center" }}>
+        <div style={{ maxWidth: 600, margin: "4rem auto", padding: "1.5rem 1rem", textAlign: "center" }}>
           <h2 style={{ marginBottom: "1rem" }}>Course Locked</h2>
           <p style={{ color: "var(--text-muted)", marginBottom: "1.5rem" }}>
             Please complete <strong>{COURSES[courseIndex - 1]?.title}</strong> before starting this course.
@@ -103,7 +103,7 @@ export default function CoursePage() {
         </div>
       </div>
 
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: "1.5rem 1rem" }}>
         {/* Progress bar */}
         {progress && !isCompleted && (
           <div style={{ marginBottom: "2rem" }}>
@@ -121,10 +121,10 @@ export default function CoursePage() {
         {!isCompleted && nextChapterId && (
           <div style={{ marginBottom: "2rem", padding: "1.25rem 1.5rem", background: "var(--gold-light)", border: "1px solid #e0c87a", borderRadius: "var(--radius-lg)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
             <p style={{ margin: 0, color: "#7a5c00", fontSize: 15 }}>
-              {completedChapters.length === 0 ? "Prêt à commencer ? Débutez par le chapitre 1." : "Reprendre là où vous vous êtes arrêté."}
+              {completedChapters.length === 0 ? "Prêt à commencer ? Débutez par le chapitre 1." : "Reprenez là où vous vous êtes arrêté."}
             </p>
             <Link href={`/courses/${course.slug}/${nextChapterId}`} className="btn-primary" style={{ fontSize: 14, padding: "10px 22px" }}>
-              {completedChapters.length === 0 ? "Commencer le cours" : "Continuer"}
+              {completedChapters.length === 0 ? "Commencer" : "Continuer"}
             </Link>
           </div>
         )}

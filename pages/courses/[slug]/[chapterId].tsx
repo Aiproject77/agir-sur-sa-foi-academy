@@ -18,6 +18,10 @@ export default function ChapterPage() {
   const [autoScroll, setAutoScroll] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [showContact, setShowContact] = useState(false);
+  const [fontSize, setFontSize] = useState(16);
+  
+  function increaseFontSize() { setFontSize(f => Math.min(f + 2, 24)); }
+  function decreaseFontSize() { setFontSize(f => Math.max(f - 2, 14)); }
   const contentRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -181,7 +185,7 @@ export default function ChapterPage() {
       </Head>
       <NavBar user={user} />
 
-      {/* Chapter nav bar */}
+      {/* Barre de navigation chapitre */}
       <div style={{
         background: "var(--cream-dark)",
         borderBottom: "1px solid var(--border)",
@@ -207,7 +211,7 @@ export default function ChapterPage() {
             fontSize: 13,
             fontFamily: "monospace",
           }}>
-            {formatTime(elapsed)}
+            Temps : {formatTime(elapsed)}
           </span>
           <button
             onClick={() => setAutoScroll(!autoScroll)}
@@ -221,8 +225,13 @@ export default function ChapterPage() {
               cursor: "pointer",
             }}
           >
-            {autoScroll ? "Arrêter" : "Défilement auto"}
+            {autoScroll ? "Arrêter le défilement" : "Défilement auto"}
           </button>
+          <div className="font-controls">
+            <button className="font-btn" onClick={decreaseFontSize} title="Réduire la police">A-</button>
+            <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", minWidth: 16, textAlign: "center" }}>{fontSize}</span>
+            <button className="font-btn" onClick={increaseFontSize} title="Agrandir la police">A+</button>
+          </div>
           <button
             onClick={() => setShowContact(!showContact)}
             style={{
@@ -261,7 +270,7 @@ export default function ChapterPage() {
         </div>
       )}
 
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1.5rem", display: "grid", gridTemplateColumns: "1fr min(280px, 30%)", gap: "2rem" }}>
+      <div className="chapter-layout" style={{ maxWidth: 860, margin: "0 auto", padding: "1.5rem 1rem" }}>
         {/* Main content */}
         <div style={{ minWidth: 0 }}>
           {phase === "reading" && (
@@ -276,7 +285,7 @@ export default function ChapterPage() {
                 ref={contentRef}
                 className="chapter-content"
                 dangerouslySetInnerHTML={{ __html: chapter.content }}
-                style={{ fontSize: 16, lineHeight: 1.8, color: "var(--text-secondary)" }}
+                style={{ fontSize: fontSize, lineHeight: 1.8, color: "var(--text-secondary)" }}
               />
               <div style={{ marginTop: "2.5rem", padding: "1.5rem", background: "var(--gold-light)", border: "1px solid #e0c87a", borderRadius: "var(--radius-lg)" }}>
                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", marginBottom: "0.5rem" }}>
