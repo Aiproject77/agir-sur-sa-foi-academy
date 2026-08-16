@@ -10,8 +10,10 @@ export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [messages, setMessages] = useState<any[]>([]);
 
   useEffect(() => {
+    fetch("/api/messages").then(r => r.json()).then(d => setMessages(d.messages || [])).catch(() => {});
     fetch("/api/auth/me").then((r) => r.json()).then((d) => {
       if (!d.user) { router.push("/auth/login"); return; }
       setUser(d.user);
@@ -113,7 +115,46 @@ export default function Dashboard() {
             );
           })}
         </div>
-        <DonationWidget user={user} compact />
+        {/* Messages reçus */}
+        {messages.length > 0 && (
+          <div style={{ marginTop: "2rem" }}>
+            <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Réponses de l'instructeur</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {messages.map((msg: any) => (
+                <div key={msg.id} className="card" style={{ borderLeft: `4px solid ${msg.reply ? "var(--green)" : "var(--border)"}` }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+                    <div>
+                      <p style={{ fontSize: "0.875rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: 2 }}>{msg.chapter_title}</p>
+                      <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: 0 }}>{msg.course_title}</p>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      {msg.reply
+                        ? <span className="badge badge-done">Répondu</span>
+                        : <span className="badge badge-new">En attente</span>
+                      }
+                      <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                        {new Date(msg.created_at).toLocaleDateString("fr-FR")}
+                      </span>
+                    </div>
+                  </div>
+                  <div style={{ background: "var(--cream)", borderRadius: "var(--radius)", padding: "10px 12px", marginBottom: msg.reply ? 8 : 0 }}>
+                    <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", margin: 0 }}>{msg.body}</p>
+                  </div>
+                  {msg.reply && (
+                    <div style={{ background: "#dcfce7", border: "1px solid #86efac", borderRadius: "var(--radius)", padding: "10px 12px" }}>
+                      <p style={{ fontSize: "0.6875rem", color: "#15803d", fontWeight: 600, marginBottom: 4 }}>Réponse de l'instructeur :</p>
+                      <p style={{ fontSize: "0.8125rem", color: "var(--text-secondary)", margin: 0 }}>{msg.reply}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div style={{ marginTop: "2rem" }}>
+          <DonationWidget user={user} compact />
+        </div>
       </div>
     </>
   );
