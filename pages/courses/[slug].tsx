@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCourseBySlug, COURSES } from "../../lib/courses";
+import { getCourseBySlug, COURSES, PUBLIC_COURSES } from "../../lib/courses";
 import NavBar from "../../components/NavBar";
 
 export default function CoursePage() {
@@ -26,18 +26,34 @@ export default function CoursePage() {
 
   if (loading || !course) return (
     <div style={{ padding: "3rem", textAlign: "center", color: "var(--text-muted)" }}>
-      {loading ? "Chargement..." : "Cours introuvable."}
+      {loading ? "Loading..." : "Course not found."}
     </div>
   );
 
   const progress = user?.progress?.[course.id];
   const completedChapters: string[] = progress?.completedChapters || [];
-  const courseIndex = COURSES.findIndex((c) => c.id === course.id);
+  const isAdminOnlyCourse = course.visibility === "admin";
+  const listForCourse = isAdminOnlyCourse ? COURSES.filter((c) => c.visibility === "admin") : PUBLIC_COURSES;
+  const courseIndex = listForCourse.findIndex((c) => c.id === course.id);
 
-  // Lock check
+  // Admin-only personal courses are never visible to non-admin accounts.
+  if (user && isAdminOnlyCourse && user.role !== "admin") {
+    return (
+      <>
+        <NavBar user={user} />
+        <div style={{ maxWidth: 600, margin: "4rem auto", padding: "2rem 1.5rem", textAlign: "center" }}>
+          <h2 style={{ marginBottom: "1rem" }}>Course Not Found</h2>
+          <Link href="/dashboard" className="btn-primary">Back to Dashboard</Link>
+        </div>
+      </>
+    );
+  }
+
+  // Lock check — admin-only courses are standalone and are not gated by the public sequence.
   function canAccess(): boolean {
+    if (isAdminOnlyCourse) return true;
     if (courseIndex === 0) return true;
-    const prev = COURSES[courseIndex - 1];
+    const prev = listForCourse[courseIndex - 1];
     return !!user?.progress?.[prev.id]?.completedAt;
   }
 
@@ -48,7 +64,7 @@ export default function CoursePage() {
         <div style={{ maxWidth: 600, margin: "4rem auto", padding: "2rem 1.5rem", textAlign: "center" }}>
           <h2 style={{ marginBottom: "1rem" }}>Course Locked</h2>
           <p style={{ color: "var(--text-muted)", marginBottom: "1.5rem" }}>
-            Please complete <strong>{COURSES[courseIndex - 1]?.title}</strong> before starting this course.
+            Please complete <strong>{listForCourse[courseIndex - 1]?.title}</strong> before starting this course.
           </p>
           <Link href="/dashboard" className="btn-primary">Back to Dashboard</Link>
         </div>
@@ -86,7 +102,7 @@ export default function CoursePage() {
             ← Dashboard
           </Link>
           <p style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 8 }}>
-            Course {courseIndex + 1} of {COURSES.length}
+            {isAdminOnlyCourse ? "Personal Course" : `Course ${courseIndex + 1} of ${listForCourse.length}`}
           </p>
           <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", color: "#fff", marginBottom: "0.75rem" }}>
             {course.title}
@@ -94,6 +110,11 @@ export default function CoursePage() {
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 15, maxWidth: 580, lineHeight: 1.7 }}>
             {course.longDescription}
           </p>
+          {course.certTrack && (
+            <p style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,0.55)", maxWidth: 580 }}>
+              {course.certTrack} — independent, unofficial prep material.
+            </p>
+          )}
           <div style={{ display: "flex", gap: 16, marginTop: "1.25rem", flexWrap: "wrap", fontSize: 14, color: "rgba(255,255,255,0.6)" }}>
             <span>{course.chapters.length} chapters</span>
             <span>·</span>
@@ -121,10 +142,10 @@ export default function CoursePage() {
         {!isCompleted && nextChapterId && (
           <div style={{ marginBottom: "2rem", padding: "1.25rem 1.5rem", background: "var(--gold-light)", border: "1px solid #e0c87a", borderRadius: "var(--radius-lg)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
             <p style={{ margin: 0, color: "#7a5c00", fontSize: 15 }}>
-              {completedChapters.length === 0 ? "Prêt à commencer ? Débutez par le chapitre 1." : "Reprendre là où vous vous êtes arrêté."}
+              {completedChapters.length === 0 ? "Ready to begin? Start with Chapter 1." : "Pick up where you left off."}
             </p>
             <Link href={`/courses/${course.slug}/${nextChapterId}`} className="btn-primary" style={{ fontSize: 14, padding: "10px 22px" }}>
-              {completedChapters.length === 0 ? "Commencer le cours" : "Continuer"}
+              {completedChapters.length === 0 ? "Start Course" : "Continue"}
             </Link>
           </div>
         )}
@@ -175,7 +196,9 @@ export default function CoursePage() {
                 </div>
                 <div style={{ flex: 1 }}>
                   <p style={{ margin: 0, fontSize: 14, fontWeight: isCurrent ? 600 : 400, color: "var(--text-primary)" }}>{ch.title}</p>
-                  <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>{ch.duration} · Quiz included</p>
+                  <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
+                    {ch.duration} · {ch.isFinalExam ? `Timed final exam${ch.passingScorePercent ? ` · ${ch.passingScorePercent}% to pass` : ""}` : "Quiz included"}
+                  </p>
                 </div>
                 {isDone && <span style={{ fontSize: 12, color: "var(--green)", fontWeight: 500 }}>Done</span>}
                 {isCurrent && <span style={{ fontSize: 12, color: "#92700e", fontWeight: 500 }}>Up next</span>}

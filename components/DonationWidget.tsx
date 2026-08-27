@@ -1,114 +1,209 @@
 import { useState } from "react";
 
-const STRIPE_LINKS: Record<string, string> = {
-  "5":  "https://buy.stripe.com/dRm00j3WJ7LVahIdSHbfO02",
-  "10": "https://buy.stripe.com/00wfZh9h3fen89AbKzbfO01",
-  "15": "https://buy.stripe.com/cNi3cv0Kx8PZ0H8eWLbfO00",
-  "custom": "https://buy.stripe.com/5kQ00j0Kxd6fblM7ujbfO03",
-};
-
 const PRESET_AMOUNTS = [5, 10, 15];
 
-export default function DonationWidget({ user, compact }: { user?: any; compact?: boolean }) {
-  const [selected, setSelected] = useState<number | null>(10);
-  const [isCustom, setIsCustom] = useState(false);
+interface DonationWidgetProps {
+  user?: any;
+  compact?: boolean;
+  lang?: "en" | "fr";
+}
 
-  function handleDonate() {
-    const link = isCustom ? STRIPE_LINKS["custom"] : STRIPE_LINKS[String(selected)];
-    if (link) window.open(link, "_blank");
+export default function DonationWidget({ user, compact, lang = "en" }: DonationWidgetProps) {
+  const [selected, setSelected] = useState<number | null>(10);
+  const [custom, setCustom] = useState("");
+  const [step, setStep] = useState<"amount" | "info" | "done">("amount");
+  const [email, setEmail] = useState(user?.email || "");
+  const [name, setName] = useState(user?.name || "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const amount = custom ? parseFloat(custom) : selected;
+
+  const t = {
+    title: lang === "fr" ? "Soutenir ce ministère" : "Support This Ministry",
+    subtitle: lang === "fr"
+      ? "Tous les cours sont gratuits. Votre générosité rend cela possible et nous aide à atteindre plus de personnes avec la Parole de Dieu."
+      : "All courses are offered free. Your generosity makes this possible and helps us reach more people with God's Word.",
+    custom: lang === "fr" ? "Montant personnalisé" : "Custom amount",
+    donate: (a: number) => lang === "fr" ? `Donner $${a.toFixed(2)} USD →` : `Donate $${a.toFixed(2)} USD →`,
+    fullName: lang === "fr" ? "Nom complet" : "Full Name",
+    namePlaceholder: lang === "fr" ? "Votre nom" : "Your name",
+    emailPlaceholder: lang === "fr" ? "votre@email.com" : "your@email.com",
+    confirming: (a: number) => lang === "fr" ? `Don de $${a.toFixed(2)} USD — confirmez vos coordonnées :` : `Donating $${a.toFixed(2)} USD — please confirm your details:`,
+    back: lang === "fr" ? "Retour" : "Back",
+    confirm: (a: number) => lang === "fr" ? `Confirmer $${a.toFixed(2)} USD` : `Confirm $${a.toFixed(2)} USD`,
+    secure: lang === "fr" ? "Sécurisé · Tous les dons soutiennent l'éducation biblique gratuite" : "Secure · All gifts support free biblical education",
+    thankYou: lang === "fr" ? "Merci" : "Thank You",
+    giftMsg: (a: number, n: string) => lang === "fr"
+      ? `Votre don de $${a.toFixed(2)} USD aide à équiper des croyants dans le monde entier.`
+      : `Your gift of $${a.toFixed(2)} USD helps equip believers worldwide.`,
+    giveAgain: lang === "fr" ? "Donner à nouveau" : "Give Again",
+    invalidAmount: lang === "fr" ? "Veuillez entrer un montant valide." : "Please enter a valid amount.",
+    fillFields: lang === "fr" ? "Veuillez remplir votre nom et email." : "Please fill in your name and email.",
+    processing: lang === "fr" ? "Traitement..." : "Processing...",
+  };
+
+  async function handleDonate() {
+    if (!amount || amount < 1) { setError(t.invalidAmount); return; }
+    if (!email || !name) { setError(t.fillFields); return; }
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/donations/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, currency: "USD", email, name }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed");
+      setStep("done");
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const canDonate = isCustom || selected !== null;
+  if (step === "done") {
+    return (
+      <div style={{
+        background: compact ? "transparent" : "var(--cream-dark)",
+        border: compact ? "1px solid var(--border)" : "none",
+        borderRadius: "var(--radius-lg)",
+        padding: compact ? "1.5rem" : "2.5rem",
+        textAlign: "center",
+      }}>
+        <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", marginBottom: 8 }}>
+          {t.thankYou}, {name}!
+        </h3>
+        <p style={{ color: "var(--text-secondary)", fontSize: 15 }}>
+          {t.giftMsg(amount!, name)}<br />
+          {lang === "fr" ? "Un reçu a été enregistré." : "A receipt has been noted for your records."}
+        </p>
+        <button
+          className="btn-secondary"
+          style={{ marginTop: 16, fontSize: 14 }}
+          onClick={() => { setStep("amount"); setCustom(""); setSelected(10); }}
+        >
+          {t.giveAgain}
+        </button>
+      </div>
+    );
+  }
+
+  const containerStyle = compact ? {
+    padding: "1.5rem",
+    background: "var(--cream)",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--radius-lg)",
+  } : {
+    background: "var(--cream-dark)",
+    borderTop: "1px solid var(--border)",
+    borderBottom: "1px solid var(--border)",
+    padding: "3.5rem 1.5rem",
+  };
 
   return (
-    <section style={compact
-      ? { padding: "1.25rem", background: "var(--cream)", border: "1px solid var(--border)", borderRadius: "var(--radius-lg)" }
-      : { background: "var(--cream-dark)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "3rem 1rem" }
-    }>
-      <div style={{ maxWidth: 560, margin: "0 auto" }}>
+    <section style={containerStyle}>
+      <div style={{ maxWidth: 600, margin: "0 auto" }}>
         {!compact && (
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-            <p style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 700, marginBottom: 8 }}>
-              Soutenir ce ministère
+            <p style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", fontWeight: 700, marginBottom: 8 }}>
+              {t.title}
             </p>
-            <h2 style={{ fontSize: "clamp(1.4rem, 4vw, 1.75rem)", marginBottom: "0.75rem" }}>
-              Aidez-nous à équiper plus de croyants
+            <h2 style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }}>
+              {lang === "fr" ? "Aidez-nous à équiper plus de croyants" : "Help Us Equip More Believers"}
             </h2>
-            <p style={{ color: "var(--text-secondary)", fontSize: "0.9375rem", maxWidth: 440, margin: "0 auto" }}>
-              Tous les cours sont gratuits. Votre générosité rend cela possible.
+            <p style={{ color: "var(--text-secondary)", fontSize: 15, maxWidth: 460, margin: "0 auto" }}>
+              {t.subtitle}
             </p>
           </div>
         )}
         {compact && (
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", marginBottom: "0.75rem" }}>
-            Soutenir ce ministère
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", marginBottom: "1rem" }}>
+            {t.title}
           </h3>
         )}
 
-        {/* Montants fixes */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 8 }}>
-          {PRESET_AMOUNTS.map((a) => (
-            <button
-              key={a}
-              className={`donation-amount-btn ${selected === a && !isCustom ? "active" : ""}`}
-              onClick={() => { setSelected(a); setIsCustom(false); }}
-            >
-              ${a}
-            </button>
-          ))}
-        </div>
-
-        {/* Montant libre */}
-        <button
-          onClick={() => { setIsCustom(!isCustom); setSelected(null); }}
-          style={{
-            width: "100%", padding: "12px",
-            border: `2px solid ${isCustom ? "var(--black)" : "var(--border)"}`,
-            borderRadius: "var(--radius)",
-            background: isCustom ? "var(--black)" : "#fff",
-            color: isCustom ? "#fff" : "var(--text-secondary)",
-            fontSize: "0.9375rem", cursor: "pointer", marginBottom: 12,
-            fontFamily: "Inter, sans-serif", fontWeight: 500,
-            transition: "all 0.15s",
-          }}
-        >
-          {isCustom ? "✓ Montant libre sélectionné" : "Autre montant"}
-        </button>
-
-        {/* Instruction montant libre */}
-        {isCustom && (
-          <div style={{
-            background: "#fffbf0", border: "1px solid #f0e0a0",
-            borderRadius: "var(--radius)", padding: "12px 14px", marginBottom: 12,
-          }}>
-            <p style={{ fontSize: "0.875rem", color: "#7a5c00", margin: 0, lineHeight: 1.5 }}>
-              <strong>Comment ça fonctionne :</strong> Cliquez sur le bouton ci-dessous. Sur la page Stripe, modifiez la <strong>quantité</strong> pour choisir votre montant (ex : quantité 25 = don de $25).
-            </p>
-          </div>
+        {step === "amount" && (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
+              {PRESET_AMOUNTS.map((a) => (
+                <button
+                  key={a}
+                  className={`donation-amount-btn ${selected === a && !custom ? "active" : ""}`}
+                  onClick={() => { setSelected(a); setCustom(""); }}
+                >
+                  ${a}
+                </button>
+              ))}
+            </div>
+            <div style={{ position: "relative", marginBottom: "1rem" }}>
+              <span style={{
+                position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)",
+                color: "var(--text-muted)", fontSize: 16, pointerEvents: "none",
+              }}>$</span>
+              <input
+                type="number"
+                placeholder={t.custom}
+                value={custom}
+                onChange={(e) => { setCustom(e.target.value); setSelected(null); }}
+                className="form-input"
+                style={{ paddingLeft: 28 }}
+                min="1"
+              />
+            </div>
+            {amount && amount > 0 && (
+              <button
+                className="btn-primary"
+                style={{ width: "100%", fontSize: 16, padding: "14px" }}
+                onClick={() => setStep("info")}
+              >
+                {t.donate(amount)}
+              </button>
+            )}
+            {error && <p className="form-error" style={{ marginTop: 8 }}>{error}</p>}
+          </>
         )}
 
-        {/* Bouton principal */}
-        <button
-          className="btn-primary"
-          style={{ width: "100%", fontSize: "1rem", padding: "14px", marginBottom: 12 }}
-          onClick={handleDonate}
-          disabled={!canDonate}
-        >
-          {isCustom
-            ? "Choisir mon montant sur Stripe →"
-            : selected
-            ? `Donner $${selected}.00 USD →`
-            : "Choisir un montant"}
-        </button>
-
-        {/* Signaux de confiance */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-          {["Paiement sécurisé", "Via Stripe", "Reçu par courriel"].map((s, i, arr) => (
-            <span key={s} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.75rem", color: "var(--text-muted)" }}>
-              {s}{i < arr.length - 1 && <span style={{ opacity: 0.4 }}>·</span>}
-            </span>
-          ))}
-        </div>
+        {step === "info" && (
+          <>
+            <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 16 }}>
+              {t.confirming(amount!)}
+            </p>
+            <div className="form-group">
+              <label className="form-label">{t.fullName}</label>
+              <input
+                className="form-input"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={t.namePlaceholder}
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input
+                className="form-input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t.emailPlaceholder}
+              />
+            </div>
+            {error && <p className="form-error" style={{ marginBottom: 12 }}>{error}</p>}
+            <div style={{ display: "flex", gap: 10 }}>
+              <button className="btn-secondary" onClick={() => setStep("amount")} style={{ flex: 1 }}>
+                {t.back}
+              </button>
+              <button className="btn-primary" onClick={handleDonate} disabled={loading} style={{ flex: 2 }}>
+                {loading ? t.processing : t.confirm(amount!)}
+              </button>
+            </div>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "center", marginTop: 12 }}>
+              {t.secure}
+            </p>
+          </>
+        )}
       </div>
     </section>
   );

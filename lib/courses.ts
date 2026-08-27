@@ -11,9 +11,22 @@ export interface Chapter {
   duration: string;
   content: string;
   quiz: QuizQuestion[];
+  /** Optional French translation of content, for bilingual courses. */
+  contentFr?: string;
+  /** Optional French translation of the quiz, for bilingual courses. */
+  quizFr?: QuizQuestion[];
+  /** Marks this chapter as a timed, scored final exam rather than a regular lesson. */
+  isFinalExam?: boolean;
+  /** If set, the exam is countdown-timed for this many minutes and auto-submits at zero. */
+  examDurationMinutes?: number;
+  /** Minimum percentage of correct answers required to pass this chapter's quiz. Defaults to 100 (must get every question right) when omitted, preserving existing course behavior. */
+  passingScorePercent?: number;
 }
 
 export interface Course {
+  titleFr?: string;
+  subtitleFr?: string;
+  descriptionFr?: string;
   id: string;
   slug: string;
   order: number;
@@ -21,1318 +34,1561 @@ export interface Course {
   subtitle: string;
   description: string;
   longDescription: string;
+  color: string;
+  icon: string;
   chapters: Chapter[];
+  /**
+   * "public" (default when omitted) courses appear on the homepage and in every
+   * student's dashboard. "admin" courses are personal courses that only appear in
+   * the Admin Dashboard and are only accessible to the admin account.
+   */
+  visibility?: "public" | "admin";
+  /** Display-only label noting which external certification a course prepares for, if any. Never implies official affiliation. */
+  certTrack?: string;
+  /** Which language(s) the course content is available in. */
+  language?: "bilingual" | "fr" | "en";
 }
 
 export const COURSES: Course[] = [
   {
     id: "course-1",
-    slug: "conduit-par-la-puissance",
+    slug: "led-by-gods-power",
     order: 1,
-    title: "Conduit par la Puissance de Dieu",
-    subtitle: "Les yeux et les oreilles de l'Église",
-    description: "Un cours sur les manifestations de révélation du Saint-Esprit : parole de connaissance, parole de sagesse, et discernement des esprits.",
-    longDescription: "Ce cours couvre les manifestations de révélation — parole de connaissance, parole de sagesse, et discernement des esprits. Vous apprendrez comment la révélation divine fonctionne, comment la recevoir et marcher en elle avec compassion et intention.",
+    titleFr: "Conduit par la Puissance de Dieu",
+    subtitleFr: "Les yeux et les oreilles de l'Église",
+    descriptionFr: "Un cours sur les manifestations de révélation du Saint-Esprit : parole de connaissance, parole de sagesse, et discernement des esprits.",
+    title: "Led by God's Power",
+    subtitle: "The eyes and ears of the Church",
+    description:
+      "A course on the revelation manifestations of holy spirit: word of knowledge, word of wisdom, and discerning of spirits.",
+    longDescription:
+      "This course covers revelation manifestations — word of knowledge, word of wisdom, and discerning of spirits. You will learn how divine revelation operates, how to receive it, and how to walk in it with compassion and purpose.",
+    color: "#1a1a18",
+    icon: "eye",
     chapters: [
-    {
-      id: "c1-1",
-      title: "Pourquoi sommes-nous ici ?",
-      duration: "57 min",
-      content: `<p>Sommaire sur pourquoi sommes-nous ici ?</p><p>Nous verrons qu'etre Conduit par la puissance de Dieu devrait etre le but de chaque croyant. La Croissance dans l'operation des manifestations de revelation est acceleree lorsque nous bougeons avec compassion envers les autres. Nous devons nous demander si nous voulons aider? Si oui, nos vies ne seront jamais plus comme avant.</p><p>Introduction</p><p>Le ministere de Agir sur sa Foi Academy continue a fournir plus de series d'enseignements bibliques qui peuvent etre utilisees comme outils pour l'apprentissage et l'application de la Parole de Dieu dans nos vies. Conduit Par La Puissance de Dieu est la troisieme des quatre series de la puissance de Dieu.</p><p>Vivre dans la puissance de Dieu est la premiere des  Series de la puissance de Dieu. Le verset theme de vivre dans la puissance de Dieu est:</p><p>I Corinthiens 2:5:</p><p>Afin que votre foi fut fondee, non sur la sagesse des hommes, mais sur la puissance de Dieu.</p><p>Les sagesses et les philosophies des hommes ne devraient pas etre la base de votre foi. C'est triste mais c'est souvent le cas. Les personnes tendent a mettre leurs vies dans la sagesse et la philosophie des hommes, mais ce n'est pas ce que la Parole de Dieu dit. Notre foi devrait ETRE dans la puissance de Dieu. Vivre dans la Puissance de Dieu etale une connaissance fondamentale de la Parole de Dieu pour ceux qui desirent apprendre et atteindre le point culminant avec les hommes et les femmes de tous les ages en recevant la puissance de Dieu en manifestation par le parler en langues.</p><p>La seconde serie est Grandir dans la puissance de Dieu enseigne par Jon Nessle. Le verset theme de Grandir dans la puissance de Dieu est:</p><p>I Corinthiens 14:12:</p><p>De meme vous, puisque vous aspirez aux dons spirituels, que ce soit pour l?edification de l?Eglise que vous cherchiez a en posseder abondamment.</p><p>\`\`Exceller'' signifie etre au-dessus ou au-dela, exceller en mesure et en nombre. Grandir dans la puissance de Dieu est une des series qui traite de \`\`que faire'' avec le saint esprit que vous avez recu. Il traite de la croissance, de la comprehension, de l'apprentissage, et de l'application de la puissance de Dieu.</p><p>Cette serie se concentre sur les manifestations d'adoration: le parler en langues, l'interpretation des langues, et la prophetie. Elle aide aussi a apprendre aux personnes, plus au sujet du Corps de Christ, comment il fonctionne, ce que nous sommes supposes faire, comment en tant que membres du Corps de Christ cela s'harmonise, et comment les dons de ministeres devraient etre operes dans les communions a la maison.</p><p>Maintenant nous continuons avec Conduit par la Puissance de Dieu, une autre quete pour grandir, comprendre, apprendre et appliquer la puissance de Dieu dans nos vies. Ces series s'occupent de l'avancement dans la categorie des manifestations de revelation. Le verset theme pour Conduit par la Puissance de Dieu est:</p><p>Romains 8:14:</p><p>Car tous ceux qui sont conduits par l?Esprit de Dieu sont fils d</p>`,
-      quiz: [
-        {
-          question: "Quel devrait être le but de chaque croyant ?",
-          options: ["Accumuler des connaissances", "Être conduit par la puissance de Dieu", "Devenir ministre", "Comprendre l'histoire de l'Église"],
-          correct: 1,
-          explanation: "La leçon déclare clairement : 'Être conduit par la puissance de Dieu devrait être le but de chaque croyant.'"
-        },
-        {
-          question: "Qu'est-ce qui accélère la croissance dans les manifestations de révélation ?",
-          options: ["Plus d'étude biblique seule", "Plus de présence à l'église", "Se déplacer avec compassion vers les autres", "Mémoriser les Écritures"],
-          correct: 2,
-          explanation: "La croissance dans les manifestations de révélation est accélérée lorsque nous nous déplaçons avec compassion vers les autres."
-        },
-        {
-          question: "Combien de manifestations du Saint-Esprit sont listées dans 1 Corinthiens 12 ?",
-          options: ["Trois", "Sept", "Neuf", "Douze"],
-          correct: 2,
-          explanation: "Il y a neuf manifestations du Saint-Esprit. Parmi celles-ci, trois sont des manifestations de révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-2",
-      title: "Les manifestations de révélation",
-      duration: "51 min",
-      content: `<p>Nous verrons l'importance de connaitre Dieu et d'avoir confiance en Lui. Dieu nous communique Sa volonte a travers Sa parole ecrite et les manifestations de revelation. Savoir ce que nous sommes et ce que nous ne sommes pas, est un bon point de depart dans notre aventure pour etre Conduit par la puissance de Dieu.</p><p>Pour etre conduit par l'esprit de Dieu et Sa puissance ou choisir d'etre conduit par quelqu'un, il faut etre capables d'avoir confiance.</p><p>Proverbes 3:5,6:</p><p>5 Confie-toi en l?Eternel de tout ton c?ur, Et ne t'appuie pas sur ta sagesse;</p><p>6 Reconnais-le dans toutes tes voies, Et il aplanira tes sentiers.</p><p>Mieux vous connaissez une personne et plus il est facile de lui faire confiance.</p><p>Comment connaitre quelqu'un?</p><p>Nous passons du temps avec lui.</p><p>Nous communiquons avec lui.</p><p>Nous lui posons des questions.</p><p>Nous ecoutons ou entendons ce qu'il a a dire.</p><p>Nous faisons les choses ensemble et  l'incluons</p><p>dans notre vie.</p><p>Comment allons-nous avoir confiance dans les Paroles de Dieu, si nous n'avons pas confiance en celui qui l'a donnee. Nous avons besoin de passer du temps et de prendre du temps a connaitre Dieu. Nous avons besoin de communiquer avec Lui de marcher avec Lui, d'ecouter les paroles de Sa Parole. Jesus tourna son c?ur vers Dieu dans la priere demandant conseil, partageant son point de vue et exprimant sa reconnaissance. Jesus etait conduit par l'esprit de Dieu. Il voulait faire ce que Dieu voulait faire.</p><p>Luc 4:1:</p><p>Jesus, rempli du Saint-Esprit, revint du Jourdain, et il fut conduit par l?Esprit dans le desert,</p><p>Dieu a dit a Jesus, au moyen du saint esprit, d'aller dans le desert ... et il y alla.</p><p>Romains 8:14:</p><p>Car tous ceux qui sont conduits par l?Esprit de Dieu sont fils de Dieu.</p><p>ag?, et il signifie " amener " ou " conduire. "</p><p>Luc 4:2:</p><p>Ou il fut tente par le diable pendant quarante jours. Il ne mangea rien durant ces jours-la, et, apres qu?ils furent ecoules, il eut faim.</p><p>Jesus tint contre la tentation du diable avec la Revelation de la Parole de Dieu. Comment nous occuperions-nous de ses tentations? C'est la meme chose avec la Parole de Dieu. Lorsque le diable tenta Jesus avec acharnement il cita Deuteronomes 8:3.</p><p>Deuteronomes 8:3:</p><p>Il t?a humilie, il t?a fait souffrir de la faim, et il t?a nourri de la manne, que tu ne connaissais pas et que n?avaient pas connue tes peres, afin de t?apprendre que l?homme ne vit pas de pain seulement, mais que l?homme vit de tout ce qui sort de la bouche de l?Eternel.</p><p>Lorsqu'il a ete tente de servir et d'adorer d'autres dieux, il cita Deuteronomes 6:13.</p><p>Deuteronomes 6:13:</p><p>Tu craindras l?Eternel, ton Dieu, tu le serviras, et tu jureras par son nom.</p><p>Lorsqu'il a ete incite de tenter Dieu, il cita Deuteronomes 6:16.</p><p>Deuteronomes 6:16:</p><p>Vous ne tenterez point l?Eternel, votre Dieu, comme vous l?avez tente a Massa.</p><p>La suite est le recit de Simeon, un homme qui etait conduit par l'esprit de Dieu. Nous verrons que la revelation donnee s'est accomplie.</p><p>Luc 2:25-30:</p><p>25</p>`,
-      quiz: [
-        {
-          question: "Une parole de connaissance concerne :",
-          options: ["Les plans futurs de Dieu", "Des faits passés ou présents sur une personne, un lieu ou une chose", "La nature des êtres spirituels", "Les desseins éternels de Dieu"],
-          correct: 1,
-          explanation: "Une parole de connaissance est une révélation surnaturelle de faits passés ou présents — pas futurs."
-        },
-        {
-          question: "Quelle manifestation permet de discerner la source de l'activité spirituelle ?",
-          options: ["Parole de sagesse", "Parole de connaissance", "Discernement des esprits", "Prophétie"],
-          correct: 2,
-          explanation: "Le discernement des esprits est la capacité surnaturelle de déterminer si les manifestations spirituelles viennent de Dieu, de l'adversaire ou de l'esprit humain."
-        },
-        {
-          question: "Comment mieux connaître Dieu pour Lui faire confiance ?",
-          options: ["En allant à l'église tous les jours", "En passant du temps dans Sa Parole et en prière", "En lisant beaucoup de livres chrétiens", "En jeûnant régulièrement"],
-          correct: 1,
-          explanation: "Plus vous connaissez quelqu'un, plus il est facile de lui faire confiance. Nous grandissons dans notre connaissance de Dieu à travers le temps passé dans Sa Parole et en prière."
-        }
-      ]
-    },
-    {
-      id: "c1-3",
-      title: "Comment la révélation est reçue ?",
-      duration: "54 min",
-      content: `<p>Nous verrons que la revelation est revelee par Dieu dans l'homme interieur, qui a ete cree dans la justice et la vraie saintete a travers les cinq \`\`sens spirituels.'' Nous voyons, nous entendons, nous sentons, nous goutons, et ressentons ce que Dieu veut pour nous, afin que nous connaissions ce qu'Il veut que nous connaissions.</p><p>Introduction</p><p>Pendant cette heure nous ferons de notre mieux pour vous montrer simplement comment la revelation est recue de Dieu. Cela ne signifie pas qu'il s'agit de la presentation de toute la connaissance et c'est tout. C'est la simplicite que la parole de Dieu donne pour expliquer ce qui devrait etre un denominateur commun, un evenement ordinaire pour les enfants de Dieu.</p><p>Bien-sur, nous n'avons pas besoin de comprendre toutes les ?uvres sur un sujet pour l'utiliser et nous en rejouir dans nos vies. Je ne comprends pas toute la complexite d'un ordinateur mais je peux me rejouir de son utilisation. Toutefois lorsque le trouble croit ou que les difficultes ou la frustration s'installent, je suis content qu'il y ait des gens qui savent comment ca fonctionne et qui peuvent m'aider.</p><p>Retrospective sur quelques fondamentaux:</p><p>Lorsque nous confessons Jesus en tant que Seigneur et croyons dans nos c?urs que Dieu l'a ressuscite d'entre les morts, nous naissons de nouveau. Nous recevons le don du saint esprit, et devenons un etre tripartite : corps, ame et esprit. C'est l'esprit de Dieu en nous qui rend cela disponible pour nous afin d'etre Conduit par la puissance de Dieu.</p><p>Parce que nous avons recu le saint esprit comme un don de la grace de Dieu nous pouvons l'utiliser sans reserve. Il y a neuf manifestions de l'esprit : le parler en langues, l'interpretation des langues, la prophetie, recevoir la parole de connaissance et la parole de sagesse, le discernement des esprits, la croyance, les miracles et la guerison. Ces neuf manifestations sont toutes operees du seul don du saint esprit que nous avons recu lorsque nous sommes nes de nouveau. Elles ont ete destinees pour etre utilisees ensemble, pour apporter du profit pour nous individuellement et pour le Corps des Croyants collectivement.</p><p>Dans Marcher selon l'esprit nous avons vu le conflit qui surgit entre le vieil homme (l'homme selon la chair) et le nouvel homme (l'homme selon l'esprit). Si l'apotre Paul en est un exemple, chaque croyant traverse ce conflit lorsqu'il devient mature spirituellement dans sa marche. Marcher selon l'esprit, etant Conduit par la puissance de Dieu, devrait devenir plus facile ou plus habituel avec la croissance et la maturite dans notre marche chretienne.</p><p>Les enfants de Dieu ont deux natures, qui proviennent de deux naissances differentes. Dans la premiere naissance notre nature vient d'Adam, dans la deuxieme elle provient de la nouvelle naissance de Christ, le dernier Adam (I Corinthiens 15:45). La nature du peche etait inherente a chaque personne parce que tous sont descendants d'Adam. La nature divine est dans chaque croyant parce qu'il e</p>`,
-      quiz: [
-        {
-          question: "Comment la révélation est-elle reçue selon ce chapitre ?",
-          options: ["Par les cinq sens physiques", "Par l'homme intérieur — l'esprit — à travers les sens spirituels", "Par la raison et l'intelligence", "Par les rêves uniquement"],
-          correct: 1,
-          explanation: "La révélation est révélée par Dieu dans l'homme intérieur — l'esprit recréé — à travers cinq sens spirituels analogues aux sens physiques."
-        },
-        {
-          question: "Toute révélation doit s'aligner avec :",
-          options: ["Les sentiments du croyant", "La Parole écrite de Dieu", "L'opinion des anciens", "Les traditions de l'Église"],
-          correct: 1,
-          explanation: "La Parole écrite de Dieu est le standard. Toute révélation qui contredit la Bible n'est pas de Dieu."
-        },
-        {
-          question: "Quelle attitude Dieu recherche-t-Il pour communiquer Sa révélation ?",
-          options: ["La complexité théologique", "L'humilité et la simplicité", "L'intensité émotionnelle", "La position hiérarchique dans l'Église"],
-          correct: 1,
-          explanation: "Dieu communique à ceux qui s'approchent de Lui avec humilité. C'est une relation, pas un protocole — une vie de famille, pas des formules."
-        }
-      ]
-    },
-    {
-      id: "c1-4",
-      title: "Exemples d'apprentissage",
-      duration: "59 min",
-      content: `<p>Nous verrons que recevoir la revelation doit etre apprise, et Dieu veut que nous soyons instruits. L'apprentissage devrait etre une aventure excitante. Alors que nous voyons les recits bibliques des autres apprentissages pour operer les manifestations de revelation, nous serons encourages et reconfortes de savoir que le meme Dieu qui les a enseigne peut aussi nous enseigner.</p><p>Bien que la revelation recue soit une activite apprise, elle n'est pas accomplie machinalement ou de maniere mondaine. Dans Marcher par l'esprit je mets le point sur le fait que c'est une relation et non un protocole. C'est la vie de famille et non des formules. Si vous rechercher une formule de mecanique, magique ou le menu de chose a recevoir par revelation, vous pourriez etre tres decus. (Nous sommes fils de Dieu pas des scientifiques de Dieu. Nous nous rejouissons d'une relation familiale merveilleuse pas d'une procedure hospitaliere.) Notre marche avec Dieu est enveloppee dans notre relation familiale. C'est une experience personnelle de vie avec un Pere Celeste aimant, pas un protocole legaliste ou une indulgence personnelle egoiste.</p><p>Operer les manifestations de revelation est simple et excitant, et c'est important que cela ne reste pas un concept vague, comme c'etait pour Nicodeme (Jean 3:1-21). Nicodeme etait un membre du Sanhedrin, un des soixante-dix dirigeants d'Israel, et il est venu vers Jesus sous couvert d'ignorance avec des questions au sujet des matieres spirituelles. Jesus lui a dit au sujet de la nouvelle naissance qu'elle serait disponible dans le futur et ainsi que d'autres sujets spirituels. La reponse de Nicodeme etait, \`\`Comment ces choses peuvent se realiser?'' Jesus lui repondit, \`\` Tu es maitre d'Israel, et tu ne connais pas ces choses?'' Il etait un des maitres, un des enseignants d'Israel, un des soixante-dix qui etaient supposes etre dirigeants, et il n'a pas su repondre au sujet de la reception de la revelation. Les 70 originaux l'ont su (Rappelons nous ce que nous avons juste lu dans Nombres 11.) Ils avaient tous l'esprit et ont prophetise.</p><p>Dieu a rendu cela si simple que meme un enfant pourrait comprendre et agir. En fait, Samuel etait jeune lorsqu'il a commence l'apprentissage. Lorsque le jeune Samuel etait en train d'apprendre il alla vers Eli, son enseignant, pour de l'aide. Bien qu'Eli ait eu de la difficulte dans sa marche personnelle, il etait toujours capable d'aider le jeune Samuel parce qu'il avait toujours eu du succes dans le passe. Il avait marche avec le Seigneur; il savait comment le faire. Cependant, il arreta de marcher parce qu'il ne voulait pas aller ou Dieu etait en train de le conduire. Dieu ne violera jamais votre libre-arbitre. Si nous decidons de ne pas aller plus loin, qu'est ce que Dieu peut faire?</p><p>Samuel etait un jeune homme et Nicodeme etait un vieil homme, mais ils avaient besoin tous les deux d'apprendre comment operer la parole de connaissance, la parole de sagesse, et le discernement des esprits. Se rappeler</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-5",
-      title: "Il y a plus à faire",
-      duration: "65 min",
-      content: `<p>Nous verrons que cette perseverance et cette fidelite sont necessaires pour accomplir l'?uvre de Dieu a laquelle nous sommes appeles. Nous devrions tenir jusqu'a ce que nous voyions la parole de Dieu et Sa volonte en manifestation dans nos vies et dans les vies de ceux que nous administrons et servons.</p><p>Dans les deux dernieres heures precedentes nous avons vu \`\`Comment la Revelation etait recue.'' Nous avons vu comment Dieu nous la donne par l'homme nouveau, et c'est recu a travers les cinq sens spirituels. Le Grand Principe distille ce que nous avons appris dans le dernier couple d'heure en un etablissement concis de verite.</p><p>LE GRAND PRINCIPE</p><p>L'esprit de Dieu enseigne a Sa creation en vous qui est</p><p>maintenant votre esprit et votre esprit enseigne a votre intelligence.</p><p>Alors cela devient manifeste dans le royaume des sens</p><p>pendant que vous agissez.</p><p>La Revelation est si simple a recevoir. Dieu parle directement a notre esprit, Son don de saint esprit en nous. Dieu ne fait acception de personnes. S'Il a donne la revelation a une personne Il peut la donner a tout le monde. Se Rappeler la lecon apprise par Pierre en Actes 10? Lorsque le drap etait tombe, et trois fois il etait instruit de manger. Pierre a dit, \`\`En verite, je reconnais que Dieu ne fait point acception de personnes.'' Quelle revelation ! Meme les Gentils etaient inclus. Dieu travaillera dans tout c?ur qui veut obeir.</p><p>La plus grosse difficulte que je vois avec la revelation est la meme qu'avec les manifestations d'inspiration des langues, d'interpretation, et de prophetie. Nous negligeons d'agir. Nous sommes debout devant le precipice et attendons d'etre pousse de l'autre cote, au lieu d'agir hardiment. Jusqu'a ce que nous agissions ce ne sera pas manifeste dans le royaume des sens. Dieu ne controle jamais. Nous ne sommes pas des canaux ou des mediums. Nous ne sommes pas possedes. Si jamais vous perdez le controle, cela ne vient pas de Dieu. Nous devons agir par notre choix de libre-arbitre ou rien ne se manifestera dans le royaume des sens.</p><p>La parole de Dieu est la revelation, et elle dirige nos actions. Les personnes ont trop souvent utilise l'excuse \`\`je n'ai pas de revelation.'' lorsque les gens viennent a elles pour de l'aide. Oui, pour transmettre un don de guerison ou accomplir un miracle cela demande une revelation, mais plusieurs personnes hesitent par peur. Personne ne veut avoir l'air d'un fou ou ne veut avoir d'echec ; ainsi, ne laissez pas les autres vous empecher de donner votre c?ur entier pour aider le peuple de Dieu, et accomplir la volonte de Dieu.</p><p>Lorsque les personnes viennent pour etre administrees, elles viennent demander de l'aide. Si elles avaient cru que Dieu les guerirait elles auraient ete gueries depuis. Ce qu'elles disent est, \`\`Je crois, aidez mon incroyance.'' Pendant que nous agissons, abordant les gens pour les aider, nous recevrons la revelation. Lorsque nous croyons cette revelation elle inspirera la croyance dans ceux que nous administrons. Se</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-6",
-      title: "Les yeux et les oreilles de l'Église",
-      duration: "54 min",
-      content: `<p>Nous verrons que Dieu donne la revelation a ceux qui servent et aident dans l'Eglise. Nous verrons et entendrons ce que Dieu veut de nous, pendant que nous faisons de notre mieux pour Lui.</p><p>Dieu nous dit que nous ne devons pas rester \`\`enfants.''</p><p>Ephesiens 4:14,15:</p><p>14 afin que nous ne soyons plus des enfants, flottants et emportes a tout vent de doctrine, par la tromperie des hommes, par leur ruse dans les moyens de seduction,</p><p>15	mais que, professant la verite dans la charite, nous croissions a tous egards en celui qui est le chef, Christ.</p><p>Deuteronomes 32:4b:</p><p>... un Dieu fidele et sans iniquite, Il est juste et droit.</p><p>C'est merveilleux de croitre en Christ, dans les choses spirituelles de Dieu, afin que nous soyons conduits par la puissance de Dieu. Nous avons besoin de grandir dans les choses spirituelles de Dieu. Dieu ne donne pas Sa revelation au peuple paresseux. Les Apotres et les croyants dans le livre des actes n'etaient pas paresseux ni des personnes immatures spirituellement.</p><p>Les Manifestations de Revelation sont les yeux & les oreilles de l'Eglise chretienne.</p><p>La Revelation a ete donnee a travers le livre des actes, et l'Eglise Chretienne du Premier Siecle a agi sur les choses que Dieu leur a dites et leur a montrees. Les manifestations de revelation sont toujours disponibles aujourd'hui pour ceux qui croient pour recevoir la revelation de Dieu et desirent aborder et aider les autres.</p><p>Actes 3:2-8:</p><p>2 Il y avait un homme boiteux de naissance, qu?on portait et qu?on placait tous les jours a la porte du temple appelee la Belle, pour qu?il demandat l?aumone a ceux qui entraient dans le temple.</p><p>3 Cet homme, voyant Pierre et Jean qui allaient y entrer, leur demanda l?aumone.</p><p>4 Pierre, de meme que Jean, fixa les yeux sur lui, et dit: Regarde-nous.</p><p>5 Et il les regardait attentivement, s?attendant a recevoir d?eux quelque chose.</p><p>6 Alors Pierre lui dit: Je n?ai ni argent, ni or; mais ce que j?ai, je te le donne: au nom de Jesus-Christ de Nazareth, leve-toi et marche.</p><p>7 Et le prenant par la main droite, il le fit lever. Au meme instant, ses pieds et ses chevilles devinrent fermes;</p><p>8 d?un saut il fut debout, et il se mit a marcher. Il entra avec eux dans le temple, marchant, sautant, et louant Dieu.</p><p>Pourquoi Pierre s'adresse maintenant a cet homme? La Revelation! Pierre a dit, \`\`Regarde-nous !'' Au nom de Jesus Christ de Nazareth leve toi et marche. Pierre le prit par la main droite et le fit lever et ce miracle se produisit. Il guerit instantanement.</p><p>Si vous avez une relation avec Dieu, vous reconnaitrez Son murmure doux et leger. C'est la ou nous voulons vous amener dans vos vies. Lorsque Dieu vous donne la revelation alors ca va se realiser. Nous avons juste besoin de faire notre part.</p><p>En Actes 4:32-35 il dit comment les croyants etaient d'un meme c?ur, d'un meme accord sur ce que les apotres ont temoigne avec grande puissance au sujet de la Resurrection du Seigneur Jesus. Il continue a nous dire que les croyants possedaie</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-7",
-      title: "L'histoire de Joseph",
-      duration: "52 min",
-      content: `<p>Nous verrons comment la revelation est veritablement une part fondamentale de la vie. Nous verrons comment la parole de connaissance et la parole de sagesse sont des manifestations qui marchent en binome, et travaillent ensemble pour amener la volonte de Dieu a se realiser. Elles nous permettront d'etre a l'endroit ou Dieu veut que nous soyons.</p><p>Ce recit est plein de vie. Ils ont recu la revelation sur les autoroutes et les chemins de la vie.</p><p>Genese 37:2,3:</p><p>2 Voici la posterite de Jacob. Joseph, age de dix-sept ans, faisait paitre le troupeau avec ses freres; cet enfant etait aupres des fils de Bilha et des fils de Zilpa, femmes de son pere. Et Joseph rapportait a leur pere leurs mauvais propos.</p><p>3 Israel aimait Joseph plus que tous ses autres fils, parce qu?il l?avait eu dans sa vieillesse; et il lui fit une tunique de plusieurs couleurs.</p><p>Bilha etait une servante de Rachel (la femme de Jacob), et elle donna naissance a deux fils a Jacob, Dan et Nephthali. Rachel donna naissance a deux fils a Jacob, Joseph & Benjamin. Zilpa etait la servante de Lea (La premiere femme de Jacob) et elle fit naitre deux fils a Jacob, Gad et Aser Lea fit naitre six enfants a Jacob, cinq fils; Ruben, Simeon, Levi, Juda, Issacar, et Zabulon et une fille, Dina. Au total, Jacob avait 12 fils et une fille. Dieu changea le nom de Jacob en Israel dans Genese 32:28</p><p>Genese 37:4:</p><p>Ses freres virent que leur pere l?aimait plus qu?eux tous, et ils le prirent en haine. Ils ne pouvaient lui parler avec amitie.</p><p>Les freres de Joseph avaient de la jalousie et de la haine dans leur c?ur envers lui. Ils ne lui etaient pas familiers en termes parlants. Joseph etait le favori de leur Pere et aussi un espion qui lui rapportait les bonnes comme les mauvaises choses qu'ils faisaient.</p><p>Genese 37:5-8:</p><p>5 Joseph eut un songe, et il le raconta a ses freres, qui le hairent encore davantage.</p><p>6 Il leur dit: Ecoutez donc ce songe que j?ai eu!</p><p>7 Nous etions a lier des gerbes au milieu des champs; et voici, ma gerbe se leva et se tint debout, et vos gerbes l?entourerent et se prosternerent devant elle.</p><p>8 Ses freres lui dirent: Est-ce que tu regneras sur nous? Est-ce que tu nous gouverneras? Et ils le hairent encore davantage, a cause de ses songes et a cause de ses paroles.</p><p>Hair signifie etre froid ou sans amour. Joseph avait recu la revelation de Dieu au moyen du reve. Cette parole de connaissance etait que ses freres lui seraient soumis. Etait-ce une parole de sagesse ici? Non.</p><p>Voici une grande verite concernant la parole de connaissance...Gardez la pour vous-memes jusqu'a ce que la parole de sagesse vous dise qu'en faire. La parole de connaissance est l'information que Dieu vous donne pour votre connaissance, s'il veut que vous le disiez a d'autres, il vous donnera la parole de sagesse.</p><p>Genese 37:9,10:</p><p>9 Il eut encore un autre songe, et il le raconta a ses freres. Il dit: J?ai eu encore un songe! Et voici, le soleil, la lune et onze etoiles se prosternaient devant moi.</p><p>10 Il le r</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-8",
-      title: "Plus d'illustrations bibliques",
-      duration: "51 min",
-      content: `<p>Nous verrons que Dieu a donne la revelation a son peuple pour le convaincre qu'il peut faire ce qu'Il l'a appele a faire. Recit apres recit nous verrons Dieu revelant la parole de connaissance, la parole de sagesse et le discernement des esprits a son peuple, afin qu'il puisse etre concerne par Son ?uvre.</p><p>Moise</p><p>Ce sont les hommes et les femmes qui ont recus la revelation et qui ont eu affaire avec leurs sentiments, juste comme nous le faisons. Voici ici l'exemple de Moise:</p><p>Exodes 3:2-4:</p><p>2  L?ange de l?Eternel lui apparut dans une flamme de feu, au milieu d?un buisson. Moise regarda; et voici, le buisson etait tout en feu, et le buisson ne se consumait point.</p><p>3  Moise dit: Je veux me detourner pour voir quelle est cette grande vision, et pourquoi le buisson ne se consume point.</p><p>4  L?Eternel vit qu?il se detournait pour voir; et Dieu l?appela du milieu du buisson, et dit: Moise! Moise! Et il repondit: Me voici!</p><p>Si Dieu veut initier une communication avec vous, Il trouvera un moyen d'attirer votre attention. Mais, vous devez repondre comme Moise l'a fait. Il a dit, \`\`Je suis ici.'' la communication a commence entre Dieu et Moise et la revelation lui a ete donnee concernant la delivrance d'Israel hors d'Egypte.</p><p>Exodes 3:7,8:</p><p>7  L?Eternel dit: J?ai vu la souffrance de mon peuple qui est en Egypte, et j?ai entendu les cris que lui font pousser ses oppresseurs, car je connais ses douleurs.</p><p>8  Je suis descendu pour le delivrer de la main des Egyptiens, et pour le faire monter de ce pays dans un bon et vaste pays, dans un pays ou coulent le lait et le miel, dans les lieux qu?habitent les Cananeens, les Hethiens, les Amoreens, les Phereziens, les Heviens et les Jebusiens.</p><p>C'etaient les peuples qui occupaient la terre a ce moment. Meme s'ils etaient la depuis 400 ans, ce n'etait pas la leur. Toute terre appartient a Dieu. Cela appartient a Dieu, et Il peut le donner a qui il veut, parce qu'il l'a faite.</p><p>Exodes 3:9-11:</p><p>9  Voici, les cris d?Israel sont venus jusqu?a moi, et j?ai vu l?oppression que leur font souffrir les Egyptiens.</p><p>10  Maintenant, va, je t?enverrai aupres de Pharaon, et tu feras sortir d?Egypte mon peuple, les enfants d?Israel.</p><p>11  Moise dit a Dieu: Qui suis-je, pour aller vers Pharaon, et pour faire sortir d?Egypte les enfants d?Israel?</p><p>Ici vous avez la revelation de la volonte de Dieu, venant d'un buisson. Moise etait en train de regarder en lui-meme mais qui etait en train de donner la revelation ? Dieu!</p><p>Nombres 12:3:</p><p>Or, Moise etait un homme fort patient, plus qu?aucun homme sur la face de la terre.</p><p>Dieu regardait le c?ur de Moise. Moise etait humble. Dieu peut travailler avec un c?ur humble. Dieu sait qu'une personne avec un c?ur humble aura aussi de la compassion pour les autres.</p><p>Je crois que c'est tout a fait normal. Moise se connait lui-meme, et il a ete stupefait que le Dieu Tout-Puissant lui demande d'amener Israel hors d'Egypte. La reponse de Dieu: \`\`Certainement je serais avec toi.'' N'oublies jamais cela. Dieu</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-9",
-      title: "Dix habitudes utiles",
-      duration: "57 min",
-      content: `<p>Nous verrons les modeles d'habitudes importantes developpes par les hommes qui ont recus la revelation. Lorsque nous avons un penchant dominant pour repondre habituellement a ces situations, etre Conduit par la puissance de Dieu sera plus facile. Nous serons affranchis des difficultes ou des obstacles alors qu'elles nous assistent ou nous aident dans notre quete pour nous occuper des affaires de notre Pere.</p><p>Dans la serie Marcher par l'esprit j'ai instruit les personnes en les encourageant a developper trois habitudes fondamentales:</p><p>L'humilite envers Dieu et Sa Parole</p><p>Parler en Langues</p><p>Passer du temps avec Dieu dans Sa Parole</p><p>Ce sont des modeles d'habitudes importantes, sans lesquelles marcher par l'esprit serait tres difficile. Developper ces trois qualites de vie simples nous amenera vers le succes et nous preparera dans notre aventure a marcher par l'esprit. Alors que je me preparais pour ces series, j'ai vu plus de choses qui cadraient avec etre Conduit par la puissance de Dieu.</p><p>Ici, j'aimerais partager avec vous 10 habitudes utiles qui correspondent avec etre Conduit par la puissance de Dieu:</p><p>1.	Prenez plaisir a faire Sa volonte.</p><p>2.	Priez sans cesse.</p><p>3.	Ne vous conformez pas a la chair et le sang.</p><p>4.	Ne soyez pas dans l'empressement. Servez le Seigneur.</p><p>5.	Reconnaissez que la perfection est dans le Seigneur.</p><p>(Ne soyez pas critique.)</p><p>6.	Obeissez sans connaitre l'histoire entiere.</p><p>7.	Gardez votre c?ur tendre et pur.</p><p>8.	Marcher selon la parole ecrite.</p><p>9.	Maintenez l'Humilite et vos mers calmes.</p><p>10. Reconnaissez que chaque situation dans l'administration est unique.</p><p>Ces habitudes sont en relation mutuelle. Cette relation peut etre connue ou pas mais elles sont interdependantes.</p><p>Nous sommes des etres avec des habitudes. Tres tot dans nos vies nous attribuons la plupart de nos occupations journalieres de la vie a l'habitude et ainsi nous epargnons beaucoup de temps de discussion ou de perte de temps (ex. brosser les dents, attacher les lacets de chaussure). La plupart de nos \`\`habitudes'' sont associees a des comportements destructifs. Les difficultes liees au changement de comportements ou d'habitudes attestent de leur force et de leur robustesse sur nos vies. Je sais que nous pouvons seulement considerer les habitudes comme associees avec notre vieil homme, mais j'aimerais que vous consideriez pour un moment que le penchant naturelle des comportements qui se forment et se renforcent, n'est pas limite au vieil homme.</p><p>Certainement, si nous sommes capables d'economiser l'effort et la discussion dans les actions habituelles avant d'etre ne de nouveau, nous pouvons aussi utiliser ce processus maintenant que nous sommes nes de nouveau. Comme les reponses des modeles de pensee et de comportements venant de la chair peuvent etre fortifies et renforces par la repetition, de meme, les modeles de pensee et les comportements venant de l'esprit peuvent aussi etre fortifies et renforces par la repetition. Les habitudes bonnes ou</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-10",
-      title: "Dix habitudes utiles (suite)",
-      duration: "57 min",
-      content: `<p>Nous verrons plus d'habitudes specifiques qui nous faciliteront la vie pour etre Conduit par la puissance de Dieu. Reconnaitre que cette perfection est dans le Seigneur, obeir sans connaitre toute l'histoire, garder notre c?ur tendre et pur, marcher selon les Paroles ecrites, maintenir notre humilite, et reconnaitre que chaque situation est unique, tout ceci nous encouragera dans l'operation des manifestations de revelation.</p><p>Reconnaitre que cette Perfection est dans le seigneur.</p><p>Dieu parle aujourd'hui, et c'est possible d'entendre Sa voix. Je ne suis seulement pas sur que CHACUN D'ENTRE NOUS va entendre cela avec une PARFAITE PRECISION D'ECOUTE OU DE COMPREHENSION A 100% DU TEMPS.</p><p>I Corinthiens 13 nous dit \`\`Car nous connaissons en partie, et nous prophetisons en partie, mais quand ce qui est parfait sera venu, ce qui est partiel disparaitra.'' Jusqu'a present -le mieux que nous ayons est partiel...En bref vous coupez en tranche, vous n'avez pas 100%...pas jusqu'a ce que la perfection soit la.</p><p>Nous restons simplement dans la verite car si nous avons besoin de connaitre quelque chose, Dieu pourra nous le faire savoir...dans ou hors de la communion ce n'est pas grave. Nous avons une parole de Dieu parfaite et un Dieu parfait qui l'a ecrite. Cependant, il n'est pas garanti que nous aurons une comprehension parfaite. Nous sommes toujours des personnes faillibles et nous devrions marcher en sachant que cette perfection est dans le Seigneur.</p><p>I Corinthiens 2:1-6:</p><p>1 Pour moi, freres, lorsque je suis alle chez vous, ce n?est pas avec une superiorite de langage ou de sagesse que je suis alle vous annoncer le temoignage de Dieu.</p><p>2 Car je n?ai pas eu la pensee de savoir parmi vous autre chose que Jesus-Christ, et Jesus-Christ crucifie.</p><p>3 Moi-meme j?etais aupres de vous dans un etat de faiblesse, de crainte, et de grand tremblement;</p><p>4 et ma parole et ma predication ne reposaient pas sur les discours persuasifs de la sagesse, mais sur une demonstration d?Esprit et de puissance,</p><p>5 afin que votre foi fut fondee, non sur la sagesse des hommes, mais sur la puissance de Dieu.</p><p>6 Cependant, c?est une sagesse que nous prechons parmi les parfaits, sagesse qui n?est pas de ce siecle, ni des chefs de ce siecle, qui vont etre aneantis;</p><p>Comment Paul peut dire au verset 3 qu'il etait avec eux dans la \`\`faiblesse'' et dans le verset 4 dire que sa predication etait \`\`une demonstration d'esprit et de puissance?'' Ces deux propositions ne devraient pas etre mutuellement exclusives. Est-ce qu'il est juste en train de parler de la \`\`faiblesse'' ? Mais, avant que nous voyions cela examinons \`\`peur'' et \`\`tremblement'' du verset 3.</p><p>La \`\`peur'' et le \`\`tremblement'' sont utilises dans la coutume orientale pour la reverence et l'obeissance. Nous allons devant Dieu avec peur et tremblement. Non parce que nous sommes effrayes, mais parce que nous l'honorons et le reverons. Alors que nous le reverons, notre obeissance est spontanee, volontaire, et sans contrainte. Nous ne p</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-11",
-      title: "Samuel et Saül",
-      duration: "66 min",
-      content: `<p>Nous verrons comment la revelation est necessaire pour prendre soin du peuple de Dieu. Nous verrons comment sont importantes l'humilite et la tendresse de coeur dans la realisation des responsabilites devant Dieu. Operer les manifestations peut faire de nous des hommes et des femmes nouveaux qui peuvent marcher sans peur. L'obeissance a la parole de Dieu est considerable pour tous ceux qui veulent etre Conduit par la puissance de Dieu.</p><p>Samuel a oint Sauel en tant que roi sur Israel, et initialement Sauel a repondu purement et a fait des choses justes, dirigeant bien. Cependant, ca n'a pas mis longtemps pour que la fierte de Sauel, sa peur du peuple, et sa mauvaise prise de decision lui provoque du trouble. Lorsque Dieu dit a Samuel que Sauel a echoue et que son royaume ne se poursuivrait pas, cela affligea aussi Samuel, qui pleura toute la nuit. Bien que Sauel plaide pour obtenir le pardon aupres de Samuel, Samuel savait que ce n'etait pas authentique. Dieu finalement dit a Samuel d'arreter de faire le deuil pour oindre un autre roi, et c'est ainsi que David entra sur scene.</p><p>L'histoire du roi Sauel est dans I Samuel et c'est une lecon pointue sur laquelle nous pouvons apprendre. Au commencement, Sauel etait humble et avait plusieurs des attitudes et des habitudes que nous avons vues auparavant. Cependant, Sauel n'a pas maintenu ces attitudes et habitudes, et longtemps avant, il passa de la marche par l'esprit pour se refugier dans la peur.</p><p>I Samuel 8:1-5:</p><p>1 Lorsque Samuel devint vieux, il etablit ses fils juges sur Israel.</p><p>2 Son fils premier-ne se nommait Joel, et le second Abija; ils etaient juges a Beer-Scheba.</p><p>3 Les fils de Samuel ne marcherent point sur ses traces; ils se livraient a la cupidite, recevaient des presents, et violaient la justice.</p><p>4 Tous les anciens d?Israel s?assemblerent, et vinrent aupres de Samuel a Rama.</p><p>5 Ils lui dirent: Voici, tu es vieux, et tes fils ne marchent point sur tes traces; maintenant, etablis sur nous un roi pour nous juger, comme il y en a chez toutes les nations.</p><p>La qualite et le calibre de l'homme qui dirige, fait une grande difference. Sous Samuel les choses se passaient bien, mais ses fils ne pouvaient pas continuer sur le modele qu'il avait etabli. Ils ne marchaient pas avec le Seigneur comme il l'a fait. Neanmoins le peuple voulait rejeter tout le systeme. Ils pensaient que s'ils etaient comme toutes les autres nations ils seraient biens. Ils savaient si peu.</p><p>I Samuel 8:6a:</p><p>Samuel vit avec deplaisir qu?ils disaient: Donne-nous un roi pour nous juger. Et Samuel pria l?Eternel.</p><p>Samuel savait que Dieu avait promis un roi au peuple. Lorsqu'Israel prophetisa sur Judas il lui dit que le roi serait issu de sa semence. Cependant, a cause de son indiscretion avec  Tamar, le roi qui avait ete promis devait etre retarde pour 10 generations. (Tout cela est devoile en profondeur dans les series d'enseignement sur Ruth.) Au lieu d'attendre le roi selon le temps de Dieu, Ils pressent Samuel d'en choisir u</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-12",
-      title: "Néhémie",
-      duration: "53 min",
-      content: `<p>Nous verrons le recit d'un homme qui contre les avantages ecrasants a continue a avoir du succes parce qu'il aima et pris suffisamment soin du peuple de Dieu pour croire Dieu et prendre action. Nous verrons l'importance de tenir dans la parole de Dieu d'un seul coeur, d'avoir une vie de priere constante, de communion avec Dieu, de confiance et de croyance dans le Dieu vivant.</p><p>Arriere plan Historique du temps de Nehemie:</p><p>Israel etait dechire en deux royaumes apres la mort du roi Salomon. Le royaume nord etait constitue de 10 tribus. Le royaume du sud etait constitue de Juda et Benjamin. Ce dernier royaume etait aussi connu que le royaume de Juda. Plus tard les Assyriens ont envahi les dix tribus du nord et elles se sont eparpillees. Jesus se refera a eux comme \`\`les brebis perdues d'Israel.''</p><p>A travers les annees qui suivirent, il y eut differents rois, et la plupart ont fait le mal a la vue de Dieu. Finalement, pendant les jours des prophetes Jeremie et Habacuc, le royaume de Juda ou Israel se deteriora reellement parce qu'ils ne repondaient pas aux prophetes et a leur avertissements. Ils succomberent a la prophetie de Jeremie, qui a predit la destruction de Jerusalem et une captivite qu'Israel allait endurer pendant 70 ans.</p><p>Les Chaldeens de Babylone sont descendus vers le nord et ont detruit la cite de Jerusalem, ont vole le temple, l'ont rase, et ont brise les murs de Jerusalem. Ils ont capture le peuple et l'on entraine en dehors jusqu'a Babylone laissant juste des debris derriere eux.</p><p>Psaumes 79:1-3, 8,9:</p><p>1 Psaume d?Asaph. O Dieu! Les nations ont envahi ton heritage, Elles ont profane ton saint temple, Elles ont fait de Jerusalem un monceau de pierres.</p><p>2 Elles ont livre les cadavres de tes serviteurs En pature aux oiseaux du ciel, La chair de tes fideles aux betes de la terre;</p><p>3 Elles ont verse leur sang comme de l?eau Tout autour de Jerusalem, Et il n?y a eu personne pour les enterrer.</p><p>8 Ne te souviens plus de nos iniquites passees! Que tes compassions viennent en hate au-devant de nous! Car nous sommes bien malheureux.</p><p>9 Secours-nous, Dieu de notre salut, pour la gloire de ton nom! Delivre-nous, et pardonne nos peches, a cause de ton nom!</p><p>Psaumes 137:1-6:</p><p>1 Sur les bords des fleuves de Babylone, Nous etions assis et nous pleurions, en nous souvenant de Sion.</p><p>2 Aux saules de la contree Nous avions suspendu nos harpes.</p><p>3 La, nos vainqueurs nous demandaient des chants, Et nos oppresseurs de la joie: Chantez-nous quelques-uns des cantiques de Sion!</p><p>4 Comment chanterions-nous les cantiques de l?Eternel Sur une terre etrangere?</p><p>5 Si je t?oublie, Jerusalem, Que ma droite m?oublie!</p><p>6 Que ma langue s?attache a mon palais, Si je ne me souviens de toi, Si je ne fais de Jerusalem Le principal sujet de ma joie!</p><p>Le livre de Nehemie est le recit d'un homme qui contre les avantages ecrasants a continue a avoir du succes parce qu'il osa croire Dieu et prendre action. Ce sont ces genres d'hommes et de femmes qui recoivent la \`\`reve</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-13",
-      title: "Les deux royaumes",
-      duration: "45 min",
-      content: `<p>Nous verrons que ce sont deux royaumes spirituels, et ce qui est important a savoir c'est de comprendre chacun d'eux. Lorsque nous connaissons ce que sont les deux royaumes et quelle est notre part dans le royaume de Dieu, nous serons plus efficaces pour tenir avec le vrai Dieu et confronter le mal.</p><p>Dans la categorie du discernement des esprits nous devons comprendre qu'il y a deux royaumes spirituels.</p><p>Le Royaume de Dieu</p><p>Dieu (qui est Saint Esprit)</p><p>Jesus Christ Son Fils (Assis A Sa Droite)</p><p>Ses Anges</p><p>Ses enfants</p><p>Ses Fils par Adoption dans l'Ancien Testament</p><p>Qui sont ecrit dans le livre de vie.</p><p>Dieu est au-dessus de tout!</p><p>Colossiens 1:16:</p><p>Car en lui ont ete creees toutes les choses qui sont dans les cieux et sur la terre, les visibles et les invisibles, trones, dignites, dominations, autorites. Tout a ete cree par lui et pour lui.</p><p>Dieu est le seul createur.</p><p>Actes 17:24a:</p><p>Le Dieu qui a fait le monde et tout ce qui s?y trouve, etant le Seigneur du ciel et de la terre...</p><p>Dieu a toujours existe. Personne ne L'a cree.</p><p>Psaumes 86:10:</p><p>Car tu es grand, et tu operes des prodiges; Toi seul, tu es Dieu.</p><p>Romains 11:36a:</p><p>C?est de lui, par lui, et pour lui que sont toutes choses</p><p>Dieu est Seigneur et Roi au-dessus de Son royaume, et il n'y a pas de fin a Son royaume.</p><p>Dieu crea les anges pour faire partie de Son royaume. Ils etaient crees pour Son but. Les anges sont parfois appeles \`\`esprits'' parce qu'ils sont des \`\`etres spirituels.''</p><p>Hebreux 1:7,14:</p><p>7 De plus, il dit des anges: Celui qui fait de ses anges des vents, Et de ses serviteurs une flamme de feu. [Voici une citation de 104:4.]</p><p>14 Ne sont-ils pas tous des esprits au service de Dieu, envoyes pour exercer un ministere en faveur de ceux qui doivent heriter du salut?</p><p>Dieu envoya Ses anges pour les administrer afin qu'ils soient heritiers pour le salut. Nous ne prions pas aux anges. Ils sont de Dieu. Il decide de les envoyer.</p><p>Psaumes 103:20:</p><p>Benissez l?Eternel, vous ses anges, Qui etes puissants en force, et qui executez ses ordres, En obeissant a la voix de sa parole!</p><p>Les anges sont puissants en force et agissent selon les commandements de Dieu. Il y en a autant qu'il est necessaire.</p><p>Matthieu 26:53:</p><p>Penses-tu que je ne puisse pas invoquer mon Pere, qui me donnerait a l?instant plus de douze legions d?anges?</p><p>Jesus a dit qu'il pourrait prier a son Pere et il lui donnerait a l'instant PLUS de 12 legions d'anges. Ce sont 6,000 soldats dans une legion romaine (plus 120 cavaleries par legion) pour un total de 73,440 anges.</p><p>Hebreux 12:22:</p><p>Mais vous vous etes approches de la montagne de Sion, de la cite du Dieu vivant, la Jerusalem celeste, des myriades qui forment le choeur des anges,</p><p>Juges 13:17,18:</p><p>17 Et Manoach dit a l?ange de l?Eternel: Quel est ton nom, afin que nous te rendions gloire, quand ta parole s?accomplira?</p><p>18 L?ange de l?Eternel lui repondit: Pourquoi demandes-tu mon nom? Il est merveilleux.</p><p>Les noms des anges de Dieu sont secrets a moins que Dieu ne le revel</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-14",
-      title: "Les deux royaumes (suite)",
-      duration: "57 min",
-      content: `<p>Nous verrons l'importance de connaitre notre ennemi et de reconnaitre ses activites. Alors que nous realisons notre puissance dans le royaume de Dieu nous pouvons vaincre les oeuvres de l'adversaire. Nous avons la puissance au nom de Jesus-Christ et nous devrions utiliser cela pour apporter la delivrance au peuple de Dieu et la gloire a Dieu.</p><p>Nous sommes en train de parler au sujet du royaume du diable. Il est bon de connaitre notre ennemi et de le reconnaitre un peu plus rapidement.</p><p>Ezechiel 28:13-19:</p><p>13 Tu etais en Eden, le jardin de Dieu; Tu etais couvert de toute espece de pierres precieuses, De sardoine, de topaze, de diamant, De chrysolithe, d?onyx, de jaspe, De saphir, d?escarboucle, d?emeraude, et d?or; Tes tambourins et tes flutes etaient a ton service, prepares pour le jour ou tu fus cree.</p><p>14 Tu etais un cherubin protecteur, aux ailes deployees; Je t?avais place et tu etais sur la sainte montagne de Dieu; Tu marchais au milieu des pierres etincelantes.</p><p>15 Tu as ete integre dans tes voies, Depuis le jour ou tu fus cree Jusqu?a celui ou l?iniquite a ete trouvee chez toi.</p><p>16 Par la grandeur de ton commerce Tu as ete rempli de violence, et tu as peche; Je te precipite de la montagne de Dieu, Et je te fais disparaitre, cherubin protecteur, Du milieu des pierres etincelantes.</p><p>17 Ton coeur s?est eleve a cause de ta beaute, Tu as corrompu ta sagesse par ton eclat; Je te jette par terre, Je te livre en spectacle aux rois.</p><p>18 Par la multitude de tes iniquites, Par l?injustice de ton commerce, Tu as profane tes sanctuaires; Je fais sortir du milieu de toi un feu qui te devore, Je te reduis en cendre sur la terre, Aux yeux de tous ceux qui te regardent.</p><p>19 Tous ceux qui te connaissent parmi les peuples Sont dans la stupeur a cause de toi; Tu es reduit au neant, tu ne seras plus a jamais!</p><p>Il y a un seul dirigeant pour le royaume de Dieu, et un seul dirigeant pour le royaume du diable.</p><p>Genese 3:4,5:</p><p>4 Alors le serpent dit a la femme: Vous ne mourrez point;</p><p>5 Mais Dieu sait que, le jour ou vous en mangerez, vos yeux s?ouvriront, et que vous serez comme des dieux, connaissant le bien et le mal.</p><p>Adam avait la domination sur la terre. Le diable dit, si tu fais tout cela, alors tu seras ce que nous sommes deja.</p><p>Le diable recherche toujours l'adoration des hommes, et il utilise les plaisirs et les pressions pour essayer d'atteindre ce but. Jesus-Christ n'est pas tombe dans cette tentation lorsqu'il alla dans le desert.</p><p>Luc 4:7:</p><p>Si donc tu te prosternes devant moi, elle sera toute a toi.</p><p>II Thessaloniciens 2:3, 4,8:</p><p>3 Que personne ne vous seduise d?aucune maniere; car il faut que l?apostasie soit arrivee auparavant, et qu?on ait vu paraitre l?homme du peche, le fils de la perdition,</p><p>4 l?adversaire qui s?eleve au-dessus de tout ce qu?on appelle Dieu ou de ce qu?on adore, jusqu?a s?asseoir dans le temple de Dieu, se proclamant lui-meme Dieu.</p><p>8 Et alors paraitra l?impie, que le Seigneur Jesus detruira par le souffle de sa bouche, e</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-15",
-      title: "L'homme du pays des Géraséniens",
-      duration: "57 min",
-      content: `<p>Nous verrons Jesus delivrer un homme possede par les esprits diaboliques. La verite de la parole de Dieu garantit la victoire sur toute la puissance de l'ennemi. En depit de la maniere dont l'adversaire essaye de masquer ses activites avec les tenebres, notre Dieu nous montrera les tresors dans les tenebres et les richesses cachees des places secretes afin que nous puissions marcher avec confiance en tant que fils de Dieu dans ces jours et temps.</p><p>Se rappeler que le discernement des esprits s'occupe du royaume spirituel tandis que la parole de connaissance et la parole de sagesse s'occupent du royaume naturel. Cela couvre l'information et la direction, la connaissance de la presence ou l'influence des esprits diaboliques, et que faire a ce sujet.</p><p>Ici dans Luc 8 nous lirons au sujet de la delivrance de l'homme du pays des Geraseniens.</p><p>Luc 8:26,27:</p><p>26 Ils aborderent [Jesus et ses disciples] dans le pays des Geraseniens, qui est vis-a-vis de la Galilee.</p><p>27 Lorsque Jesus fut descendu a terre, il vint au-devant de lui un homme de la ville, qui etait possede de plusieurs demons [daimonion]. Depuis longtemps il ne portait point de vetement, et avait sa demeure non dans une maison, mais dans les sepulcres.</p><p>daim?n, signifiant litteralement \`\`petit demon.'' la famille du mot Grec a six mots differents et connexes. Le mot racine est daim?n. L'entree sur daim?n dans le dictionnaire \`\`Kittel's Theological Dictionary'' du Nouveau Testament est long de 20 pages. Vous trouverez quelques references dans votre syllabus</p><p>------------------------------------------------------------------------ ----------------------------------------</p><p>1142 daim?n (nom)</p><p>r De dai? (distribuer les fortunes); TDNT  2:1,137;</p><p>r AV  demons 4, diable 1; 5</p><p>r 1) Un dieu, une deesse 1a) une divinite inferieure, que ce soit bon ou mauvais</p><p>2) dans le NT, un esprit diabolique</p><p>1139 daimonizomai (verbe)</p><p>r Voix moyenne de 1142; TDNT  2:19,137;</p><p>r AV  possede par des demons 4, possede du demon 3, des demons 2, tourmente par un demon 1, possede du diable 1, avoir un demon 1; 13</p><p>r 1) etre sous la puissance d'un demon.</p><p>r Dans le NT, ce sont des personnes, affligees par des affections specialement severes, soit corporelles soit mentales, (tel que la paralysie, l'aveuglement, la surdite, la perte du langage ou muet, l'epilepsie, la melancolie, l'insanite, etc.) dont les corps du point de vue des demons juifs etaient entres, et ainsi maintenait leur possession comme pour ne pas seulement les affliger par des maladies, mais aussi pour detroner la raison et prendre eux-memes leurs places; en consequence les possedes avaient l'habitude d'exprimer la pensee et la conscience des demons habitants en eux; et leur guerison etait murement reflechie pour requerir l'expulsion des demons.</p><p>1140 daimonion de 1141 (nom neutre)</p><p>r Le neutre d'un derive de 1142; TDNT  2:1,137;</p><p>r AV  diable 59, Dieu 1; 60</p><p>r 1) La puissance divine, deite, divinite</p><p>2) un esprit, un etre inferieur a Dieu, superieur aux hom</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-16",
-      title: "Balaam et Balak",
-      duration: "61 min",
-      content: `<p>Nous verrons l'inimitie du monde contre le peuple de Dieu. Nous verrons aussi comment Dieu combat pour son peuple et change les maledictions en benedictions. Alors que nous nous voyons nous-memes a travers les \`\`yeux'' de Dieu nous verrons un peuple puissant qui est aime et protege par Dieu.</p><p>Ensuite nous aurons un coup d'oeil a l'homme que plusieurs voient comme une reelle enigme dans la Parole. Augustin l'a appele un prophete du diable, et Jerome l'a appele un prophete de Dieu. Cependant la parole etablit clairement qu'il a communique avec le vrai Dieu et a parle une des revelations les plus merveilleuses et precises ecrites dans la Parole.</p><p>Il a prononce quatre revelations de Dieu qui sont en  rapport avec son peuple. En lisant Nombres 22-24 nous verrons l'inimitie du monde contre le peuple de Dieu. Depuis la semence promise qui etait la premiere prophetie en Genese 3:15, Satan avait essaye de briser la lignee des croyants et d'anticiper sa venue. Cependant il n'avait pas eu de succes et avec la Resurrection de Jesus-Christ le diable avait la garantie de l'echec.</p><p>Une des tentatives de l'adversaire pour exterminer le peuple de Dieu et arreter la venue de la semence promise, etait lorsque Balak recruta Balaam pour maudire le peuple de Dieu. L'action de Moab etait meprisable aux yeux de Dieu et ses consequences ont perdure.</p><p>Deuteronomes 23:3-6:</p><p>3 L?Ammonite et le Moabite n?entreront point dans l?assemblee de l?Eternel, meme a la dixieme generation et a perpetuite,</p><p>4 parce qu?ils ne sont pas venus au-devant de vous avec du pain et de l?eau, sur le chemin, lors de votre sortie d?Egypte, et parce qu?ils ont fait venir contre toi a prix d?argent Balaam, fils de Beor, de Pethor en Mesopotamie, pour qu?il te maudisse.</p><p>5 Mais l?Eternel, ton Dieu, n?a point voulu ecouter Balaam; et l?Eternel, ton Dieu, a change pour toi la malediction en benediction, parce que tu es aime de l?Eternel, ton Dieu.</p><p>6 Tu n?auras souci ni de leur prosperite ni de leur bien-etre, tant que tu vivras, a perpetuite...</p><p>Balaam n'etait pas un enfant d'Israel, et il a combattu contre Israel lorsqu'ils ont pris la terre promise. Sa mort facheuse etait decrite en Nombres 31:8 et Josue 13:22. Cet exemple etait utilise comme souvenir du grand amour et de la protection de Dieu envers son peuple et comme avertissement contre la cupidite et l'avidite.</p><p>L'homme qui vit devant nous dans ces chapitres a une considerable connaissance du vrai Dieu. Quelles que soient les difficultes que cela peut engendrer, c'est vraiment evident que Balaam marcha avec le plus Grand Dieu ; il connaissait la volonte de Dieu et operait parfois Sa puissance. Cependant, il etait appele devin (qasam) en Josue 13:22, un nom de reproche et d'infamie parmi le peuple de Dieu dans l'Ancien Testament. Il n'y a pas de doute qu'il joua le role de devin pour le gain.</p><p>Dans le Nouveau Testament Balaam est mentionne comme un exemple du plus subtile et du plus dangereux genre d'ennemi...un ennemi qui simule la spiritual</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-17",
-      title: "Est-ce que Dieu change Sa pensée ?",
-      duration: "26 min",
-      content: `<p>Nous verrons que Dieu n'est pas un homme pour mentir ni pour se repentir. Nous verrons comment Dieu utilise un langage figuratif pour communiquer dans ses voies. Il n'y a pas de contradictions dans ces paroles. Nous pouvons absolument etre certains de la volonte de Dieu parce qu'Il s'est engage au standard de Sa Parole ecrite. En consequence, nous pouvons compter sur Dieu, il sera fidele a toutes ses promesses.</p><p>Des ecritures etablissent clairement que Dieu ne change pas, et d'autres ecritures suggerent qu'il change. Dans le but de marcher dans la puissance de Dieu nous devons etre surs de ce que la Parole de Dieu declare a son sujet. Dieu est-il inconstant? Dieu change t-il Sa pensee par fantaisie? S'il change comment pouvons nous etre surs de sa volonte.</p><p>Nous pouvons etre surs de Sa volonte a cause de Sa Parole. Il a ecrit Sa parole pour etablir sa volonte. Il veut dire ce qu'il dit et il dit ce qu'il veut dire. Il choisit de declarer Sa volonte dans sa Parole afin que nous ayons confiance en Lui, que nous comptions sur Lui et que nous nous reposions sur ses promesses jamais defaillantes.</p><p>Malachie 3:6:</p><p>Car je suis l?Eternel, je ne change pas; Et vous, enfants de Jacob, vous n?avez pas ete consumes.</p><p>Nombres 23:19:</p><p>Dieu n?est point un homme pour mentir, Ni fils d?un homme pour se repentir. Ce qu?il a dit, ne le fera-t-il pas? Ce qu?il a declare, ne l?executera-t il pas?</p><p>Dieu est fidele a ses promesses. Il est fidele a ses Paroles. Il est fidele a la revelation qu'il vous a donnee. C'est un Dieu fidele et il ne peut en etre autrement.</p><p>Jacques 1:17:</p><p>Toute grace excellente et tout don parfait descendent d?en haut, du Pere des lumieres, chez lequel il n?y a ni changement ni ombre de variation.</p><p>Dieu ne change pas, meme un peu. Rien ne peut l'eclipser ou lui affecter un changement. Son amour, Son affection, Sa consideration, Son desir, sont etablis dans Sa Parole et sont respectables. Le monde a ete cree et est soutenu par Sa Parole.</p><p>Hebreux 13:8:</p><p>Jesus-Christ est le meme hier, aujourd?hui, et eternellement.</p><p>La Parole de Dieu est inscrite dans les cieux. Elle est plus sure que tout ce qui a jamais existe. Dieu ne change pas, ni Son fils, ni Sa Parole. Neanmoins, Il y a des versets qui apparaissent pour indiquer que Dieu change.</p><p>Exodes 32:14:</p><p>Et l?Eternel se repentit du mal qu?il avait declare vouloir faire a son peuple.</p><p>Jonas 3:10:</p><p>Dieu vit qu?ils agissaient ainsi et qu?ils revenaient de leur mauvaise voie. Alors Dieu se repentit du mal qu?il avait resolu de leur faire, et il ne le fit pas.</p><p>Comment quelqu'un peut-il reconcilier des divergences apparentes comme celles-ci? Il est premierement important d'identifier ce qu'est en fait une contradiction.</p><p>Il y aurait une contradiction dans la Parole si:</p><p>Pour le meme objet, au meme moment, pour la meme signification, il etait dit pour l'une qu'elle serait d'une maniere et l'autre en opposition complete. (Etre et ne pas etre)</p><p>Il n'y a pas de contradiction dans la parole lorsqu'une ecriture</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c1-18",
-      title: "Équipés par Dieu",
-      duration: "59 min",
-      content: `<p>Nous verrons que Dieu nous a equipes avec neuf manifestations du saint esprit. Il ne nous a pas seulement donne la puissance, mais Il nous a donne l'autorite au nom de Jesus-Christ pour l'utiliser. Nous avons une mission et nous sommes capables de faire ce que Jesus-Christ nous a commande de faire.</p><p>Luc 8:1,2:</p><p>Ensuite, Jesus allait de ville en ville et de village en village, prechant et annoncant la bonne nouvelle du royaume de Dieu. Les douze etaient avec lui et quelques femmes qui avaient ete gueries d?esprits malins et de maladies: Marie, dite de Magdala, de laquelle etaient sortis sept demons,</p><p>La delivrance des esprits du mal est la guerison. La maladie et l'affection tourmentent aussi. Les esprits du mal font la meme chose. Ils vous empechent de faire ce que vous savez etre votre devoir. Quelle joie de voir la guerison!</p><p>Marc 1:21:</p><p>Ils se rendirent a Capernauem. Et, le jour du sabbat, Jesus entra d?abord dans la synagogue, et il enseigna.</p><p>Precher et enseigner est l'entiere part de ce que vous devez faire.</p><p>Marc 1:22,23:</p><p>22 Ils etaient frappes de sa doctrine; car il enseignait comme ayant autorite, et non pas comme les scribes.</p><p>23 Il se trouva dans leur synagogue un homme qui avait un esprit impur, et qui s?ecria:</p><p>Lorsque la parole de Dieu est enseignee et que le peuple realise qu'il a besoin d'aide, il va se presenter. Jesus a enseigne la parole avec autorite et l'esprit diabolique ne pouvait pas rester la, il devait sortir.</p><p>Marc 1:24-27:</p><p>Qu?y a-t-il entre nous et toi, Jesus de Nazareth? Tu es venu pour nous perdre. Je sais qui tu es: le Saint de Dieu.</p><p>Jesus le menaca, disant: Tais-toi, et sors de cet homme.</p><p>Et l?esprit impur sortit de cet homme, en l?agitant avec violence, et en poussant un grand cri.</p><p>Tous furent saisis de stupefaction, de sorte qu?ils se demandaient les uns aux autres: Qu?est-ce que ceci? Une nouvelle doctrine! Il commande avec autorite meme aux esprits impurs, et ils lui obeissent!</p><p>Les esprits diaboliques sont toujours en train de chercher un hote corporel pour fonctionner. Ils aiment controler, tourmenter les personnes et infliger des ravages dans leurs vies et leur entourage aussi. Ils peuvent occuper une portion de l'intelligence partout ou ils peuvent entrer. Ils peuvent occuper le corps avec les maladies et les affections. Comment faisons-nous pour qu'ils gardent leur distance?</p><p>Romains 6:11:</p><p>Ainsi vous-memes, regardez-vous comme morts au peche, et comme vivants pour Dieu en Jesus-Christ.</p><p>Nous considerons le vieil homme mort. S'il se manifeste et que cela n'est pas de Christ, alors il doit partir. Renouvelez nos intelligences a la parole de Dieu nous montre qui nous sommes en Christ et ce que nous sommes.</p><p>Jacques 4:7:</p><p>Soumettez-vous donc a Dieu; resistez au diable, et il fuira loin de vous.</p><p>Nous resistons avec la parole de Dieu par le renouvellement de nos intelligences a ce que nous sommes et qui nous sommes en Christ. Nous renouvelons nos intelligences sur la maniere dont nous devons vivre, et</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    ]
+      {
+        id: "c1-1",
+        title: "Why Are We Here?",
+        duration: "57 min",
+        content: `<h2>Why Are We Here?</h2>
+<p>Being led by God's power should be the goal of every believer. Growth in the operation of revelation manifestations is accelerated when we move with compassion toward others.</p>
+<p>We must ask ourselves: do we want to help? If yes, our lives will never be the same again.</p>
+<h3>Introduction</h3>
+<p>This course is the third of four series on God's Power, by Christian Family Fellowship Ministry. The four series are:</p>
+<ul>
+<li><strong>Living in God's Power</strong> — foundational truths and speaking in tongues</li>
+<li><strong>Growing in God's Power</strong> — the Body of Christ and worship manifestations</li>
+<li><strong>Led by God's Power</strong> — revelation manifestations (this course)</li>
+<li><strong>Administering God's Power</strong> — impartation, faith, miracles, and gifts of healings</li>
+</ul>
+<h3>The Foundation: 1 Corinthians 2:5</h3>
+<blockquote>"That your faith should not stand in the wisdom of men, but in the power of God."</blockquote>
+<p>The wisdom and philosophies of men should not be the foundation of your faith. Our faith should be grounded in God's power. Living in God's Power lays a foundational knowledge of God's Word for those who desire to learn and walk in His power.</p>
+<h3>Our Goal</h3>
+<p>The goal of this ministry is to equip believers to walk in the simplicity of operating the manifestations of holy spirit — the power of God. These teaching resources are designed as tools to help believers who want to believe, to better know their heavenly Father.</p>`,
+        quiz: [
+          {
+            question: "What should be the goal of every believer according to this lesson?",
+            options: [
+              "To accumulate biblical knowledge",
+              "To be led by God's power",
+              "To become a minister",
+              "To understand church history",
+            ],
+            correct: 1,
+            explanation:
+              "The lesson clearly states: 'Being led by God's power should be the goal of every believer.' Review the 'Why Are We Here?' section for more context.",
+          },
+          {
+            question: "What accelerates growth in revelation manifestations?",
+            options: [
+              "Spending more time in study",
+              "Attending more church services",
+              "Moving with compassion toward others",
+              "Memorizing scripture",
+            ],
+            correct: 2,
+            explanation:
+              "Growth in revelation manifestations is accelerated when we move with compassion toward others. The heart attitude of wanting to help others is key.",
+          },
+          {
+            question: "Which course covers speaking in tongues as its culmination?",
+            options: [
+              "Led by God's Power",
+              "Administering God's Power",
+              "Living in God's Power",
+              "Growing in God's Power",
+            ],
+            correct: 2,
+            explanation:
+              "'Living in God's Power' is the foundational series that presents the fundamental truths of God's Word and leads to speaking in tongues.",
+          },
+        ],
+      },
+      {
+        id: "c1-2",
+        title: "Revelation Manifestations",
+        duration: "51 min",
+        content: `<h2>The Revelation Manifestations</h2>
+<p>There are nine manifestations of holy spirit listed in 1 Corinthians 12. Three of them are revelation manifestations — they reveal something:</p>
+<ul>
+<li><strong>Word of Knowledge</strong> — a supernatural revelation of facts about a person, place, or event</li>
+<li><strong>Word of Wisdom</strong> — a supernatural revelation of God's will and plan for the future</li>
+<li><strong>Discerning of Spirits</strong> — a supernatural ability to perceive the source and nature of spiritual activity</li>
+</ul>
+<h3>Word of Knowledge</h3>
+<p>A word of knowledge is a supernatural fragment of God's knowledge concerning a specific person, place, or thing — given to a believer by the spirit of God. It relates to something in the past or present, not the future.</p>
+<p>Examples in Scripture: Jesus knew Nathanael was under the fig tree (John 1:48). Jesus knew the Samaritan woman's history (John 4:18). Peter knew that Ananias had lied (Acts 5:3).</p>
+<h3>Word of Wisdom</h3>
+<p>A word of wisdom is a supernatural revelation from God concerning His future purposes and plans. It always relates to future events or divine direction.</p>
+<p>Examples: Agabus predicted the famine (Acts 11:28). Paul knew he would stand before Caesar (Acts 27:23-24).</p>
+<h3>Discerning of Spirits</h3>
+<p>Discerning of spirits is the supernatural ability to determine the source of spiritual manifestations — whether they come from God, the adversary, or the human spirit.</p>
+<p>This is not natural discernment or intuition — it is a spiritual gift that operates by holy spirit.</p>`,
+        quiz: [
+          {
+            question: "How many total manifestations of holy spirit are listed in 1 Corinthians 12?",
+            options: ["Three", "Seven", "Nine", "Twelve"],
+            correct: 2,
+            explanation:
+              "There are nine manifestations of holy spirit listed in 1 Corinthians 12. Of these, three are revelation manifestations.",
+          },
+          {
+            question: "A word of knowledge relates to:",
+            options: [
+              "Future plans of God",
+              "Past or present facts about a person, place, or thing",
+              "The nature of spiritual beings",
+              "God's eternal purposes",
+            ],
+            correct: 1,
+            explanation:
+              "A word of knowledge is a supernatural fragment of God's knowledge about something in the past or present — not the future.",
+          },
+          {
+            question: "Which manifestation allows a believer to determine the source of spiritual activity?",
+            options: [
+              "Word of Wisdom",
+              "Word of Knowledge",
+              "Discerning of Spirits",
+              "Prophecy",
+            ],
+            correct: 2,
+            explanation:
+              "Discerning of spirits is the supernatural ability to determine whether spiritual manifestations come from God, the adversary, or the human spirit.",
+          },
+        ],
+      },
+      {
+        id: "c1-3",
+        title: "How Is Revelation Received?",
+        duration: "54 min",
+        content: `<h2>How Is Revelation Received?</h2>
+<p>Revelation from God comes through various channels. Understanding how it is received helps us to be open and ready when God moves through us.</p>
+<h3>Channels of Revelation</h3>
+<ul>
+<li><strong>Visions</strong> — seeing in the spirit: open visions, closed visions (in the mind), trances</li>
+<li><strong>Dreams</strong> — God speaks through dreams (Numbers 12:6)</li>
+<li><strong>A still small voice</strong> — an impression, an inner knowing (1 Kings 19:12)</li>
+<li><strong>An audible voice</strong> — rare, but recorded in Scripture</li>
+<li><strong>Through angels</strong> — God's messengers can carry revelation</li>
+</ul>
+<h3>Key Principles</h3>
+<p><strong>1. Revelation is spiritually discerned.</strong> You cannot receive spiritual revelation through your five senses alone. It comes through the spirit within you (1 Corinthians 2:14).</p>
+<p><strong>2. It always aligns with Scripture.</strong> Any revelation that contradicts the written Word of God is not from God. The Bible is the standard and judge of all revelation.</p>
+<p><strong>3. Compassion opens the door.</strong> Moving toward people with a heart of compassion creates an atmosphere for revelation to flow. Jesus was moved with compassion before many of His miracles.</p>
+<h3>Practical Steps</h3>
+<p>Be still and pray in the spirit. As you yield your spirit to God, pay attention to impressions, images, or thoughts that arise that you did not generate yourself. Speak what you receive in faith — God honors the step of faith.</p>`,
+        quiz: [
+          {
+            question: "Which of the following is NOT listed as a channel through which revelation is received?",
+            options: [
+              "Dreams",
+              "Visions",
+              "Reading a theological book",
+              "A still small voice",
+            ],
+            correct: 2,
+            explanation:
+              "Revelation is received through spiritual channels: visions, dreams, a still small voice, an audible voice, and through angels — not through human intellectual effort alone.",
+          },
+          {
+            question: "How do we test whether a revelation is from God?",
+            options: [
+              "It must feel emotionally powerful",
+              "It must align with the written Word of God",
+              "It must be confirmed by three witnesses",
+              "It must predict the future accurately",
+            ],
+            correct: 1,
+            explanation:
+              "Any revelation must align with Scripture. The Bible is the standard and judge of all revelation — anything contradicting God's Word is not from Him.",
+          },
+          {
+            question: "What attitude opens the door for revelation to flow?",
+            options: [
+              "Intense fasting",
+              "Theological study",
+              "Compassion toward others",
+              "Silence and meditation",
+            ],
+            correct: 2,
+            explanation:
+              "Compassion opens the door. Jesus was moved with compassion before many miracles. When we genuinely care about helping others, we create an atmosphere for revelation.",
+          },
+        ],
+      },
+      {
+        id: "c1-4",
+        title: "Learning Examples",
+        duration: "59 min",
+        content: `<h2>Learning Examples from Scripture</h2>
+<p>The best way to understand revelation manifestations is to study them in operation throughout Scripture. God's Word gives us living examples that teach us how these gifts work.</p>
+<h3>Jesus and the Woman at the Well (John 4)</h3>
+<p>Jesus received a word of knowledge about the Samaritan woman's five husbands. Notice how He received it: He was engaged with her in conversation, moved with compassion, and the revelation came naturally in that context. The result was an entire village coming to know God.</p>
+<h3>Peter and Cornelius (Acts 10)</h3>
+<p>Peter received a vision — a trance — that opened his understanding to take the Gospel to the Gentiles. The revelation came while he was praying. It was symbolic and required interpretation through Scripture and the Holy Spirit's guidance.</p>
+<h3>Agabus and the Famine (Acts 11:27-28)</h3>
+<p>Agabus received a word of wisdom — a prophetic revelation about a future famine. The church responded practically, organizing relief for believers in Judea. Revelation always has a purpose: to bring help, direction, or deliverance.</p>
+<h3>Key Observations</h3>
+<ul>
+<li>Revelation typically comes when we are focused on others, not on ourselves</li>
+<li>The context is usually ministry, prayer, or service</li>
+<li>The purpose is always edification, exhortation, or comfort (1 Cor 14:3)</li>
+<li>It requires faith to act on what has been received</li>
+</ul>`,
+        quiz: [
+          {
+            question: "In the story of Jesus and the woman at the well, what type of manifestation did Jesus operate?",
+            options: [
+              "Word of Wisdom",
+              "Discerning of Spirits",
+              "Word of Knowledge",
+              "Prophecy",
+            ],
+            correct: 2,
+            explanation:
+              "Jesus demonstrated a word of knowledge — He knew facts about the woman's past (her five husbands) that He had not been told through natural means.",
+          },
+          {
+            question: "What was the purpose of the revelation Agabus received about the famine?",
+            options: [
+              "To warn people to store food for themselves",
+              "To demonstrate his prophetic gift",
+              "To enable the church to prepare relief for believers in Judea",
+              "To judge the Roman government",
+            ],
+            correct: 2,
+            explanation:
+              "Agabus received the revelation so the church could organize relief for believers in Judea. Revelation always has a practical, loving purpose.",
+          },
+          {
+            question: "According to 1 Corinthians 14:3, what are the three purposes of prophetic revelation?",
+            options: [
+              "Teaching, rebuking, correcting",
+              "Edification, exhortation, comfort",
+              "Healing, deliverance, salvation",
+              "Knowledge, wisdom, understanding",
+            ],
+            correct: 1,
+            explanation:
+              "1 Corinthians 14:3 states that prophecy speaks to edification, exhortation, and comfort. All revelation manifestations serve these constructive purposes.",
+          },
+        ],
+      },
+      {
+        id: "c1-5",
+        title: "There Is More to Do",
+        duration: "65 min",
+        content: `<h2>There Is More to Do</h2>
+<p>The revelation manifestations are not reserved for a spiritual elite — they are available to every believer. God wants all of His children to operate in His power.</p>
+<h3>Every Believer's Inheritance</h3>
+<p>Joel 2:28 promises: "Your sons and daughters shall prophesy, your old men shall dream dreams, your young men shall see visions." This promise is for all flesh — every believer has access to revelation from God.</p>
+<h3>The Role of Desire</h3>
+<p>1 Corinthians 14:1 says: "Pursue love, and desire spiritual gifts." Desiring these gifts is not selfish — it is obedient. God wants us to want what He has provided. The greater our desire to help others, the more He can work through us.</p>
+<h3>Overcoming Hesitation</h3>
+<p>Many believers hesitate because they fear making mistakes. But God is gracious — He honors the sincere effort of faith. It is better to step out in love and miss the mark occasionally than to never step out at all.</p>
+<p>Principles for stepping out:</p>
+<ul>
+<li>Always share revelation humbly: "I believe I have something to share..."</li>
+<li>Keep it edifying — never shame, manipulate, or control</li>
+<li>Submit to mature leadership</li>
+<li>Learn from every experience</li>
+</ul>
+<h3>The Great Commission Context</h3>
+<p>Mark 16:17-18 shows that signs and wonders were meant to accompany the preaching of the Gospel. Revelation manifestations are not separate from evangelism — they are powerful tools for reaching the lost.</p>`,
+        quiz: [
+          {
+            question: "Who does Joel 2:28 say will prophesy and dream dreams?",
+            options: [
+              "Only ordained ministers",
+              "Only those with special calling",
+              "Sons and daughters — all believers",
+              "Only elders of the church",
+            ],
+            correct: 2,
+            explanation:
+              "Joel 2:28 promises that 'your sons and daughters shall prophesy.' This includes all believers — the gifts are not limited to a spiritual elite.",
+          },
+          {
+            question: "What does 1 Corinthians 14:1 instruct believers to do regarding spiritual gifts?",
+            options: [
+              "Wait for them to be given sovereignly",
+              "Desire them earnestly",
+              "Be cautious about them",
+              "Only use them in private",
+            ],
+            correct: 1,
+            explanation:
+              "1 Corinthians 14:1 says to 'pursue love, and desire spiritual gifts.' Desiring these gifts is obedient, not selfish.",
+          },
+          {
+            question: "How should revelation be shared humbly?",
+            options: [
+              "With absolute certainty and authority",
+              "By saying 'thus says the Lord' definitively",
+              "By saying 'I believe I have something to share'",
+              "Only in writing, never verbally",
+            ],
+            correct: 2,
+            explanation:
+              "Sharing revelation humbly with phrasing like 'I believe I have something to share' honors both God and the people we serve, while avoiding manipulation or control.",
+          },
+        ],
+      },
+      {
+        id: "c1-6",
+        title: "The Eyes and Ears of the Church",
+        duration: "54 min",
+        content: `<h2>The Eyes and Ears of the Church</h2>
+<p>The revelation manifestations — word of knowledge, word of wisdom, and discerning of spirits — function as the spiritual senses of the Body of Christ. Just as the natural body has eyes and ears to perceive the physical world, the church has been given spiritual senses to perceive the spiritual realm.</p>
+<h3>The Body of Christ Analogy</h3>
+<p>1 Corinthians 12 describes the church as a body with many members. Each member has a role. Those operating in revelation gifts function as the spiritual eyes and ears — perceiving what the Head (Christ) wants communicated to the Body.</p>
+<h3>Word of Knowledge: The Eye</h3>
+<p>Like eyes, word of knowledge gives the church the ability to see — to perceive facts about situations, people, or conditions that would otherwise be hidden. This sight enables targeted ministry and prevents the church from being deceived.</p>
+<h3>Word of Wisdom: Strategic Vision</h3>
+<p>Like far-seeing vision, word of wisdom gives the church strategic insight into God's future plans. It helps the body navigate decisions, avoid traps, and walk in God's perfect will.</p>
+<h3>Discerning of Spirits: Spiritual Hearing</h3>
+<p>Like ears attuned to spiritual frequency, discerning of spirits allows the church to identify the source of spiritual influences — protecting the body from deception and empowering it to minister deliverance.</p>
+<h3>Unity of Purpose</h3>
+<p>These three manifestations work together. A believer may receive a word of knowledge about a person's need, wisdom about how to minister to them, and discerning of spirits to identify any spiritual opposition — all in one encounter. The goal is always the same: to bring God's love and power to bear in a person's life.</p>`,
+        quiz: [
+          {
+            question: "What role do revelation manifestations play in the Body of Christ?",
+            options: [
+              "They demonstrate the superiority of certain believers",
+              "They function as the spiritual eyes and ears of the church",
+              "They replace the need for Scripture",
+              "They are only needed in crisis situations",
+            ],
+            correct: 1,
+            explanation:
+              "Revelation manifestations function as the spiritual senses of the Body of Christ — they perceive what the Head (Christ) wants communicated to the Body.",
+          },
+          {
+            question: "Which manifestation is compared to strategic far-seeing vision?",
+            options: [
+              "Word of Knowledge",
+              "Discerning of Spirits",
+              "Prophecy",
+              "Word of Wisdom",
+            ],
+            correct: 3,
+            explanation:
+              "Word of wisdom is compared to strategic far-seeing vision — it gives insight into God's future plans, helping the church navigate decisions and walk in God's will.",
+          },
+          {
+            question: "Can multiple revelation manifestations operate in a single encounter?",
+            options: [
+              "No, only one gift at a time",
+              "Yes, they can work together in one situation",
+              "Only in exceptional circumstances",
+              "Only for apostles and prophets",
+            ],
+            correct: 1,
+            explanation:
+              "Yes — a believer may receive a word of knowledge, wisdom, and discerning of spirits all in one encounter. They work together to bring God's love and power to a person's life.",
+          },
+        ],
+      },
+      {
+        id: "c1-7",
+        title: "The Story of Joseph",
+        duration: "52 min",
+        content: `<h2>The Story of Joseph: A Master Class in Revelation</h2>
+<p>Joseph's life is one of the richest examples of revelation manifestations operating over an extended period. His story in Genesis 37-50 shows how God's power can operate through a yielded life.</p>
+<h3>Joseph's Dreams (Genesis 37)</h3>
+<p>Joseph received word of wisdom through dreams — revelation about God's future purposes for his family and nation. Notice that revelation came before the circumstances that would fulfill it. Faith always operates before the evidence arrives.</p>
+<h3>Interpreting Dreams in Prison (Genesis 40)</h3>
+<p>Joseph operated in word of knowledge as he interpreted the dreams of Pharaoh's butler and baker. He stated clearly: "Do not interpretations belong to God? Tell me your dreams." He gave the glory to God, not to personal insight or skill.</p>
+<h3>Pharaoh's Dreams (Genesis 41)</h3>
+<p>Joseph interpreted Pharaoh's dreams with a word of wisdom — revealing God's plan for seven years of plenty followed by seven years of famine. He then provided practical wisdom for how Egypt should respond.</p>
+<h3>Key Lessons</h3>
+<ul>
+<li><strong>Revelation serves others.</strong> Joseph used revelation to help others, not to advance himself — though God ultimately elevated him.</li>
+<li><strong>Give God the glory.</strong> Joseph consistently directed people to God as the source of interpretation.</li>
+<li><strong>Revelation requires waiting.</strong> Years passed between Joseph's first dreams and their fulfillment. Faithfulness in the waiting period is essential.</li>
+<li><strong>Character matters.</strong> Joseph's integrity in adversity prepared him to be trusted with greater revelation and responsibility.</li>
+</ul>`,
+        quiz: [
+          {
+            question: "What type of manifestation did Joseph operate when interpreting Pharaoh's dreams?",
+            options: [
+              "Word of Knowledge about the past",
+              "Word of Wisdom about future events",
+              "Discerning of Spirits",
+              "Gift of Faith",
+            ],
+            correct: 1,
+            explanation:
+              "Interpreting Pharaoh's dreams was a word of wisdom — it revealed God's future plan for seven years of plenty and seven years of famine.",
+          },
+          {
+            question: "To whom did Joseph give credit for dream interpretation?",
+            options: [
+              "His own spiritual training",
+              "The priests of Egypt",
+              "God",
+              "His father Jacob",
+            ],
+            correct: 2,
+            explanation:
+              "Joseph said 'Do not interpretations belong to God?' — he consistently gave glory to God as the source, not to himself.",
+          },
+          {
+            question: "What does Joseph's life teach us about the relationship between revelation and character?",
+            options: [
+              "Revelation bypasses the need for character development",
+              "Only morally perfect people can receive revelation",
+              "Character developed in adversity prepares us for greater revelation and responsibility",
+              "Revelation comes automatically with faith",
+            ],
+            correct: 2,
+            explanation:
+              "Joseph's integrity throughout adversity (slavery, false accusation, prison) prepared him to be trusted with greater revelation and ultimately with great responsibility.",
+          },
+        ],
+      },
+      {
+        id: "c1-8",
+        title: "More Biblical Illustrations",
+        duration: "51 min",
+        content: `<h2>More Biblical Illustrations of Revelation Manifestations</h2>
+<p>Scripture is full of examples of God working through revelation manifestations. Each account teaches us something about how these gifts operate in practice.</p>
+<h3>Elijah and the Still Small Voice (1 Kings 19)</h3>
+<p>After his great victory over the prophets of Baal, Elijah fell into despair. God did not speak to him in the wind, earthquake, or fire — but in a still small voice. This teaches us that revelation often comes quietly, not dramatically.</p>
+<h3>Elisha and the King of Syria (2 Kings 6)</h3>
+<p>The king of Syria was frustrated because every time he planned a military maneuver, Israel seemed to know in advance. When told it was Elisha, the king said, "He tells the king of Israel the words you speak in your bedroom." Elisha was operating in word of knowledge — receiving supernatural information about the enemy's plans.</p>
+<h3>Ananias and Paul (Acts 9)</h3>
+<p>God gave Ananias a word of knowledge and a word of wisdom together. He knew who Saul was (past — word of knowledge) and what God was going to do through him (future — word of wisdom). Despite his initial resistance, Ananias obeyed and ministered to the man who would become the Apostle Paul.</p>
+<h3>Philip and the Ethiopian (Acts 8)</h3>
+<p>The Holy Spirit directed Philip specifically: "Go near and join yourself to this chariot." This is word of wisdom in action — divine guidance in the moment. Philip obeyed without hesitation, and an Ethiopian official came to faith and was baptized.</p>`,
+        quiz: [
+          {
+            question: "How did God speak to Elijah after his victory over the prophets of Baal?",
+            options: [
+              "In a mighty wind",
+              "In an earthquake",
+              "In fire",
+              "In a still small voice",
+            ],
+            correct: 3,
+            explanation:
+              "God spoke to Elijah in a still small voice — teaching us that revelation often comes quietly, not in dramatic displays of power.",
+          },
+          {
+            question: "What enabled Elisha to know the king of Syria's military plans?",
+            options: [
+              "A network of spies",
+              "Natural intelligence gathering",
+              "Word of knowledge — supernatural information about the enemy's plans",
+              "Prophecy from other prophets",
+            ],
+            correct: 2,
+            explanation:
+              "Elisha was operating in word of knowledge — he supernaturally received the king of Syria's military plans, even those spoken in private.",
+          },
+          {
+            question: "What directive did the Holy Spirit give Philip regarding the Ethiopian official?",
+            options: [
+              "Wait by the road",
+              "Go near and join yourself to this chariot",
+              "Preach to the crowd",
+              "Pray for healing",
+            ],
+            correct: 1,
+            explanation:
+              "The Holy Spirit gave Philip specific, moment-by-moment guidance: 'Go near and join yourself to this chariot.' This is word of wisdom as divine direction.",
+          },
+        ],
+      },
+      {
+        id: "c1-9",
+        title: "10 Useful Habits",
+        duration: "57 min",
+        content: `<h2>10 Useful Habits for Revelation Manifestations</h2>
+<p>Walking consistently in revelation manifestations requires developing spiritual habits — disciplines that keep us sensitive, available, and obedient to the Spirit of God.</p>
+<h3>The 10 Habits</h3>
+<ol>
+<li><strong>Pray in the spirit daily.</strong> Speaking in tongues builds your spiritual sensitivity and keeps your spirit attuned to God (1 Corinthians 14:4).</li>
+<li><strong>Study the Word consistently.</strong> The more you know God's Word, the more clearly you can recognize when revelation aligns with Scripture.</li>
+<li><strong>Cultivate compassion.</strong> Make it a habit to ask: "What does this person need? How can I help?" Compassion creates the atmosphere for revelation.</li>
+<li><strong>Practice listening.</strong> Set aside time to be still and listen. Revelation often comes in moments of quiet attentiveness.</li>
+<li><strong>Act on small impressions.</strong> Start stepping out in faith on the small things. Faithfulness in small revelation builds capacity for greater things.</li>
+<li><strong>Journal your experiences.</strong> Record what you receive and what happens when you act on it. This builds faith and helps you recognize patterns.</li>
+<li><strong>Share humbly.</strong> Always offer revelation with humility. "I believe I have something" rather than "Thus says the Lord."</li>
+<li><strong>Submit to leadership.</strong> Keep your revelation life under the covering of mature, accountable leadership.</li>
+<li><strong>Debrief after ministry.</strong> Review what happened. What worked? What missed the mark? Learn and grow.</li>
+<li><strong>Stay in love.</strong> 1 Corinthians 13 reminds us that all gifts must operate from love. Keep love as the motive and the measure.</li>
+</ol>`,
+        quiz: [
+          {
+            question: "According to 1 Corinthians 14:4, what does speaking in tongues build?",
+            options: [
+              "Your natural intelligence",
+              "Your spiritual sensitivity (it edifies yourself)",
+              "Your reputation in the church",
+              "Your understanding of Scripture",
+            ],
+            correct: 1,
+            explanation:
+              "1 Corinthians 14:4 says 'he who speaks in a tongue edifies himself' — praying in the spirit builds up your own spirit and keeps you spiritually sensitive.",
+          },
+          {
+            question: "Why is journaling recommended as a habit for revelation?",
+            options: [
+              "To prove your gifts to others",
+              "Because God requires written records",
+              "To build faith and recognize patterns over time",
+              "To share testimonies on social media",
+            ],
+            correct: 2,
+            explanation:
+              "Journaling records what you receive and what happens when you act on it. Over time this builds faith and helps you recognize how revelation comes to you personally.",
+          },
+          {
+            question: "What does 1 Corinthians 13 emphasize as the foundation for all spiritual gifts?",
+            options: [
+              "Doctrinal accuracy",
+              "Church authority",
+              "Love",
+              "Experience",
+            ],
+            correct: 2,
+            explanation:
+              "1 Corinthians 13 is the 'love chapter' placed between the chapters on gifts (12 and 14). All gifts must operate from love — it is the motive and the measure.",
+          },
+        ],
+      },
+      {
+        id: "c1-10",
+        title: "Habits (Continued)",
+        duration: "57 min",
+        content: `<h2>Habits for Revelation — Continued</h2>
+<p>This session deepens our understanding of developing consistent spiritual habits for walking in revelation.</p>
+<h3>Developing Sensitivity</h3>
+<p>Sensitivity to the Spirit is developed over time through consistent practice. Like a musician developing an ear for pitch, the believer who consistently practices spiritual disciplines develops increasing sensitivity to spiritual impressions.</p>
+<h3>The Importance of Community</h3>
+<p>We are not designed to operate in isolation. Revelation manifestations flourish in a community of believers who are:</p>
+<ul>
+<li>Praying together regularly</li>
+<li>Accountable to one another</li>
+<li>Committed to biblical truth as the standard</li>
+<li>Loving and non-competitive</li>
+</ul>
+<h3>Dealing with Mistakes</h3>
+<p>Every person who operates in revelation will sometimes miss the mark. This is not failure — it is the learning process. The important thing is to:</p>
+<ul>
+<li>Acknowledge mistakes honestly</li>
+<li>Learn from them without shame</li>
+<li>Continue stepping out in faith</li>
+<li>Never use mistakes as an excuse to stop</li>
+</ul>
+<h3>Building a Revelation Culture</h3>
+<p>Healthy churches create space for believers to grow in revelation manifestations by providing training, oversight, and regular opportunities to practice in a safe environment. If your church does not currently have this, you can begin by meeting with a few like-minded believers to pray, study, and practice together.</p>`,
+        quiz: [
+          {
+            question: "How is spiritual sensitivity developed?",
+            options: [
+              "It is given instantly at salvation",
+              "Through consistent practice of spiritual disciplines over time",
+              "Only through fasting for extended periods",
+              "By attending seminary",
+            ],
+            correct: 1,
+            explanation:
+              "Like a musician developing an ear for pitch, spiritual sensitivity develops over time through consistent practice — it is not automatic but cultivated.",
+          },
+          {
+            question: "What should you do when you make a mistake in revelation?",
+            options: [
+              "Stop operating in gifts entirely",
+              "Blame others for misinterpreting your words",
+              "Acknowledge it honestly, learn, and continue in faith",
+              "Seek only private revelation from now on",
+            ],
+            correct: 2,
+            explanation:
+              "Mistakes are part of the learning process. Acknowledge them honestly without shame, learn from them, and continue stepping out in faith.",
+          },
+          {
+            question: "What characterizes a healthy community for revelation manifestations?",
+            options: [
+              "Competitive spirits who push each other to excel",
+              "No accountability or oversight",
+              "Mutual prayer, accountability, love, and biblical standards",
+              "A single leader who controls all revelation",
+            ],
+            correct: 2,
+            explanation:
+              "Revelation flourishes in community that prays together, is accountable to one another, holds the Bible as the standard, and is characterized by love — not competition.",
+          },
+        ],
+      },
+      {
+        id: "c1-11",
+        title: "Samuel and Saul",
+        duration: "66 min",
+        content: `<h2>Samuel and Saul: Lessons in Revelation and Obedience</h2>
+<p>The relationship between Samuel and Saul offers profound lessons about revelation, obedience, and the consequences of rejecting God's voice.</p>
+<h3>Samuel: The Prophet Who Heard God</h3>
+<p>Samuel is one of Scripture's great examples of a person who walked in consistent revelation. From his youth — "The Lord was with Samuel and let none of his words fall to the ground" (1 Samuel 3:19) — to his mature ministry, Samuel demonstrated what it means to be a reliable conduit for God's revelation.</p>
+<h3>The Anointing of Saul (1 Samuel 9-10)</h3>
+<p>Before Saul arrived, God gave Samuel a word of knowledge: "Tomorrow about this time I will send you a man from the land of Benjamin" (1 Samuel 9:16). Samuel received specific, verifiable information in advance. When Saul arrived, Samuel moved in response to that revelation with confidence and clarity.</p>
+<h3>Saul's Disobedience</h3>
+<p>Saul's downfall was his failure to obey clear revelation. When commanded to completely destroy the Amalekites, he compromised — saving livestock and the king. Samuel delivered this devastating message: "Because you have rejected the word of the Lord, he has also rejected you from being king" (1 Samuel 15:23).</p>
+<h3>The Lesson</h3>
+<p>Revelation is not merely information — it is a call to obedience. Receiving divine communication carries the responsibility of acting on it faithfully. Partial obedience is disobedience.</p>`,
+        quiz: [
+          {
+            question: "What does 1 Samuel 3:19 say about Samuel's prophetic words?",
+            options: [
+              "They were sometimes wrong",
+              "None of his words fell to the ground",
+              "Only his words about Israel came true",
+              "They required interpretation",
+            ],
+            correct: 1,
+            explanation:
+              "1 Samuel 3:19 says 'The Lord was with Samuel and let none of his words fall to the ground' — a testimony to consistent, reliable revelation.",
+          },
+          {
+            question: "What specific word of knowledge did God give Samuel before Saul arrived?",
+            options: [
+              "That a tall man would come seeking donkeys",
+              "That tomorrow about this time He would send a man from Benjamin",
+              "That the first man to enter the gate was Israel's king",
+              "That a young man would arrive on a white donkey",
+            ],
+            correct: 1,
+            explanation:
+              "God told Samuel specifically: 'Tomorrow about this time I will send you a man from the land of Benjamin' — this is precise, verifiable word of knowledge.",
+          },
+          {
+            question: "What was the consequence of Saul's partial obedience?",
+            options: [
+              "He lost one battle but remained king",
+              "He was required to make an additional sacrifice",
+              "He was rejected as king because he rejected God's word",
+              "His family line was reduced to one son",
+            ],
+            correct: 2,
+            explanation:
+              "Samuel declared: 'Because you have rejected the word of the Lord, He has also rejected you from being king.' Partial obedience is disobedience — revelation demands full response.",
+          },
+        ],
+      },
+      {
+        id: "c1-12",
+        title: "Nehemiah",
+        duration: "53 min",
+        content: `<h2>Nehemiah: Revelation, Prayer, and Leadership</h2>
+<p>Nehemiah's story demonstrates how revelation through prayer leads to decisive, faith-filled action. His journey from cupbearer to rebuilder of Jerusalem's walls is a masterclass in spiritual leadership guided by divine wisdom.</p>
+<h3>Revelation Through Mourning and Prayer</h3>
+<p>When Nehemiah heard of Jerusalem's broken walls, he didn't immediately act. He mourned, fasted, and prayed for days (Nehemiah 1:4). In that extended season of prayer, God was forming a plan and giving Nehemiah revelation about his role in the solution.</p>
+<h3>The Moment of Divine Opportunity</h3>
+<p>When the king noticed Nehemiah's sadness and asked what he needed, Nehemiah "prayed to the God of heaven" (Nehemiah 2:4) — a split-second arrow prayer — before answering. This is revelation in real time: a moment of spiritual alignment that enabled Nehemiah to speak with confidence and precision.</p>
+<h3>Strategic Reconnaissance (Nehemiah 2:11-16)</h3>
+<p>Before sharing his plan with others, Nehemiah surveyed the walls at night. He combined divine revelation with practical investigation — a model for Spirit-led leadership that is both spiritually informed and practically wise.</p>
+<h3>Overcoming Opposition</h3>
+<p>Throughout the rebuilding, Nehemiah faced mockery, threats, and internal discouragement. His consistent response was prayer — turning to God for revelation about how to respond. The discerning of spirits operated as he identified genuine threats from false alarms.</p>`,
+        quiz: [
+          {
+            question: "How long did Nehemiah mourn and pray before taking action?",
+            options: [
+              "One day",
+              "Three days",
+              "Several days (multiple days of fasting and prayer)",
+              "A full month",
+            ],
+            correct: 2,
+            explanation:
+              "Nehemiah 1:4 says he 'sat down and wept, and mourned for some days' — an extended season of prayer where God was forming the plan and Nehemiah's heart.",
+          },
+          {
+            question: "What did Nehemiah do in the split second before answering the king's question?",
+            options: [
+              "He quoted Scripture aloud",
+              "He prayed silently to God",
+              "He consulted his notes",
+              "He asked for more time to think",
+            ],
+            correct: 1,
+            explanation:
+              "Nehemiah 2:4 says he 'prayed to the God of heaven' before answering the king — a real-time arrow prayer that connected him to divine wisdom in the moment.",
+          },
+          {
+            question: "What does Nehemiah's night survey of the walls demonstrate about Spirit-led leadership?",
+            options: [
+              "That secrecy is always essential",
+              "That prayer replaces the need for investigation",
+              "That spiritual revelation should be combined with practical investigation",
+              "That leaders should act alone without consulting others",
+            ],
+            correct: 2,
+            explanation:
+              "Nehemiah combined divine revelation with practical investigation — a model showing that Spirit-led leadership is both spiritually informed and practically wise.",
+          },
+        ],
+      },
+      {
+        id: "c1-13",
+        title: "The Two Kingdoms",
+        duration: "45 min",
+        content: `<h2>The Two Kingdoms</h2>
+<p>Understanding the reality of two spiritual kingdoms — God's kingdom of light and the adversary's kingdom of darkness — is essential for operating effectively in revelation manifestations.</p>
+<h3>The Kingdom of Light (Colossians 1:13)</h3>
+<p>"He has delivered us from the domain of darkness and transferred us to the kingdom of his beloved Son." Every born-again believer has been relocated — spiritually — from one kingdom to another. This is foundational to understanding revelation manifestations.</p>
+<h3>The Kingdom of Darkness</h3>
+<p>The adversary operates a counterfeit spiritual system designed to deceive, oppress, and destroy. This is why discerning of spirits is so vital — not every spiritual manifestation is from God. We must be able to distinguish light from darkness.</p>
+<h3>Our Authority</h3>
+<p>Believers do not engage the enemy as equals fighting a close battle — we operate from a position of victory. Colossians 2:15 states that Christ "disarmed the rulers and authorities and put them to open shame, by triumphing over them in him." Revelation manifestations are instruments of enforcing that victory.</p>
+<h3>Practical Implications</h3>
+<ul>
+<li>When discerning of spirits reveals darkness, the response is not fear but authority</li>
+<li>Word of knowledge can expose the enemy's tactics before they succeed</li>
+<li>Word of wisdom gives strategy for overcoming in specific situations</li>
+<li>All three revelation manifestations together give comprehensive spiritual intelligence</li>
+</ul>`,
+        quiz: [
+          {
+            question: "According to Colossians 1:13, what has God done for believers regarding the two kingdoms?",
+            options: [
+              "Given us equal footing with both kingdoms",
+              "Delivered us from darkness and transferred us to Christ's kingdom",
+              "Warned us to avoid the kingdom of darkness",
+              "Promised future transfer at the resurrection",
+            ],
+            correct: 1,
+            explanation:
+              "Colossians 1:13 says God 'has delivered us from the domain of darkness and transferred us to the kingdom of his beloved Son' — past tense, already accomplished.",
+          },
+          {
+            question: "Why is discerning of spirits especially vital in the context of two kingdoms?",
+            options: [
+              "Because all spiritual experiences are valid",
+              "Because not every spiritual manifestation is from God — we must distinguish light from darkness",
+              "Because Christians can lose their salvation through deception",
+              "Because demons are more powerful than angels",
+            ],
+            correct: 1,
+            explanation:
+              "The adversary operates a counterfeit spiritual system. Discerning of spirits allows us to distinguish God's genuine manifestations from counterfeits — protecting the church from deception.",
+          },
+          {
+            question: "According to Colossians 2:15, from what position do believers engage spiritual darkness?",
+            options: [
+              "A position of ongoing warfare with uncertain outcome",
+              "A position of victory — Christ has already disarmed and triumphed over darkness",
+              "A position of defensive protection only",
+              "A position that varies based on the believer's spiritual maturity",
+            ],
+            correct: 1,
+            explanation:
+              "Colossians 2:15 says Christ 'disarmed the rulers and authorities and put them to open shame, by triumphing over them.' Believers enforce an already-won victory.",
+          },
+        ],
+      },
+      {
+        id: "c1-14",
+        title: "Two Kingdoms (Continued)",
+        duration: "57 min",
+        content: `<h2>Two Kingdoms — Continued</h2>
+<p>This session deepens our understanding of operating in revelation manifestations within the context of spiritual warfare.</p>
+<h3>Walking in Kingdom Authority</h3>
+<p>Luke 10:19 records Jesus' words: "I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you." This authority is delegated to every believer — not earned but received as part of our inheritance in Christ.</p>
+<h3>The Armor of God (Ephesians 6)</h3>
+<p>The whole armor of God is designed for standing firm. Notice that revelation is embedded in the armor:</p>
+<ul>
+<li>The belt of truth — knowing what is true vs. deceptive</li>
+<li>The shield of faith — responding to revelation with trust</li>
+<li>The sword of the Spirit — the Word of God, which often comes through revelation</li>
+</ul>
+<h3>Maintaining Kingdom Perspective</h3>
+<p>The temptation in spiritual warfare is to become focused on the enemy rather than on Christ. Revelation manifestations are not primarily given to expose the enemy — they are given to advance the kingdom of light, to bring healing, freedom, and the knowledge of God to people.</p>
+<h3>Prayer Strategies</h3>
+<p>Revelation manifestations often come in the context of strategic prayer. As we intercede for people, places, and situations, God grants us insight into what is happening spiritually and how to pray effectively. This is the ultimate use of the "eyes and ears of the church."</p>`,
+        quiz: [
+          {
+            question: "What does Luke 10:19 say about the authority given to believers?",
+            options: [
+              "Authority over natural disasters only",
+              "Authority over all the power of the enemy, with nothing able to harm them",
+              "Authority that must be earned through spiritual maturity",
+              "Authority limited to preaching and teaching",
+            ],
+            correct: 1,
+            explanation:
+              "Luke 10:19: 'I have given you authority to tread on serpents and scorpions, and over all the power of the enemy, and nothing shall hurt you.' This is comprehensive, delegated authority.",
+          },
+          {
+            question: "What is the primary purpose of revelation manifestations in spiritual warfare?",
+            options: [
+              "To expose and condemn the enemy",
+              "To demonstrate believers' spiritual power",
+              "To advance the kingdom of light — bringing healing, freedom, and knowledge of God",
+              "To protect believers from all suffering",
+            ],
+            correct: 2,
+            explanation:
+              "Revelation manifestations are given primarily to advance God's kingdom — to bring healing, freedom, and knowledge of God to people. The focus is on Christ, not the enemy.",
+          },
+          {
+            question: "Which element of the Armor of God involves knowing truth from deception?",
+            options: [
+              "The breastplate of righteousness",
+              "The belt of truth",
+              "The helmet of salvation",
+              "The shoes of the gospel",
+            ],
+            correct: 1,
+            explanation:
+              "The belt of truth holds the armor together and represents knowing what is true versus deceptive — directly connected to the operation of revelation manifestations.",
+          },
+        ],
+      },
+      {
+        id: "c1-15",
+        title: "The Man from the Gerasenes",
+        duration: "57 min",
+        content: `<h2>The Man from the Country of the Gerasenes</h2>
+<p>Mark 5:1-20 records one of the most dramatic deliverance encounters in the Gospels — the healing of the demonized man who lived among the tombs. This account is a masterclass in all three revelation manifestations working together.</p>
+<h3>The Encounter</h3>
+<p>When Jesus crossed the Sea of Galilee, a man possessed by many demons ran to meet him. Notice that Jesus did not fear this man — He moved toward him with authority. This is the posture of someone who knows their kingdom identity.</p>
+<h3>Discerning of Spirits in Action</h3>
+<p>Jesus immediately perceived the spiritual reality of the situation. He commanded the unclean spirit to come out. When the spirits identified themselves as "Legion," Jesus had full spiritual intelligence about the scope of the oppression.</p>
+<h3>Word of Knowledge and Wisdom</h3>
+<p>Jesus knew exactly what needed to happen and how to proceed. He granted the spirits' request to go into the pigs — a strategic move that accomplished full deliverance for the man. This is word of wisdom: divine strategy in the moment.</p>
+<h3>The Aftermath</h3>
+<p>The man was found "clothed and in his right mind" — fully restored. He became one of the first missionaries to the Gentile region of Decapolis, telling everyone what Jesus had done for him. One encounter with revelation manifestations, properly operated, can transform a life and ignite a revival.</p>`,
+        quiz: [
+          {
+            question: "What does Jesus' approach toward the demonized man demonstrate?",
+            options: [
+              "That only trained exorcists should engage with spiritual darkness",
+              "That caution and retreat are the best approach to darkness",
+              "That kingdom authority produces confidence, not fear, when approaching darkness",
+              "That prayer and fasting must precede all deliverance",
+            ],
+            correct: 2,
+            explanation:
+              "Jesus moved toward the man without fear — demonstrating that kingdom identity and authority produce confidence, not terror, when engaging spiritual darkness.",
+          },
+          {
+            question: "What was the man's condition after his deliverance?",
+            options: [
+              "He was still disturbed but manageable",
+              "Clothed and in his right mind — fully restored",
+              "Healed physically but still mentally affected",
+              "Delivered but needing months of recovery",
+            ],
+            correct: 1,
+            explanation:
+              "Mark 5:15 says the man was found 'clothed and in his right mind' — complete, immediate restoration. God's deliverance is thorough.",
+          },
+          {
+            question: "What role did the man from the Gerasenes take on after his deliverance?",
+            options: [
+              "He joined the twelve disciples",
+              "He became one of Jesus' closest followers",
+              "He became an early missionary to the Decapolis region",
+              "He returned to a quiet life in his community",
+            ],
+            correct: 2,
+            explanation:
+              "Jesus told the man to go home and tell what God had done. He became a missionary to the Decapolis, telling everyone — demonstrating that transformed lives are the greatest testimony.",
+          },
+        ],
+      },
+      {
+        id: "c1-16",
+        title: "Balaam and Balak",
+        duration: "61 min",
+        content: `<h2>Balaam and Balak: When Revelation Meets Compromise</h2>
+<p>Numbers 22-24 tells the story of Balaam — a man who had genuine prophetic ability but allowed his gifts to be corrupted by the love of money and the desire for human approval.</p>
+<h3>The Setup</h3>
+<p>Balak, king of Moab, hired Balaam to curse Israel. God initially told Balaam not to go. But after Balak sent more prestigious messengers with promises of great reward, Balaam went anyway — seeking a different answer from God.</p>
+<h3>The Talking Donkey</h3>
+<p>The famous episode of the speaking donkey reveals something profound: Balaam's spiritual sensitivity was so compromised by his covetousness that his donkey saw the angel of the Lord before he did. The servant discerned what the master missed.</p>
+<h3>God's Sovereignty Over Revelation</h3>
+<p>God so sovereignly controlled Balaam's mouth that every time he opened his mouth to curse Israel, blessings came out instead. God can protect His purposes even when flawed messengers try to corrupt them.</p>
+<h3>The Warning</h3>
+<p>2 Peter 2:15 and Jude 11 reference "the way of Balaam" as a warning — using spiritual gifts for financial gain and personal advancement. This corrupts the gift and destroys the vessel. Revelation manifestations must flow from love and purity, not from covetousness.</p>`,
+        quiz: [
+          {
+            question: "What compromised Balaam's spiritual sensitivity?",
+            options: [
+              "Lack of biblical training",
+              "Covetousness — the love of money and desire for reward",
+              "Being from a non-Israelite background",
+              "Not fasting before prophesying",
+            ],
+            correct: 1,
+            explanation:
+              "Balaam's covetousness — seeking financial reward and human honor — so compromised his sensitivity that his donkey perceived the angel before he did. Love of money corrupts revelation gifts.",
+          },
+          {
+            question: "What happened when Balaam tried to curse Israel?",
+            options: [
+              "His curses had partial effect",
+              "God struck him dumb so he could not speak",
+              "Blessings came out of his mouth instead of curses",
+              "He refused and returned home without speaking",
+            ],
+            correct: 2,
+            explanation:
+              "God so controlled Balaam's mouth that every attempt to curse Israel produced blessings instead — demonstrating God's sovereignty over revelation and His protection of His purposes.",
+          },
+          {
+            question: "What is 'the way of Balaam' as referenced in 2 Peter and Jude?",
+            options: [
+              "The path of genuine prophetic ministry",
+              "Using spiritual gifts for financial gain and personal advancement",
+              "Refusing to prophesy under pressure",
+              "Seeking multiple confirmations before speaking",
+            ],
+            correct: 1,
+            explanation:
+              "2 Peter 2:15 and Jude 11 use 'the way of Balaam' as a warning against using spiritual gifts for financial gain and personal advancement — a corruption that destroys both the gift and the person.",
+          },
+        ],
+      },
+      {
+        id: "c1-17",
+        title: "Does God Change His Mind?",
+        duration: "26 min",
+        content: `<h2>Does God Change His Mind?</h2>
+<p>This session addresses a question that often arises when studying revelation manifestations: if God gives a revelation, can it change? And does God respond differently based on our prayers and choices?</p>
+<h3>The Nature of God's Revelation</h3>
+<p>Numbers 23:19 states: "God is not man, that he should lie, or a son of man, that he should change his mind. Has he said, and will he not do it? Or has he spoken, and will he not fulfill it?" God's character is unchanging — His Word is absolutely reliable.</p>
+<h3>Conditional Prophecy</h3>
+<p>However, some prophetic revelation is conditional — it calls for a human response. Jonah 3 is the clearest example: Jonah proclaimed that Nineveh would be destroyed in 40 days. The people repented, and God relented from the disaster. Was God inconsistent? No — the purpose of the warning was to produce repentance.</p>
+<h3>Hezekiah's Additional Years (Isaiah 38)</h3>
+<p>Isaiah told Hezekiah he would die. Hezekiah prayed, and God gave him 15 more years. This was not God contradicting Himself — prayer is part of the system God designed. He invites us to participate in what He is doing through intercession.</p>
+<h3>The Principle</h3>
+<p>Revelation from God is always perfect — it always achieves its purpose. Sometimes that purpose is warning (to prevent the outcome). Sometimes it is declaration (to guarantee the outcome). Wisdom discerns which is which, and prayer is always the appropriate response.</p>`,
+        quiz: [
+          {
+            question: "What does Numbers 23:19 affirm about God?",
+            options: [
+              "God changes His mind based on human prayer",
+              "God is not a man — He does not lie or change His mind",
+              "God's plans are unknown until they unfold",
+              "God responds differently to different people",
+            ],
+            correct: 1,
+            explanation:
+              "Numbers 23:19: 'God is not man, that he should lie, or a son of man, that he should change his mind.' God's character and commitments are absolutely reliable.",
+          },
+          {
+            question: "Why did God relent from destroying Nineveh after Jonah's prophecy?",
+            options: [
+              "Because Jonah's prophecy was wrong",
+              "Because God decided to be more merciful than He originally planned",
+              "Because the people repented — the warning's conditional purpose was fulfilled",
+              "Because 40 days had not yet passed",
+            ],
+            correct: 2,
+            explanation:
+              "The warning to Nineveh was conditional — its purpose was to produce repentance. When the people repented, God's goal was achieved. The prophecy worked exactly as intended.",
+          },
+          {
+            question: "What does Hezekiah's additional 15 years demonstrate about prayer and revelation?",
+            options: [
+              "That God makes mistakes that prayer can correct",
+              "That prayer is part of the system God designed — He invites us to participate through intercession",
+              "That strong enough faith always overrides God's declared purposes",
+              "That prophets are not always reliable",
+            ],
+            correct: 1,
+            explanation:
+              "Hezekiah's story shows that prayer is part of God's design — He invites human participation through intercession. This is not God being inconsistent; it is how He designed the relationship to work.",
+          },
+        ],
+      },
+      {
+        id: "c1-18",
+        title: "Equipped by God",
+        duration: "59 min",
+        content: `<h2>Equipped by God — Course Conclusion</h2>
+<p>As we conclude this course, we return to its central premise: God has equipped every believer to operate in revelation manifestations. You are not disqualified by your past, your education, or your feelings of inadequacy — you are equipped by God's Spirit within you.</p>
+<h3>2 Timothy 3:16-17</h3>
+<blockquote>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, that the man of God may be complete, equipped for every good work."</blockquote>
+<p>The Word equips. Revelation manifestations are the practical outworking of that equipped life — the Word made alive and active through the Spirit.</p>
+<h3>2 Corinthians 3:5-6</h3>
+<blockquote>"Not that we are sufficient in ourselves to claim anything as coming from us, but our sufficiency is from God, who has made us sufficient to be ministers of a new covenant."</blockquote>
+<p>Your sufficiency is not in yourself — it is in God. This is both humbling and liberating. You don't have to manufacture spiritual power; you participate in the power God provides.</p>
+<h3>Your Next Steps</h3>
+<ol>
+<li>Apply the 10 habits consistently</li>
+<li>Begin stepping out in your local community</li>
+<li>Find accountability partners who share this commitment</li>
+<li>Continue your study — consider the next course in this series</li>
+<li>Keep love as your central motivation</li>
+</ol>
+<p>The revelation manifestations are not achievements to be displayed — they are tools of service. Use them to love God's people well, and you will never regret it.</p>`,
+        quiz: [
+          {
+            question: "According to 2 Corinthians 3:5-6, where does a believer's sufficiency for ministry come from?",
+            options: [
+              "From personal training and education",
+              "From years of ministry experience",
+              "From God — our sufficiency is from Him",
+              "From the church's ordination and recognition",
+            ],
+            correct: 2,
+            explanation:
+              "'Our sufficiency is from God, who has made us sufficient' — the ability to minister in revelation comes from God, not from ourselves. This is both humbling and liberating.",
+          },
+          {
+            question: "What is the central motivation for using revelation manifestations?",
+            options: [
+              "To demonstrate spiritual maturity to others",
+              "To build a public ministry",
+              "Love — to serve God's people and advance His kingdom",
+              "To fulfill spiritual discipline requirements",
+            ],
+            correct: 2,
+            explanation:
+              "The course concludes with this reminder: 'The revelation manifestations are not achievements to be displayed — they are tools of service.' Love is the central motivation.",
+          },
+          {
+            question: "Which course comes next in this series after 'Led by God's Power'?",
+            options: [
+              "Living in God's Power",
+              "Growing in God's Power",
+              "Administering God's Power",
+              "Walking in God's Power",
+            ],
+            correct: 2,
+            explanation:
+              "'Administering God's Power' is the fourth and final course in the series, covering impartation, faith, miracles, and gifts of healings.",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "course-2",
-    slug: "grandir-dans-la-puissance",
+    slug: "growing-in-gods-power",
     order: 2,
-    title: "Grandir dans la Puissance de Dieu",
-    subtitle: "Le Corps de Christ et les manifestations d'adoration",
-    description: "Un cours intermédiaire sur le Corps de Christ et les manifestations d'adoration du Saint-Esprit.",
-    longDescription: "Ce cours intermédiaire amène les croyants plus profondément dans le Corps de Christ — apprendre son rôle spécifique et opérer dans la prophétie et l'interprétation des langues.",
+    titleFr: "Grandir dans la Puissance de Dieu",
+    subtitleFr: "Le Corps de Christ et les manifestations d'adoration",
+    descriptionFr: "Un cours intermédiaire sur le Corps de Christ, la part du croyant en lui, et les manifestations d'adoration du Saint-Esprit.",
+    title: "Growing in God's Power",
+    subtitle: "The Body of Christ and worship manifestations",
+    description:
+      "An intermediate course on the Body of Christ, the Christian believer's part in it, and the worship manifestations of holy spirit.",
+    longDescription:
+      "This intermediate course takes believers deeper into the Body of Christ. You will learn about your specific role in the Body, and be equipped to operate in the worship manifestations: prophecy and interpretation of tongues.",
+    color: "#1a1a18",
+    icon: "users",
     chapters: [
-    {
-      id: "c2-1",
-      title: "Introduction et Qualifications",
-      duration: "45 min",
-      content: `<p>Un cours sur le Corps de Christ,</p><p>La part du croyant chretien en lui,</p><p>Et les manifestations du saint esprit</p><p>Par</p><p>Jon O. Nessle</p><p>(Traduit en francais par Franck JOUVELLIER & Melanie GABA)</p><p>(c)Agir sur sa Foi Academy2001</p><p>Parce que tout apprentissage vient de l'exterieur de la personne qui recherche, plus la connaissance d'une personne est elevee, plus grande est la responsabilite envers les autres.</p><p>Je remercie Dieu pour le privilege de vivre en ce temps ou la Parole de Dieu a libre cours et qu'il y a une telle richesse de la connaissance biblique disponible. Je suis redevable a tous mes enseignants de qui j'ai appris les principes qui me permettent d'amener ce sujet en lumiere. J'aimerais exprimer mon amour et ma profonde gratitude envers ma femme, Marcia, qui travailla main dans la main avec moi dans les annees de recherche et d'application qui repose derriere ce materiel. Je n'aurais pas ete capable de communiquer cela clairement et pratiquement sans son aide. Je donne aussi un remerciement special a John Shroyer et Wayne Clapp du Ministere de \`\`Christian Familly Fellowship Ministry'' pour leur amour et support et pour m'avoir donne l'opportunite de partager ma connaissance sur ce sujet. Enfin je suis reconnaissant envers Madame Kelly Manuk pour m'avoir assiste dans l'ecriture de ce syllabus.</p><p>De meme vous, puisque vous aspirez aux dons spirituels, que ce soit pour l?edification de l?Eglise que vous cherchiez a en posseder abondamment. I Corinthiens 14:12</p><p>De meme vous, puisque vous aspirez aux dons spirituels, que ce soit pour l'edification de l'Eglise que vous cherchiez a en posseder abondamment. I Corinthiens 14:12</p><p>Introduction</p><p>Ce cours est pour les croyants qui sont a un niveau intermediaire dans leur croissance. Nous avons recu des enseignements fondamentaux et avons appris beaucoup de principes merveilleux et avons commence a croitre. Nous avons appris au sujet de la veracite de la Parole et comment elle s'interprete elle-meme. Nous avons ete instruits sur la maniere de croire Dieu et recevoir Ses promesses et comment naitre de nouveau. Nous avons vu comment proclamer ce qui vient avec la nouvelle naissance et comment commencer a le manifester. Et ensuite, comme nous apprenons et appliquons toutes ces choses, nous agissons pour avoir nos besoins combles. Et nous avons applique cela en parlant en langues. Comme resultat, nous avons ete benis sur une base individuelle. Dans ce cours, nous allons amener ce sujet plus en profondeur parce que nous allons apprendre comment appliquer plus au sujet de ce que nous avons recu dans cette categorie spirituelle. Nous allons apprendre a nous rejouir plus de notre part de vie plus abondante que Jesus Christ est venu rendre disponible.</p><p>Qui suis-je? Je me suis prepare a enseigner ce cours pendant plus de 25 annees. Mon premier cours fondamental s'est deroule en 1971 et mon premier cours intermediaire s'est deroule en 1972. Entre ces deux cours j'ai achete le plus important livre de ma</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-2",
-      title: "Le Corps de Christ — Qui sommes-nous ?",
-      duration: "50 min",
-      content: `<p>attachez-vous fortement au bien.</p><p>10  Par amour fraternel, soyez pleins d?affection les uns pour les autres; par honneur, usez de prevenances reciproques.</p><p>11  Ayez du zele, et non de la paresse. Soyez fervents d?esprit. Servez le Seigneur.</p><p>12  Rejouissez-vous en esperance. Soyez patients dans l?affliction. Perseverez dans la priere.</p><p>13  Pourvoyez aux besoins des saints. Exercez l?hospitalite.</p><p>All?lon = \`\`les uns les autres'' - Un autre mot indicateur indiquant les interactions dans le corps a travers le Nouveau Testament.</p><p>Que l'amour soit sans \`\`la face de la communion'' (sans apparence). Laissez-les voir ce qu'il y a. Si vous avez un probleme, faites le connaitre a quelqu'un afin qu'il puisse vous aimer et vous aider a croire pour combler votre besoin. Si nous sommes authentiques nous ne devrions pas nous inquieter de l'apparence de la communion plus longtemps. Si nous avons ce genre d'amour et que nous detestons le mal; si nous sommes attires vers ce qui est bon, si nous avons cet amour familiale ou que nous avons ce genre d'affection fraternelle les uns envers les autres, si nous preferons l'avance des uns et des autres en premier, avant nous-memes, si nous ne sommes pas paresseux mais diligents dans la pratique, si nous parlons plus en langues afin d'etre fervent en esprit, si nous nous rejouissons dans l'esperance, si nous sommes patient lorsque la tribulation vient parce que nous travaillons la Parole et en faisons l'application pratique en sachant que la puissance sera la, si nous continuons couramment dans la priere, si nous distribuons ce qui est necessaire aux saints, si nous sommes toujours conduits a montrer de l'hospitalite meme au milieu de situation negative et avons confiance que les autres ferons de meme, alors nous aurons une authentique communion dans l'amour les uns envers les autres. Nous n'aurons pas besoin de presenter plus longtemps le visage de la communion lorsque nous viendrons a cette communion!  Nous saurons que nous ne serons pas ridiculises mais aides si nous avons des besoins. L'intelligence renouvelee n'est pas une forme de reniement. Nous ne pouvons pas eviter le negatif au point ou nous ne pouvons meme pas dire les uns aux autres ce qui se passe! Nous aurons confiance que si nous sommes immerges avec le negatif, une personne ne nous dira pas \`\`renouvelez votre intelligence,'' mais plutot poursuivra l'hospitalite et nous aidera. Nous saurons aussi que si nous pouvons aider, notre participation sera bienvenue.Surmonter le mal par le bien</p><p>Romains 12:14	Dans le contexte, c'est parmi les croyants, pas les incroyants.</p><p>Et maintenant nous allons a une section qui nous instruit sur comment garder notre amour authentique face au mal, non en dehors mais a l'interieur du corps des croyants. Comment s'occuper du mal dans le corps?  Comment vous occupez-vous des situations ou un croyant ne devrait pas, mais fait du mal a un autre croyant?  Nous faisons partie d'un corps et il peut y avoir des incomprehensions et il pe</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-3",
-      title: "Les manifestations d'adoration",
-      duration: "52 min",
-      content: `<p>horizontale. Nous ne pouvons memes pas mourir pour nous memes, car nous faisons partie d'une famille.</p><p>Ce n'est pas parle des choses qui sont clairement des peches. Juste un chapitre auparavant en Romains 13:9,10 cela etablit que si nous aimons veritablement, nous ne ferions pas les choses citees la : l'adultere, le meurtre, le vol, le mensonge, la convoitise, etc. ainsi Romains 14 n'est pas une \`\`echappatoire'' ou les \`\`matures'' pourraient s'echapper de cette chose ...  Cela concerne le comportement en matiere de culture. Aux yeux de Dieu ce n'est pas important d'ou provient la viande comme le verset 8 l'etablit clairement. L'application de cette verite dans les termes d'aujourd'hui pourrait etre concernant les questions de culture comme l'interdiction de danser, ou les genres de musique, les habits, la cigarette ou la consommation de certaines nourritures ou boissons. Certainement nous avons la liberte, mais l'utiliserons-nous au detriment des autres?  Une autre issue similaire en notre temps concerne l'observation des jours saints.</p><p>Romains 14:8-13</p><p>8  Car si nous vivons, nous vivons pour le Seigneur; et si nous mourons, nous mourons pour le Seigneur. Soit donc que nous vivions, soit que nous mourions, nous sommes au Seigneur.</p><p>9  Car Christ est mort et il a vecu, afin de dominer sur les morts et sur les vivants.</p><p>10  Mais toi, pourquoi juges-tu ton frere? Ou toi, pourquoi meprises-tu ton frere? Puisque nous comparaitrons tous devant le tribunal de Dieu.</p><p>11  Car il est ecrit: Je suis vivant, dit le Seigneur, Tout genou flechira devant moi, Et toute langue donnera gloire a Dieu.</p><p>12  Ainsi chacun de nous rendra compte a Dieu pour lui-meme.</p><p>13  Ne nous jugeons donc plus les uns les autres; mais pensez plutot a ne rien faire qui soit pour votre frere une pierre d?achoppement ou une occasion de chute.</p><p>Juger les uns les autres  n'est pas notre travail.</p><p>Romains 14:14-16</p><p>14  Je sais et je suis persuade par le Seigneur Jesus que rien n?est impur en soi, et qu?une chose n?est impure que pour celui qui la croit impure.</p><p>15  Mais si, pour un aliment, ton frere est attriste, tu ne marches plus selon l?amour: ne cause pas, par ton aliment, la perte de celui pour lequel Christ est mort.</p><p>16  Que votre privilege ne soit pas un sujet de calomnie.</p><p>Marcher dans l'amour de Dieu n'est pas faire de la peine pour nos freres.</p><p>Le verset 14 n'est pas une echappatoire permettant aux \`\`matures'' de s'en tirer avec le comportement prohibe ailleurs en Romains simplement parce qu'ils peuvent faire les gymnastiques mentales pour  \`\`executer'' cela... ca definit la marche d'amour pour inclure le respect envers ceux qui sont moins matures dans le corps. Dans le contexte d'un corps ce qui est bon pour vous peut en effet etre nuisible pour un autre a cause de son degre de maturite. Ainsi, une personne ne peut presumer que ces actes ne blesse pas une autre personne simplement parce qu'elle ne recherche pas a etre nuisible. Cette pensee n'est pas bonne parce que nous fa</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-4",
-      title: "La prophétie — Compréhension et pratique",
-      duration: "55 min",
-      content: `<p>Et alors il y a ce merveilleux mot dispose, qui signifie meler ensemble. Il y a deux mots Grecs pour dispose, mignumi, melanger comme le sel et le poivre et sunkerannumi, fusionner comme l'hydrogene et l'oxygene font de l'eau. Lorsque les choses sont melangees elles gardent leurs proprietes, mais lorsqu'elles sont fusionnees quelque chose de nouveau en resulte. Lorsque nous faisons chacun notre part dans le corps ce qui resulte est totalement nouveau et au dela de la simple somme de ses composantes!</p><p>Honorer est un mot indiquant la recompense. Les recompenses au rassemblement ensemble qui sont le grand compensateur. Si vous ne faites pas le credit que vous meritez pour votre travail maintenant, vous l'obtiendrez dans le futur. Nous n'avons pas besoin d'etre axe sur la position; nous pouvons penser a fonctionner. Qui se soucie de quelle est la position de telle personne, ca n'a pas d'importance. Nous pouvons tous grandir et produire du fruit.</p><p>I Corinthiens 12:27</p><p>27  Vous etes le corps de Christ, et vous etes ses membres, chacun pour sa part.</p><p>Ce verset resume et continue</p><p>I Corinthiens 12:28-30	Les competences dans le Corps</p><p>Les ministeres en I Corinthiens 12:28-30</p><p>Et Dieu a etabli dans l?Eglise</p><p>premierement des apotres,</p><p>secondement des prophetes,</p><p>troisiemement des docteurs,</p><p>ensuite ceux qui ont le don des miracles,</p><p>puis ceux qui ont les dons de guerir,</p><p>de secourir, de gouverner,</p><p>de parler diverses langues.</p><p>Tous sont-ils apotres?</p><p>Tous sont-ils prophetes?</p><p>Tous sont-ils docteurs? (12-30)</p><p>Tous ont-ils le don des miracles?</p><p>Tous ont-ils le don des guerisons?</p><p>Tous parlent-ils en langues?</p><p>Tous interpretent-ils?</p><p>Graphique #4</p><p>Ce graphique montre la structure parallele de ces versets. Les parties soulignees montrent comment cela alterne entre les ministeres et les manifestations. A cause de cette structure plus l'introduction au sujet du verset 27, je suis enclin a penser que cette section est en train de mettre l'emphase sur les fonctions du corps plus que les manifestations. Il y a des apotres, des prophetes et des docteurs, evidemment des ministeres, et ensuite ceux qui secourent et ceux qui gouvernent, encore des ministeres. Mais je pense que le mot cle est \`\`diverses'' au verset 28 qui dont le mot Grec signifie especes. (C'est a l'endroit ou j'ai eu mon idee pour le terme \`\`genetique spirituelle.'')  En d'autres mots, il y a des croyants dans le corps dont la competence est de parler en langues. C'est leur caracteristique marquante, leur genre, leur fonction. Lorsqu'ils intercedent ou interpretent, c'est comme un virtuose. Similairement il</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-5",
-      title: "L'interprétation des langues",
-      duration: "48 min",
-      content: `<p>qu?eux tous, non pas moi toutefois, mais la grace (horizontal) de Dieu qui est avec moi.</p><p>I Pierre 3:7</p><p>7  Maris, montrez a votre tour de la sagesse dans vos rapports avec vos femmes, comme avec un sexe plus faible; honorez-les, comme devant aussi heriter avec vous de la grace (horizontal) de la vie. Qu?il en soit ainsi, afin que rien ne vienne faire obstacle a vos prieres.</p><p>Colossiens 4:6</p><p>6  Que votre parole soit toujours accompagnee de grace (horizontale), assaisonnee de sel, afin que vous sachiez comment il faut repondre a chacun.</p><p>II Timothee 2:1,2</p><p>1  Toi donc, mon enfant, fortifie-toi dans la grace (horizontale) qui est en Jesus-Christ.</p><p>2  Et ce que tu as entendu de moi en presence de beaucoup de temoins, confie-le a des hommes fideles, qui soient capables de l?enseigner aussi a d?autres.</p><p>Ephesiens 4:7</p><p>7  Mais a chacun de nous la grace (horizontale) a ete donnee selon la mesure du don de Christ.</p><p>Philippiens  1:3-7</p><p>3  Je rends graces (horizontal) a mon Dieu de tout le souvenir que je garde de vous,</p><p>4  ne cessant, dans toutes mes prieres pour vous tous, (1-5) de manifester ma joie</p><p>5  au sujet de la part que vous prenez a l?Evangile, depuis le premier jour jusqu?a maintenant.</p><p>6  Je suis persuade que celui qui a commence en vous cette bonne oeuvre la rendra parfaite pour le jour de Jesus-Christ.</p><p>7  Il est juste que je pense ainsi de vous tous, parce que je vous porte dans mon coeur, soit dans mes liens, soit dans la defense et la confirmation de l?Evangile, vous qui tous participez a la meme grace que moi.</p><p>Actes 4:33-34</p><p>33  Les apotres rendaient avec beaucoup de force temoignage de la resurrection du Seigneur Jesus. Et une grande grace (horizontale) reposait sur eux tous.</p><p>34  Car il n?y avait parmi eux aucun indigent: tous ceux qui possedaient des champs ou des maisons les vendaient, apportaient le prix de ce qu?ils avaient vendu,</p><p>I Pierre 4:10</p><p>10  Comme de bons dispensateurs des diverses graces de Dieu, que chacun de vous mette au service des autres le don qu?il a recu,</p><p>Les manifestations d'adoration concordent avec cette abondance car nous cherchons a exceller en elles. Nous abondons en elles pour quel but? Pour edifier l'eglise. Elles mettent l'accent sur cette etape de notre croissance spirituelle ou nous devons tourner notre concentration de nous-memes vers nos croyants, cherchant a les benir et a les edifier avec la richesse que Dieu nous a donnee!  Dieu a concu cela pour nous edifier les uns les autres, pour etre manifeste super naturellement toutes les fois que les manifestations d'adoration sont accomplies.</p><p>Nous avons ete enrichis avec d'abondantes benedictions. Pas simplement les choses physiques, mais les choses spirituelles de loin plus valable et plus grandes. C'est notre vie abondante! Chacun de nous peut participer. Et nous devons les partager les uns avec les autres horizontalement avec la meme faveur divine avec laquelle Dieu nous a honore. C'est ce qu'est la vraie communion. C'est un plein partage d</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-6",
-      title: "Fonctionner dans le Corps",
-      duration: "60 min",
-      content: `<p>comprendre. Nous ne reprimandons pas et ne restaurons pas pour montrer que nous sommes meilleurs que les personnes en faute. Non. Nous avons besoin que cette personne tienne debout, ainsi le corps et nous aussi, sommes meilleurs.</p><p>Matthieu 7:24-27</p><p>24  C?est pourquoi, quiconque entend ces paroles que je dis et les met en pratique, sera semblable a un homme prudent qui a bati sa maison sur le roc.</p><p>25  La pluie est tombee, les torrents sont venus, les vents ont souffle et se sont jetes contre cette maison: elle n?est point tombee, parce qu?elle etait fondee sur le roc.</p><p>26  Mais quiconque entend ces paroles que je dis, et ne les met pas en pratique, sera semblable a un homme insense qui a bati sa maison sur le sable.</p><p>27  La pluie est tombee, les torrents sont venus, les vents ont souffle et ont battu cette maison: elle est tombee, et sa ruine a ete grande.</p><p>Premiere utilisation de \`\`edifier'' qui est ici traduit \`\`bati.''  Nous nous rendons sur que c'est sur une bonne fondation.</p><p>Matthieu 6:28</p><p>28  Et pourquoi vous inquieter au sujet du vetement? Considerez comment croissent les lis des champs: ils ne travaillent ni ne filent;</p><p>Premiere utilisation de \`\`croitre.''  La croissance sans compulsion vient de l'interieur.</p><p>Matthieu 13:31,32</p><p>31  Il leur proposa une autre parabole, et il dit: Le royaume des cieux est semblable a un grain de seneve qu?un homme a pris et seme dans son champ.</p><p>32  C?est la plus petite de toutes les semences; mais, quand il a pousse, il est plus grand que les legumes et devient un arbre, de sorte que les oiseaux du ciel viennent habiter dans ses branches.</p><p>Le grain de moutarde est une toute petite semence avec un enorme potentiel.</p><p>Pouvons-nous faire que quelqu'un d'autre grandisse?  Non. Nous pourrions hurler et crier et faire pression, mais pour aucun profit. Cependant, nous pouvons rendre disponible les conditions correctes pour que la croissance se realise d'elle-meme.</p><p>Colossiens  2:6-10</p><p>6  Ainsi donc, comme vous avez recu le Seigneur Jesus-Christ, marchez en lui,</p><p>7  etant enracines et fondes en lui, et affermis par la foi, d?apres les instructions qui vous ont ete donnees, et abondez en actions de graces.</p><p>8  Prenez garde que personne ne fasse de vous sa proie par la philosophie et par une vaine tromperie, s?appuyant sur la tradition des hommes, sur les rudiments du monde, et non sur Christ.</p><p>9  Car en lui habite corporellement toute la plenitude de la divinite.</p><p>10  Vous avez tout pleinement en lui, qui est le chef de toute domination et de toute autorite.</p><p>Ayez la bonne fondation: Jesus Christ.</p><p>Qui est responsable  pour edifier?</p><p>-Celui qui est mature:</p><p>Romains 15:1-3</p><p>1  Nous qui sommes forts, nous devons supporter les faiblesses de ceux qui ne le sont pas, et ne pas nous complaire en nous-memes.</p><p>2  Que chacun de nous complaise au prochain pour ce qui est bien en vue de l?edification.</p><p>3  Car Christ ne s?est point complu en lui-meme, mais, selon qu?il est ecrit: Les outrages de ceux qui t?insultent sont to</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-7",
-      title: "L'amour — Le contexte suprême",
-      duration: "45 min",
-      content: `<p>30  Mais l'autre ne voulut pas, et il alla le jeter en prison, jusqu'a ce qu'il eut paye ce qu'il devait.</p><p>31  Ses compagnons, ayant vu ce qui etait arrive, furent profondement attristes, et ils allerent raconter a leur maitre tout ce qui s'etait passe.</p><p>32  Alors le maitre fit appeler ce serviteur, et lui dit: Mechant serviteur, je t'avais remis en entier ta dette, parce que tu m'en avais supplie;</p><p>33  ne devais-tu pas aussi avoir pitie de ton compagnon, comme j'ai eu pitie de toi?</p><p>34  Et son maitre, irrite, le livra aux bourreaux, jusqu'a ce qu'il eut paye tout ce qu'il devait.</p><p>35  C'est ainsi que mon Pere celeste vous traitera, si chacun de vous ne pardonne a son frere de tout son coeur.</p><p>\`\`Peche,'' dans le verset 15 et \`\`pechera'' dans le verset 21 sont les memes mots!  Le contexte montre ce qu'est la difference.</p><p>Les Montagnes sont indicatives de la position retranchee en profondeur de l'adversaire. Si un dirigeant ne veut pas aller dans les montagnes pour effectuer un secours, alors il n'est pas qualifie pour mettre quelqu'un a la porte. De plus en comparant le verset 15 et 21 ou les mots \`\`peche'' et \`\`pechera'' sont le meme mot, quelqu'un doit lire la parabole aux versets 23-35 pour raconter la difference entre les deux situations. Dans la premiere, l'offenseur est impenitent. Dans la seconde, l'offenseur doit etre veritablement desole de son offense et s'il l'est, c'est 490 blessures et vous etes en dehors, pas trois blessures et vous etes en dehors!</p><p>La difference est que la personne est desolee et est en train d'essayer de faire quelque chose a ce sujet. Les personnes ne devraient pas etre rejetees lorsqu'elles essayent de faire quelque chose a ce sujet.</p><p>Romains 1:11,12	\`\`Le don Spirituel'' se refere aux dons de ministeres.</p><p>I Corinthiens 1:3-9</p><p>3  Grace et paix a vous de la part de Dieu, notre Pere, et du Seigneur Jesus-Christ !</p><p>4  Je rends toujours grace a mon Dieu, a votre sujet, pour la grace de Dieu qui vous a ete accordee en Jesus-Christ ;</p><p>5  car en lui vous etes devenus riches de tout, de toute parole et de toute connaissance,</p><p>6  puisque le temoignage du Christ a ete confirme en vous.</p><p>7  Des lors, il ne vous manque aucun don de la grace, en attendant la revelation de notre Seigneur Jesus-Christ.</p><p>8  C'est lui qui vous affermira aussi jusqu'a la fin, pour que vous soyez sans reproche au jour de notre Seigneur Jesus-Christ.</p><p>9  Dieu est digne de confiance, lui par qui vous avez ete appeles a la communion de son Fils, Jesus-Christ, notre Seigneur.</p><p>Nous devrions ne manquer d'aucun don de la grace.</p><p>II Corinthiens 8:23</p><p>23  Ainsi, pour ce qui est de Tite, il est mon compagnon et mon collaborateur aupres de vous ; quant a nos freres, ils sont les apotres des Eglises, la gloire du Christ.</p><p>Chaque Eglise avait un collaborateur qui travaillait avec l'Apotre. Ils etaient \`\`les messagers, apostolos, des Eglises.''</p><p>C'est pourquoi je crois que tous les ministeres peuvent etre representes au niveau d'une zone locale. Peut-etre que</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-8",
-      title: "Sessions pratiques",
-      duration: "55 min",
-      content: `<p>Testament et dans la periode de l'Evangile qui avaient l'esprit etaient des personnes dont Dieu leur avait donne l'esprit, et c'etait sous la condition qu'ils restaient fideles. Dans l'Ancien Testament une personne pouvait perdre l'esprit.  C'etait \`\`sur'' eux pas \`\`en'' eux. L'inspiration est \`\`en eux.''  La prophetie que les prophetes parlent dans l'Ancien Testament vient par les manifestations de revelation de la parole de connaissance, parole de sagesse et le discernement des esprits. De plus, la manifestation de prophetie dans le Nouveau Testament est pour l'edification par la voie de l'exhortation et le reconfort, pas le conseil. Mais les prophetes de l'Ancien Testament ont parle pour conseiller, predire et dire lorsqu'ils ont parles. Voyez-vous la difference?  C'est pourquoi la manifestation d'inspiration de prophetie etait apres la Pentecote.</p><p>Luc 1:42-45		C'est le conseil specifique avec la prediction.</p><p>Luc 1:46-54	C'est une prophetie a la troisieme personne, mais ce n'est pas la manifestation de prophetie. (Elle avait Christ en elle d'une maniere differente.)</p><p>I Corinthiens 14:29-32	C'est le ministere d'un prophete</p><p>Actes 21:8-14	C'etait le conseil. La volonte du Seigneur etait, \`\`De ne pas aller a Jerusalem.''</p><p>Luc 1:67-79		Prediction</p><p>Luc 2:29-32, 34-35		Par revelation</p><p>Prophetie Incorrecte</p><p>La Prophetie n'est pas premeditee. C'est une inspiration.</p><p>La Prophetie n'est pas un message incomplet mais une pensee complete.</p><p>La Prophetie n'est pas pour un conseil ou pour la reprimande. C'est l'exhortation et le reconfort qui edifie.</p><p>La Prophetie n'est pas seulement pour une personne. Vous ne pensez pas au sujet de ce que quelqu'un a besoin d'entendre et pour essayer de le dire.</p><p>Dans les Eglises non instruites, lorsqu'une personne A parle en langues et qu'une personne B \`\`interprete,'' la personne B est en fait en train de prophetiser. (Mais c'est toujours authentique, c'est seulement bien pas le meilleur.)</p><p>Lorsqu'une personne va au-dela de l'interpretation des langues, cela devient une prophetie qui reitere l'interpretation. La meme reiteration est vraie pour prolonger au dela la prophetie. (Mais c'est toujours authentique, c'est seulement bien mais pas le meilleur.)</p><p>Ce n'est pas \`\`une Prophetie personnelle.''</p><p>L'Eglise chretienne moderne a ete recemment inondee par des vagues de fausses pratiques concernant les manifestations d'inspiration. Les croyants qui ont promu ces vagues peuvent etre sinceres, mais elles sont sans ordre ou mauvaises. Le mouvement de Prophetie personnelle equivaut a une forme chretienne de dire la bonne aventure. La culture de \`\`1-900-Yo-Stupid'' a simplement bifurque et est maintenant cache sous les toges dans les eglises. Mais c'est la meme contrefacon. La meme chose est vraie pour  les \`\`paroles de prophetie'' dites a un service de communion par chaque receveur. C'est seulement un chemin vers la \`\`Prophetie personnelle.''  Comment les croyants sont supposes ne pas penser a quelque chose qui est juste pour eux?</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-9",
-      title: "Le Corps de Christ — Étude approfondie",
-      duration: "58 min",
-      content: `<p>personnelle'' pour administrer ou pour se lancer dans une administration lorsqu'il n'y a pas de revelation.</p><p>\`\`Fabrication'' - Ne pas croire pour parler par revelation mais parler par la comprehension. Cela peut etre incite par la premeditation ou par la tentative de diriger le message vers un besoin presume ou connu. Notre responsabilite est seulement de parler. Cela peut aussi etre cause par le desir excessif de parler de quelque chose de profond. La \`\`lourdeur'' d'un message n'est pas seulement affectee par l'empressement spirituel et la \`\`temperature'' spirituelle de celui qui parle. Cela est aussi affecte par la purete, le besoin, la maturite et l'empressement de la majorite du corps de croyants present. La fabrication Constante est dangereuse. Elle peut conduire a une fausse revelation ou a ajouter a la revelation. Les messages de trois personnes peuvent etre de cette maniere si elles l'ont premedite.</p><p>\`\`Conseils'' - Les manifestations d'inspiration sont pour l'edification du corps pas pour les conseils. Cela peut etre cause par un enthousiasme excessif ou par la presence evidente d'un grand besoin. Ceux qui parlent ont besoin de discipliner leurs intelligences et de ne pas interferer avec le message.</p><p>\`\`Interruption'' - Quelques fois les manifestations peuvent etre interrompues par le son d'un telephone, une personne qui tousse, qui eternue ou un autre evenement accidentel. Celui qui parle peut arreter et recommencer soit par le dernier mot ou la derniere phrase ou en reprenant juste ou il a arrete. Le mot suivant du message sera la lorsque celui qui parle est pres a reprendre le message.</p><p>\`\`Presentation'' - C'est une categorie etendue couvrant la dignite du message qui est delivre et implique ce qui suit:</p><p>La diction: Nous avons besoin de prononcer dans notre langue clairement. C'est une langue d'hommes ou d'anges et est sans signification. Quelqu'un un jour peut comprendre chaque mot que nous disons. Des croyants ont des langues gutturales ou des langues remplie avec des consonnes. Si c'est ce que Dieu leur a donne, elles ont besoin de s'appliquer a faire un effort pour parler clairement.</p><p>Posture: A ce moment nous sommes en train de parler pour Dieu. Nous avons besoin de delivrer le message avec dignite. Debout ou assis droit avec la tete et les epaules en arriere. Nous devrions tenir nos mains toujours d'une maniere digne et une position confortable. Nous ne devrions pas nous agiter ou bouger nerveusement, etc.</p><p>Intonation: Ne parlez pas dans un ton monotone ou comme pour un chant religieux. Utilisez l'expression. Cela fait partie de l'inspiration. Ceux qui parlent nouvellement devraient se concentrer a parler rapidement au point qu'ils apprennent comment ils recoivent le message etc. Les plus matures qui parlent peuvent ralentir et utiliser une expression appropriee pour le message et l'arrangement, mais pas avec l'arriere pensee de parader.</p><p>Volume: Utilisez la force de votre discours qui est approprie pour la taille de la salle, vo</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-10",
-      title: "Les manifestations dans l'assemblée",
-      duration: "52 min",
-      content: `<p>Bibliques l'econome de la maison etait le manager. Ils etaient des personnes de confiance sur toute la propriete fonciere incluant leur portefeuille. Il y a des economes dans le corps qui ont ete nommes a des positions de management dans l'Eglise. La Parole de Dieu contient un apercu des cles a leur attention pour fonctionner efficacement. Elles sont en additions aux lignes directrices des diacres.</p><p>I Corinthiens 4:1,2:</p><p>1   Ainsi, qu'on nous regarde comme des serviteurs [diakonos] de Christ, et des dispensateurs [oikonomos] des mysteres de Dieu.</p><p>2  Du reste, ce qu'on demande des dispensateurs, c'est que chacun soit trouve fidele.</p><p>Ils ont besoin au-dessus de toute chose d'etre fidele. Ils ont besoin aussi d'etre sage. Dans le corps, cela se traduit par avoir une competence dans la manifestation de la parole de sagesse. Le mot grec pour dispensateur est oikonomos, duquel vient le mot, oikos qui signifie maison. Il y a plusieurs endroits dans la Bible ou ce mot est utilise. La premiere utilisation est en Luc.</p><p>Luc 12:42-44:</p><p>42  Et le Seigneur dit: Quel est donc l'econome fidele et prudent que le maitre etablira sur ses gens, pour leur donner la nourriture au temps convenable?</p><p>43  Heureux ce serviteur, que son maitre, a son arrivee, trouvera faisant ainsi!</p><p>44  Je vous le dis en verite, il l'etablira sur tous ses biens.</p><p>Leur devoir est de diriger ou de surveiller la maisonnee et de pourvoir a ce qui est du au temps opportun. Ils ont cette position non pour commander au-dessus de tous mais de donner a chacun. Cette premiere utilisation met l'emphase sur le service non sur la position, c'est le point culminant d'un econome. Cela ne doit jamais etre oublie!  Dans le but de donner ce qui est necessaire lorsque c'est du, un bon econome doit connaitre chacun dans sa maisonnee et comment apporter le meilleur en chacun. Ces croyants merveilleux avancent dans le service par la vertu de leur diligence du. Un autre passage important concernant les economes est trouve en Luc 16. Ce passage a ete mal compris et a besoin de clarification. La culture de ce temps et le contexte nous aidera a decouvrir ce que cela signifie originellement.</p><p>Luc 16:1-8:</p><p>1   Jesus dit aussi a ses disciples: Un homme riche avait un econome, qui lui fut denonce comme dissipant ses biens.</p><p>2  Il l'appela, et lui dit: Qu'est-ce que j'entends dire de toi? Rends compte de ton administration, car tu ne pourras plus administrer mes biens.</p><p>3  L'econome dit en lui-meme: Que ferai-je, puisque mon maitre m'ote l'administration de ses biens? Travailler a la terre? Je ne le puis. Mendier? J'en ai honte.</p><p>4  Je sais ce que je ferai, pour qu'il y ait des gens qui me recoivent dans leurs maisons quand je serai destitue de mon emploi.</p><p>5  Et, faisant venir chacun des debiteurs de son maitre, il dit au premier: Combien dois-tu a mon maitre?</p><p>6  Cent mesures d'huile, repondit-il. Et il lui dit: Prends ton billet, assieds-toi vite, et ecris cinquante.</p><p>7  Il dit ensuite a un autre: Et toi, combien d</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-11",
-      title: "Christ — Le Grand Mystère révélé",
-      duration: "60 min",
-      content: `<p>Chaque communion a de merveilleux croyants qui donnent tant. Ils donnent de leur temps, vie, energie, coeur et pluralite. Nous sommes tous encourages a donner de notre abondance. Nous avons tous les richesses de Dieu destinees a etre partagees les uns avec les autres.</p><p>II Corinthiens 8:7:</p><p>7   De meme que vous excellez en toutes choses, en foi, en parole, en connaissance, en zele a tous egards, et dans votre amour pour nous, faites en sorte d'exceller aussi dans cette oeuvre de bienfaisance.</p><p>Mais il y en a certains qui ont ete tant benis et avaient aussi la bonne attitude a ce sujet que c'est leur ministere de croire pour l'abondance et de donner pour pourvoir aux besoins des croyants et de l'Eglise. Romains 12 dit que la cle pour eux est de le faire sans arriere pensee. Ils devraient donner volontairement, avec simplicite, sans corde attachee, sans jamais vouloir obtenir. La Parole de Dieu nous encourage tous a etre des donneurs. Ces croyants sont champions pour donner ce qui illustre les principes du don enseigne dans la Bible.</p><p>II Corinthiens 8:12-15:</p><p>12  La bonne volonte, quand elle existe, est agreable en raison de ce qu'elle peut avoir a sa disposition, et non de ce qu'elle n'a pas.</p><p>13  Car il s'agit, non de vous exposer a la detresse pour soulager les autres,</p><p>14  (8-13) mais de suivre une regle d'egalite: dans la circonstance presente votre superflu pourvoira a leurs besoins, (8-14) afin que leur superflu pourvoie pareillement aux votres, en sorte qu'il y ait egalite,</p><p>15  selon qu'il est ecrit: Celui qui avait ramasse beaucoup n'avait rien de trop, et celui qui avait ramasse peu n'en manquait pas.</p><p>Notez qu'ils \`\`ne donnent pas jusqu'a ce que cela fasse mal.''  Le don authentique est par libre choix. Ce n'est pas la conduite coupable ni la conduite par toute autre forme de motivation negative. La Bible promet que Dieu donnera en retour. Mais pour proclamer ce profit les dons doivent etre donnes avec la bonne attitude et pour les bonnes raisons sinon quel est le profit?</p><p>II Corinthiens 9:7-11:</p><p>7  Que chacun donne comme il l'a resolu en son coeur, sans tristesse ni contrainte; car Dieu aime celui qui donne avec joie.</p><p>8  Et Dieu peut vous combler de toutes sortes de graces, afin que, possedant toujours en toutes choses de quoi satisfaire a tous vos besoins, vous ayez encore en abondance pour toute bonne oeuvre,</p><p>9  selon qu'il est ecrit: Il a fait des largesses, il a donne aux indigents; Sa justice subsiste a jamais.</p><p>10  Celui qui Fournit de la semence au semeur, Et du pain pour sa nourriture, vous fournira et vous multipliera la semence, et il augmentera les fruits de votre justice.</p><p>11  Vous serez de la sorte enrichis a tous egards pour toute espece de liberalites qui, par notre moyen, feront offrir a Dieu des actions de graces.</p><p>La phrase \`\`Sa justice subsiste a jamais'' se refere a la legalite du donneur lorsque les dons sont donnes avec la juste motivation. Ils continuent a multiplier comme les semences sont semees. Finalement, n</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c2-12",
-      title: "Le Corps dans le monde",
-      duration: "48 min",
-      content: `<p>concernant.</p><p>Luc 1:68-79:</p><p>68  Beni soit le Seigneur, le Dieu d'Israel, De ce qu'il a visite et rachete son peuple,</p><p>69  Et nous a suscite un puissant Sauveur Dans la maison de David, son serviteur, (se refere a Jesus Christ);</p><p>70  Comme il l'avait annonce par la bouche de ses saints prophetes des temps anciens, -</p><p>71  Un Sauveur qui nous delivre de nos ennemis et de la main de tous ceux qui nous haissent!</p><p>72  C'est ainsi qu'il manifeste sa misericorde envers nos peres, Et se souvient de sa sainte alliance,</p><p>73  Selon le serment par lequel il avait jure a Abraham, notre pere,</p><p>74  De nous permettre, apres que nous serions delivres de la main de nos ennemis, De le servir sans crainte,</p><p>75  En marchant devant lui dans la saintete et dans la justice tous les jours de notre vie.</p><p>76  Et toi, petit enfant, (se refere a jean) tu seras appele prophete du Tres-Haut; Car tu marcheras devant la face du Seigneur, pour preparer ses voies,</p><p>77  Afin de donner a son peuple la connaissance du salut Par le pardon de ses peches,</p><p>78  Grace aux entrailles de la misericorde de notre Dieu, En vertu de laquelle le soleil levant nous a visites d'en haut,</p><p>79  Pour eclairer ceux qui sont assis dans les tenebres et dans l'ombre de la mort, Pour diriger nos pas dans le chemin de la paix.</p><p>Nous pouvons clairement voir que l'apotre ne fait pas juste connaitre la doctrine anterieurement inconnue comme dans le verset 77, \`\`Afin de donner a son peuple la connaissance du salut'' mais aussi l'amener a porter du fruit comme vu dans le verset 79, \`\`Pour diriger nos pas dans le chemin de la paix.''  La paix regnera apres que les obstacles soient completement surmontes. Plus peut etre vu en regardant l'apostolat de Jean le Baptiste dans l'evangile de Jean.</p><p>Jean 1:6-8:</p><p>6  Il y eut un homme envoye de Dieu: son nom etait Jean.</p><p>7  Il vint pour servir de temoin, pour rendre temoignage a la lumiere, afin que tous crussent par lui.</p><p>8  Il n'etait pas la lumiere, mais il parut pour rendre temoignage a la lumiere.</p><p>Ainsi les apotres rendent connu la lumiere a leur generation et culture. Ils devoilent les choses qui etaient anterieurement cachees. Chaque Eglise locale avait un apotre dans le premier siecle comme vu dans II Corinthiens. Ils etaient envoyes comme representant par chaque Eglise locale pour les representer alors qu'ils accompagnaient Paul. Ils fonctionnaient comme des messagers fideles apportant la connaissance et l'application que Paul enseignait lorsqu'ils etaient de retour dans leurs Eglise de zone locale.</p><p>II Corinthiens 8:19-23:</p><p>19  et qui, de plus, a ete choisi par les Eglises pour etre notre compagnon de voyage dans cette oeuvre de bienfaisance, que nous accomplissons a la gloire du Seigneur meme et en temoignage de notre bonne volonte.</p><p>20  Nous agissons ainsi, afin que personne ne nous blame au sujet de cette abondante collecte, a laquelle nous donnons nos soins;</p><p>21  car nous recherchons ce qui est bien, non seulement devant le Seigneur, mais aussi devant les hom</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    ]
+      { id: "c2-1", title: "Introduction & Qualifications", duration: "45 min", content: `<h2>Introduction and Qualifications for This Course</h2><p>This course is designed for believers who are at an intermediate level in their spiritual growth. You have received foundational teachings, have begun to grow in God's Word, and are ready to go deeper.</p><h3>Colossians 1:3-12</h3><p>Paul's prayer for the Colossians describes the posture of a growing believer: bearing fruit, increasing in the knowledge of God, strengthened with all power, and giving thanks. This is the spirit in which we approach this course.</p><h3>Where We Are Coming From</h3><p>You have already learned: the trustworthiness of the Word, how to believe God and receive His promises, what it means to be born again, how to claim what comes with new birth, and how to speak in tongues. Now we go deeper — learning how to apply these truths more practically in the Body of Christ.</p><h3>The Great Mystery</h3><p>The central theme of this course is the Great Mystery of Colossians 1:27: "Christ in you, the hope of glory." Understanding what it means to have Christ IN you, and what that makes available to you and through you, is the foundation for everything that follows.</p>`, quiz: [{ question: "What is the 'Great Mystery' referenced in Colossians 1:27?", options: ["The mystery of salvation", "Christ in you, the hope of glory", "The mystery of the church's future", "The hidden wisdom of God"], correct: 1, explanation: "Colossians 1:27 reveals 'Christ in you, the hope of glory' as the great mystery — the indwelling presence of Christ is the foundation of everything in this course." }, { question: "This course is designed for believers at what level?", options: ["Brand new believers", "Mature ministers only", "Intermediate level — those who have received foundational teachings", "Seminary students"], correct: 2, explanation: "This intermediate course builds on foundational teachings. Students should already be grounded in basic Biblical truths before taking this course." }, { question: "Which of the following is a prerequisite knowledge for this course?", options: ["Understanding church history", "Speaking in tongues", "Knowledge of Hebrew and Greek", "Pastoral ministry experience"], correct: 1, explanation: "Speaking in tongues is listed as one of the prerequisites — students have already applied foundational truths and experienced this manifestation." }] },
+      { id: "c2-2", title: "The Body of Christ — Who Are We?", duration: "50 min", content: `<h2>The Body of Christ — Who Are We?</h2><p>1 Corinthians 12 introduces the metaphor of the church as a body. This is not merely a poetic image — it is a precise spiritual reality with practical implications for how we function together.</p><h3>One Body, Many Members</h3><p>Just as a physical body has many different parts — each with a specific function — the Body of Christ is composed of many believers, each with a specific role and set of abilities. No member is more important than another; all are necessary.</p><h3>Your Place in the Body</h3><p>Every believer has a specific place in the Body of Christ. This place is not self-assigned — it is given by God. Discovering and embracing your function in the Body is one of the most important journeys of spiritual growth.</p><h3>The Implications</h3><ul><li>You are needed — the Body is incomplete without your participation</li><li>Your gifts benefit others, not just yourself</li><li>Isolation from the Body diminishes your effectiveness</li><li>Humility is required — no single member can meet every need</li></ul>`, quiz: [{ question: "In 1 Corinthians 12, what does Paul use as a metaphor for the church?", options: ["A building with many rooms", "An army with different ranks", "A body with many members", "A family with many children"], correct: 2, explanation: "Paul uses the human body with its many interdependent members as the metaphor for the church — a precise spiritual reality, not just poetic imagery." }, { question: "Who assigns each believer their specific place and function in the Body of Christ?", options: ["Church leadership", "The believer themselves", "God", "Spiritual elders"], correct: 2, explanation: "Your place in the Body is not self-assigned — it is given by God. Discovering it requires prayer, community, and time." }, { question: "What happens when a believer isolates themselves from the Body of Christ?", options: ["Their personal faith grows stronger", "Their effectiveness is diminished", "They receive more direct revelation", "Nothing significant changes"], correct: 1, explanation: "Isolation from the Body diminishes effectiveness. We are designed for interdependence — the gifts God placed in us are meant to benefit others, and we need what others carry too." }] },
+      { id: "c2-3", title: "The Worship Manifestations", duration: "52 min", content: `<h2>The Worship Manifestations</h2><p>Among the nine manifestations of holy spirit, three are specifically called worship manifestations:</p><ul><li><strong>Speaking in tongues</strong> — the believer speaks to God in a language given by the Spirit</li><li><strong>Interpretation of tongues</strong> — the supernatural rendering in the known language of a message spoken in tongues</li><li><strong>Prophecy</strong> — speaking forth a message from God in the known language</li></ul><h3>Why "Worship" Manifestations?</h3><p>These manifestations are expressions of the spirit within us reaching toward God and being expressed through us to edify the Body. They are acts of worship — the spirit within responding to the Spirit of God.</p><h3>1 Corinthians 14</h3><p>Paul's entire chapter 14 is dedicated to ordering and understanding these three manifestations in the assembly. The goal is always edification — the building up of the Body.</p><h3>The Priority of Prophecy</h3><p>Paul says "I would rather you prophesy" (1 Cor 14:5) because prophecy directly edifies the assembly without requiring interpretation. This does not mean tongues is inferior — Paul prays in tongues more than all (1 Cor 14:18).</p>`, quiz: [{ question: "Which three manifestations are called 'worship manifestations'?", options: ["Word of knowledge, word of wisdom, discerning of spirits", "Faith, miracles, gifts of healings", "Tongues, interpretation of tongues, prophecy", "Apostle, prophet, teacher"], correct: 2, explanation: "The worship manifestations are speaking in tongues, interpretation of tongues, and prophecy — they express the spirit within us toward God and edify the Body." }, { question: "What is the overarching purpose of the worship manifestations in 1 Corinthians 14?", options: ["To demonstrate spiritual gifts", "To edify the Body — building it up", "To authenticate the speaker's ministry", "To convert unbelievers"], correct: 1, explanation: "Paul's entire focus in 1 Corinthians 14 is on edification — the building up of the Body. Every use of the manifestations should serve this purpose." }, { question: "Why does Paul say he would rather believers prophesy than speak in tongues in the assembly?", options: ["Because tongues is a lesser gift", "Because prophecy directly edifies the assembly without requiring interpretation", "Because tongues is only for private prayer", "Because prophecy is more spiritually mature"], correct: 1, explanation: "Prophecy edifies the assembly directly in the known language. Tongues in the assembly requires interpretation to edify others. The goal is always the edification of everyone present." }] },
+      { id: "c2-4", title: "Prophecy — Understanding and Practice", duration: "55 min", content: `<h2>Prophecy — Understanding and Practice</h2><p>Prophecy is one of the most misunderstood and misapplied gifts in the church today. This session provides clear Biblical grounding for what prophecy is, what it is not, and how it should be practiced.</p><h3>What Prophecy Is</h3><p>1 Corinthians 14:3 defines the purpose of prophecy clearly: "The one who prophesies speaks to people for their upbuilding and encouragement and consolation." Prophecy edifies, exhorts, and comforts. It is always positive in its ultimate effect — even when it contains correction.</p><h3>What Prophecy Is Not</h3><ul><li>It is not foretelling the future (that is word of wisdom)</li><li>It is not a revelation of secret sins (that is word of knowledge)</li><li>It is not an instruction for major life decisions — that requires multiple confirmations</li><li>It is never manipulative, controlling, or shaming</li></ul><h3>Practical Protocol</h3><p>When you believe you have a prophetic word:<ol><li>Pray in the spirit and confirm the impression</li><li>Write it down to ensure clarity</li><li>Share it humbly with appropriate leadership present</li><li>Allow it to be weighed (1 Corinthians 14:29)</li><li>Receive feedback with grace</li></ol></p>`, quiz: [{ question: "According to 1 Corinthians 14:3, what are the three purposes of prophecy?", options: ["Healing, deliverance, salvation", "Upbuilding, encouragement, and consolation", "Teaching, rebuking, correcting", "Revelation, wisdom, knowledge"], correct: 1, explanation: "1 Corinthians 14:3 says prophecy speaks for 'upbuilding and encouragement and consolation' — always serving these constructive, loving purposes." }, { question: "Which manifestation involves foretelling future events?", options: ["Prophecy", "Word of Knowledge", "Word of Wisdom", "Discerning of Spirits"], correct: 2, explanation: "Foretelling the future is specifically the word of wisdom, not prophecy. New Testament prophecy primarily speaks to present edification, exhortation, and comfort." }, { question: "What should happen to prophetic words before they are fully accepted?", options: ["They should be immediately acted upon", "They should be kept private until completely fulfilled", "They should be weighed by the Body (1 Corinthians 14:29)", "They should only be given to the senior pastor"], correct: 2, explanation: "1 Corinthians 14:29 says 'let the others weigh what is said.' Prophetic words are to be tested and weighed by the Body — no single person's word is beyond accountability." }] },
+      { id: "c2-5", title: "Interpretation of Tongues", duration: "48 min", content: `<h2>Interpretation of Tongues</h2><p>Interpretation of tongues is the supernatural rendering into the known language of a message spoken in tongues. Together, tongues and interpretation are equivalent to prophecy in their edifying effect (1 Corinthians 14:5).</p><h3>How It Works</h3><p>When someone speaks in tongues in the assembly, God provides through another believer (or sometimes the same person) the ability to render that message into the understood language of those present. This is not translation — it is supernatural interpretation.</p><h3>Key Principles</h3><ul><li><strong>God provides the interpretation.</strong> You do not figure it out logically — it comes as revelation.</li><li><strong>Begin to speak.</strong> Like tongues itself, interpretation often requires the step of faith — beginning to speak in response to an inner impression before you have the full message.</li><li><strong>The length may differ.</strong> A long message in tongues may have a short interpretation, and vice versa — God communicates the meaning, not a word-for-word translation.</li></ul><h3>Paul's Instruction (1 Corinthians 14:13)</h3><p>"Therefore, one who speaks in a tongue should pray that he may interpret." Believers who regularly speak in tongues are encouraged to also pray for the gift of interpretation, so that messages in tongues can be of benefit to the whole assembly.</p>`, quiz: [{ question: "What is the supernatural ability to render a tongues message into the known language called?", options: ["Translation", "Interpretation of tongues", "Prophecy", "Word of knowledge"], correct: 1, explanation: "Interpretation of tongues is the supernatural rendering of a tongues message into the known language — it is not natural translation but a manifestation of holy spirit." }, { question: "According to 1 Corinthians 14:5, what is the combined effect of tongues plus interpretation?", options: ["Greater than prophecy", "Equivalent to prophecy in edifying the assembly", "Less effective than prophecy", "Only effective for individual edification"], correct: 1, explanation: "1 Corinthians 14:5 says that one who prophesies is greater than one who speaks in tongues 'unless someone interprets, so that the church may be built up' — tongues plus interpretation equals prophecy in effect." }, { question: "What step of faith does interpretation often require?", options: ["Three days of fasting first", "A vision confirming the interpretation", "Beginning to speak before you have the complete message", "Waiting for complete silence in the room"], correct: 2, explanation: "Like tongues, interpretation often requires beginning to speak in response to an inner impression — before you have the full message. God provides the rest as you step out in faith." }] },
+      { id: "c2-6", title: "Functioning in the Body", duration: "60 min", content: `<h2>Functioning Effectively in the Body of Christ</h2><p>Understanding the Body of Christ intellectually is only the beginning. This session addresses the practical question: how do we actually function well together as members of Christ's Body?</p><h3>Finding Your Function</h3><p>Your function in the Body is discovered through:<ul><li>Prayer and time in God's Word</li><li>Serving in various capacities and noticing where you bear fruit</li><li>Receiving input from mature believers who observe your life</li><li>Paying attention to the desires God places in your heart (Psalm 37:4)</li></ul></p><h3>The Principle of Complementarity</h3><p>Members of the Body are designed to complement, not compete with one another. When you understand your function, you can celebrate others' different functions without jealousy or comparison. The eye doesn't wish it were a hand — each part rejoices in what it is designed to do.</p><h3>Developing Your Function</h3><p>Natural gifts and spiritual gifts both require development. A person with musical ability still needs to practice. A person with a spiritual gift still needs to cultivate it through use, study, and accountability. Don't wait until your gift is "perfect" to begin using it — develop it through use.</p>`, quiz: [{ question: "According to Psalm 37:4, how does God guide believers toward their function in the Body?", options: ["Through audible voices and visions only", "Through church leadership exclusively", "By placing specific desires in their hearts", "Through elimination of all other options"], correct: 2, explanation: "Psalm 37:4 says 'Delight yourself in the Lord, and he will give you the desires of your heart.' As we grow in God, He places the desires that align with our function within us." }, { question: "How are members of the Body designed to relate to one another?", options: ["Competitively — the strongest serve the whole", "In a hierarchy with some members more important", "Complementarily — different functions that together form a complete whole", "Identically — all doing the same things"], correct: 2, explanation: "Members are designed to complement, not compete. Like parts of a physical body, different functions work together to accomplish what no single member could alone." }, { question: "When should believers begin using their spiritual gifts?", options: ["Only after theological training", "Only after ordination", "During development, not waiting until the gift is 'perfect'", "Only in private, never in the assembly"], correct: 2, explanation: "Gifts develop through use. Don't wait for perfection — begin using what God has given you, and it will develop through practice, feedback, and accountability." }] },
+      { id: "c2-7", title: "Love — The Greatest Context", duration: "45 min", content: `<h2>Love — The Greatest Context for All Manifestations</h2><p>1 Corinthians 13 stands between the two great chapters on gifts (12 and 14) for a reason. Love is not a separate topic from spiritual gifts — it is the context without which gifts are meaningless.</p><h3>1 Corinthians 13:1-3</h3><p>Paul lists the most impressive spiritual abilities imaginable — speaking in all tongues, prophetic knowledge, mountain-moving faith, sacrificial generosity — and declares that without love, all of it amounts to nothing. The gifts without love are noise and emptiness.</p><h3>What Love Looks Like</h3><p>Verses 4-7 describe love not as a feeling but as a set of behaviors: patient, kind, not envious, not boastful, not arrogant, not rude, not self-seeking, not irritable, not resentful, not rejoicing in wrongdoing, but rejoicing in truth — bearing, believing, hoping, enduring all things.</p><h3>Love Never Fails</h3><p>Verse 8: "Love never fails. As for prophecies, they will pass away; as for tongues, they will cease; as for knowledge, it will pass away." Spiritual manifestations are tools for this age. Love is eternal. When this age ends, love remains. This gives us our hierarchy of values — love above all manifestations.</p>`, quiz: [{ question: "Why is 1 Corinthians 13 placed between chapters 12 and 14 (which are both about spiritual gifts)?", options: ["As a digression from the main topic", "Because love is the context without which gifts are meaningless", "To show that love and gifts are unrelated", "Because it was written at a different time and inserted later"], correct: 1, explanation: "The placement is intentional — love is not separate from spiritual gifts but the essential context for them. Without love, even the most impressive gifts amount to nothing." }, { question: "According to 1 Corinthians 13:8, what ultimately distinguishes love from spiritual manifestations?", options: ["Love is more powerful in spiritual warfare", "Love never fails and is eternal; manifestations are for this age", "Love is available to everyone while gifts are selective", "Love can be developed while gifts are given"], correct: 1, explanation: "'Love never fails.' Prophecies will pass away, tongues will cease, knowledge will pass away — but love is eternal. This establishes love as the highest value above all manifestations." }, { question: "How does 1 Corinthians 13:4-7 define love?", options: ["As a strong emotional feeling toward God and others", "As a set of observable behaviors — patient, kind, not envious, etc.", "As prioritizing spiritual gifts above personal needs", "As agreeing with other believers on all matters"], correct: 1, explanation: "1 Corinthians 13:4-7 defines love through a list of behaviors — not feelings. Love is patient, kind, not envious, not boastful, etc. It is active and observable, not merely emotional." }] },
+      { id: "c2-8", title: "Practical Sessions for Manifestations", duration: "55 min", content: `<h2>Practical Sessions for Manifestations</h2><p>This session provides practical guidance for creating and participating in environments where worship manifestations can be exercised safely and effectively.</p><h3>Principles for Participatory Sessions</h3><ol><li><strong>Free will — we exercise and He energizes.</strong> God does not override our will — we choose to step out, and He provides the ability.</li><li><strong>Love is the motivation.</strong> We practice these manifestations because we love God and others, not to demonstrate spiritual status.</li><li><strong>God is faithful.</strong> When you are ready to speak in tongues or give an interpretation, you will always have the first word. Speak it, and God provides the rest.</li><li><strong>We are a family.</strong> Everyone in the room is supporting you in prayer as you step out. There is no condemnation for sincere efforts.</li><li><strong>Speak rapidly.</strong> Don't overthink or pause excessively. The Spirit flows as we yield.</li><li><strong>Keep it measured.</strong> Don't go on for extended periods on your first attempts — build confidence gradually.</li><li><strong>The message will be complete.</strong> Interpretation and prophecy will always be a complete thought — trust that God will complete what He began through you.</li></ol>`, quiz: [{ question: "In a practice session for worship manifestations, who provides the spiritual ability?", options: ["The group leader", "The most experienced believer present", "God — we exercise and He energizes", "The person's own spiritual maturity"], correct: 2, explanation: "The principle is 'we exercise and He energizes' — believers make the choice to step out, and God provides the ability. It is a partnership, not a solo performance." }, { question: "What does 'God is faithful' mean practically when giving an interpretation or prophecy?", options: ["You will always feel ready before speaking", "When you are ready to speak, the first word will always be there — speak it and God provides the rest", "God will always confirm your word with a sign", "You will never make a mistake if your heart is right"], correct: 1, explanation: "Faithfulness means that when you take the step of faith to speak, God guarantees the first word will be available. You speak it, and He provides what follows — it is a cooperative act of faith." }, { question: "Why are believers encouraged to keep messages brief on their first attempts?", options: ["Because the Spirit only operates briefly", "To allow more people to participate", "To build confidence gradually rather than overwhelming themselves", "Because long messages are less spiritual"], correct: 2, explanation: "First attempts should be kept measured to build confidence gradually. As you grow in experience and trust, the length and complexity of messages will naturally develop." }] },
+      { id: "c2-9", title: "The Body of Christ — Depth Study", duration: "58 min", content: `<h2>The Body of Christ — A Depth Study</h2><p>This session goes deeper into the theological and practical dimensions of the Body of Christ, drawing from Ephesians 4 and Colossians 1.</p><h3>Ephesians 4:11-16 — The Equipping Ministries</h3><p>God gave the church apostles, prophets, evangelists, pastors, and teachers — not to do all the ministry themselves, but to equip every member for ministry. The goal: "the body builds itself up in love" (Eph 4:16). Every believer is a minister.</p><h3>The Head and the Body</h3><p>Colossians 1:18 identifies Christ as "the head of the body, the church." The head directs; the body responds. Revelation manifestations are one of the primary means by which Christ communicates His will to His Body in real time.</p><h3>Growing into Fullness</h3><p>Ephesians 4:13 speaks of coming "to the measure of the stature of the fullness of Christ." This is corporate fullness — the whole Body together expressing the fullness of Christ, not any single individual. We need each other to express Christ fully.</p>`, quiz: [{ question: "According to Ephesians 4:11-12, what is the purpose of apostles, prophets, evangelists, pastors, and teachers?", options: ["To do all the ministry on behalf of believers", "To equip every member to do the work of ministry", "To govern the organizational structure of churches", "To write authoritative theological documents"], correct: 1, explanation: "Ephesians 4:12 says these gifts are given 'to equip the saints for the work of ministry' — every believer is a minister, and these five roles serve to equip them." }, { question: "How does Christ communicate His will to His Body in real time?", options: ["Only through Scripture already written", "Only through senior leadership", "Through revelation manifestations among other means", "Only through internal conviction"], correct: 2, explanation: "As Head of the Body, Christ directs — and revelation manifestations are one of the primary ways He communicates His will in real time to the corporate Body." }, { question: "What does Ephesians 4:13 mean by 'the measure of the stature of the fullness of Christ'?", options: ["Individual believers achieving personal perfection", "The corporate Body together expressing Christ's fullness", "The senior leadership team operating in all gifts", "The completion of the canon of Scripture"], correct: 1, explanation: "This is corporate fullness — the whole Body together expressing Christ fully. No single individual can express the fullness of Christ; we need each other to do so together." }] },
+      { id: "c2-10", title: "Manifestations in the Assembly", duration: "52 min", content: `<h2>Worship Manifestations in the Assembly</h2><p>1 Corinthians 14 gives detailed practical instruction for how worship manifestations should operate when the church gathers. This session works through Paul's guidelines.</p><h3>Order and Edification (14:26)</h3><p>"When you come together, each one has a hymn, a lesson, a revelation, a tongue, or an interpretation. Let all things be done for building up." The gatherings of the early church were participatory — many members contributing, all for the purpose of edification.</p><h3>The Rule of Two or Three (14:27)</h3><p>When tongues and interpretation are exercised in the assembly, Paul limits it to two or three messages, each interpreted. This prevents excess and ensures order without quenching the Spirit.</p><h3>Weighing Prophecy (14:29)</h3><p>"Let two or three prophets speak, and let the others weigh what is said." Prophetic words are to be tested — this is not a sign of distrust but of wisdom. Even genuine gifts need the accountability of the community.</p><h3>Decency and Order (14:40)</h3><p>"All things should be done decently and in order." God is not the author of confusion. Genuine manifestations of the Spirit will always be compatible with a spirit of peace and order. Chaos is not a sign of the Spirit's presence.</p>`, quiz: [{ question: "According to 1 Corinthians 14:26, what was the nature of early church gatherings?", options: ["One person teaching while others listened", "Participatory — each one contributing for the building up of all", "Silent prayer with occasional readings", "Primarily musical worship without speaking gifts"], correct: 1, explanation: "1 Corinthians 14:26 shows gatherings where each one came with something to contribute — hymn, lesson, revelation, tongue, interpretation. Participatory, not passive." }, { question: "What is the 'rule of two or three' in 1 Corinthians 14:27?", options: ["Only mature believers can speak in the assembly", "Tongues and interpretation are limited to two or three messages per gathering, each interpreted", "At least three people must confirm a word before it is shared", "Three languages maximum can be spoken in any gathering"], correct: 1, explanation: "Paul limits tongues-plus-interpretation to two or three messages per gathering. This ensures order without quenching the Spirit — a wise, practical guideline." }, { question: "What does 1 Corinthians 14:40 establish as the standard for all worship manifestations?", options: ["Spontaneity and freedom from all structure", "Decency and order — God is not the author of confusion", "Silence and reverence above all expression", "Authority of the senior leader over all contributions"], correct: 1, explanation: "'All things should be done decently and in order' — genuine manifestations of the Spirit are compatible with peace and order. Chaos is not a sign of the Spirit's presence." }] },
+      { id: "c2-11", title: "Christ — The Great Mystery Revealed", duration: "60 min", content: `<h2>Christ in You — The Great Mystery Revealed</h2><p>We return in this session to the central theme of the course: the mystery of Christ in you (Colossians 1:27). Understanding this truth at a deeper level transforms how we see ourselves and how we function in the Body.</p><h3>What "Christ in You" Means</h3><p>When you were born again, Christ — through His Spirit — came to dwell within you. This is not metaphorical. The same power that raised Jesus from the dead is resident within every believer (Ephesians 1:19-20). You carry resurrection power.</p><h3>Romans 8:11</h3><p>"If the Spirit of him who raised Jesus from the dead dwells in you, he who raised Christ Jesus from the dead will also give life to your mortal bodies through his Spirit who dwells in you." The indwelling Spirit is not a passive presence — it is life-giving power available to you right now.</p><h3>Implications for the Worship Manifestations</h3><p>When you speak in tongues, give an interpretation, or prophesy — it is the Spirit within you expressing itself through your voice. You are the vessel; God is the source. This removes both pride (you are not the source) and fear (you are not performing alone).</p>`, quiz: [{ question: "According to Ephesians 1:19-20, what power is available to every believer?", options: ["The power of positive thinking", "The same power that raised Jesus from the dead", "A portion of God's power suitable to our faith level", "The power of Scripture memorization"], correct: 1, explanation: "Ephesians 1:19-20 says the power available to believers is the same power that raised Christ from the dead — resurrection power. This is not ordinary power." }, { question: "According to Romans 8:11, what does the indwelling Spirit do?", options: ["Provides passive comfort only", "Gives life to mortal bodies — it is life-giving, not passive", "Communicates only through Scripture", "Is only fully active after death"], correct: 1, explanation: "Romans 8:11 says the indwelling Spirit 'will also give life to your mortal bodies' — an active, life-giving presence, not merely a passive comfort." }, { question: "Understanding 'Christ in you' removes both pride and fear because:", options: ["It makes believers feel more worthy", "God is the source — believers are vessels, not performing alone", "It guarantees all manifestations will be perfect", "It means mistakes are impossible"], correct: 1, explanation: "When you understand you are the vessel and God is the source, pride is removed (you are not the source of the power) and fear is removed (you are not performing alone — God is with you)." }] },
+      { id: "c2-12", title: "The Body in the World", duration: "48 min", content: `<h2>The Body of Christ in the World</h2><p>The Body of Christ does not exist for itself — it exists for the world. This session addresses the outward dimension of everything we have studied.</p><h3>John 17:18</h3><p>Jesus prayed: "As you sent me into the world, so I have sent them into the world." The mission of the church is an extension of the mission of Jesus — to reveal the Father, bring healing, and reconcile people to God.</p><h3>Worship Manifestations in Evangelism</h3><p>The worship manifestations are powerful evangelistic tools. 1 Corinthians 14:24-25 describes an unbeliever entering a gathering where prophecy is operating: "he is convicted by all, he is called to account by all, the secrets of his heart are disclosed, and so, falling on his face, he will worship God and declare that God is really among you."</p><h3>A Lifestyle, Not Just Meetings</h3><p>The manifestations are not reserved for church services. They can flow in everyday conversations, workplace encounters, family interactions. As we become more sensitive to the Spirit in all of life, the manifestations become a natural expression of the Christ within us — everywhere we go.</p>`, quiz: [{ question: "According to John 17:18, what is the relationship between Jesus' mission and the church's mission?", options: ["They are completely different missions", "The church's mission is purely internal — caring for believers", "The church's mission extends Jesus' mission — both are sent into the world", "The church's mission ends at the church building doors"], correct: 2, explanation: "Jesus said 'as you sent me, so I have sent them' — the church's mission is a direct extension of Jesus' mission to reveal the Father and reconcile people to God." }, { question: "According to 1 Corinthians 14:24-25, what can happen when an unbeliever encounters prophecy in operation?", options: ["They are offended and leave", "They are confirmed in unbelief", "Their heart secrets are disclosed, they fall before God, and declare God is present", "Nothing significant — only believers are affected"], correct: 2, explanation: "1 Corinthians 14:24-25 describes an unbeliever being convicted by prophecy — the secrets of their heart disclosed — leading them to worship God and declare His presence. Manifestations are evangelistic." }, { question: "Are worship manifestations limited to formal church services?", options: ["Yes — they require the proper church setting", "No — they can flow in everyday life, workplaces, and family settings", "Only prophecy can operate outside church; tongues requires a formal setting", "They are less powerful outside of dedicated prayer meetings"], correct: 1, explanation: "As we become sensitive to the Spirit in all of life, manifestations become a natural expression of Christ within us — in everyday conversations, workplaces, and family interactions." }] },
+    ],
   },
   {
     id: "course-3",
-    slug: "administrer-la-puissance",
+    slug: "administering-gods-power",
     order: 3,
-    title: "Administrer la Puissance de Dieu",
-    subtitle: "Foi, miracles, guérison et transmission",
-    description: "Un cours avancé sur les manifestations de transmission : foi spéciale, opérations de miracles, et dons de guérisons.",
-    longDescription: "Ce cours avancé complète la série — opérer dans la foi spéciale, les opérations de miracles et les dons de guérisons. Le ministère de Jésus était un ministère de grâce et de délivrance — le nôtre doit l'être aussi.",
+    titleFr: "Administrer la Puissance de Dieu",
+    subtitleFr: "Foi, miracles, guérisons et transmission",
+    descriptionFr: "Un cours avancé sur les manifestations de transmission : foi spéciale, opérations de miracles, et dons de guérisons — apporter la délivrance au peuple de Dieu.",
+    title: "Administering God's Power",
+    subtitle: "Faith, miracles, healing, and impartation",
+    description:
+      "An advanced course on the manifestations of impartation: faith, miracles, and gifts of healings — bringing God's deliverance to His people.",
+    longDescription:
+      "This advanced course completes the series. You will learn how to administer the power manifestations: special faith, working of miracles, and gifts of healings. The ministry of Jesus was one of grace and deliverance — so must ours be.",
+    color: "#1a1a18",
+    icon: "zap",
     chapters: [
-    {
-      id: "c3-1",
-      title: "Administrer la puissance de Dieu — Introduction",
-      duration: "69 min",
-      content: `<p>Un cours sur les manifestations de transmission du saint-esprit,</p><p>foi, miracles, et dons de guerisons,</p><p>amener la delivrance au peuple de Dieu.</p><p>par</p><p>John F. Shroyer</p><p>et</p><p>Wayne G. Clapp</p><p>Avec 2 CD Supplementaires sur les cles pour Guerir</p><p>par Sangat Bains</p><p>(Traduit en francais par Franck JOUVELLIER & Melanie GABA)</p><p>(c)Agir sur sa Foi Academy2004</p><p>Voici la derniere partie des quatre Series sur la puissance de Dieu.</p><p>La premiere et fondamentale des series est \`\`Vivre dans la Puissance de Dieu.'' Elle presente les verites fondamentales de la Parole de Dieu et conduit ceux qui veulent manifester la puissance de Dieu a la manifestation du parler en langues.</p><p>\`\`Grandir dans la puissance de Dieu'' est le second de la serie. C'est un cours sur le Corps de Christ, la part du croyant chretien en lui, et les manifestations d'adoration du saint-esprit. Ceux qui veulent manifester la puissance de Dieu sont conduits dans les manifestations de prophetie et d'interpretation des langues.</p><p>\`\`Conduit par la puissance de Dieu'' est la troisieme serie et s'occupe des manifestations de parole de connaissance, parole de sagesse, et discernement des esprits.</p><p>La quatrieme et derniere serie est \`\`Administrer Avec La Puissance De Dieu''. Cela se rapporte a la puissance ou aux manifestations de transmission, de foi, de miracles, et des dons de guerisons.</p><p>Ces coffrets d'enseignement sont destines en tant qu'outils a aider les croyants qui veulent croire a mieux connaitre leur Pere celeste et a marcher dans la simplicite de l'operation des manifestations du saint-esprit : la puissance de Dieu.</p><p>Partie	Titre                  		Enseignant 	Temps	Page</p><p>1	Administrer avec la puissance de Dieu			JFS		69:46	1</p><p>2	Les Manifestations de Transmission			JFS	54:2	17</p><p>3	Les Manifestations Travaillent Ensemble 		WGC		76:48	29</p><p>4	Travailler Ensemble Avec Dieu			WGC	78:57	45</p><p>5	Le Hall de Gloire des croyants			WGC	77:51	63</p><p>6	Liberer Votre Foi			WGC	59:13		79</p><p>7	Les Miracles de Josue			JFS	66:58	100</p><p>8	Les Miracles of Jesus			JFS	49:47	116</p><p>9	Signes, Miracles, et Prodiges			WGC	69:37	127</p><p>10	Chasser Les Esprits Diaboliques			JFS	78:45	146</p><p>11	Recits sur des Esprits Diaboliques Chasses 		JS/WC	60:09	165</p><p>12	Plus de Recits sur des Esprits Diaboliques Chasses	JS/WC	68:48	180</p><p>13	Fondements de Guerisons			WGC	62:32	195</p><p>14	Realites de Guerison			WGC	45:11	208</p><p>15	Recits De Guerisons #1			JS/WC	60:33		221</p><p>16	Recits De Guerisons #2			JS/WC	72:45		234</p><p>17	Recits De Guerisons #3			JS/WC	71:23		256</p><p>18	Les Premieres deux cles pour Guerir			SB	68:31		278</p><p>19	Trois Cles Supplementaires pour Guerir			SB	75:46		294</p><p>Appendices</p><p>Dieu veut que chacun soit gueri de toute maladie tout le temps						313</p><p>Exemples de Manifestation de miracle non associe avec la Guerison 315</p><p>Sacrifie par l'Esprit								319</p><p>Questions que Jesus a posees dans les situations de guerison						326</p><p>Comment la guerison est administree dans la Bible							328</p><p>La guerison dans le Nouveau Te</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-2",
-      title: "Les manifestations de transmission",
-      duration: "54 min",
-      content: `<p>Il y trouva un homme nomme Enee, couche sur un lit depuis huit ans, et paralytique. Pierre lui dit: Enee, Jesus-Christ te guerit; leve-toi, et arrange ton lit. Et aussitot il se leva.</p><p>Luc 8:43:</p><p>Or, il y avait une femme atteinte d?une perte de sang depuis douze ans, et qui avait depense tout son bien pour les medecins, sans qu?aucun ait pu la guerir.</p><p>Luc 13:11:</p><p>Et voici, il y avait la une femme possedee d?un esprit qui la rendait infirme depuis dix-huit ans; elle etait courbee, et ne pouvait pas du tout se redresser.</p><p>Cela dit qu'il avait un esprit d'infirmite. Est-ce que cela signifie que toute personne que vous voyez etant infirme a un esprit? Non, mais cette femme en avait un. Cela dit ainsi. Jesus a dit, \`\`femme soit deliee!'' Elle etait guerie apres 18 ans. Cela dit qu'il imposa les mains sur elle et la gueri.</p><p>Jean 5:5a:</p><p>La se trouvait un homme malade depuis trente-huit ans.</p><p>L'homme a la piscine pres de la porte des brebis ne pouvait pas marcher. Cela ne dit pas qu'il avait un esprit. Parce que quelqu'un est malade ou afflige ne signifie pas qu'il a un esprit diabolique appele \`\`infirmite.'' Jesus a gueri cet homme. Il l'a fait se lever et lui a dit de marcher. Est-ce quelque chose de trop dure pour Dieu? S'il n'y a rien de trop grand pour Dieu alors il n'y a rien de trop grand pour vous si vous marchez dans les pas de Jesus-Christ et parlez avec autorite.</p><p>Marc 9:21:</p><p>Jesus demanda au pere: Combien y a-t-il de temps que cela lui arrive? Depuis son enfance, repondit-il.</p><p>Quel age avait le fils? Cela ne vous le dit pas. Neanmoins a l'age qu'il avait, il n'etait pas capable de croire pour lui-meme. Il etait sous l'autorite de son pere. Une chose que vous avez besoin de savoir en tant que parents c'est que vos enfants sont sous votre autorite. Ce que vous dites et ce que vous faites a un grand effet sur eux. Ici le pere devait croire. Il a dit, \`\`Si vous pouvez faire quelque chose, ayez pitie de nous.'' Alors Jesus lui a dit, \`\`Avec Dieu toutes choses sont possibles.'' C'est une belle phrase, mais cela a besoin de signifier plus que ca pour vous et moi. Ca doit bruler dans la profondeur de vos coeurs. Si quelqu'un vient a vous avec une situation, vous voudrez vous rappeler cette ecriture.</p><p>Dieu peut guerir ceux qui sont sur leur lit de mort.</p><p>II Roi 20:1:</p><p>En ce temps-la, Ezechias fut malade a la mort. Le prophete Esaie, fils d?Amots, vint aupres de lui, et lui dit: Ainsi parle l?Eternel: Donne tes ordres a ta maison, car tu vas mourir, et tu ne vivras plus.</p><p>Mets tes affaires en ordre et fais tes sacs! Ca venait d'un prophete de Dieu. C'est joliment defini.</p><p>II Roi 20:2:</p><p>Ezechias tourna son visage contre le mur, et fit cette priere a l?Eternel:</p><p>Si vous tournez votre visage vers le mur vous ne pouvez pas voir autre chose. Lorsqu'il tourna sa face vers le mur, c'etait pour etre avec Dieu. Il n'y avait rien entre, juste lui et Dieu.</p><p>II Roi 20:3:</p><p>O Eternel! souviens-toi que j?ai marche devant ta face avec fidelite et integrite de coeu</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-3",
-      title: "Les manifestations travaillent ensemble",
-      duration: "76 min",
-      content: `<p>homme impotent et boiteux depuis le ventre de sa mere], la foule eleva la voix, et dit en langue lycaonienne: Les dieux sous une forme humaine sont descendus vers nous.</p><p>Paul l'a fait. S'il n'avait pas fait, cela n'aurait pas ete fait. Maintenant nous connaissons a travers les ecritures additionnelles, qu'il ne l'a pas fait par lui-meme. Se rappeler qu'il a dit en Philippiens, \`\`Je puis tout par celui qui me fortifie.''</p><p>Actes 28:8:</p><p>Le pere de Publius etait alors au lit, malade de la fievre et de la dysenterie; Paul, s?etant rendu vers lui, pria, lui imposa les mains, et le guerit.</p><p>Si vous voulez administrer la guerison, alors vous devrez accomplir la guerison. Nul part dans l'Ancien Testament cela ne dit que nous devons prier Dieu pour guerir. L'exemple de Jesus-Christ etait qu'il a gueri. Paul a fait de meme. Nous connaissons, toutefois, que nous ne le faisons pas par nous- memes. Dieu travaille avec nous.</p><p>Quelques-uns enseignent que seul les apotres ont pu faire les oeuvres puissantes de Dieu. Toutefois, Philippe et Etienne n'etaient pas issus des douze apotres initiaux. Vous rappelez-vous Ananias qui a administre Paul? Il etait un certain disciple. Vous n'avez pas besoin d'un don de ministere. Vous avez juste besoin de vouloir.</p><p>Galates 3:5:</p><p>Celui qui vous accorde l?Esprit, et qui opere des miracles parmi vous, le fait-il donc par les oeuvres de la loi, ou par la predication de la foi?</p><p>La reponse bien sur par la predication de la foi. Le point est qu'il y avait des personnes en Galatie qui faisaient des miracles. C'etait par la predication de la foi, mais il les prenait en exemple parce qu'ils l'avaient fait. Si les miracles se sont realises, vous avez besoin de les faire. Si vous ne le faites pas, ils ne se realiseront pas. Qui les a accompli? Ce n'etait pas necessairement les apotres, les prophetes, les evangelistes, les pasteurs, ou les enseignants. C'etait les croyants qui agissaient et operaient les manifestations de l'esprit.</p><p>Jean 14:12:</p><p>12 En verite, en verite, je vous le dis, celui qui croit en moi fera aussi les oeuvres que je fais, et il en fera de plus grandes, parce que je m?en vais au Pere;</p><p>Ces versets que nous avons juste lus et d'autres nous disent que les hommes ont fait les miracles. Mais, nous ne pouvons pas oublier les autres ecritures qui s'appliquent aussi dans ces situations. Se rappeler le principe de l'ecriture additionnelle.</p><p>Actes 2:4:</p><p>Et ils furent tous remplis du Saint-Esprit, et se mirent a parler en d?autres langues, selon que l?Esprit leur donnait de s?exprimer.</p><p>Toutes les fois qu'ils ont parles en langues l'esprit a donne de quoi parler. Apres cela, est-ce que Dieu doit le dire toutes les fois alors que l'esprit donne les mots? Dieu est fidele pour donner les paroles a declarer chaque fois. Si nous faisons notre part, Dieu fera la sienne. Il est toujours fidele.</p><p>Actes 3:12:</p><p>Pierre, voyant cela, dit au peuple: Hommes Israelites, pourquoi vous etonnez-vous de cela? Pourquoi avez-vous les regards fixes</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-4",
-      title: "Travailler ensemble avec Dieu",
-      duration: "78 min",
-      content: `<p>Or sans la foi il est impossible de lui etre agreable; car il faut que celui qui s?approche de Dieu croie que Dieu existe, et qu?il est le remunerateur de ceux qui le cherchent.</p><p>John s'occupe de ce verset dans la partie I de Vivre Dans la Puissance de Dieu heure 1. Dieu n'outrepassera jamais le libre choix qu'Il nous a donne. Il voudra seulement travailler en nous si nous croyons. Il ne nous oblige pas. Nous devons accepter par la foi. Lorsque nous croyons, nous le contentons. Lorsque nous croyons nous Lui permettons de faire ce qu'Il veut faire. Apres tout c'est sa volonte que nous sommes en train de faire. Lorsque nous cherchons Dieu diligemment Il nous recompense. Plusieurs fois, la recompense vient sous la forme de paroles de connaissance, paroles de sagesse, et discernements des esprits.</p><p>Hebreux 11:7-13:</p><p>7 C?est par la foi que Noe, divinement averti des choses qu?on ne voyait pas encore, et saisi d?une crainte respectueuse, construisit une arche pour sauver sa famille; c?est par elle qu?il condamna le monde, et devint heritier de la justice qui s?obtient par la foi. C?est par la foi qu?Abraham, lors de sa vocation, obeit et partit pour un lieu qu?il devait recevoir en heritage, et qu?il partit sans savoir ou il allait. C?est par la foi qu?il vint s?etablir dans la terre promise comme dans une terre etrangere, habitant sous des tentes, ainsi qu?Isaac et Jacob, les coheritiers de la meme promesse. Car il attendait la cite qui a de solides fondements, celle dont Dieu est l?architecte et le constructeur. C?est par la foi que Sara elle-meme, malgre son age avance, fut rendue capable d?avoir une posterite, parce qu?elle crut a la fidelite de celui qui avait fait la promesse. [Elle avait la promesse et elle a cru.] C?est pourquoi d?un seul homme, deja use de corps, naquit une posterite nombreuse comme les etoiles du ciel, comme le sable qui est sur le bord de la mer et qu?on ne peut compter. C?est dans [kata; selon] la foi qu?ils sont tous morts, sans avoir obtenu les choses promises; mais ils les ont vues [ils etaient absolument convaincus meme ne les ayant pas vu] et saluees de loin [quelle grande declaration], reconnaissant qu?ils etaient etrangers et voyageurs sur la terre.</p><p>Nous vivons autant que nous croyons, et nous pouvons croire jusqu'a notre dernier souffle. On m'a enseigne qu'aussi longtemps que vous croyez vous vivrez et lorsque vous arretez de croire Dieu vous mourrez. Ce n'est pas vrai. Ces hommes ont tous cru Dieu jusqu'a la fin. Jacob a beni ses fils sur son lit de mort donnant une merveilleuse prophetie sur chacun d'eux. Revelation 14:13 dit, \`\`Benis sont les morts qui meurent dans le seigneur ....'' Les personnes peuvent etre en communion avec Dieu et tenir ferme dans le seigneur jusqu'a ce qu'ils respirent leur dernier souffle. La mort pour nous est juste un endormissement. Nous nous reveillerons a nouveau. Lorsque nous serons trop fatigues pour continuer, nous nous endormirons simplement.</p><p>Hebreux 11:17-20:</p><p>C?est par la foi</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-5",
-      title: "La salle de gloire des croyants",
-      duration: "77 min",
-      content: `<p>Dans Les Miracles de Josue nous verrons comment Dieu est toujours dans l'operation de miracle. Josue a bati un solide fondement dans la Parole de Dieu qui lui a permis d'accomplir ce que Dieu l'a appele a faire. Nous verrons comment il a conduit le peuple de Dieu a travers le Jourdain en periode de crue. Nous verrons comment Josue en suivant les Paroles du Seigneur a abattu les murs de Jericho. Josue a fini l'oeuvre que Dieu l'a appele a faire meme lorsque cela requiere que le soleil reste dans sa position afin qu'il puisse achever ce qu'il a commence.</p><p>Information d'arriere-plan Importante</p><p>Dieu est toujours dans l'operation de miracle. Nous avons juste besoin de percer; nous avons besoin d'y aller. C'est notre temps, et c'est notre tour. La vie est courte. Ainsi qu'allons-nous faire? Si nous allons dans la Parole de Dieu et commencons a croire Dieu et a bouger avec Lui lorsque vous etes un adolescent, c'est super. Vous avez beaucoup d'annees devant vous. Meme si vous passez un jour ou une semaine avec Dieu, vous pouvez faire ceci, ce qui sera reconnu pour des generations. C'est la maniere dont c'est grand et puissant lorsque nous decidons de bouger avec Dieu.</p><p>Je veux regarder quelques miracles non lies a la guerison.</p><p>Moise venait juste de mourir. Maintenant, Josue devait tenir les rennes. Lorsque vous etes partis, ceux qui sont derriere vous prennent la releve. C'est la maniere dont cela travaille. Maintenant, c'etait le temps de Josue.</p><p>Josue 1:1,2:</p><p>1  Apres la mort de Moise, serviteur de l'Eternel, l'Eternel dit a Josue, fils de Nun, serviteur de Moise:</p><p>2 Moise, mon serviteur, est mort; maintenant, leve-toi, passe ce Jourdain, toi et tout ce peuple, pour entrer dans le pays que je donne aux enfants d'Israel.</p><p>Dieu a dit, ok, il est temps de retourner au travail. Il y a des choses qui doivent etre faite. Dans chaque generation, incluant la notre, il y a des choses a faire. Il y a toujours un heritage qui a besoin d'etre reclame. C'est ici et maintenant. Beaucoup de personnes ne le savent pas. Peut-etre que vous ne le savez pas. Vous avez besoin d'y aller pour l'obtenir. C'est le sujet de ce grand livre. Au sujet d'aller et d'obtenir ce que Dieu leur a donne. C'est un challenge que nous avons tous. Chaque generation a un challenge parce que nous avons un adversaire. Dieu a un adversaire, le diable, et il est notre adversaire. Il veut se rendre sur que vous ne considerez pas votre challenge. Il veut squatter le votre. Il veut soustraire ce qui vous appartient. Quelques fois nous avons besoin d'un miracle. Nous allons et obtenons cela.</p><p>En Exodes 12:37 il est dit qu'il y avait six cent mille hommes avant de quitter l'Egypte. Ainsi nous sommes en train de parler de beaucoup de personnes ici. Si 50% des hommes etaient maries avec une moyenne de quatre enfants cela nous donne environ 2 millions de personnes. Il y avait beaucoup de personnes campant sur le bord du jourdain. Dieu parle a Josue. Il lui donne la revelation. Il pouvait lui parler par</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-6",
-      title: "Libérer votre foi",
-      duration: "59 min",
-      content: `<p>Dans Les miracles de Jesus nous verrons qu'un miracle est instantane et surnaturel. Comme toutes les autres manifestations l'operation des miracles est faite par notre libre choix. Nous devons refuser d'avoir peur, et dire et faire tout ce que Dieu nous dit. Nous devrions etre specifiques et parler au probleme directement. Nous devons faire les ?uvres que Jesus-Christ a faites et glorifier Dieu, et inspirer la croyance dans les autres.</p><p>Introduction</p><p>La Manifestation de l'operation des Miracles est:</p><p>Exercer l'autorite et la capacite, que Dieu donne, pour realiser les miracles, selon ce que Dieu vous dit.</p><p>Un miracle est instantane et surnaturel. La manifestation de croyance est impliquee parce que quelqu'un doit avoir l'absolue assurance et confiance en Dieu, qu'Il accomplira ce qu'il vous a revele. C'est avoir la foi de Dieu comme Jesus l'a declare en Marc 11:22,23.</p><p>Marc 11:22, 23:</p><p>22 Jesus prit la parole, et leur dit: Ayez foi en Dieu.</p><p>23 Je vous le dis en verite, si quelqu'un dit a cette montagne: Ote-toi de la et jette-toi dans la mer, et s'il ne doute point en son coeur, mais croit que ce qu'il dit arrive, il le verra s'accomplir.</p><p>\`\`La foi bouge les montagnes'' est figuratif. Cela signifie accomplir l'impossible, quelque chose que vous ne pourriez pas faire par vous-memes, ou faire tout ce qui est requis. Dieu nous a donne la capacite de manifester la foi. Nous n'en manquons pas. Vous avez tout ce dont vous avez besoin; vous avez besoin de le manifester. S'il y a un manque c'est du au libre choix. Nous choisissons de ne pas manquer. Habituellement cela se passe a cause de la peur.</p><p>Vous pouvez connaitre cette Parole de Dieu, mais vous devez la croire. La peur et l'ignorance sont juste une incroyance evidente. Les personnes choisissent de ne pas avoir la foi. Nous ne jugeons personne. La foi vient en entendant, peut-etre qu'ils ont besoin d'entendre un peu plus. Nous ne manquons pas de foi pour accomplir des miracles. Nous ne manquons pas de foi pour administrer la guerison. Nous ne manquons pas de foi pour chasser les demons s'il est necessaire de le faire. Nous ne manquons pas de foi! Vous devez mettre cela dans vos tetes. J'ai ce que Dieu dit que j'ai, et je peux faire ce que Dieu dit que je peux faire. C'est Dieu qui travaille en moi. Vous devez faire selon Sa volonte et son bon plaisir. Nous n'accomplissons pas de miracles sans Lui, mais nous le faisons avec Lui.</p><p>Un autre point cle est que Dieu n'outrepasse pas votre libre choix. La volonte de Dieu est de nous donner la declaration alors que nous parlons en langues, mais qu'en est-il si nous ne parlons pas? Alors, cela ne se passera pas, n'est-ce pas? Il ne possedera pas notre bouche, nos levres, notre gorge, notre langue. Il ne la bougera pas pour vous. Vous devez la bouger. Lorsque cette manifestation de foi vient, vous aller faire tout ce qu'il est necessaire de faire. Vous faites cela avec toutes les manifestations. Dieu ne vous fera pas parler en langues, interpreter, ou prop</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-7",
-      title: "Les miracles de Josué",
-      duration: "66 min",
-      content: `<p>Dans Signes, Miracles, et Prodiges nous verrons que les miracles sont representes et compris par plusieurs mots dans la Bible, tous contribuent a notre comprehension de ce que sont les miracles. Nous verrons aussi que Satan utilise les miracles, les signes et les prodiges mensongers pour essayer de tromper meme les elus de Dieu. Cependant, c'est notre amour pour la verite et le maintient de notre libre choix qui nous garde de la tromperie. Le libre choix distingue entre Dieu qui est a l'oeuvre dans les vies des gens et la contrefacon.</p><p>Les Miracles sont Representes et Compris par Plusieurs Mots Grec dans la Bible.</p><p>Dans notre culture le mot \`\`miracle'' est utilise communement dans des sens non Biblique. La definition traditionnelle est un evenement ou un effet dans le monde physique s'ecartant des lois connues de la nature ou transcendant notre connaissance de ces lois. C'est aussi decrit comme un evenement extraordinaire, anormal realise par un agencement surhumain.</p><p>Lockyer dit que c'est une oeuvre forgee par une puissance divine pour un but divin par des moyens au-dela de l'atteinte de l'homme. Il continue et dit, \`\`La conception Biblique d'un miracle est une ?uvre extraordinaire de Dieu transcendant les puissances ordinaires de la nature et est apporte en relation avec les fins de la revelation.'' Cependant, les usages courants incluent aussi: \`\`tout evenement ou prodige remarquable '' (Il y a un film intitule, \`\`Miracle.'' C'est au sujet de la victoire Americaine aux jeux Olympiques en 1980. Meme la naissance d'un enfant est decrite comme un miracle.) ou un \`\`exemple merveilleux '' (tel qu'un miracle de diplomatie).</p><p>Meme dans la Bible les distinctions peuvent etre faites entre les miracles et les personnes exercant la manifestation de l'operation des miracles. La creation du monde comme decrite dans les ecritures est certainement miraculeuse. Dieu peut faire tout ce qu'Il a choisi, toutes les fois qu'Il le choisit. Lorsque Dieu a delivre Son peuple de l'Egypte, Il a pourvu a la nuee pour les couvrir le jour et le feu pour les proteger la nuit. Il a aussi travaille miraculeusement dans le buisson ardent sans l'assistance de Moise.</p><p>Il peut travailler independamment de l'agence humaine s'il veut. Cependant, la manifestation de l'operation des miracles est Dieu travaillant avec les hommes et les femmes pour que Sa volonte s'accomplisse. En tant que travailleur ensemble avec Lui nous pouvons realiser ce qu'Il nous a dit de faire a travers l'operation des manifestations de l'esprit. En effet, le resultat final de la revelation lorsque nous croyons et agissons sera un don de guerison ou l'operation d'un miracle ou les deux.</p><p>Maintenant je suis particulierement concerne avec l'operation des miracles. Je ne presume pas presenter une etude exhaustive, mais j'aimerais vous donner une fondation sur laquelle vous pouvez commencez pour travailler la Parole a ce sujet. Il y a plusieurs mots synonymes utilises dans la Bible pour decrire ces operations de</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-8",
-      title: "Les miracles de Jésus",
-      duration: "49 min",
-      content: `<p>Dans Chasser les esprits diaboliques nous verrons que les esprits diaboliques travaillent en secret et essayent de tisser leur voie dans la vie des gens. Ils peuvent entrer a travers le traumatisme et la curiosite du surnaturel. Ce n'est pas la volonte de Dieu pour les croyants d'avoir des problemes chroniques, constants. Plusieurs fois cela est du a des esprits diaboliques. Precher et enseigner la Parole de Dieu ouvre des portes pour les personnes pour identifier les problemes et aller pour la delivrance. Cette session inclut des cles pratiques et des techniques pour exercer votre autorite et puissance au dessus du royaume des esprits diaboliques et de les chasser.</p><p>Introduction</p><p>Dans Conduit par la puissance de Dieu, j'ai enseigne au sujet des deux royaumes-le royaume de Dieu et le royaume du diable. Les esprits diaboliques, les esprits du mal, les esprits impurs, et les demons-quel que soit comment vous voulez les appeler-font tous partie du royaume du diable, le tiers qui a chute. Ils sont ses sujets, et font ses encheres. Ils ont differents noms et differentes fonctions. Par exemple, un esprit diabolique qui trompe les personnes a croire a un mensonge plutot qu'a la verite est appele un esprit de mensonge. Un esprit diabolique qui garde les gens effrayes est nomme esprit de peur. Se rappeler II Timothee 2:7: \`\`Dieu ne nous a pas donne un esprit de peur.''</p><p>Dans la Parole de Dieu, Jesus commande a un esprit de se nommer. Il lui dit que son nom etait Legion parce qu'ils etaient plusieurs. Quelque soit son nom, son intention est la meme que leur patron : derober, egorger et detruire. Ils tourmentent les personnes et s'efforcent de faire du mal et de ruiner leurs vies. Ce n'est pas ce que Dieu veut.</p><p>D'autres esprits diaboliques sont des esprits de depression, d'oppression, de mensonge, de suicide, de meurtre, de mort, de conflit, d'envie, de colere, de courroux, de rage, de violence, de fantaisies, d'hallucinations, de blessure, de souffrance, de rebellion, blessant. Dans la categorie sexuelle vous avez les esprits de sodomie, de nymphomanie, d'homosexualite, de lesbien, de sadisme, de bestialite, de convoitise, et ainsi de suite. Ils sont vraiment innombrables.</p><p>Ils Oeuvrent En Secret Et Essayent De Tisser Leur Voie Dans Les Vies Des Gens</p><p>Ils tissent leur voie dans les vies des gens de plusieurs manieres. Le traumatisme est une de ces voies. Le traumatisme lui-meme ne donne pas acces a la vie de quelqu'un. Nous avons tous experimente dans nos vies un traumatisme d'une maniere ou d'une autre. C'est traumatisant lorsque vous perdez quelqu'un, lorsqu'un membre de famille ou un ami decede. La maniere dont quelqu'un repond a un traumatisme peut ouvrir les portes et donner acces aux esprits diaboliques. Si les personnes ne sont pas aidees dans leur traumatisme avec l'amour et la Parole de Dieu, mais sont laissees seules sans conseil et comprehension, les esprits peuvent tisser et entrer dans l'intelligence et les corps des personnes (incluant les</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-9",
-      title: "Signes, miracles et prodiges",
-      duration: "69 min",
-      content: `<p>Dans Recits d'esprits chasses nous verrons que nous comptons sur Dieu travaillant en nous et non sur les techniques lorsqu'il en va de chasser les esprits diaboliques. Dieu nous enseigne toute chose que nous avons besoin de connaitre dans Sa Parole. Nous n'avons jamais besoin d'etre effraye lorsque nous nous approchons de ces situations. Dieu nous a equipe, et il travaillera avec nous pour amener Sa volonte en realisation. C'est important que nous ne laissions pas ou que nous n'abandonnions pas, mais que nous traversions les obstacles jusqu'a ce que nous voyions la delivrance de Dieu se manifester.</p><p>Introduction</p><p>Lorsqu'il s'agit de chasser les esprits diaboliques, s'il y avait des directions qui etaient infaillibles, elles seraient dans la Parole. S'il y avait une technique ou une cle qui marchait a 100% du temps cela serait liste dans la Parole. La raison pour laquelle la Parole n'enseigne pas de techniques specifiques est qu'il n'en existe pas qui fonctionnent toujours. La Parole fonctionne toujours. La Parole garantit de fonctionner pour chacun, partout, a tout moment.</p><p>La Parole dit simplement, \`\`guerissez les malades '' et \`\`Chassez les demons.'' C'est toute l'instruction que nous avons besoin. Si nous avions besoin de plus, alors Dieu aurait ecrit plus. La Parole de Dieu contient \`\`toute chose concernant la vie et la piete,'' et nous allons regarder ces recits d'esprits chasses dans la Bible. Nous verrons les choses que Jesus-Christ a faites, et nous verrons les choses que Paul et Pierre et les autres ont faites. Nous apprendrons d'eux tous. Tout ce que nous avons besoin est dans la Parole. Une partie de la Parole sont les manifestations de revelation.</p><p>La derniere fois que j'ai aide quelqu'un, je l'ai fait totalement differemment de toutes les fois que je l'avais fait. Nous avons pries ensemble, et c'etait la seule chose similaire a toute autre que j'avais faite. C'est la maniere dont Dieu a travaille a ce moment. C'etait excitant pour moi.</p><p>Vous faites juste ce que Dieu vous dit. Il travaillera avec vous. Il vous laissera savoir ce que vous avez besoin de connaitre. Si vous leur demandez de se nommer, et qu'ils ne veulent pas se nommer, alors Dieu vous donnera le nom ou le resoudra d'une autre maniere. Vous restez la et etes impliques, et Dieu vous fera traverser cela. Vous etes capable, et vous pouvez le faire. Tout ce que cela demande est le desir. Tout ce que cela demande est de le vouloir. Si vous voulez le faire, Dieu tracera un chemin. Il veut que cela soit fait plus que nous le voulons. C'est Sa Parole; C'est Son desir; c'est ce qu'Il veut. Ainsi Il va travailler avec nous pour l'accomplir, pour vouloir et faire. Une chose que nous n'avons pas dit est que les personnes peuvent les chasser par eux-memes. Vous pouvez vous occuper de cela, parce que celui qui est en vous est plus grand que celui qui est dans le monde.</p><p>Dieu travaillera avec vous specifiquement et personnellement alors que vous commencez. Actes 2:4 dit qu'ils \`\`commen</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-10",
-      title: "Chasser les esprits diaboliques",
-      duration: "78 min",
-      content: `<p>Dans plus de recits d'esprits diaboliques chasses nous verrons plus de recits de delivrance de possession d'esprit diabolique. Nous verrons que l'enseignement de la Parole de Dieu peut expulser les esprits diaboliques. Nous apprendrons plus au sujet d'esprits muets, et d'esprits d'infirmite et verrons que le peuple de Dieu devrait etre gueri. Nous verrons Paul s'occupant d'un esprit de divination. Nous verrons aussi que nous pouvons toujours vaincre toute attaque personnelle du royaume des esprits et nous pouvons obstruer leurs buts et limiter leur impact.</p><p>La guerison dans la Synagogue de Capernauem - Marc 1:21-27-43;</p><p>Luc 4:31-37</p><p>Marc 1:21,22:</p><p>21 Ils se rendirent a Capernauem. Et, le jour du sabbat, Jesus entra d'abord dans la synagogue, et il enseigna.</p><p>22 Ils etaient frappes de sa doctrine; car il enseignait comme ayant autorite, et non pas comme les scribes.</p><p>Nous avons mentionne cela auparavant, mais c'est l'enseignement de la Parole avec conviction, amour et hardiesse qui ouvre la porte dans beaucoup d'occasions. L'enseignement de la Parole peut faire expulser les esprits. Ils ne peuvent pas tenir devant elle. Ils ne l'aiment pas. Ils ne veulent pas entendre la Parole. C'est ce qu'ils vont devoir faire ici. Il etait en train d'enseigner avec l'autorite qu'il avait.</p><p>Marc 1:23,24:</p><p>23  Il se trouva dans leur synagogue un homme qui avait un esprit impur, et qui s'ecria:</p><p>24 Qu'y a-t-il entre nous et toi, Jesus de Nazareth? Tu es venu pour nous perdre. Je sais qui tu es: le Saint de Dieu.</p><p>Juste au milieu de l'enseignement de Jesus, l'homme parle. Cela ressemble a la Parole d'un homme, mais, Jesus savait ce que c'etait, et il le reprime en disant.</p><p>Marc 1:25-27:</p><p>25 Jesus le menaca, disant: Tais-toi, et sors de cet homme.</p><p>26 Et l'esprit impur sortit de cet homme, en l'agitant avec violence, et en poussant un grand cri. [Luc 4:35 ajoute que le demon l'avait jete au milieu. L'homme etait jete au sol, mais c'etait le demon qui l'avait fait, pas Dieu.]</p><p>27 Tous furent saisis de stupefaction, de sorte qu'ils se demandaient les uns aux autres: Qu'est-ce que ceci? Une nouvelle doctrine! Il commande avec autorite meme aux esprits impurs, et ils lui obeissent!</p><p>C'etait reellement une nouvelle chose. Comme ils disent, \`\`Quelle est cette nouvelle chose?'' Vous ne voyez pas beaucoup cela dans l'Ancien Testament. Il y a tres peu d'ecrits sur les esprits diaboliques dans le livre de Job (Que Satan va devant Dieu), et il y a un esprit de mensonge mentionne dans Roi. Pour la plupart, vous n'entendez pas beaucoup plus des esprits diaboliques. Jesus a expose le royaume des esprits. Il y avait la prophetesse d'Endor, et ils avaient des enchantements, et tous ces trucs.</p><p>Mais, je ne me rappelle pas un recit d'une personne dans l'Ancien Testament, ayant chasse un esprit comme Jesus l'a fait. Lorsque David joua avec son instrument, les mauvais esprits qui etaient en Saul sont partis. Mais, ce n'est pas comme nous voyons dans le ministere de Jesus, ou sur une</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-11",
-      title: "Récits de délivrances",
-      duration: "60 min",
-      content: `<p>Dans Fondements de guerisons nous verrons que si nous administrons la guerison nous devrions premierement precher la guerison. Dieu veut que les personnes guerissent de toutes les maladies, affections tout le temps, et nous annoncons la bonne nouvelle que Dieu veut que les personnes soient gueries maintenant. La Parole de Dieu etabli le fondement pour la guerison qui est l'oeuvre entiere de Jesus-Christ. Notre guerison n'est plus du ressort de Dieu; Il a deja fait Sa part. Nous devons nous approprier notre guerison par la croyance. Dieu fait toujours des signes, des prodiges et des miracles aujourd'hui et ils continuent a etre valable pour ajouter les personnes au Corps du Christ.</p><p>Introduction</p><p>Lorsque Jesus-Christ a commence son ministere publique dans Luc 4 il a declare son but.</p><p>Luc 4:16-19:</p><p>16 Il se rendit a Nazareth, ou il avait ete eleve, et, selon sa coutume, il entra dans la synagogue le jour du sabbat. Il se leva pour faire la lecture,</p><p>17 et on lui remit le livre du prophete Esaie. L'ayant deroule, il trouva l'endroit ou il etait ecrit:</p><p>18 L'Esprit du Seigneur est sur moi, Parce qu'il m'a oint pour annoncer une bonne nouvelle [euangeliz?, enseigner la bonne nouvelle et l'enseigner bien.] aux pauvres; Il m'a envoye pour guerir ceux qui ont le coeur brise, [La guerison n'est pas juste au sujet des jambes et des coeurs physiques; les coeurs des personnes doivent etre gueri aussi.] (4-19) Pour proclamer [k?russ?, proclamer ou annoncer comme un messager hardiment et publiquement; pour leur dire ce que Dieu a rendu disponible; annoncer par l'appel du clairon.] aux captifs la delivrance, Et aux aveugles le recouvrement de la vue, Pour renvoyer libres les opprimes,</p><p>19 Pour publier [k?russ?, proclamer ou annoncer comme un messager hardiment et publiquement; pour leur dire ce que Dieu a rendu disponible; annoncer par un appel de clairon.] une annee de grace du Seigneur.</p><p>Une partie de notre responsabilite n'est pas seulement etre capable de guerir mais de precher la guerison. Nous annoncons la bonne nouvelle que Dieu veut vous guerir immediatement. Nous avons besoin d'etre capable de montrer a partir de la Parole de Dieu que la guerison est la volonte de Dieu. Dieu veut que les personnes soient gueries de toute maladie et affection tout le temps. Notre culture a tant accepte la maladie et regarde le champ des medicaments pour reponse dans cette categorie au point que penser que les hommes de Dieu peuvent faire quelque chose dans cette categorie est comme de la science fiction. Jesus etait capable de faire recouvrir la vue a un aveugle parce que premierement il prechait le recouvrement de la vue pour les aveugles. Il leur disait premierement que cela etait disponible, et alors lorsqu'ils croyaient ce qu'il disait, il les guerissait. Les personnes ne veulent pas seulement etre bien, mais elles ont besoin de croire que c'est possible. Elles n'ont pas seulement besoin de croire que c'est possible, mais aussi que cela se passera pour elles.</p><p>La Pa</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-12",
-      title: "Plus de récits de délivrances",
-      duration: "68 min",
-      content: `<p>Dans Realites de guerison nous regarderons quatre grandes realites de guerison. Nous verrons comment la Parole parlee, la sainte communion, les dons de guerison, la priere et le recouvrement naturel sont tous des avenues de guerison. Nous verrons aussi differentes sortes de guerisons et verrons que l'administration peut inclure le retablissement, l'enlevement des causes, rendre entier, et la reconciliation.</p><p>REALITES DE GUERISON</p><p>LA PAROLE PARLEE</p><p>SAINTE COMMUNION</p><p>DONS DE GUERISON</p><p>PRIERE & RECOUVREMENT NATUREL</p><p>La Parole Parlee</p><p>La plus grande puissance de guerison dans le monde est la Parole de Dieu parlee sur des levres de croyance. Durant les douze annees dans un college biblique j'ai vu les personnes gueries de maladies physiques (mal de tete, allergies, entorse de cheville, problemes d'estomac, et plusieurs autres choses) pendant l'ecoute de la Parole enseignee. Bien sur nous leur enseignons de s'attendre que la Parole les guerissent, et nous enseignons cela avec autorite. Cette annee pendant un enseignement au Colorado, un homme a ete gueri etant assis dans l'audience alors que je lui enseignais cela.</p><p>Esaie 55:10,11:</p><p>10 Comme la pluie et la neige descendent des cieux, Et n'y retournent pas Sans avoir arrose, feconde la terre, et fait germer les plantes, Sans avoir donne de la semence au semeur Et du pain a celui qui mange,</p><p>11 Ainsi en est-il de ma parole, qui sort de ma bouche: Elle ne retourne point a moi sans effet, Sans avoir execute ma volonte Et accompli mes desseins.</p><p>12 Oui, vous sortirez avec joie, Et vous serez conduits en paix; Les montagnes et les collines eclateront d'allegresse devant vous, Et tous les arbres de la campagne battront des mains.</p><p>La Parole de Dieu ne retourne jamais \`\`vide.'' \`\`Vide'' est le mot Hebreux, reqam signifiant \`\`dans une condition vide, en vain, sans effet.'' C'est un adverbe utilise 16 fois dans l'Ancien Testament. C'est utilise dans le sens de "non accompli" ou "sans succes," mais aussi moins communement pour "sans raison " (Psaumes 7:5), ou "sans cause " (Psaumes 7:4; 25:3).</p><p>Ce langage figuratif merveilleux est tire de la pluie et de la neige. La pluie et la neige ont accompli leur but original. Et ainsi avec la Parole de Jehovah, qui sort de Sa bouche; cela ne retournera pas sans avoir effectuer son objectif ... sans avoir accompli la volonte de Dieu, ou Son "bon plaisir "... sans avoir atteint la fin pour laquelle cela a ete envoye.</p><p>Psaumes 107:20:</p><p>20 Il envoya sa parole et les guerit, Il les fit echapper de la fosse.</p><p>Dieu envoie Sa Parole pour accomplir Sa volonte. Il fait la meme chose aujourd'hui. Nous connaissons la volonte de Dieu parce que nous connaissons la Parole de Dieu. Lorsque nous lisons cela dans la Parole, alors nous savons ce qu'est Sa volonte. Alors que nous la lisons nous pouvons etre assure de cela. Nous ne considerons pas cela comme allant de soi.</p><p>Les figures choisies sont riches en analogies. Comme la pluie et la neige promeuvent la croissance et sont responsables p</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-13",
-      title: "Fondements de guérison",
-      duration: "62 min",
-      content: `<p>Dans Recits de guerison #1 nous lirons la guerison du serviteur du centurion, d'un lepreux, d'un homme atteint de paralysie, de la belle mere de Pierre, d'une femme avec une issue de sang, et de la fille de Jairus. Nous verrons l'importance de la Parole parlee dans l'ouverture des portes pour la guerison, et nous verrons comment le pardon du peche est une part integrale de l'administration.</p><p>La Guerison Du Serviteur Du Centurion - Matthieu 8:5-13; Luc 5:12-15</p><p>Nous allons commencer a aller a travers les recits de guerison dans le Nouveau Testament. J'aimerais commencer dans les evangiles et voir comment nous pouvons aller loin alors que nous voyageons a travers ces recits. Je vais partager au sujet de Matthieu 8 et aussi Luc 7. Lorsque vous avez differents recits du meme incident vous pouvez avoir plus d'informations et plus de details sur chacun.</p><p>Matthieu 8:5,6:</p><p>5  Comme Jesus entrait dans Capernauem, un centenier l'aborda, (8-6) le priant</p><p>6 et disant: Seigneur, mon serviteur est couche a la maison, atteint de paralysie et souffrant beaucoup.</p><p>Ici cela dit qu'un centurion est venu a lui.</p><p>Luc 7:1-5:</p><p>1  Apres avoir acheve tous ces discours devant le peuple qui l'ecoutait, Jesus entra dans Capernauem.</p><p>2 Un centenier avait un serviteur auquel il etait tres attache, et qui se trouvait malade, sur le point de mourir.</p><p>3 Ayant entendu parler de Jesus, il lui envoya quelques anciens des Juifs, pour le prier de venir guerir son serviteur.</p><p>4 Ils arriverent aupres de Jesus, et lui adresserent d'instantes supplications, disant: Il merite que tu lui accordes cela;</p><p>5 car il aime notre nation, et c'est lui qui a bati notre synagogue.</p><p>Il n'etait pas un Israelite, il etait un Gentil (non juif) mais il aimait la nation d'Israel. Cela se passait souvent. J'ai enseigne comment la Parole bougeait reellement en Actes 19, en 2 annees et 3 mois. Cela dit que Paul a enseigne dans les synagogues. Eh bien, comment en sont ils arrive la? Ces synagogues n'etaient pas dans Jerusalem. Vous trouvez que ces personnes l'ont aime et qu'ils etaient riches, et ils l'ont aide a construire la synagogue et c'est ce qui c'est passe ici.</p><p>Ainsi les anciens ont continue sur le comportement du Centurion. Le Centurion n'etait pas un Israelite mais il croyait en elle et supportait la nation d'Israel. Il avait entendu parle de Jesus et il le connaissait.</p><p>Matthieu 8:7:</p><p>7 Jesus lui dit: J'irai, et je le guerirai.</p><p>Luc 7:6-8:</p><p>6 Jesus, etant alle avec eux, n'etait guere eloigne de la maison, quand le centenier envoya des amis pour lui dire: Seigneur, ne prends pas tant de peine; car je ne suis pas digne que tu entres sous mon toit.</p><p>7 C'est aussi pour cela que je ne me suis pas cru digne d'aller en personne vers toi. Mais dis un mot, et mon serviteur sera gueri.</p><p>8 Car, moi qui suis soumis a des superieurs, j'ai des soldats sous mes ordres; et je dis a l'un: Va! et il va; a l'autre: Viens! et il vient; et a mon serviteur: Fais cela! et il le fait.</p><p>Le Centurion comprenait l'autorite</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-14",
-      title: "Réalités de guérison",
-      duration: "45 min",
-      content: `<p>Dans Recits de guerison #2 nous verrons trois recits differents de guerison d'un aveugle par Jesus. Nous verrons aussi la guerison de l'homme avec la main seche et la guerison de la femme dans la maison du pharisien Simon. Nous verrons comment la religion et les personnes religieuses peuvent etre vicieuses. Nous verrons aussi comment la guerison transcende le physique et inclus aussi l'intelligence et l'emotion.</p><p>La Guerison De Deux Aveugles - Matthieu 9:27-31</p><p>Matthieu 9:27:</p><p>27  Etant parti de la, Jesus fut suivi par deux aveugles, qui criaient: Aie pitie de nous, Fils de David!</p><p>. [cela ne dit pas \`\`moi.'' Cela dit \`\`aie pitie de nous.'']</p><p>Ils sont venus ensemble avec une unite de but. Ils voulaient cela pour l'un et l'autre. Ils voulaient recevoir ensemble le meilleur de Dieu. Ils sont venus uni en cela. La guerison est un don de la grace de Dieu, un charisma. Ce n'est pas acquis, ni ne peut l'etre. Ici, comme dans plusieurs recits, nous couvrirons, ceux qui viennent pour la guerison plaidant pour la misericorde.</p><p>La misericorde est vraiment un concept central pour la guerison puisque aucune guerison n'est gagnee ou meritee. Dans les jours precedent les armes a feu, lorsque les duels se faisaient a l'epee, lorsque le perdant tombait sur le sol, et que l'epee etait sur sa gorge, il pouvait crier, \`\`Pitie!'' Le victorieux avait le droit de vie ou de mort sur son opposant, mais souvent il tenait compte de la demande de misericorde et accordait la vie a son ennemi vaincu. La misericorde etait donnee a ceux qui demandaient, et avaient abandonne le combat.</p><p>Jesus a repondu a la requete des deux hommes aveugles demandant misericorde. La relation intime entre la misericorde et la guerison sera aussi vue lorsque nous irons aux recits de la femme Cananeenne, parce qu'elle a dit, \`\`Aie pitie de moi, Seigneur, Fils de David! Ma fille est cruellement tourmentee par le demon.'' Le pere du fils lunatique a crie, \`\`Seigneur aie pitie de mon fils.'' Plus tard, Jesus est passe pres de deux hommes aveugles de plus assis sur le cote de la route qui criaient, \`\`, aie pitie de nous, Seigneur, fils de David.'' Les instructions de Jesus a l'homme gueri de Legion etait, \`\`Va dans ta maison, vers les tiens, et raconte-leur tout ce que le Seigneur t'a fait, et comment il a eu pitie de toi..'' L'aveugle Bartimee, lorsqu'il su que Jesus passait, cria, \`\`Jesus, toi fils de David, aie pitie de moi!'' Les voisins d'Elizabeth et ses parents se sont rejouis avec elle lorsqu'ils ont entendu que le Seigneur avait montre une grande misericorde envers elle pour sa grossesse avec Jean. Les dix lepreux en Luc 17:13 ont aussi crie en disant, \`\`Jesus, maitre, aie pitie de nous.'' Paul, lorsqu'il a decrit la delivrance d'Epaphrodite a dit, \`\`Il a ete malade, en effet, et tout pres de la mort; mais Dieu a eu pitie de lui, et non seulement de lui, mais aussi de moi, afin que je n'eusse pas tristesse sur tristesse.</p><p>La misericorde est un concept central avec la guerison. C'est etroitemen</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-15",
-      title: "Récits de guérison #1",
-      duration: "60 min",
-      content: `<p>Dans recits de guerisons #3 nous lirons dix recits de plus sur la guerison. Nous lirons que des personnes ont ete gueries de la cecite, de la lepre, d'hydropisie, et d'impotence. Nous lirons aussi des personnes etant ressuscites d'entre les morts. Nous verrons l'importance de changer les comportements et les habitudes pour faire que la delivrance de Dieu soit pourvue. Dieu nous a appele et equipe pour precher, enseigner, et guerir. C'est le moment pour nous de nous lever et nous rejouir de la vie pour laquelle nous avons ete appeles, et precher pleinement l'evangile.</p><p>La guerison de l'aveugle Bartimee - Marc 10:46-52</p><p>Tournez en Marc, Chapitre 10, une autre guerison de l'aveugle.</p><p>Marc 10:46:</p><p>46  Ils arriverent a Jericho. Et, lorsque Jesus en sortit, avec ses disciples et une assez grande foule, le fils de Timee, Bartimee, mendiant aveugle, etait assis au bord du chemin.</p><p>Etre mendiant etait tres humiliant. Les personnes qui etaient malades, habituellement ceux a qui on donnait peu ou pas d'esperance de recouvrement, s'asseyait a la porte du Temple (se rappeler, comme l'homme a la porte du Temple appele la Belle) ou ils seraient assis pres des rivieres saintes ou pres des cites ou les gens entreraient.</p><p>Marc 10:47:</p><p>47 Il entendit que c'etait Jesus de Nazareth, et il se mit a crier; Fils de David, Jesus aie pitie de moi!</p><p>Est ce que cela resonne de facon familiere?</p><p>Apocalypse 22:16:</p><p>16 Moi, Jesus, j'ai envoye mon ange pour vous attester ces choses dans les Eglises. Je suis le rejeton et la posterite de David, l'etoile brillante du matin.</p><p>Jesus, toi fils de David.... Bartimee savait qui etait Jesus.</p><p>Marc 10:48-50:</p><p>48 Plusieurs le reprenaient, pour le faire taire; mais il criait beaucoup plus fort; Fils de David, aie pitie de moi!</p><p>49 Jesus s'arreta, et dit: Appelez-le. Ils appelerent l'aveugle, en lui disant: Prends courage, leve-toi, il t'appelle.</p><p>50 L'aveugle [Bartimee] jeta son manteau, et, se levant d'un bond, vint vers Jesus.</p><p>Il y a beaucoup dans cet enonce, il a jete son manteau. Son manteau portait son statut. Il etait en train de se debarrasser de son statut, sa fierte. Il etait en train de venir a Jesus avec une seule chose, sa foi pour etre gueri, que Jesus, le fils de David aurait pitie.</p><p>Marc 10:51:</p><p>51 Jesus, prenant la parole, lui dit: Que veux-tu que je te fasse? Rabbouni, lui repondit l'aveugle, que je recouvre la vue.</p><p>Voir, votre argent, votre statut social, vos annees dans la Parole, ou vos annees en tant que Chretien n'est pas ce qui vous gueri. C'est lorsque vous allez au Seigneur Jesus-Christ avec foi, en son nom, pour etre gueri-pour proclamer votre heritage-pour vous debarrasser des squatteurs-de vivre libre. C'est ce qu'il veut. Ainsi, il alla, et il l'obtint.</p><p>Marc 10:52:</p><p>52 Et Jesus lui dit: Va, [ma foi... non,] ta foi t'a sauve. (10-53) Aussitot il recouvra la vue, et suivit Jesus dans le chemin.</p><p>Ta foi t'a sauve. L'homme etait gueri. Il a recu son miracle, la guerison.</p><p>La Guerison de Dix Lepreux - Luc 17:12-</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-16",
-      title: "Récits de guérison #2",
-      duration: "72 min",
-      content: `<p>Dans les deux premieres cles pour la guerison nous verrons deux principes simples de l'integrite et la precision de la Parole de Dieu concernant comment guerir les malades. Le fondement de guerison de la maladie est que vous parlez ou proclamez a ceux qui ont besoin de la guerison qu'ils peuvent etre gueris immediatement. Alors ceux qui souhaitent etre delivres viennent vers ceux qui guerissent avec desir et expectative.</p><p>Introduction</p><p>Maintenant nous continuerons a plus de details sur comment guerir les malades et alors que nous allons a ces differents points, vous verrez les cles simples de l'administration de la guerison, et la precision et l'integrite de la Parole de Dieu sur comment guerir les maladies dans cette section.</p><p>Proclamez a ceux qui ont besoin de guerison qu'ils peuvent etre gueris immediatement</p><p>Le premier point, et la base, le fondement pour l'operation de cette manifestation, dons de guerison, est que vous parlez ou proclamer a ceux qui ont besoin de la guerison qu'ils peuvent etre gueris immediatement. C'est la plus importante chose dans l'apport de la guerison au peuple de Dieu. Parlez la bonne nouvelle concernant la disponibilite, le mille pour cent disponible de guerison pour les personnes maintenant. Nous le proclamons. C'est la Parole de Dieu. Nous n'avons pas a leur donner des garanties venant de notre part. Dieu le leur garantit dans Sa Parole ecrite. Nous parlons. Nous sommes ambassadeurs de Dieu et nous parlons de cette promesse de Dieu hardiment, sans peur.</p><p>Nous disons aux personnes qui ont besoin de guerison et de delivrance, que Dieu peut guerir maintenant, pas demain, ou apres demain, mais juste maintenant la delivrance est disponible. Alors que nous prechons et proclamons cette verite, que se passe-t-il? Ceux qui ont besoin de guerison entendrons ces paroles, et, s'ils desirent avec force la delivrance et acceptent ce message, alors ils viendront a vous et recevrons la guerison. Parce que, du point de vue du receveur, c'est absolument requis qu'ils croient, qu'ils aient la foi pour recevoir la guerison. Ainsi, nous les aiderons a prendre une decision pour recevoir ce qui est a mille pour cent disponible maintenant.</p><p>C'est disponible pour les non sauves et c'est disponible pour les sauves. Ce glorieux evangile de delivrance est disponible pour les non sauves comme les sauves. Maintenant, pour les sauves c'est encore plus large. Je pense que nous nous rappelons de Romains 10:9. cela dit:</p><p>Romains 10:9:</p><p>9 Si tu confesses de ta bouche le Seigneur Jesus, et si tu crois dans ton coeur que Dieu l'a ressuscite des morts, tu seras sauve.</p><p>Dans les epitres a l'Eglise, pas meme une fois le mot \`\`guerison '' n'apparait, parce que dans les Epitres a l'Eglise, pour le Corps de Christ, Dieu va loin au dela de la guerison physique. Il va jusqu'a l'integrite. L'integrite inclura, definitivement, la guerison physique, la guerison financiere, oh! Tellement d'aspects. Vous etes rendu entier! C'est l'illustration de Dieu pour \`\`sa</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-17",
-      title: "Récits de guérison #3",
-      duration: "71 min",
-      content: `<p>Dans trois cles supplementaires pour la guerison nous verrons trois principes plus simples de l'integrite et de la precision de la Parole de Dieu concernant comment guerir les maladies. Dans notre administration, Dieu nous a donne cette capacite et autorite de guerir. De cette facon, vous n'avez pas besoin de prier Dieu qu'Il guerisse celui qui est malade. La simplicite de la guerison est pour vous de commencer d'apporter la guerison. Lorsqu'une personne dans le besoin vient a vous juste pour la recevoir faites le. Plus vous le faites, mieux cela sera, et plus vous aurez de confiance et de foi pour faire cela.</p><p>Revision sur les deux premieres cles</p><p>Nous avons regarde la cle numero une qui nous demandait de prechez l'evangile de delivrance que les gens peuvent etre gueris immediatement. C'est une realite garantie a mille pour cent. Nous proclamons la delivrance aux personnes, afin que ces personnes puissent prendre une decision pour recevoir cette delivrance, et les personnes auront le desir de recevoir cette delivrance, et elles sauront qu'elles peuvent recevoir la delivrance. La cle numero deux est que ce sont les personnes qui veulent la guerison qui agiront et viendront a vous avec la foi pour recevoir la delivrance. Alors vous guerissez les personnes.</p><p>Nous ne Prions Pas Lorsque Nous Administrons La Guerison.</p><p>Nous Guerissons Simplement Les Malades.</p><p>La troisieme cle est que Dieu vous a donne cette capacite et autorite de guerir. Ainsi, vous n'avez pas besoin de prier Dieu qu'il guerisse quelqu'un qui est malade. Vous guerissez le malade. Parfois les personnes disent, \`\`s'il vous plait prier pour moi, pour ma guerison.'' alors nous devons aussi vraisemblablement dire, \`\`maintenant je vais prier pour vous, pour votre guerison.'' C'est maintenant une voie commune pour apporter la guerison aux gens. Cependant, lorsque nous regardons la Parole de Dieu, qui est adressee a notre administration, ce n'est pas vrai.</p><p>Presentement, dans cette administration, Dieu nous a donne l'autorite de guerir les malades. Dieu vous dit, \`\`Maintenant guerissez les malades; chassez les demons.'' Dieu vous dit, \`\`parlez en langues; interpretez; prophetisez.'' La manifestation des dons de guerison est l'une des manifestations. Par consequent cela marche juste comme le parler en langues. Pour parler en langues, VOUS parlez en langues. Priez vous avant de parler en langues afin que par la priere le parler en langues vienne? Non, vous ne priez pas. Vous commencez juste a parler en langues, parce que vous avez l'autorite et la puissance de parler en langues. Maintenant, lorsque vous apportez l'interpretation des langues, est ce que vous priez :" Dieu donnes moi l'interpretation des langues, donnes moi un message.'' Non, vous ne faites pas ainsi. Vous parlez seulement l'interpretation, un message de Dieu. Avec la prophetie, avez vous besoin de prier : \`\`Dieu je veux un message de prophetie. S'il te plait donne moi un bon message.'' Non, vous parlez seulement. Vous avez la c</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-18",
-      title: "Les deux premières clés pour la guérison",
-      duration: "68 min",
-      content: `<p>la Parole de Dieu dit au sujet de la guerison, vous faites la guerison. Vous verrez, des maintenant, plusieurs recevront la delivrance de votre part, et vous enseignerez les autres personnes de faire la guerison. Vous dites aux nouveaux croyants de guerir les malades et de chasser les demons, et plusieurs non sauves recevrons la delivrance, plusieurs sauves recevrons la delivrance, et plusieurs personnes seront sauvees, et viendront a la connaissance de la verite.</p><p>A.	Cela n'a pas d'importance combien de temps une personne a ete affligee par la maladie. Il n'y a rien de trop dure pour Dieu (Genese 18:14; Jeremie 32:17; Matthieu 19:26; Marc 10:27; Luc 1:37)</p><p>1.	Il peut guerir ceux qui sont affliges depuis la naissance.</p><p>a.	l'aveugle: Jean 9:1ff</p><p>b.	le boiteux: Actes 3:2</p><p>c.	l'impotent: Actes 14:8</p><p>2.	Il peut guerir ceux qui ont souffert de la meme maladie pendant des annees et des annees.</p><p>a.	Huit annees: Actes 9:33-34</p><p>b.	Douze annees: Matthieu 9:20; Marc 5:25; Luc 8:43</p><p>c.	Dix huit annees: Luc 13:11</p><p>Trente huit annees: Jean 5.5</p><p>Plus de quarante annees: Actes 3:2; 4:22</p><p>f.	Depuis l'enfance: Marc 9:21</p><p>3.	Il peut meme guerir meme ceux qui sont sur le point de mourir.</p><p>a.	Ezechias: II Roi 20:1; II Chroniques 32:24; Esaie 38:1</p><p>b.	le serviteur du centenier: Luc 7:2</p><p>c.	Epaphrodite: Philippiens 2:27</p><p>4.	Si necessaire, Dieu peut meme ressusciter des morts.</p><p>a.	le fils de la veuve de Sarepta: I Roi 17:17-23</p><p>b.	le fils de la sunnamite: II Roi 4:18-35</p><p>c.	l'homme ressuscite sur les os Elisee: II Roi 13:20,21</p><p>d.	Jonas: Jonas 1:17-2:10; Matthieu 12:40,41</p><p>e.	la fille de Jairus: Marc 5:22-24,35-43; Luc 8:41,42,49-55</p><p>f.	le fils de la veuve de Nain: Luc 7:12-15</p><p>g.	Lazare: Jean 11:43,44</p><p>h.	Dorcas: Actes 9:36-40</p><p>i.	Jesus: Actes 13:29,30</p><p>j.	Paul: Actes 14:19,20; II Corinthiens 11:25</p><p>k.	Eutychus: Actes 20:7-12</p><p>Une femme non nommee: Hebreux 11:35</p><p>B.	Cela n'a pas d'importance quel sorte d'affection ou de maladie la personne a.</p><p>1.	Jesus a gueri \`\`toute sorte de maladie et d'affections parmi le peuple.'' Il alla \`\`guerissant chaque maladie et chaque affection... \`\`</p><p>Matthieu 4:23; 9:35; 11:5; 12:15; 15:30-31; etc.</p><p>2.	Les maladies suivantes sont quelques une de celles de ces recits dans l'ecriture ou Dieu a gueri les affliges.</p><p>Atrophie (main fletrie). (Matthieu 12:10-13; Luc 6:6-10)</p><p>Sterilite.</p><p>Sarah: Genese 15:2-4; 17:15-19; 18:10-14; 21:1,2; Hebreux 11:11</p><p>La maisonnee d'Abimelec: Genese 20:18,19</p><p>Rebecca: Genese 25:21</p><p>Lea: Genese 29:31a</p><p>Rachel: Genese 29:31b; 30:22-23</p><p>Ruth: Ruth 4:10-13</p><p>La femme de Manoach: Juges 13:2-3</p><p>Anne: I Samuel 1:2, 5, 6,19,20</p><p>Elisabeth: Luc 1:5-7,24,57,58</p><p>Cecite. (Matthieu 9:27-30; 11:5; 12:22; 15:30; 20:30-34;21:14 Marc 8:22-26; 10:46-52; Luc 7:21,22; 18:35-43; Jean 9:1ff)</p><p>Furoncle (II Roi 20:7; Job 2:7; 42:10; Esaie 38:21)</p><p>e.	Impotent ou Boiteux. (Matthieu 11:15; 15:30,31; 21:14; Actes 3:2; 8:7; 14:8-10)</p><p>f.	Surdite. (Matthieu 11:5; Marc 7:32-37; 9:25; Luc 7:22)</p><p>g.	Hydropisie. (Luc 14:1-4)</p><p>Mutisme</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    {
-      id: "c3-19",
-      title: "Trois clés supplémentaires pour la guérison",
-      duration: "75 min",
-      content: `<p>8:43-48</p><p>9:1-6</p><p>9:11</p><p>9:38-42</p><p>11:14</p><p>13:11-13</p><p>14:1-4</p><p>17:12-19</p><p>18:35-43</p><p>22:49-51	 4:46-54</p><p>5:1-14</p><p>9:1-11</p><p>11:1-45	 2:42,43</p><p>3:1-8,16</p><p>5:12-16</p><p>8:4-8</p><p>9:1-19</p><p>9:32-35</p><p>9:36:42</p><p>14:8-10</p><p>14:19,20</p><p>16:16-18</p><p>19:11,12</p><p>20:7-12</p><p>28:1-6</p><p>28:8,9</p><p>____________</p><p>PHILIPPIENS</p><p>2:25-30</p><p>__________</p><p>HEBREUX</p><p>11:35a</p><p>Pour plus d'information sur ceci voir l'Appendice 1, Dieu veut que tous soient gueris de toute maladie tout le temps.</p><p>Genese 18:14; Jeremie 32:17,27</p><p>Juges 6:12,13</p><p>Exode 4:1</p><p>Josue 1:5</p><p>\`\`Pour le bien commun...'' est aussi la maniere dont la phrase est traduite dans " The Bible in Basic English ", " The Revised Standard Version ", " The Bible in Modern Speech (Weymouth) ", " The Bible in Modern English (Phillips) ", " The New American Standard Bible ", and " The New International Version. "</p><p>Le Don de guerisons est la seule des neufs manifestations a etre appelee don, charisma, aussi.</p><p>L'operation des miracles est la seule des neufs manifestations a etre appelee une operation, energ?ma, aussi.</p><p>Le mot francais \`\`allomorphe'' est utilise pour toutes les formes cristallines d'une substance existante dans plusieurs formes. Cela reconduit aux nuances de signification numerique et de genre venant du Grec allos.</p><p>Le mot francais \`\`heterosexuel'' est utilise pour celui qui prefere l'autre sexe (duquel il y a seulement deux) de sortes differentes. Cela reconduit aux nuances de signification numerique et de genre venant du Grec heteros.</p><p>Des textes critiques Grecs omettent le mot idios.</p><p>Actes 10:34; Ephesiens 6:9; Colossiens 3:25</p><p>I Corinthiens 2:5</p><p>Jean 5:17-21</p><p>Jean 7:15-18,46</p><p>Jean 8:16,26-29</p><p>Jean 5:20</p><p>Luc 2:49</p><p>Jean 19:30</p><p>Romains 10:17</p><p>Ephesiens 4:32</p><p>Psaumes 103:3</p><p>Esaie 53:4,5</p><p>Job 2:9</p><p>Proverbes 12:25; 15:13; 17:22; Psaumes 139:14</p><p>Exodes 23:25</p><p>Hebreux 4:12a</p><p>" The New Testament in Modern Speech " (le NT en langage moderne)</p><p>I Samuel 3:19b</p><p>Psaumes 123:1,2</p><p>Zacharie 14:4</p><p>I Roi 18:17-46; Esaie 14:13; 65:7; Ezechiel 6:13</p><p>Deuteronomes 33:15; Habaquq 3:6</p><p>Jeremie 13:16</p><p>Matthieu 21:21</p><p>Zacharie 4:7</p><p>Matthieu 17:20</p><p>Marshall, I. H., etal., New Bible Dictionary, Third Edition, Intervarsity Press, 1996, page,789.</p><p>Walvoord, John F. and Zuck, Roy B. The Bible Knowledge Commentary, Chariot Victor Publishing, Colorado Springs, CO, 1983 p. 807</p><p>Nombres23:19; I Samuel 15:29; Tites 1:2; Hebreux 6:18</p><p>II Samuel 22:20; Psaumes 18:19</p><p>Genese 49</p><p>Jacques 1:13</p><p>Pensez-vous que Dieu etait trompe ou dupe? Je ne le pense pas. Lorsque Isaac a parle la benediction il a fait exactement ce que Dieu voulait qu'il fasse. Dieu savait simplement ou la tete d'Isaac etait, ainsi cette entiere charade etait arrangee pour qu'Isaac fasse ce qu'il etait suppose faire.</p><p>Si Samson tuait une personne par minute, cela aurait pris plus de 16 heures et demi pour tuer un millier d'hommes.</p><p>Daniel n'etait pas epargne de l'antre des lions, mais il etait garde pendant qu'i</p>`,
-      quiz: [
-        {
-          question: "Quel est le thème principal de ce chapitre ?",
-          options: ["L'histoire de l'Église", "Marcher dans la puissance de Dieu et la révélation", "L'administration de l'Église", "L'histoire biblique"],
-          correct: 1,
-          explanation: "Chaque chapitre se concentre sur des aspects pratiques de la marche dans la puissance de Dieu à travers les manifestations du Saint-Esprit."
-        },
-        {
-          question: "Quelle est la base pour opérer les manifestations de révélation ?",
-          options: ["La maturité spirituelle personnelle", "La foi dans la Parole de Dieu et Sa volonté", "Des années d'expérience ministérielle", "Une formation théologique formelle"],
-          correct: 1,
-          explanation: "La foi dans la Parole de Dieu — faire confiance à ce qu'Il a dit sur Sa volonté et Sa puissance — est le fondement de toute opération des manifestations."
-        },
-        {
-          question: "Comment toute révélation doit-elle être éprouvée ?",
-          options: ["Par une confirmation émotionnelle", "Par son alignement avec les Écritures", "Par le consensus du groupe", "Par l'intensité de l'expérience"],
-          correct: 1,
-          explanation: "Toute révélation doit s'aligner avec la Parole écrite de Dieu. La Bible est le standard et le juge de toute révélation."
-        }
-      ]
-    },
-    ]
-  }
+      { id: "c3-1", title: "Administering God's Power — Introduction", duration: "69 min", content: `<h2>Administering God's Power</h2><p>Welcome to the fourth and final course in the series on God's Power. In this course we will study the "power manifestations" — also called the impartation manifestations:</p><ul><li><strong>Special Faith</strong> — a supernatural surge of faith given for a specific purpose</li><li><strong>Working of Miracles</strong> — a supernatural intervention that supersedes natural law</li><li><strong>Gifts of Healings</strong> — supernatural healings that operate through believers</li></ul><p>The ministry of Jesus Christ was a ministry of grace and deliverance. Our ministry should be the same. This course will teach you HOW to manifest the same power Jesus displayed.</p><h3>The Foundation</h3><p>Are you ready to follow in His footsteps? John 14:12: "Truly, truly, I say to you, whoever believes in me will also do the works that I do; and greater works than these will he do, because I am going to the Father."</p><h3>The Application of Revelation</h3><p>In previous courses we studied the revelation manifestations (word of knowledge, word of wisdom, discerning of spirits). In this course we see how revelation is applied through the power manifestations. Revelation identifies what needs to be done — the power manifestations accomplish it.</p>`, quiz: [{ question: "Which three manifestations are covered in this course?", options: ["Word of knowledge, prophecy, tongues", "Special faith, working of miracles, gifts of healings", "Discerning of spirits, word of wisdom, word of knowledge", "Apostle, prophet, teacher"], correct: 1, explanation: "This course covers the three power/impartation manifestations: special faith, working of miracles, and gifts of healings — the culmination of the four-course series." }, { question: "What does John 14:12 promise to believers who believe in Jesus?", options: ["That they will understand all Scripture", "That they will be protected from all harm", "That they will do the works Jesus did, and even greater works", "That they will never face hardship"], correct: 2, explanation: "John 14:12 contains one of the most stunning promises in Scripture: 'Whoever believes in me will also do the works that I do; and greater works than these will he do.' This applies to all believers." }, { question: "How do the revelation manifestations relate to the power manifestations?", options: ["They are completely separate operations", "Revelation identifies what needs to be done; power manifestations accomplish it", "Power manifestations replace the need for revelation", "They never operate together"], correct: 1, explanation: "Revelation and power manifestations work in concert. Revelation (word of knowledge, wisdom, discerning) identifies the need and God's will — then power manifestations (faith, miracles, healing) accomplish it." }] },
+      { id: "c3-2", title: "Impartation Manifestations", duration: "54 min", content: `<h2>The Impartation Manifestations</h2><p>The three power manifestations — special faith, working of miracles, and gifts of healings — are called "impartation" manifestations because they impart something tangible from God's realm into the physical realm.</p><h3>Special Faith</h3><p>Special faith is distinct from saving faith or general faith in God. It is a supernatural surge of faith given by the Spirit for a specific situation — a divine certainty that something specific will happen. Jesus spoke to the fig tree (Mark 11) and the storm (Mark 4) with this kind of faith — absolute certainty of the outcome.</p><h3>Working of Miracles</h3><p>A miracle is a supernatural act of power that supersedes or sets aside natural law. The parting of the Red Sea, the feeding of the 5,000, walking on water, raising the dead — these are miracles. They demonstrate that God's power is superior to all natural law.</p><h3>Gifts of Healings</h3><p>Note the plural: "gifts of healings" (1 Corinthians 12:9). There are multiple healing gifts — one person may see consistent results in one area (e.g., back conditions) while another sees results in a different area. Gifts of healings channel God's healing power through believers to the sick.</p>`, quiz: [{ question: "What makes 'special faith' different from ordinary saving faith?", options: ["It is stronger and more permanent", "It is a supernatural surge given for a specific situation — a divine certainty about a specific outcome", "It is only available to those with great spiritual maturity", "It replaces the need for prayer"], correct: 1, explanation: "Special faith is distinct — it is a supernatural surge given by the Spirit for a specific situation, providing divine certainty that something specific will happen. It is beyond general faith in God." }, { question: "Why is it significant that 1 Corinthians 12 says 'gifts of healings' (plural)?", options: ["Because healings must be done in groups", "Because multiple prayers are always required", "Because there are multiple healing gifts — different believers may see consistent results in different areas", "Because only three types of illness can be healed"], correct: 2, explanation: "The plural 'gifts of healings' indicates that healing gifts are varied — one person may consistently see results in certain conditions while another sees different results. God distributes these diversely." }, { question: "What is the defining characteristic of a working of miracles?", options: ["It involves healing of the physical body", "It supersedes or sets aside natural law", "It is always accompanied by thunder and lightning", "It must be witnessed by a large crowd"], correct: 1, explanation: "A miracle supersedes or sets aside natural law — it demonstrates that God's power operates above and beyond the natural order. Parting seas, walking on water, raising the dead all fall in this category." }] },
+      { id: "c3-3", title: "Manifestations Work Together", duration: "76 min", content: `<h2>Manifestations Working Together</h2><p>The nine manifestations of holy spirit do not operate in isolation — they work together in integrated ways. This session explores how they function as a unified expression of God's power.</p><h3>A Complete Package</h3><p>Think of a ministry encounter with a sick person:<ul><li><strong>Word of knowledge</strong> reveals the specific condition</li><li><strong>Discerning of spirits</strong> identifies if there is a spiritual root</li><li><strong>Word of wisdom</strong> gives direction for how to minister</li><li><strong>Special faith</strong> arises for the specific healing</li><li><strong>Gift of healing</strong> channels the healing power to the person</li><li><strong>Prophecy</strong> may encourage and confirm the healing</li></ul>All nine are available; what is needed in each moment flows according to the Spirit's direction.</p><h3>Jesus as the Model</h3><p>Jesus operated in all nine manifestations. Study the Gospels and you will see every manifestation in operation through His life. He is our standard and model — not our substitute. We are to do what He did.</p>`, quiz: [{ question: "In a complete healing encounter, which revelation manifestation might identify the specific condition?", options: ["Special faith", "Gifts of healings", "Word of knowledge", "Working of miracles"], correct: 2, explanation: "Word of knowledge reveals specific facts — including specific physical conditions or their root causes. It is often the first step in a targeted healing ministry." }, { question: "What is the significance of Jesus operating in all nine manifestations?", options: ["It shows these gifts ended with His generation", "He is our model and standard — we are to do what He did, not merely admire it", "Only those with Jesus' level of anointing can operate all nine", "It demonstrates that the gifts should only be used in formal ministry contexts"], correct: 1, explanation: "Jesus operating in all nine manifestations establishes Him as our standard and model — not our substitute. We are commissioned to do the works He did (John 14:12)." }, { question: "How do manifestations generally flow in a ministry encounter?", options: ["According to a fixed, predetermined order", "Only one at a time, never together", "According to the Spirit's direction in the moment, with all nine available", "According to the leader's choice before the meeting begins"], correct: 2, explanation: "All nine manifestations are available in every encounter. What flows in any given moment is according to the Spirit's direction — this requires sensitivity, not a formula." }] },
+      { id: "c3-4", title: "Working Together with God", duration: "78 min", content: `<h2>Working Together with God</h2><p>2 Corinthians 6:1 says we are "workers together with God." This session explores the profound partnership between God and His people in the administration of His power.</p><h3>God's Role and Our Role</h3><p>Understanding the divine-human partnership prevents two errors:<ul><li><strong>Passivity</strong>: "God will do it if He wants to" — abdication of human responsibility</li><li><strong>Self-reliance</strong>: "I must make this happen" — taking on what only God can do</li></ul>The partnership is: we believe, we speak, we act — God confirms, God heals, God does the miracle. We are the vessels; He is the source.</p><h3>Mark 16:20</h3><p>"And they went out and preached everywhere, while the Lord worked with them and confirmed the message by accompanying signs." Notice the order: they preached (human action) → the Lord worked with them (divine confirmation). Both parts are essential.</p><h3>Practical Application</h3><p>This means we must show up. We must speak. We must pray for the sick. We must step out in faith. God does not typically do what we are assigned to do. But when we do our part, He does what only He can do — and the result is transformation.</p>`, quiz: [{ question: "What are the two errors that misunderstanding the divine-human partnership can lead to?", options: ["Pride and shame", "Passivity (abdication) and self-reliance (taking on what only God can do)", "Overconfidence and underconfidence", "Legalism and lawlessness"], correct: 1, explanation: "Misunderstanding partnership produces either passivity ('God will do it without my involvement') or self-reliance ('I must make this happen'). Both miss the biblical model of cooperation." }, { question: "According to Mark 16:20, what is the correct order of events in the divine-human partnership?", options: ["God acts first, then believers respond", "Believers receive a sign first, then preach", "Believers preach (human action), then the Lord confirms with signs (divine action)", "God and believers act simultaneously with equal initiative"], correct: 2, explanation: "Mark 16:20 shows disciples preaching first — then the Lord working with them and confirming with signs. Human action comes first; divine confirmation follows. We must show up and act." }, { question: "What does 'we are the vessels; He is the source' mean practically?", options: ["We have no active role — God uses us passively", "We provide the faith and skill; God provides the opportunity", "We take the steps of belief, speech, and action; God provides the power and results", "We earn God's power through faithful service"], correct: 2, explanation: "As vessels, we believe, speak, and act — doing our part. As source, God provides the power and produces the results. Both roles are real and necessary." }] },
+      { id: "c3-5", title: "The Believers' Hall of Glory", duration: "77 min", content: `<h2>The Believers' Hall of Glory</h2><p>Hebrews 11 — often called the "Hall of Faith" — is a testimony to ordinary people who accomplished extraordinary things through faith. This session draws lessons from their lives for operating in the power manifestations today.</p><h3>The Pattern of Faith</h3><p>Every person in Hebrews 11 shares a common pattern:<ol><li>They received a word from God (revelation)</li><li>They believed the word and acted on it (faith)</li><li>They experienced God's confirmation and power</li></ol>This is the same pattern for power manifestations today.</p><h3>Key Examples</h3><ul><li><strong>Noah</strong> — built the ark by faith, a massive act of obedience to revelation, resulting in salvation</li><li><strong>Abraham</strong> — left his homeland, offered Isaac, against all natural evidence believed God</li><li><strong>Moses</strong> — chose to identify with God's people rather than Egypt's treasures, performing signs and wonders</li><li><strong>Rahab</strong> — an outsider who received and acted on revelation, becoming part of God's story</li></ul><h3>Hebrews 11:6</h3><p>"And without faith it is impossible to please him, for whoever would draw near to God must believe that he exists and that he rewards those who seek him." Faith is not optional — it is the essential substance of the life that pleases God.</p>`, quiz: [{ question: "What is the common three-step pattern shared by every person in Hebrews 11?", options: ["Repentance, baptism, and service", "Revelation, faith-action, and God's confirmation/power", "Prayer, fasting, and obedience", "Study, teaching, and discipleship"], correct: 1, explanation: "Every person in Hebrews 11 received revelation (a word from God), believed and acted on it (faith), and then experienced God's confirmation. This is the pattern for all power manifestations." }, { question: "What does Hebrews 11:6 say is impossible without faith?", options: ["Working miracles", "Understanding Scripture", "Pleasing God", "Operating in spiritual gifts"], correct: 2, explanation: "Hebrews 11:6: 'Without faith it is impossible to please him.' Faith is not optional — it is the essential substance of the life that pleases and partners with God." }, { question: "What lesson does Rahab's inclusion in Hebrews 11 teach us?", options: ["Only those with Israelite heritage can be used by God", "Social status and background do not disqualify anyone from being part of God's story", "Women cannot operate in faith manifestations", "Faith is only possible after a lifetime of spiritual discipline"], correct: 1, explanation: "Rahab — a Gentile woman with a problematic background — received revelation, acted on it, and became part of God's story. No one is disqualified by their past or background from faith that pleases God." }] },
+      { id: "c3-6", title: "Releasing Your Faith", duration: "59 min", content: `<h2>Releasing Your Faith</h2><p>Faith that is not released accomplishes nothing. This session addresses the practical question: how do we release the faith within us to see God's power manifest?</p><h3>Mark 11:23-24</h3><p>"Truly, I say to you, whoever says to this mountain, 'Be taken up and thrown into the sea,' and does not doubt in his heart, but believes that what he says will come to pass, it will be done for him. Therefore I tell you, whatever you ask in prayer, believe that you have received it, and it will be yours."</p><p>Faith is released through speaking. We speak to the situation, to the mountain, in alignment with God's Word and His revealed will.</p><h3>The Role of the Mouth</h3><p>Romans 10:10: "For with the heart one believes and is justified, and with the mouth one confesses and is saved." Faith in the heart is released through confession with the mouth. This is not mind power or positive thinking — it is the alignment of the inner person with God's truth, expressed outwardly in speech and action.</p><h3>Ministering Healing Through Faith</h3><p>Practical steps for releasing faith for healing:<ol><li>Ask if the person wants to be healed (Jesus often asked)</li><li>Ask what is needed (a simple question opens the door to revelation)</li><li>Lay hands on (if appropriate) — the point of contact for faith</li><li>Speak the healing in Jesus' name — address the condition directly</li><li>Ask the person to check if they notice any change</li><li>Give God the glory for any change, no matter how small</li></ol></p>`, quiz: [{ question: "According to Mark 11:23-24, how is faith primarily released?", options: ["Through extended fasting", "Through speaking to the situation or mountain", "Through group agreement prayer only", "Through silent meditation and inner conviction"], correct: 1, explanation: "Jesus said to 'say to this mountain' — faith is released through speaking, in alignment with God's Word, to the situation that needs to change." }, { question: "What does Romans 10:10 teach about the relationship between heart belief and mouth confession?", options: ["Heart belief alone is sufficient; mouth confession is optional", "Mouth confession is performative and not spiritually significant", "Heart belief is justified by God; mouth confession releases and makes salvation effective", "They operate completely independently"], correct: 2, explanation: "Romans 10:10 shows a two-part process: 'with the heart one believes... and with the mouth one confesses.' Both are necessary — inner belief is released and completed through outward confession." }, { question: "When ministering healing, why might you ask the person 'what is needed'?", options: ["Because you must diagnose before praying", "Because God cannot heal without knowing the condition", "Because the question opens the door to revelation and helps focus faith on the specific need", "Because you should only pray for what people explicitly request"], correct: 2, explanation: "Asking what is needed opens the door to revelation (you may receive specific insight) and focuses the faith-prayer on the actual specific need, following Jesus' own example (e.g., 'what do you want me to do for you?')." }] },
+      { id: "c3-7", title: "The Miracles of Joshua", duration: "66 min", content: `<h2>The Miracles of Joshua</h2><p>Joshua is one of Scripture's greatest examples of a leader who administered God's power in cooperation with divine revelation. His campaigns in Canaan were marked by consistent supernatural intervention.</p><h3>The Jordan Crossing (Joshua 3)</h3><p>God told Joshua in advance what He would do. Joshua told the priests what to do. The priests obeyed — they stepped into the Jordan River before it parted. The miracle happened as they stepped in, not before. This is the pattern of faith and power working together: obedience to revelation, then the miracle.</p><h3>Jericho (Joshua 6)</h3><p>The instructions for taking Jericho made no military sense — march around the city, blow trumpets, shout. This was a word of wisdom (how God would accomplish the victory) received by faith and obeyed completely. The walls fell when the people obeyed the specific revelation.</p><h3>The Sun Standing Still (Joshua 10)</h3><p>Joshua asked God to hold the sun in place during a battle. "There has been no day like it before or since, when the Lord heeded the voice of a man, for the Lord fought for Israel" (Joshua 10:14). Special faith, combined with boldness of prayer, resulted in one of the greatest miracles in history.</p>`, quiz: [{ question: "What did the priests have to do before the Jordan River parted?", options: ["Pray for seven days at the riverbank", "Step into the river — the miracle came as they obeyed", "Build an altar and sacrifice", "Wait for God to part the river and then cross"], correct: 1, explanation: "The priests stepped into the Jordan River first — then it parted. The miracle required the step of faith first. This is always the pattern: obedience to revelation precedes the miracle." }, { question: "Why is Jericho's conquest a good example of word of wisdom in action?", options: ["Because it used the most sophisticated military strategy of the era", "Because God gave a specific unconventional plan that only He could have devised", "Because it showed that prayer alone can replace military action", "Because it proved that obedience to the Law always brings victory"], correct: 1, explanation: "God's instructions for Jericho made no military sense — marching, trumpets, shouting. This unconventional plan came as revelation (word of wisdom), and its exact obedience produced the miraculous result." }, { question: "What does Joshua 10:14 say was unique about the day the sun stood still?", options: ["It was the first miracle in Joshua's ministry", "It was the largest battle in Israelite history", "There had been no day like it — before or since — when God heeded the voice of a man", "It was the only miracle that involved all of Israel"], correct: 2, explanation: "Joshua 10:14 calls it uniquely unprecedented: 'There has been no day like it before or since, when the Lord heeded the voice of a man.' Boldness in prayer, backed by revelation, releases extraordinary miracles." }] },
+      { id: "c3-8", title: "The Miracles of Jesus", duration: "49 min", content: `<h2>The Miracles of Jesus</h2><p>Jesus performed more miracles than any single account can contain (John 21:25). Studying His miracles gives us our clearest picture of how the power manifestations operate.</p><h3>Jesus' Method</h3><p>Jesus' miracles were not random — each one was an expression of the Father's will, confirmed by revelation. John 5:19-20: "The Son can do nothing of his own accord, but only what he sees the Father doing. For whatever the Father does, that the Son does likewise." Jesus operated from revelation, then acted with authority.</p><h3>Types of Miracles</h3><ul><li><strong>Healing miracles</strong>: the blind, lame, lepers, dead raised — gifts of healings and working of miracles</li><li><strong>Nature miracles</strong>: calming the storm, walking on water, multiplying bread — working of miracles</li><li><strong>Deliverance miracles</strong>: casting out demons — discerning of spirits and special faith</li></ul><h3>Matthew 8:16-17</h3><p>"That evening they brought to him many who were oppressed by demons, and he cast out the spirits with a word and healed all who were sick. This was to fulfill what was spoken by the prophet Isaiah: 'He took our illnesses and bore our diseases.'" Jesus healed all — not some. His ministry set the standard.</p>`, quiz: [{ question: "According to John 5:19-20, what was the basis for Jesus' miraculous works?", options: ["His divine nature operating independently of the Father", "His own spiritual authority earned through fasting and prayer", "Revelation — doing only what He saw the Father doing", "Random acts of mercy according to immediate compassion"], correct: 2, explanation: "John 5:19-20 reveals that Jesus operated from revelation — He did what He saw the Father doing. His miracles were not random but the precise expression of the Father's revealed will." }, { question: "According to Matthew 8:16-17, how many of the sick did Jesus heal that evening?", options: ["Those with enough faith", "The most seriously ill", "All who were sick", "Those who asked specifically"], correct: 2, explanation: "Matthew 8:16-17 says Jesus 'healed all who were sick' — not some, not the most faith-filled, but all. This is the standard His ministry sets." }, { question: "Casting out demons is an example of which manifestations working together?", options: ["Gifts of healings and prophecy", "Discerning of spirits and special faith", "Word of knowledge and working of miracles", "Tongues and interpretation"], correct: 1, explanation: "Deliverance involves discerning of spirits (identifying the spiritual opposition) and special faith (the supernatural certainty that the demon must go). They work together in deliverance ministry." }] },
+      { id: "c3-9", title: "Signs, Miracles, and Wonders", duration: "69 min", content: `<h2>Signs, Miracles, and Wonders</h2><p>Scripture uses three distinct terms — signs, miracles, and wonders — to describe supernatural works of God. Understanding the distinctions enriches our understanding of the power manifestations.</p><h3>Signs (semeion)</h3><p>A sign points to something beyond itself. The miracles of Jesus were signs — they pointed to who He was (the Son of God) and to the kingdom He was establishing. When we minister in the power manifestations, the results are signs — they point people to God, not to us.</p><h3>Miracles (dunamis)</h3><p>Dunamis means power — mighty works of power. This is the word from which we get "dynamite." The working of miracles is an explosive, dynamic release of God's power that produces visible, tangible results that cannot be explained by natural means.</p><h3>Wonders (teras)</h3><p>Wonders cause people to stop and be amazed — they arrest attention and create an atmosphere of reverence and awe. Not every sign and miracle produces a wonder response, but when people encounter the genuine power of God, wonder is often the natural human response.</p><h3>Acts 2:22</h3><p>"Men of Israel, hear these words: Jesus of Nazareth, a man attested to you by God with mighty works and wonders and signs that God did through him in your midst." Jesus was authenticated by all three — signs, wonders, and mighty works. We continue His ministry.</p>`, quiz: [{ question: "What does the Greek word 'dunamis' (miracles) mean?", options: ["Gentle power", "Mighty power or power-works", "Healing ability", "Spiritual authority"], correct: 1, explanation: "Dunamis means mighty power — it is the root of 'dynamite.' The working of miracles is an explosive, dynamic release of God's power that produces tangible, inexplicable results." }, { question: "What is the defining purpose of a 'sign' (semeion)?", options: ["To destroy the enemy's power", "To heal physical conditions", "To point beyond itself to God and His kingdom", "To prove the minister's credentials"], correct: 2, explanation: "A sign points to something beyond itself. Miraculous signs point to God — to who He is and the kingdom He is establishing. They direct attention to God, not to the vessel He works through." }, { question: "According to Acts 2:22, how was Jesus attested by God?", options: ["By His perfect teaching and moral life alone", "Through mighty works, wonders, and signs done through Him", "Through the testimony of John the Baptist", "Through the audible voice of the Father alone"], correct: 1, explanation: "Acts 2:22 says Jesus was 'attested by God with mighty works and wonders and signs.' The supernatural works authenticated His identity and mission — and we continue that same authenticated ministry." }] },
+      { id: "c3-10", title: "Casting Out Evil Spirits", duration: "78 min", content: `<h2>Casting Out Evil Spirits</h2><p>Deliverance from evil spirits was a central part of Jesus' ministry and the ministry of the early church. This session provides Biblical grounding for understanding and ministering deliverance.</p><h3>The Biblical Reality</h3><p>Scripture presents evil spirits as real, personal beings with the ability to oppress, afflict, and in extreme cases, control human beings. They are not metaphors for psychological conditions — though psychological manifestations may accompany their activity.</p><h3>The Believer's Authority</h3><p>Luke 10:19 — Jesus gave believers "authority to tread on serpents and scorpions, and over all the power of the enemy." This authority was not reserved for the twelve apostles — the 70 disciples exercised it (Luke 10:17), and the early church exercised it (Acts 16:18, Acts 19:12).</p><h3>The Process</h3><ol><li>Identify — discerning of spirits reveals the presence and nature of evil spirits</li><li>Address — speak directly to the spirit, not the person</li><li>Command — in Jesus' name, command the spirit to leave</li><li>Fill — pray for the Holy Spirit to fill the person fully (Matthew 12:43-45)</li></ol><h3>Maintaining the Deliverance</h3><p>Matthew 12:43-45 warns that a delivered person who does not fill their life with God's Word and Spirit risks repossession. Follow-up and discipleship are essential parts of deliverance ministry.</p>`, quiz: [{ question: "How does Scripture present evil spirits — as metaphors or as real beings?", options: ["Metaphors for psychological or social conditions", "Real personal beings with ability to oppress and afflict", "Ancient superstitions without modern relevance", "Only relevant in non-Western cultural contexts"], correct: 1, explanation: "Scripture consistently presents evil spirits as real, personal beings — not metaphors. Jesus addressed them directly, they responded, and their departure produced observable results." }, { question: "What authority does Luke 10:19 grant to believers?", options: ["Authority over weather and natural disasters", "Authority reserved for ordained ministers only", "Authority over all the power of the enemy — over serpents, scorpions, and all enemy power", "Authority to forgive sins on God's behalf"], correct: 2, explanation: "Luke 10:19 gives all believers — not just apostles — authority 'over all the power of the enemy.' This comprehensive authority is the basis for deliverance ministry." }, { question: "Why is follow-up and discipleship essential after deliverance?", options: ["Because deliverance is only temporary without it", "Because Matthew 12:43-45 warns that an unfilled, undiscipled life risks repossession", "Because the church must document all deliverances", "Because only trained counselors can maintain deliverances"], correct: 1, explanation: "Matthew 12:43-45 warns that a delivered person who does not fill their life with God's Word and Spirit may experience repossession. Follow-up and discipleship are essential, not optional." }] },
+      { id: "c3-11", title: "Accounts of Deliverances", duration: "60 min", content: `<h2>Accounts of Deliverances from Scripture</h2><p>This session examines key deliverance accounts in the New Testament to draw practical lessons for ministry today.</p><h3>The Epileptic Boy (Mark 9:14-29)</h3><p>The disciples had tried and failed to cast out the spirit from the boy. Jesus addressed the spirit directly, and commanded it to leave and never return. The disciples asked why they couldn't do it. Jesus' answer: "This kind cannot be driven out by anything but prayer" (and in some manuscripts, fasting). Some situations require deepened spiritual preparation.</p><h3>The Slave Girl at Philippi (Acts 16:16-18)</h3><p>A slave girl with a spirit of divination followed Paul for many days. Paul "became greatly annoyed" — the Spirit within him was grieved. He turned and commanded the spirit to come out in Jesus' name — and it came out immediately. Authority spoken in the name of Jesus brings immediate results.</p><h3>The Sons of Sceva (Acts 19:13-16)</h3><p>Seven sons of Sceva tried to cast out demons using Jesus' name as a formula, without the relationship and authority that comes through genuine faith. The demon said, "Jesus I know, and Paul I know, but who are you?" and overpowered them. This is a stark warning: deliverance ministry requires genuine faith and genuine relationship with Jesus — not formulas.</p>`, quiz: [{ question: "What did Jesus say was required for the kind of spirit that afflicted the epileptic boy?", options: ["Louder commands", "More experienced ministers", "Prayer (and fasting in some manuscripts) — deeper spiritual preparation", "A larger group of believers present"], correct: 2, explanation: "Jesus said 'This kind cannot be driven out by anything but prayer' — some situations require deeper spiritual preparation. Not all deliverance is the same; some requires more intensive prayer." }, { question: "What warning does the story of the sons of Sceva provide?", options: ["That only Jews can cast out demons", "That deliverance requires formulas passed down through apostolic succession", "That using Jesus' name as a formula without genuine faith and relationship produces dangerous results", "That Paul had a unique authority no other believers share"], correct: 2, explanation: "The sons of Sceva used Jesus' name as a formula without genuine relationship and authority. The demon's response shows that deliverance requires real faith and real relationship with Jesus — not borrowed authority or ritual." }, { question: "Why did Paul respond to the girl at Philippi after 'many days' rather than immediately?", options: ["Because he needed to determine if she was genuinely oppressed", "Because the Spirit within him was grieved and finally moved him to act", "Because Silas had not yet agreed to the deliverance", "Because deliverance requires extended observation"], correct: 1, explanation: "Paul became 'greatly annoyed' — the word suggests the Spirit within him was grieved. He acted when the Spirit prompted him, not on a human timeline. Ministry of power flows from the Spirit's initiation." }] },
+      { id: "c3-12", title: "More Accounts of Deliverances", duration: "68 min", content: `<h2>More Accounts of Deliverances — Additional Study</h2><p>This session continues examining deliverance ministry through additional New Testament accounts and practical principles.</p><h3>Paul at Ephesus (Acts 19:11-12)</h3><p>"And God was doing extraordinary miracles by the hands of Paul, so that even handkerchiefs or aprons that had touched his skin were carried to the sick, and their diseases left them and the evil spirits came out of them." God used even physical points of contact to channel His healing and deliverance power. The faith of the people receiving these objects was key.</p><h3>Peter's Shadow (Acts 5:15)</h3><p>People brought the sick into the streets so that Peter's shadow might fall on them. This was not magic — it was extraordinary faith in a person through whom God was consistently working. God can honor the faith of people in remarkable ways.</p><h3>Principles Drawn</h3><ul><li><strong>God is creative.</strong> He uses different means in different situations — there is no single formula.</li><li><strong>Consistency builds faith.</strong> When people see consistent results through a person, faith increases to receive.</li><li><strong>The name of Jesus is the constant.</strong> Methods may vary; the authority of Jesus' name never changes.</li><li><strong>God wants people free.</strong> Every account of deliverance shows God's desire to bring freedom to the captive.</li></ul>`, quiz: [{ question: "What does Acts 19:11-12 say about the handkerchiefs and aprons from Paul?", options: ["They were sold as holy relics", "When carried to the sick, diseases left and evil spirits came out", "They only helped those with strong personal faith", "They were effective because Paul had prayed over each one individually"], correct: 1, explanation: "Acts 19:12 says these items 'carried to the sick' resulted in diseases leaving and evil spirits coming out. God used physical points of contact to channel His power — creative, non-formulaic ministry." }, { question: "What does the account of Peter's shadow (Acts 5:15) demonstrate?", options: ["That Peter had magical powers in his shadow", "That God can honor extraordinary faith through creative means of contact", "That only apostles can minister in this way", "That shadows have spiritual significance in healing"], correct: 1, explanation: "Peter's shadow was not magic — it was a point of contact for the extraordinary faith of people who had seen consistent results through Peter's ministry. God honored that faith creatively." }, { question: "What is the one constant across all the varied methods of healing and deliverance in Acts?", options: ["The method of laying on of hands", "The presence of multiple apostles", "The authority and name of Jesus", "Extended prayer before each encounter"], correct: 2, explanation: "Methods in Acts vary widely — shadows, handkerchiefs, spoken commands, laying on of hands. The constant is the name and authority of Jesus. Methods change; His authority does not." }] },
+      { id: "c3-13", title: "Foundations of Healing", duration: "62 min", content: `<h2>Foundations of Healing</h2><p>This session lays the theological foundations that undergird a consistent healing ministry. Understanding WHY God heals is as important as understanding HOW He heals.</p><h3>Is It Always God's Will to Heal?</h3><p>Matthew 8:2-3: A leper said to Jesus, "Lord, if you are willing, you can make me clean." Jesus replied, "I am willing; be clean." This single exchange reveals Jesus' willingness to heal. Jesus said, "If you have seen me, you have seen the Father" (John 14:9). Jesus healed all who came to Him — this is God's character revealed.</p><h3>Isaiah 53:4-5 and Matthew 8:17</h3><p>Isaiah prophesied: "He took our infirmities and bore our diseases." Matthew explicitly applies this to Jesus' healing ministry. Healing is embedded in the atonement — not an optional extra but a provision of what Christ accomplished.</p><h3>3 John 2</h3><p>"Beloved, I pray that all may go well with you and that you may be in good health, as it goes well with your soul." God's desire is comprehensive wholeness — spirit, soul, and body. Healing is not reluctantly granted when begged — it is God's expressed desire for His people.</p>`, quiz: [{ question: "When the leper asked 'if you are willing,' how did Jesus respond?", options: ["'It depends on your faith'", "'I am willing; be clean'", "'Pray for three days first'", "'This is not the right time'"], correct: 1, explanation: "Jesus said 'I am willing; be clean' — His instant, unqualified willingness establishes God's character toward the sick. He never turned anyone away who came seeking healing." }, { question: "According to Matthew 8:17, what did Jesus' healing ministry fulfill?", options: ["A random act of mercy", "Isaiah's prophecy that He took our infirmities and bore our diseases", "The Mosaic purification laws", "A sign only for the Jewish nation"], correct: 1, explanation: "Matthew 8:17 explicitly quotes Isaiah 53:4-5 in connection with Jesus' healing ministry — healing is a fulfillment of Isaiah's prophecy and embedded in the atonement." }, { question: "What does 3 John 2 reveal about God's desire for believers?", options: ["Primarily spiritual growth, with physical health secondary", "Comprehensive wholeness — good health as much as soul wellbeing", "That health is a reward for faithfulness", "That physical health is separate from spiritual matters"], correct: 1, explanation: "3 John 2: 'I pray that you may be in good health, as it goes well with your soul.' God desires comprehensive wholeness — spirit, soul, and body — not just spiritual blessing." }] },
+      { id: "c3-14", title: "Healing Realities", duration: "45 min", content: `<h2>Healing Realities</h2><p>This session addresses the practical realities of healing ministry — including the reality that not everyone is healed every time, and how to navigate that honestly.</p><h3>The Reality of Faith's Development</h3><p>Healing ministry grows through experience. Not every first attempt produces results. This does not mean God doesn't want to heal — it may mean that faith and sensitivity need development. Jesus' disciples didn't succeed every time either (Mark 9).</p><h3>Why Some Are Not Healed</h3><p>This is a sensitive question requiring humility. Possible factors include:<ul><li>Insufficient faith on the part of the ministers or the person</li><li>An underlying spiritual issue that needs to be addressed first</li><li>God's timing — some healings are progressive</li><li>The mystery of God's sovereignty — not everything is fully explained this side of eternity</li></ul>What we do NOT do: blame the sick person. Jesus never blamed the sick for not being healed.</p><h3>The Non-Negotiable</h3><p>Despite the mysteries, our responsibility is clear: pray for the sick. Jesus commanded it. James 5:14-15 instructs it. The outcome belongs to God; the obedience belongs to us. Pray, then trust.</p>`, quiz: [{ question: "What does this lesson say we should NOT do when someone is not healed?", options: ["Continue praying", "Ask about spiritual factors", "Blame the sick person", "Follow up with the person later"], correct: 2, explanation: "Jesus never blamed the sick for not being healed. Blaming the person adds spiritual burden to physical suffering and is not the model Jesus demonstrated." }, { question: "What do we know with certainty is our responsibility, regardless of the outcome?", options: ["Guaranteeing healing for every person we pray for", "Praying for the sick — the outcome belongs to God, obedience belongs to us", "Only praying for those with demonstrated strong faith", "Explaining why God did not heal in specific cases"], correct: 1, explanation: "James 5:14-15 and Jesus' commands make our responsibility clear: pray for the sick. The outcome belongs to God. Our obedience is to pray; results are in His hands." }, { question: "What does the fact that Jesus' disciples didn't always succeed in healing teach us?", options: ["That healing gifts are unreliable", "That healing is beyond ordinary believers", "That healing ministry grows through experience — not every attempt produces immediate results", "That only Jesus could truly heal"], correct: 2, explanation: "Even Jesus' disciples experienced failure (Mark 9). This shows that healing ministry develops through experience. Failure is part of the learning process, not proof that God doesn't want to heal." }] },
+      { id: "c3-15", title: "Healing Accounts — Part 1", duration: "60 min", content: `<h2>Healing Accounts — Part 1</h2><p>This session examines specific healing accounts from Acts to draw practical lessons for healing ministry today.</p><h3>Peter and John at the Beautiful Gate (Acts 3)</h3><p>A man lame from birth begged at the temple gate daily. Peter said, "I have no silver and gold, but what I do have I give to you. In the name of Jesus Christ of Nazareth, rise up and walk!" The man was immediately healed — leaping and praising God. Notice: Peter offered what he had, not an apology for what he lacked.</p><h3>Aeneas (Acts 9:32-35)</h3><p>Peter came to Lydda and found a man named Aeneas who had been bedridden for eight years. Peter said, "Aeneas, Jesus Christ heals you; rise and make your bed." He rose immediately. Notice: Peter attributed the healing to Jesus, not to himself.</p><h3>Tabitha/Dorcas (Acts 9:36-43)</h3><p>Tabitha had died. Peter cleared the room, knelt and prayed, then said "Tabitha, arise." She opened her eyes and sat up. A raising from the dead — the ultimate healing miracle. Notice: Peter prayed first, then acted with authority. Prayer and command, not one or the other.</p>`, quiz: [{ question: "What did Peter offer the lame man at the Beautiful Gate instead of money?", options: ["A prayer for blessing", "What he did have — healing in the name of Jesus Christ", "Advice to seek physicians", "A place in the church community"], correct: 1, explanation: "Peter said 'What I do have I give to you' — healing in Jesus' name. He offered what God had placed in him, not an apology for what he lacked. This is the right approach: give what you have." }, { question: "When Peter healed Aeneas, how did he attribute the healing?", options: ["To his own apostolic authority", "To the prayers of the whole church", "To Jesus Christ — 'Jesus Christ heals you'", "To Aeneas's personal faith"], correct: 2, explanation: "Peter said 'Jesus Christ heals you' — giving all credit to Jesus, not to himself. This is the pattern: always direct glory and credit to Jesus, the true source of healing." }, { question: "In the raising of Tabitha, what did Peter do before commanding her to arise?", options: ["Fasted for three days", "Gathered the whole church to pray", "Cleared the room and knelt to pray privately", "Waited for a word of knowledge before acting"], correct: 2, explanation: "Peter cleared the room and knelt to pray — private prayer before public command. This shows that visible authority in healing is grounded in private communion with God." }] },
+      { id: "c3-16", title: "Healing Accounts — Part 2", duration: "72 min", content: `<h2>Healing Accounts — Part 2</h2><p>This session continues examining healing accounts, focusing on what they teach us about the gifts of healings in consistent ministry.</p><h3>Paul and Eutychus (Acts 20:9-12)</h3><p>Eutychus fell from a third-floor window and died. Paul went down, embraced him, and said "Do not be alarmed, for his life is in him." The young man was restored. Notice the calm, assured authority — no panic, no lengthy formula.</p><h3>Paul's Own Healing Ministry (Acts 28:7-9)</h3><p>On the island of Malta after the shipwreck, Paul prayed for the chief official's father, who had fever and dysentery. He healed him by laying on hands and praying. When the island heard, all the sick came and were healed. One act of obedient healing opens the door for many more.</p><h3>Building Consistency</h3><p>Paul's healing ministry was consistent over time — not occasional or unpredictable. This consistency came from:<ul><li>Constant sensitivity to the Spirit</li><li>Regular prayer and walking in the Word</li><li>Willingness to step out regardless of setting or circumstance</li><li>Faith that grew with each confirmed result</li></ul></p>`, quiz: [{ question: "What was notable about Paul's response when Eutychus died from the fall?", options: ["He prayed loudly for the crowd to hear", "He showed calm, assured authority — no panic", "He waited three days as Jesus had", "He asked others to pray with him"], correct: 1, explanation: "Paul's response was calm and assured — 'Do not be alarmed, for his life is in him.' This confidence comes from operating in faith, not from forcing an emotional response or following a formula." }, { question: "What happened at Malta after Paul healed the chief official's father?", options: ["The islanders tried to worship Paul as a god", "Nothing — one healing was sufficient", "All the sick on the island came and were healed", "The Roman soldiers took Paul away"], correct: 2, explanation: "Acts 28:9 says 'the rest of the people on the island who had diseases also came and were cured.' One act of obedient healing opened the door for many — a beautiful picture of how healing ministry can multiply." }, { question: "What was the foundation of Paul's consistent healing ministry over time?", options: ["A permanent healing gift that required no cultivation", "Constant sensitivity to the Spirit, prayer, the Word, willingness to step out, and growing faith", "A unique apostolic office not available to ordinary believers", "A specific technique for each type of illness"], correct: 1, explanation: "Paul's consistency came from constant spiritual cultivation — sensitivity, prayer, Word, willingness, and faith that grew with each result. Consistent healing ministry is built over time, not granted instantly." }] },
+      { id: "c3-17", title: "Healing Accounts — Part 3", duration: "71 min", content: `<h2>Healing Accounts — Part 3</h2><p>This final accounts session draws together the threads of everything we have studied about healing and miracle ministry.</p><h3>The Sick at Capernaum (Matthew 8:16)</h3><p>"That evening they brought to him many who were oppressed by demons, and he cast out the spirits with a word and healed all who were sick." All. Not some, not the most deserving. All. This is the standard of Jesus' ministry — and therefore our standard.</p><h3>The Woman with the Issue of Blood (Mark 5:25-34)</h3><p>This woman reached through a crowd to touch the hem of Jesus' garment and was immediately healed. "Daughter, your faith has made you well." Her persistence, her faith-action, and her refusal to be deterred by obstacles are an example for all who need healing.</p><h3>The Blind Man at Bethsaida (Mark 8:22-26)</h3><p>Jesus healed this man in stages — first partial sight, then full sight after a second touch. This is one of very few staged healings in the Gospels. It shows that healing can be progressive — partial results should not be rejected but prayed through to completion.</p><h3>The Synthesis</h3><p>Every healing account teaches us something different about how God heals — through immediate command, through touch, through persistence, through stages, through prayer. God does not use one method. What is constant is His willingness, His love, and His power.</p>`, quiz: [{ question: "What persistent action did the woman with the issue of blood take to receive healing?", options: ["She waited for Jesus to notice her", "She asked the disciples to intercede for her", "She reached through the crowd and touched the hem of Jesus' garment", "She shouted loudly to get Jesus' attention"], correct: 2, explanation: "The woman fought through the crowd and reached to touch Jesus' garment — persistent, active, courageous faith that refused to be deterred by obstacles. Jesus said 'your faith has made you well.'" }, { question: "The blind man at Bethsaida received healing in stages. What does this teach us?", options: ["His faith was too small for complete healing", "Staged healings show God is sometimes unwilling to fully heal", "Healing can be progressive — partial results should be prayed through to completion", "Bethsaida was a spiritually weak region"], correct: 2, explanation: "The staged healing shows that God sometimes works progressively. Partial results are not failure — they are the beginning. Continue to pray through to complete healing rather than accepting partial results as final." }, { question: "What is constant across all the varied healing accounts in this course?", options: ["A specific method that always works", "The location (always in the synagogue or temple)", "God's willingness, love, and power", "The presence of multiple witnesses"], correct: 2, explanation: "Methods vary enormously across healing accounts — command, touch, stages, persistence. What is constant in every account is God's willingness, His love for the person, and His power to heal." }] },
+      { id: "c3-18", title: "First Two Keys to Healing (Sangat Bains)", duration: "68 min", content: `<h2>First Two Keys to Healing</h2><p>This session introduces practical keys to healing ministry, drawn from a scriptural study of how healing operates.</p><h3>Key 1: Know That God Wants to Heal</h3><p>The foundation of effective healing ministry is absolute confidence in God's will to heal. Doubt about whether God wants to heal in a given situation undermines faith. Matthew 8:3 — "I am willing" — is God's declared will. We minister from that certainty.</p><p>James 1:6-7 warns: "Let him ask in faith, with no doubting, for the one who doubts is like a wave of the sea that is driven and tossed by the wind. For that person must not suppose that he will receive anything from the Lord." Unwavering faith in God's willingness is foundational.</p><h3>Key 2: Know Your Authority in Christ</h3><p>Healing is not begging God to do something He is reluctant to do — it is administering what Christ already provided. Colossians 2:10: "You have been filled in him, who is the head of all rule and authority." Luke 10:19: "I have given you authority... over all the power of the enemy."</p><p>Practical application: Minister healing from a position of authority, not of desperate petition. Speak to the body, to the condition, to the enemy — in the name and authority of Jesus Christ.</p>`, quiz: [{ question: "What does Matthew 8:3 establish as the foundation for healing ministry?", options: ["That healing depends entirely on the sick person's faith", "God's declared will — 'I am willing' — providing a certainty to minister from", "That healing requires special gifting not available to all believers", "That healing is only guaranteed for born-again believers"], correct: 1, explanation: "'I am willing' is God's foundational declaration of will toward healing. Effective healing ministry is built on this certainty — we don't wonder if He wants to; we know He does." }, { question: "According to James 1:6-7, what undermines receiving from God?", options: ["Lack of fasting", "Not knowing specific healing Scriptures", "Doubting — being like a wave tossed by wind", "Having prayed for others without results"], correct: 2, explanation: "James 1:6-7 says the doubter 'must not suppose that he will receive anything from the Lord.' Doubt about God's willingness to heal undermines the very faith needed to see results." }, { question: "What is the correct posture for ministering healing, according to this session?", options: ["Desperate petition — begging God to act", "Uncertainty — 'if it be your will'", "Authority — administering what Christ already provided, speaking to conditions in His name", "Passivity — letting God act without our involvement"], correct: 2, explanation: "Healing is administering what Christ already accomplished — not begging a reluctant God. We speak to conditions with authority in Jesus' name, from the position of Colossians 2:10 and Luke 10:19." }] },
+      { id: "c3-19", title: "Three Additional Keys to Healing", duration: "75 min", content: `<h2>Three Additional Keys to Healing — Course Conclusion</h2><p>This final session completes our study with three more practical keys to effective healing ministry, and brings the entire four-course series to its culmination.</p><h3>Key 3: Remove Every Hindrance</h3><p>Mark 11:25-26 connects unforgiveness with hindered prayer. Harbored sin, unconfessed offenses, and broken relationships can hinder healing ministry. Before ministering, take time to ensure your heart is clean — and sometimes invite the person receiving ministry to do the same.</p><h3>Key 4: Speak the Word</h3><p>Psalm 107:20: "He sent out his word and healed them." God heals through His Word. Praying healing Scriptures over the sick, speaking promises of healing directly, and declaring what God has said creates an atmosphere of faith in which healing flourishes.</p><h3>Key 5: Persist Until Complete</h3><p>Luke 18:1-8 — the parable of the persistent widow — teaches that persistence in prayer and faith is rewarded. Not every healing is immediate. When partial results come, continue. When no results come, continue. The outcome is in God's hands; persistence is in ours.</p><h3>Completing the Series</h3><p>You have now completed the full series on God's Power: Living, Growing, Led by, and Administering His Power. The goal was never merely to acquire information — it was to equip you to walk in the simplicity of the operation of the manifestations of holy spirit: the power of God, for the benefit of others, to the glory of God. Go and walk in it.</p>`, quiz: [{ question: "According to Mark 11:25-26, what can hinder healing prayer?", options: ["Lack of theological training", "Not being ordained", "Unforgiveness and harbored offenses", "Ministering in public rather than private"], correct: 2, explanation: "Mark 11:25-26 directly connects unforgiveness with hindered prayer. Keeping our hearts clean of offense and unforgiveness maintains the clear channel for God's power to flow." }, { question: "What does Psalm 107:20 say about the role of God's Word in healing?", options: ["His Word primarily explains why illness exists", "He sent out His Word and healed them — God heals through His Word", "The Word only heals emotional wounds", "Speaking the Word is less effective than silent prayer"], correct: 1, explanation: "Psalm 107:20: 'He sent out his word and healed them.' God heals through His Word. Praying, declaring, and speaking healing Scripture creates an atmosphere of faith in which healing operates." }, { question: "What does Luke 18:1-8 teach about healing ministry when results are not immediate?", options: ["Accept the situation and stop praying", "Seek medical explanations for the lack of healing", "Persist until complete — the parable of the persistent widow teaches persistence is rewarded", "Conclude that healing is not God's will in that case"], correct: 2, explanation: "The parable of the persistent widow (Luke 18:1-8) teaches persistence in prayer. When results don't come immediately, continue. When partial results come, continue until complete. Persistence is our responsibility; timing is God's." }] },
+    ],
+  },
+  {
+    id: "course-psm1",
+    slug: "psm1-scrum-master-prep",
+    order: 4,
+    visibility: "admin",
+    certTrack: "Scrum.org PSM I — Préparation (non officielle)",
+    language: "bilingual",
+    titleFr: "Professional Scrum Master I — Préparation",
+    subtitleFr: "Cours bilingue basé sur le Guide Scrum",
+    descriptionFr:
+      "Un cours personnel de préparation à l'examen PSM I : théorie Scrum, équipe, événements, artefacts, et un examen final chronométré dans des conditions proches de l'évaluation officielle. Ceci est une préparation indépendante — non affiliée à Scrum.org.",
+    title: "Professional Scrum Master I — Prep",
+    subtitle: "Bilingual course based on the Scrum Guide",
+    description:
+      "A personal prep course for the PSM I assessment: Scrum theory, the Scrum Team, events, artifacts, and a timed final exam under conditions similar to the official assessment. This is independent, unofficial exam prep — not affiliated with Scrum.org.",
+    longDescription:
+      "This course walks through the Scrum Guide (2020) in depth — empiricism and Scrum values, the Scrum Team and its accountabilities, the five events, the three artifacts and their commitments, and how a Scrum Master serves the team, the Product Owner, and the organization. Each chapter ends with a mastery quiz, and the course closes with a timed, scenario-based final exam scored against an 85% passing threshold — the same bar used by the real assessment. Note: this is independent self-study material. It is not produced, endorsed, or licensed by Scrum.org, and completing it does not grant the official PSM I credential — only Scrum.org's own proctored assessment can do that.",
+    color: "#0a3d62",
+    icon: "target",
+    chapters: [
+      {
+        id: "psm1-1",
+        title: "Empiricism, Scrum Values, and Why Scrum Exists",
+        duration: "40 min",
+        content: `<h2>Empiricism, Scrum Values, and Why Scrum Exists</h2>
+<p>Scrum is a lightweight framework for developing, delivering, and sustaining complex products, grounded in <strong>empiricism</strong>: knowledge comes from experience, and decisions are based on what is observed. Empiricism rests on three pillars:</p>
+<ul>
+<li><strong>Transparency</strong> — the process and work must be visible to those responsible for the outcome.</li>
+<li><strong>Inspection</strong> — artifacts and progress must be inspected frequently to detect problems.</li>
+<li><strong>Adaptation</strong> — if inspection reveals a deviation, the process or product must be adjusted quickly.</li>
+</ul>
+<h3>Scrum Is Not a Process, Technique, or Method</h3>
+<p>Scrum is a framework. It deliberately leaves many decisions to the people using it: specific practices, techniques, and methods are chosen by the team based on their context. Scrum only defines the minimal set of roles (accountabilities), events, and artifacts needed to make empirical process control work.</p>
+<h3>The Five Scrum Values</h3>
+<p>Successful use of Scrum depends on people becoming more proficient in living five values:</p>
+<ul>
+<li><strong>Commitment</strong> — to the goals of the Scrum Team.</li>
+<li><strong>Focus</strong> — on the work of the Sprint and the goals of the Scrum Team.</li>
+<li><strong>Openness</strong> — about the work and the challenges.</li>
+<li><strong>Respect</strong> — for each other as capable, independent people.</li>
+<li><strong>Courage</strong> — to do the right thing and work on tough problems.</li>
+</ul>
+<p>These values give direction for how the team works, acts, and behaves. Decisions made, steps taken, and how Scrum is played out should reinforce these values, not diminish or undermine them.</p>`,
+        contentFr: `<h2>Empirisme, valeurs Scrum, et raison d'être de Scrum</h2>
+<p>Scrum est un cadre léger pour développer, livrer et maintenir des produits complexes, fondé sur l'<strong>empirisme</strong> : la connaissance vient de l'expérience, et les décisions sont prises à partir de ce qui est observé. L'empirisme repose sur trois piliers :</p>
+<ul>
+<li><strong>Transparence</strong> — le processus et le travail doivent être visibles pour les personnes responsables du résultat.</li>
+<li><strong>Inspection</strong> — les artefacts et l'avancement doivent être inspectés fréquemment pour détecter les problèmes.</li>
+<li><strong>Adaptation</strong> — si l'inspection révèle un écart, le processus ou le produit doit être ajusté rapidement.</li>
+</ul>
+<h3>Scrum n'est pas un processus, une technique ou une méthode</h3>
+<p>Scrum est un cadre (framework). Il laisse volontairement de nombreuses décisions aux personnes qui l'utilisent : les pratiques, techniques et méthodes précises sont choisies par l'équipe selon son contexte. Scrum ne définit que l'ensemble minimal de rôles (responsabilités), d'événements et d'artefacts nécessaires au contrôle empirique du processus.</p>
+<h3>Les cinq valeurs Scrum</h3>
+<p>L'usage réussi de Scrum dépend de la capacité des personnes à vivre cinq valeurs :</p>
+<ul>
+<li><strong>Engagement</strong> — envers les objectifs de la Scrum Team.</li>
+<li><strong>Focalisation</strong> — sur le travail du Sprint et les objectifs de l'équipe.</li>
+<li><strong>Ouverture</strong> — sur le travail et les difficultés rencontrées.</li>
+<li><strong>Respect</strong> — envers chacun, en tant que personne compétente et autonome.</li>
+<li><strong>Courage</strong> — pour faire ce qui est juste et affronter les problèmes difficiles.</li>
+</ul>
+<p>Ces valeurs orientent la façon dont l'équipe travaille, agit et se comporte. Chaque décision, chaque étape et la manière dont Scrum est appliqué doivent renforcer ces valeurs, jamais les affaiblir.</p>`,
+        quiz: [
+          { question: "What are the three pillars of empiricism in Scrum?", options: ["Planning, execution, review", "Transparency, inspection, adaptation", "Speed, quality, cost", "Roles, events, artifacts"], correct: 1, explanation: "The three pillars are transparency, inspection, and adaptation — they support empirical process control." },
+          { question: "Which statement best describes Scrum?", options: ["A detailed, prescriptive methodology", "A lightweight framework that leaves many practices to the team", "A software tool for tracking tasks", "A certification body"], correct: 1, explanation: "Scrum is deliberately incomplete — a framework, not a full methodology — leaving specific practices to the team." },
+          { question: "Which of these is one of the five Scrum values?", options: ["Efficiency", "Courage", "Profitability", "Hierarchy"], correct: 1, explanation: "The five Scrum values are Commitment, Focus, Openness, Respect, and Courage." },
+        ],
+        quizFr: [
+          { question: "Quels sont les trois piliers de l'empirisme dans Scrum ?", options: ["Planification, exécution, revue", "Transparence, inspection, adaptation", "Vitesse, qualité, coût", "Rôles, événements, artefacts"], correct: 1, explanation: "Les trois piliers sont la transparence, l'inspection et l'adaptation." },
+          { question: "Quelle affirmation décrit le mieux Scrum ?", options: ["Une méthodologie détaillée et prescriptive", "Un cadre léger qui laisse de nombreuses pratiques à l'équipe", "Un outil logiciel de suivi de tâches", "Un organisme de certification"], correct: 1, explanation: "Scrum est volontairement incomplet — un cadre, pas une méthodologie complète." },
+          { question: "Laquelle de ces valeurs fait partie des cinq valeurs Scrum ?", options: ["L'efficacité", "Le courage", "La rentabilité", "La hiérarchie"], correct: 1, explanation: "Les cinq valeurs Scrum sont l'Engagement, la Focalisation, l'Ouverture, le Respect et le Courage." },
+        ],
+      },
+      {
+        id: "psm1-2",
+        title: "The Scrum Team and Accountabilities",
+        duration: "45 min",
+        content: `<h2>The Scrum Team and Accountabilities</h2>
+<p>A Scrum Team consists of one <strong>Scrum Master</strong>, one <strong>Product Owner</strong>, and <strong>Developers</strong>. It is a cohesive unit of professionals focused on one objective at a time: the Product Goal. Scrum Teams are cross-functional and self-managing — they choose who does what, when, and how, without direction from outside the team.</p>
+<h3>The Product Owner</h3>
+<p>Accountable for maximizing the value of the product resulting from the work of the Scrum Team. The Product Owner is one person, not a committee, and owns the Product Backlog: developing and communicating the Product Goal, creating and ordering Product Backlog items, and ensuring the Product Backlog is transparent and understood.</p>
+<h3>Developers</h3>
+<p>The people in the Scrum Team committed to creating any aspect of a usable Increment each Sprint. Developers are accountable for creating a plan for the Sprint (the Sprint Backlog), instilling quality by adhering to a Definition of Done, adapting their plan daily toward the Sprint Goal, and holding each other accountable as professionals.</p>
+<h3>The Scrum Master</h3>
+<p>Accountable for establishing Scrum as defined in the Scrum Guide. The Scrum Master does this by helping everyone understand Scrum theory and practice, both within the Scrum Team and the organization. The Scrum Master is a true leader who serves the Scrum Team and the larger organization — serving the team by coaching, removing impediments, and facilitating events; serving the Product Owner by helping with backlog management and stakeholder understanding; serving the organization by leading, training, and coaching adoption of Scrum.</p>
+<h3>Team Size</h3>
+<p>Scrum Teams are typically small enough to remain nimble and large enough to complete significant work within a Sprint, typically 10 or fewer people. Smaller teams communicate better and are more productive; if Scrum Teams grow too large, they should consider splitting into multiple cohesive teams, sharing the same Product Goal, Product Backlog, and Product Owner.</p>`,
+        quiz: [
+          { question: "Who is accountable for maximizing the value of the product?", options: ["The Scrum Master", "The Developers", "The Product Owner", "The stakeholders"], correct: 2, explanation: "The Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team's work." },
+          { question: "How does the Scrum Master primarily serve the Scrum Team?", options: ["By assigning tasks to Developers", "By coaching, removing impediments, and facilitating events", "By writing the Product Backlog", "By approving the Sprint Backlog before work begins"], correct: 1, explanation: "The Scrum Master serves the team through coaching, removing impediments, and facilitating Scrum events — not by directing the work." },
+          { question: "What is the recommended approach if a Scrum Team grows too large?", options: ["Add a second Scrum Master to manage the size", "Split into multiple cohesive Scrum Teams sharing the same Product Goal and Backlog", "Reduce the length of the Sprint", "Move to a different framework"], correct: 1, explanation: "Large teams should consider splitting into multiple Scrum Teams that share the same Product Goal, Product Backlog, and Product Owner." },
+        ],
+      },
+      {
+        id: "psm1-3",
+        title: "The Five Scrum Events",
+        duration: "50 min",
+        content: `<h2>The Five Scrum Events</h2>
+<p>Scrum events create regularity and minimize the need for meetings not defined in Scrum. All events are opportunities to inspect and adapt.</p>
+<h3>The Sprint</h3>
+<p>A container for all other events, typically one month or less. Sprints are consistent in length and start immediately after the previous one ends. During the Sprint no changes are made that would endanger the Sprint Goal, quality does not decrease, scope may be clarified with the Product Owner as more is learned, and progress toward the Sprint Goal is tracked daily.</p>
+<h3>Sprint Planning</h3>
+<p>Initiates the Sprint by laying out the work to be performed. Addresses three topics: <em>Why</em> is this Sprint valuable (leading to the Sprint Goal), <em>What</em> can be Done this Sprint (selected Product Backlog items), and <em>How</em> will the chosen work get done. Time-boxed to a maximum of eight hours for a one-month Sprint.</p>
+<h3>Daily Scrum</h3>
+<p>A 15-minute event for the Developers to inspect progress toward the Sprint Goal and adapt the Sprint Backlog as necessary, adjusting the upcoming planned work. It is an internal event for the Developers; if others are present, the Scrum Master ensures they do not disrupt it.</p>
+<h3>Sprint Review</h3>
+<p>Held at the end of the Sprint to inspect the outcome and determine future adaptations. The Scrum Team presents the results of their work to key stakeholders and progress toward the Product Goal is discussed. Time-boxed to a maximum of four hours for a one-month Sprint.</p>
+<h3>Sprint Retrospective</h3>
+<p>Concludes the Sprint. The Scrum Team inspects how the last Sprint went with regard to individuals, interactions, processes, tools, and their Definition of Done, and identifies the most helpful changes to improve effectiveness. Time-boxed to a maximum of three hours for a one-month Sprint.</p>`,
+        quiz: [
+          { question: "What is the maximum length of Sprint Planning for a one-month Sprint?", options: ["Four hours", "Eight hours", "Fifteen minutes", "Three hours"], correct: 1, explanation: "Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint." },
+          { question: "Who is the Daily Scrum primarily for?", options: ["Stakeholders", "The Product Owner alone", "The Developers", "The Scrum Master"], correct: 2, explanation: "The Daily Scrum is an internal event for the Developers to inspect progress and adapt the Sprint Backlog." },
+          { question: "What is the primary purpose of the Sprint Retrospective?", options: ["To demo the Increment to stakeholders", "To plan the next Sprint's backlog items", "To inspect how the Sprint went and identify improvements", "To re-estimate the Product Backlog"], correct: 2, explanation: "The Sprint Retrospective is where the Scrum Team inspects itself and plans improvements for effectiveness and quality." },
+        ],
+      },
+      {
+        id: "psm1-4",
+        title: "The Three Artifacts and Their Commitments",
+        duration: "45 min",
+        content: `<h2>The Three Artifacts and Their Commitments</h2>
+<p>Scrum's artifacts represent work or value, and are designed to maximize transparency of key information. Each artifact contains a commitment to ensure it provides information that enhances transparency and focus.</p>
+<h3>Product Backlog — Product Goal</h3>
+<p>An emergent, ordered list of what is needed to improve the product. The Product Goal describes a future state of the product which can serve as a target for the Scrum Team to plan against; it is the long-term objective for the Scrum Team, and they must fulfill (or abandon) one objective before taking on the next.</p>
+<h3>Sprint Backlog — Sprint Goal</h3>
+<p>Composed of the Sprint Goal (why), the set of Product Backlog items selected for the Sprint (what), and an actionable plan for delivering the Increment (how). It is a plan by and for the Developers — a highly visible, real-time picture of the work the Developers plan to accomplish.</p>
+<h3>Increment — Definition of Done</h3>
+<p>A concrete stepping stone toward the Product Goal. Each Increment is additive to all prior Increments and thoroughly verified, ensuring that all Increments work together. The Definition of Done is a formal description of the state of the Increment when it meets the quality measures required for the product; a Product Backlog item is not considered Done until it conforms to the Definition of Done.</p>
+<h3>Why Commitments Matter</h3>
+<p>These commitments exist to reinforce empiricism and the Scrum values for the Scrum Team and their stakeholders. Without a shared Definition of Done, for example, teams cannot reliably know whether an Increment is truly usable — undermining transparency.</p>`,
+        quiz: [
+          { question: "What is the commitment associated with the Product Backlog?", options: ["Sprint Goal", "Definition of Done", "Product Goal", "Increment"], correct: 2, explanation: "The Product Goal is the commitment for the Product Backlog — the long-term objective the Scrum Team plans against." },
+          { question: "Who owns and creates the Sprint Backlog plan?", options: ["The Product Owner alone", "The Scrum Master", "Stakeholders", "The Developers"], correct: 3, explanation: "The Sprint Backlog is a plan by and for the Developers, giving a real-time picture of the work they plan to accomplish." },
+          { question: "When is a Product Backlog item considered 'Done'?", options: ["When the Developers say it feels finished", "When it conforms to the team's Definition of Done", "When the Sprint ends", "When the Product Owner approves the design"], correct: 1, explanation: "An item is Done only when it conforms to the agreed Definition of Done — this creates transparency about the actual state of work." },
+        ],
+      },
+      {
+        id: "psm1-final-exam",
+        title: "Final Exam — PSM I Practice Assessment",
+        duration: "60 min",
+        isFinalExam: true,
+        examDurationMinutes: 60,
+        passingScorePercent: 85,
+        content: `<h2>Final Exam — PSM I Practice Assessment</h2>
+<p>This is a timed practice assessment covering everything from this course, styled after the format of the official PSM I assessment: single/multiple-choice questions, a strict time limit, and an <strong>85% passing score</strong>. You'll see your score immediately and can review any question you missed.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important:</strong> This is independent practice material created for this platform. It is not the official Scrum.org assessment, and passing it does not grant the official PSM I credential. Only Scrum.org's own proctored exam, taken directly on their platform, can issue that certification.
+</p>`,
+        contentFr: `<h2>Examen final — Évaluation d'entraînement PSM I</h2>
+<p>Ceci est une évaluation d'entraînement chronométrée couvrant l'ensemble du cours, dans un format inspiré de l'évaluation officielle PSM I : questions à choix unique ou multiple, temps limité strict, et un <strong>score de passage de 85 %</strong>. Le score s'affiche immédiatement, avec la possibilité de revoir chaque question manquée.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important :</strong> ceci est un contenu d'entraînement indépendant créé pour cette plateforme. Ce n'est pas l'évaluation officielle de Scrum.org, et la réussir n'accorde pas la certification officielle PSM I. Seul l'examen surveillé propre à Scrum.org, passé directement sur leur plateforme, peut délivrer cette certification.
+</p>`,
+        quiz: [
+          { question: "Scrum is founded on which theory?", options: ["Waterfall theory", "Empiricism and lean thinking", "Critical path theory", "Six Sigma"], correct: 1, explanation: "Scrum is founded on empiricism and lean thinking." },
+          { question: "Who is accountable for the overall Definition of Done if the organization has no standard?", options: ["The stakeholders", "The Scrum Team", "The Scrum Master alone", "The Product Owner alone"], correct: 1, explanation: "If there is no organizational standard, the Scrum Team creates a Definition of Done appropriate for the product." },
+          { question: "What happens to incomplete work at the end of a Sprint?", options: ["It is automatically added to the next Sprint's backlog by the Scrum Master", "It always extends the Sprint", "It returns to the Product Backlog and is re-evaluated for future Sprints", "It is discarded"], correct: 2, explanation: "Incomplete Product Backlog items are returned to the Product Backlog and reassessed for future Sprints — Sprints are not extended." },
+          { question: "Can the Sprint Goal be changed during the Sprint?", options: ["Yes, whenever the Product Owner wants", "No — the Sprint Goal is fixed and scope may only be clarified/renegotiated with the Product Owner as more is learned, without endangering the Sprint Goal", "Yes, but only by the Scrum Master", "No, it can never be renegotiated even before the Sprint starts"], correct: 1, explanation: "The Sprint Goal creates coherence and focus; scope may be clarified, but changes that would endanger the Sprint Goal are avoided." },
+          { question: "Who can cancel a Sprint?", options: ["Any Developer", "Only the Scrum Master", "Only the Product Owner", "Only external stakeholders"], correct: 2, explanation: "Only the Product Owner has the authority to cancel a Sprint, and would do so if the Sprint Goal becomes obsolete." },
+          { question: "What is the purpose of the Sprint Review?", options: ["To assign story points", "To inspect the outcome of the Sprint and determine future adaptations", "To evaluate individual Developer performance", "To finalize the Definition of Done"], correct: 1, explanation: "The Sprint Review inspects the outcome of the Sprint with stakeholders and adapts the Product Backlog if needed." },
+          { question: "Is the Scrum Master a project manager?", options: ["Yes, with authority to assign tasks", "No — the Scrum Master is a servant-leader with no authority over the Developers' work choices", "Yes, but only during Sprint Planning", "No, the Scrum Master has no role during the Sprint"], correct: 1, explanation: "The Scrum Master leads through service, not authority. The team is self-managing." },
+          { question: "How often should the Product Backlog be refined?", options: ["Only once, at project kickoff", "It is an ongoing activity to add detail, estimates, and order", "Only during the Sprint Retrospective", "Never — it is fixed after creation"], correct: 1, explanation: "Product Backlog refinement is the ongoing act of breaking down and further defining items into smaller, more precise items — an ongoing activity, not a one-time event." },
+          { question: "What best describes a self-managing Scrum Team?", options: ["A team managed entirely by the Scrum Master", "A team that decides who does what, when, and how, internally", "A team without a Product Owner", "A team that reports daily to a project manager"], correct: 1, explanation: "Self-managing teams choose who does what, when, and how — without being told by anyone outside the team." },
+          { question: "What is the maximum recommended Sprint length?", options: ["Two weeks always", "One month", "Three months", "There is no maximum"], correct: 1, explanation: "Sprints are one month or less to provide a consistent cadence and limit risk to a calendar-month timeframe." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "course-icp-fun",
+    slug: "icp-fun-agile-fundamentals",
+    order: 5,
+    visibility: "admin",
+    certTrack: "ICAgile ICP-FUN — Préparation (non officielle)",
+    language: "fr",
+    titleFr: "Fondamentaux Agiles (ICP-FUN) — Préparation",
+    subtitleFr: "L'état d'esprit agile, le Manifeste, et les cadres courants",
+    descriptionFr:
+      "Cours personnel en français couvrant les fondamentaux évalués dans le parcours ICAgile ICP-FUN : Manifeste Agile, valeurs et principes, Scrum, Kanban et XP en vue d'ensemble, et un examen final chronométré. Préparation indépendante — non affiliée à ICAgile.",
+    title: "Agile Fundamentals (ICP-FUN) — Prep",
+    subtitle: "The agile mindset, the Manifesto, and common frameworks",
+    description:
+      "French-language personal course covering the fundamentals assessed in the ICAgile ICP-FUN track. Independent prep — not affiliated with ICAgile.",
+    longDescription:
+      "Ce cours couvre les bases de la pensée agile telles qu'abordées dans un parcours de type ICP-FUN : l'historique et le Manifeste Agile, les 4 valeurs et 12 principes, une vue d'ensemble de Scrum, Kanban et XP, et les fondements de la livraison itérative et incrémentale. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : il s'agit d'un contenu d'auto-formation indépendant. Il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-FUN — seul un cours suivi auprès d'un formateur accrédité ICAgile peut délivrer cette certification.",
+    color: "#2d6a4f",
+    icon: "compass",
+    chapters: [
+      {
+        id: "icpfun-1",
+        title: "D'où vient l'agilité — contexte et historique",
+        duration: "35 min",
+        content: `<h2>D'où vient l'agilité — contexte et historique</h2>
+<p>Dans les années 1990, de nombreuses équipes de développement logiciel constataient que les approches séquentielles et fortement documentées (type cascade) livraient souvent tard, hors budget, et avec des produits qui ne répondaient plus au besoin réel une fois livrés. Plusieurs mouvements légers sont nés en réaction : Scrum, XP (Extreme Programming), DSDM, Crystal, FDD, et d'autres.</p>
+<h3>Le Manifeste Agile (2001)</h3>
+<p>En février 2001, dix-sept praticiens se sont réunis dans l'Utah et ont rédigé le <em>Manifeste pour le développement Agile de logiciels</em>. Ce court texte a formalisé un ensemble de valeurs et de principes partagés par ces différentes approches légères, sans imposer une méthode unique.</p>
+<h3>Un changement de posture, pas seulement de méthode</h3>
+<p>L'agilité n'est pas d'abord un ensemble de pratiques (daily stand-up, itérations, tableau Kanban) — c'est d'abord un changement de posture : accepter l'incertitude, apprendre par cycles courts, et ajuster continuellement en fonction du retour réel plutôt que du plan initial. Les pratiques sont des outils au service de cette posture, pas une fin en soi.</p>`,
+        quiz: [
+          { question: "En quelle année le Manifeste Agile a-t-il été rédigé ?", options: ["1995", "2001", "2008", "2010"], correct: 1, explanation: "Le Manifeste Agile a été rédigé en février 2001 par dix-sept praticiens réunis dans l'Utah." },
+          { question: "Quel problème les approches agiles cherchaient-elles à résoudre ?", options: ["Le manque d'outils informatiques", "Les livraisons tardives et les produits ne répondant plus au besoin réel", "Le coût trop faible des projets", "L'absence de documentation contractuelle"], correct: 1, explanation: "Les approches séquentielles livraient souvent tard, hors budget, avec des produits déconnectés du besoin réel au moment de la livraison." },
+          { question: "L'agilité est avant tout :", options: ["Un ensemble fixe de pratiques obligatoires", "Un changement de posture face à l'incertitude et à l'apprentissage continu", "Une certification obligatoire pour les développeurs", "Une méthode unique remplaçant toutes les autres"], correct: 1, explanation: "L'agilité est d'abord une posture — les pratiques (stand-up, itérations, etc.) sont des outils au service de cette posture." },
+        ],
+      },
+      {
+        id: "icpfun-2",
+        title: "Les 4 valeurs et les 12 principes du Manifeste",
+        duration: "40 min",
+        content: `<h2>Les 4 valeurs et les 12 principes du Manifeste</h2>
+<h3>Les quatre valeurs</h3>
+<ul>
+<li>Les individus et leurs interactions <strong>plus que</strong> les processus et les outils</li>
+<li>Un logiciel fonctionnel <strong>plus que</strong> une documentation exhaustive</li>
+<li>La collaboration avec les clients <strong>plus que</strong> la négociation contractuelle</li>
+<li>L'adaptation au changement <strong>plus que</strong> le suivi d'un plan</li>
+</ul>
+<p>Le Manifeste précise que les éléments de droite gardent de la valeur — mais ceux de gauche sont valorisés davantage.</p>
+<h3>Principes clés (sélection)</h3>
+<ul>
+<li>La plus haute priorité est de satisfaire le client par des livraisons précoces et continues de valeur.</li>
+<li>Accueillir favorablement les changements de besoins, même tard dans le projet.</li>
+<li>Livrer fréquemment un logiciel fonctionnel, de préférence avec une préférence pour les cycles courts.</li>
+<li>Les personnes métier et les développeurs doivent collaborer quotidiennement.</li>
+<li>Construire des projets autour de personnes motivées, en leur donnant l'environnement et le soutien nécessaires, et en leur faisant confiance.</li>
+<li>La simplicité — l'art de maximiser la quantité de travail non fait — est essentielle.</li>
+<li>À intervalles réguliers, l'équipe réfléchit aux moyens de devenir plus efficace, puis ajuste son comportement.</li>
+</ul>`,
+        quiz: [
+          { question: "Selon le Manifeste, que valorise-t-on davantage que le suivi d'un plan ?", options: ["Le respect strict du budget", "L'adaptation au changement", "La documentation exhaustive", "La négociation contractuelle"], correct: 1, explanation: "L'une des quatre valeurs est : 'L'adaptation au changement plus que le suivi d'un plan.'" },
+          { question: "Le Manifeste affirme-t-il que les éléments de droite (processus, documentation, contrats, plan) n'ont aucune valeur ?", options: ["Oui, ils sont inutiles", "Non, ils gardent de la valeur, mais les éléments de gauche sont valorisés davantage", "Oui, ils doivent être supprimés systématiquement", "Le Manifeste ne mentionne pas cette nuance"], correct: 1, explanation: "Le Manifeste précise explicitement que les éléments de droite gardent de la valeur, même si la priorité va aux éléments de gauche." },
+          { question: "Que signifie le principe de simplicité selon le Manifeste ?", options: ["Utiliser le moins d'outils possible", "L'art de maximiser la quantité de travail non fait", "Réduire la taille de l'équipe", "Éviter toute documentation"], correct: 1, explanation: "La simplicité est définie dans le Manifeste comme 'l'art de maximiser la quantité de travail non fait'." },
+        ],
+      },
+      {
+        id: "icpfun-3",
+        title: "Vue d'ensemble de Scrum",
+        duration: "35 min",
+        content: `<h2>Vue d'ensemble de Scrum</h2>
+<p>Scrum est le cadre agile le plus utilisé. Il organise le travail en Sprints — des cycles courts et réguliers (souvent 1 à 4 semaines) — avec trois rôles (Product Owner, Scrum Master, Développeurs), cinq événements (Sprint, Planification, Daily Scrum, Revue, Rétrospective) et trois artefacts (Product Backlog, Sprint Backlog, Incrément).</p>
+<h3>L'idée centrale</h3>
+<p>Plutôt que de tout planifier à l'avance dans le détail, Scrum organise un cycle court d'apprentissage : planifier un petit morceau de valeur, le construire, l'inspecter avec les parties prenantes, puis ajuster. Ce cycle empirique permet de détecter rapidement les erreurs de direction plutôt que de les découvrir en fin de projet.</p>
+<h3>Ce que Scrum ne dicte pas</h3>
+<p>Scrum ne dit pas comment estimer, comment concevoir l'architecture, ou quels outils utiliser — ces décisions techniques et pratiques reviennent à l'équipe. Scrum fournit la structure minimale ; le reste est de la responsabilité de l'équipe.</p>`,
+        quiz: [
+          { question: "Combien de rôles (accountabilities) définit Scrum ?", options: ["1", "2", "3", "5"], correct: 2, explanation: "Scrum définit trois rôles : Product Owner, Scrum Master, et Développeurs." },
+          { question: "Quel est l'objectif principal du cycle court en Scrum ?", options: ["Réduire le nombre de réunions à zéro", "Permettre un apprentissage rapide et une adaptation fréquente", "Éliminer toute planification", "Garantir un plan figé sur toute la durée du projet"], correct: 1, explanation: "Le cycle court permet d'inspecter fréquemment le travail et de s'adapter rapidement — c'est le cœur de l'approche empirique." },
+          { question: "Que ne dicte PAS le cadre Scrum ?", options: ["Le nombre de rôles", "Les techniques d'estimation ou d'architecture à utiliser", "L'existence d'un Sprint", "L'existence d'un Product Backlog"], correct: 1, explanation: "Scrum laisse les décisions techniques (estimation, architecture, outils) à la responsabilité de l'équipe." },
+        ],
+      },
+      {
+        id: "icpfun-4",
+        title: "Vue d'ensemble de Kanban et d'Extreme Programming (XP)",
+        duration: "38 min",
+        content: `<h2>Vue d'ensemble de Kanban et d'Extreme Programming (XP)</h2>
+<h3>Kanban</h3>
+<p>Kanban est une méthode de gestion de flux, plutôt qu'un cadre basé sur des itérations fixes. Ses principes clés incluent : visualiser le travail (souvent via un tableau à colonnes), limiter le travail en cours (WIP), gérer le flux, rendre les politiques explicites, mettre en place des boucles de rétroaction, et améliorer collectivement en expérimentant. Kanban peut être introduit progressivement sur un processus existant, sans nécessairement changer les rôles en place.</p>
+<h3>Extreme Programming (XP)</h3>
+<p>XP se concentre sur les pratiques techniques d'ingénierie logicielle au service de l'agilité : programmation en binôme (pair programming), développement piloté par les tests (TDD), intégration continue, refactoring, conception simple, et rythme soutenable. XP partage les valeurs du Manifeste mais insiste particulièrement sur la qualité technique comme condition de la capacité à changer rapidement de direction.</p>
+<h3>Complémentarité, pas opposition</h3>
+<p>De nombreuses équipes combinent des éléments : la structure d'événements de Scrum, la visualisation du flux de Kanban, et les pratiques d'ingénierie de XP. Il n'y a pas d'obligation d'appliquer un seul cadre « pur » — l'important reste l'adéquation avec le contexte de l'équipe.</p>`,
+        quiz: [
+          { question: "Quel est un principe central de Kanban ?", options: ["Des Sprints obligatoires de deux semaines", "Limiter le travail en cours (WIP)", "L'absence totale de tableau visuel", "Le remplacement du Product Owner"], correct: 1, explanation: "Limiter le travail en cours (WIP) est l'un des principes centraux de Kanban, avec la visualisation du flux." },
+          { question: "Quelle pratique est typiquement associée à XP (Extreme Programming) ?", options: ["Le tableau Kanban", "Le développement piloté par les tests (TDD)", "La rétrospective de Sprint", "Le Sprint Backlog"], correct: 1, explanation: "TDD, le pair programming et l'intégration continue sont des pratiques techniques caractéristiques d'XP." },
+          { question: "Peut-on combiner des éléments de Scrum, Kanban et XP au sein d'une même équipe ?", options: ["Non, ce sont des approches strictement incompatibles", "Oui, de nombreuses équipes combinent des éléments selon leur contexte", "Seulement si un consultant externe l'autorise", "Non, cela viole toujours le Manifeste Agile"], correct: 1, explanation: "Ces approches ne s'excluent pas mutuellement ; beaucoup d'équipes combinent des éléments complémentaires." },
+        ],
+      },
+      {
+        id: "icpfun-final-exam",
+        title: "Examen final — Évaluation ICP-FUN d'entraînement",
+        duration: "45 min",
+        isFinalExam: true,
+        examDurationMinutes: 45,
+        passingScorePercent: 80,
+        content: `<h2>Examen final — Évaluation ICP-FUN d'entraînement</h2>
+<p>Examen chronométré couvrant l'ensemble du cours, avec un seuil de réussite de <strong>80 %</strong>. Le score s'affiche immédiatement.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important :</strong> ce contenu est un entraînement indépendant créé pour cette plateforme. Il n'est ni délivré ni approuvé par ICAgile. Le badge officiel ICP-FUN ne peut être obtenu qu'en suivant un cours dispensé par un formateur accrédité ICAgile.
+</p>`,
+        quiz: [
+          { question: "Le Manifeste Agile a été rédigé par :", options: ["Une seule personne, en 1990", "Dix-sept praticiens, en 2001", "Un comité international de normalisation", "Scrum.org"], correct: 1, explanation: "Dix-sept praticiens ont rédigé le Manifeste Agile en février 2001." },
+          { question: "Laquelle de ces affirmations correspond aux quatre valeurs du Manifeste ?", options: ["Les processus plus que les individus", "La documentation exhaustive plus que le logiciel fonctionnel", "L'adaptation au changement plus que le suivi d'un plan", "La négociation contractuelle plus que la collaboration client"], correct: 2, explanation: "C'est l'une des quatre valeurs officielles du Manifeste Agile." },
+          { question: "Quel cadre agile met l'accent sur la limitation du travail en cours et la visualisation du flux ?", options: ["Scrum", "Kanban", "XP", "PRINCE2"], correct: 1, explanation: "Kanban se concentre sur la gestion du flux, avec la visualisation du travail et la limitation du WIP." },
+          { question: "Combien d'événements Scrum définit le cadre ?", options: ["3", "4", "5", "7"], correct: 2, explanation: "Scrum définit cinq événements : le Sprint, la Planification, le Daily Scrum, la Revue et la Rétrospective." },
+          { question: "Quelle pratique technique est typique d'Extreme Programming ?", options: ["Le pair programming", "Le tableau Kanban", "Le Sprint Goal", "Le Product Backlog"], correct: 0, explanation: "Le pair programming (programmation en binôme) est une pratique caractéristique d'XP." },
+          { question: "Un des douze principes agiles concerne la fréquence de livraison. Lequel ?", options: ["Livrer une seule fois, à la toute fin du projet", "Livrer fréquemment un logiciel fonctionnel, avec une préférence pour les cycles courts", "Livrer uniquement sur demande du client", "Livrer seulement après documentation complète"], correct: 1, explanation: "Le Manifeste recommande de livrer fréquemment, avec une préférence pour des cycles plus courts." },
+          { question: "Quel est le principal reproche fait aux approches séquentielles (type cascade) qui a motivé le mouvement agile ?", options: ["Elles étaient trop rapides", "Elles livraient souvent tard, hors budget, avec des produits déconnectés du besoin réel", "Elles ne produisaient aucune documentation", "Elles étaient trop peu documentées"], correct: 1, explanation: "Les approches cascade livraient souvent en retard, avec un produit qui ne correspondait plus au besoin au moment de la livraison." },
+          { question: "Dans Kanban, que signifie 'limiter le WIP' ?", options: ["Limiter le nombre de membres de l'équipe", "Limiter la quantité de travail en cours simultanément", "Limiter le budget du projet", "Limiter la durée des réunions"], correct: 1, explanation: "WIP signifie 'Work In Progress' — limiter le travail en cours améliore le flux et réduit le multitâche." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "course-icp-cat",
+    slug: "icp-cat-coaching-transitions-agiles",
+    order: 6,
+    visibility: "admin",
+    certTrack: "ICAgile ICP-CAT — Préparation (non officielle)",
+    language: "fr",
+    titleFr: "Coacher les Transitions Agiles (ICP-CAT) — Préparation",
+    subtitleFr: "Diagnostiquer, concevoir et accompagner une transformation organisationnelle",
+    descriptionFr:
+      "Cours personnel avancé en français couvrant les compétences visées par le parcours ICAgile ICP-CAT : diagnostic organisationnel, conception d'une stratégie de transition, gestion du changement et des résistances, et mesure d'impact. Comprend un examen final chronométré. Préparation indépendante — non affiliée à ICAgile. Ce parcours est normalement participatif et expérientiel ; ce cours en propose une version d'auto-formation rigoureuse, avec évaluation écrite dans les mêmes conditions que les autres modules de cette plateforme.",
+    title: "Coaching Agile Transitions (ICP-CAT) — Prep",
+    subtitle: "Diagnosing, designing, and guiding an organizational transformation",
+    description:
+      "Advanced French-language personal course on the competencies targeted by the ICAgile ICP-CAT track. Independent prep — not affiliated with ICAgile.",
+    longDescription:
+      "Ce cours avancé aborde le rôle du coach de transformation agile au niveau organisationnel : comprendre les systèmes organisationnels, diagnostiquer l'état actuel, co-concevoir une stratégie de transition avec les sponsors, accompagner le changement et les résistances, et mesurer l'impact dans la durée. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : le parcours officiel ICP-CAT d'ICAgile est un programme participatif dispensé par des formateurs accrédités, évalué notamment sur la pratique en situation réelle — il ne se limite pas à un examen écrit. Ce cours est une préparation personnelle et un contenu d'auto-formation rigoureux ; il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-CAT.",
+    color: "#6a4c93",
+    icon: "compass",
+    chapters: [
+      {
+        id: "icpcat-1",
+        title: "Le système organisationnel : comprendre avant d'agir",
+        duration: "45 min",
+        content: `<h2>Le système organisationnel : comprendre avant d'agir</h2>
+<p>Une transformation agile ne se limite pas à changer les pratiques d'une équipe : elle touche la structure, la culture, les systèmes de mesure, les incitations, et le style de leadership de toute une organisation. Avant de proposer un plan, un coach de transformation cherche à comprendre le système dans son ensemble.</p>
+<h3>Voir le système, pas seulement les symptômes</h3>
+<p>Une équipe lente n'est pas nécessairement le problème — elle peut être le symptôme d'un système de financement annuel rigide, d'une structure en silos, ou d'indicateurs de performance individuels qui découragent la collaboration. Le coach cherche les causes systémiques avant de proposer des solutions locales.</p>
+<h3>Les leviers organisationnels</h3>
+<ul>
+<li><strong>Structure</strong> — comment les équipes et départements sont organisés (silos vs équipes de flux de valeur)</li>
+<li><strong>Culture</strong> — les croyances et comportements partagés, souvent invisibles mais très influents</li>
+<li><strong>Mesures et incitations</strong> — ce qui est mesuré et récompensé oriente fortement les comportements</li>
+<li><strong>Leadership</strong> — le style de gouvernance et de prise de décision</li>
+</ul>
+<h3>Le rôle du sponsor</h3>
+<p>Une transformation durable nécessite un sponsor exécutif engagé, capable de lever les obstacles organisationnels que l'équipe seule ne peut pas déplacer (budget, structure, politiques RH). Le coach travaille en partenariat avec ce sponsor, sans se substituer à lui.</p>`,
+        quiz: [
+          { question: "Selon une approche systémique, une équipe lente est :", options: ["Toujours due à un manque de compétence individuelle", "Potentiellement le symptôme d'un problème organisationnel plus large", "Toujours résolue en ajoutant plus de membres", "Sans lien avec la structure organisationnelle"], correct: 1, explanation: "Le coach de transformation cherche les causes systémiques (financement, silos, incitations) avant de proposer une solution locale." },
+          { question: "Lequel de ces éléments n'est PAS cité comme un levier organisationnel dans ce chapitre ?", options: ["La structure", "La culture", "Les mesures et incitations", "La météo"], correct: 3, explanation: "Les leviers cités sont la structure, la culture, les mesures/incitations et le leadership." },
+          { question: "Pourquoi un sponsor exécutif engagé est-il important dans une transformation ?", options: ["Parce qu'il doit approuver chaque tâche de chaque équipe", "Parce qu'il peut lever des obstacles organisationnels hors de portée des équipes seules", "Parce que la loi l'exige", "Parce qu'il remplace le rôle du coach"], correct: 1, explanation: "Le sponsor peut agir sur le budget, la structure et les politiques RH — des leviers que les équipes seules ne contrôlent pas." },
+        ],
+      },
+      {
+        id: "icpcat-2",
+        title: "Diagnostiquer l'état actuel",
+        duration: "42 min",
+        content: `<h2>Diagnostiquer l'état actuel</h2>
+<p>Avant de concevoir une stratégie de transition, le coach mène un diagnostic structuré de l'organisation : entretiens avec les parties prenantes à différents niveaux, observation des pratiques de travail réelles, analyse des flux de valeur existants, et étude des indicateurs actuels (délais, qualité, satisfaction des équipes).</p>
+<h3>Outils de diagnostic courants</h3>
+<ul>
+<li><strong>Cartographie de flux de valeur</strong> — visualiser le parcours d'une idée jusqu'à la valeur livrée au client</li>
+<li><strong>Entretiens et sondages</strong> — recueillir les perceptions à tous les niveaux (direction, management intermédiaire, équipes)</li>
+<li><strong>Analyse des métriques existantes</strong> — délais de livraison, taux de défauts, engagement des employés</li>
+<li><strong>Modèles de maturité organisationnelle</strong> — utilisés avec prudence, comme point de départ de discussion plutôt que comme verdict définitif</li>
+</ul>
+<h3>Éviter le diagnostic imposé</h3>
+<p>Un bon diagnostic implique les personnes concernées plutôt que de leur être imposé de l'extérieur. Un diagnostic co-construit avec les équipes et les managers augmente l'adhésion à la suite du processus, alors qu'un diagnostic purement descendant (top-down) provoque souvent des résistances.</p>`,
+        quiz: [
+          { question: "Quel outil permet de visualiser le parcours d'une idée jusqu'à la valeur livrée ?", options: ["Le tableau Kanban personnel", "La cartographie de flux de valeur", "Le Sprint Backlog", "L'organigramme RH"], correct: 1, explanation: "La cartographie de flux de valeur (value stream mapping) visualise l'ensemble du parcours de la valeur." },
+          { question: "Pourquoi impliquer les équipes dans le diagnostic plutôt que de l'imposer ?", options: ["Cela n'a aucune importance", "Cela augmente l'adhésion et réduit les résistances", "C'est une obligation légale", "Cela accélère toujours le calendrier du projet"], correct: 1, explanation: "Un diagnostic co-construit augmente l'adhésion ; un diagnostic purement top-down provoque souvent des résistances." },
+          { question: "Comment les modèles de maturité organisationnelle doivent-ils être utilisés ?", options: ["Comme un verdict définitif et intangible", "Avec prudence, comme point de départ de discussion", "Ils ne doivent jamais être utilisés", "Uniquement par la direction, sans partage avec les équipes"], correct: 1, explanation: "Les modèles de maturité sont utiles comme point de départ de discussion, pas comme jugement définitif sur une équipe ou une organisation." },
+        ],
+      },
+      {
+        id: "icpcat-3",
+        title: "Concevoir une stratégie de transition",
+        duration: "45 min",
+        content: `<h2>Concevoir une stratégie de transition</h2>
+<p>Une stratégie de transition traduit le diagnostic en un plan d'action réaliste, séquencé, et adapté au contexte — il n'existe pas de plan de transformation universel applicable tel quel à toute organisation.</p>
+<h3>Principes de conception</h3>
+<ul>
+<li><strong>Commencer petit, apprendre, étendre</strong> — des pilotes ciblés permettent d'apprendre avant une extension à grande échelle</li>
+<li><strong>Séquencer selon la valeur et la faisabilité</strong> — prioriser les changements à fort impact et à résistance gérable</li>
+<li><strong>Aligner la structure et les incitations</strong> — un changement de pratiques sans changement structurel ou d'incitations a peu de chances de tenir dans la durée</li>
+<li><strong>Prévoir des points de contrôle</strong> — des jalons d'inspection réguliers permettant d'ajuster la stratégie elle-même, dans un esprit empirique</li>
+</ul>
+<h3>Le piège du copier-coller</h3>
+<p>Reproduire tel quel le modèle d'une autre organisation (même reconnue) sans l'adapter au contexte propre est une erreur fréquente. La stratégie de transition doit être co-conçue avec les parties prenantes locales, pas importée intégralement de l'extérieur.</p>`,
+        quiz: [
+          { question: "Quelle approche est recommandée pour démarrer une transformation ?", options: ["Déployer immédiatement à toute l'organisation", "Commencer petit avec des pilotes ciblés, apprendre, puis étendre", "Attendre l'accord unanime de tous les employés avant tout changement", "Copier intégralement le modèle d'une autre entreprise"], correct: 1, explanation: "Commencer par des pilotes ciblés permet d'apprendre avant une extension à grande échelle, dans un esprit empirique." },
+          { question: "Pourquoi un changement de pratiques sans changement structurel a-t-il peu de chances de tenir ?", options: ["Parce que les employés l'oublient rapidement", "Parce que la structure et les incitations existantes continuent de pousser vers les anciens comportements", "Parce que la loi l'interdit", "Ce n'est pas vrai, la structure n'a pas d'importance"], correct: 1, explanation: "Sans alignement de la structure et des incitations, les anciens comportements sont renforcés malgré le changement de pratiques affiché." },
+          { question: "Quel est le principal risque du 'copier-coller' d'un modèle de transformation externe ?", options: ["Il est toujours moins cher", "Il ignore le contexte propre de l'organisation, ce qui réduit ses chances de succès", "Il est interdit par ICAgile", "Il accélère toujours les résultats"], correct: 1, explanation: "Un modèle importé sans adaptation ignore le contexte spécifique de l'organisation — culture, contraintes, historique — ce qui limite ses chances de succès." },
+        ],
+      },
+      {
+        id: "icpcat-4",
+        title: "Accompagner le changement et les résistances",
+        duration: "40 min",
+        content: `<h2>Accompagner le changement et les résistances</h2>
+<p>La résistance au changement est une réaction humaine normale, pas un obstacle à éliminer par la force. Un coach de transformation cherche à comprendre les sources de résistance et à y répondre avec empathie et clarté plutôt qu'avec autorité.</p>
+<h3>Sources courantes de résistance</h3>
+<ul>
+<li>Perte perçue de statut, de contrôle, ou de compétences valorisées</li>
+<li>Manque de clarté sur le "pourquoi" du changement</li>
+<li>Expériences négatives passées avec d'autres initiatives de changement</li>
+<li>Incitations existantes qui récompensent encore l'ancien comportement</li>
+</ul>
+<h3>Stratégies d'accompagnement</h3>
+<ul>
+<li><strong>Communiquer le pourquoi</strong>, de façon répétée et à travers plusieurs canaux</li>
+<li><strong>Impliquer les personnes concernées</strong> dans la conception des changements qui les affectent</li>
+<li><strong>Célébrer les petites victoires</strong> pour construire la confiance progressivement</li>
+<li><strong>Rester présent et disponible</strong> pour écouter les préoccupations sans les balayer</li>
+</ul>
+<h3>Ce que le coach évite</h3>
+<p>Le coach évite d'imposer le changement par la contrainte hiérarchique, de minimiser les préoccupations exprimées, ou de promettre des résultats irréalistes pour obtenir une adhésion de façade.</p>`,
+        quiz: [
+          { question: "Comment ce chapitre décrit-il la résistance au changement ?", options: ["Comme un obstacle à éliminer par la force", "Comme une réaction humaine normale à comprendre et accompagner", "Comme un signe d'incompétence des employés", "Comme quelque chose à ignorer systématiquement"], correct: 1, explanation: "La résistance est présentée comme une réaction humaine normale, à comprendre avec empathie plutôt qu'à combattre par l'autorité." },
+          { question: "Laquelle de ces stratégies est recommandée pour accompagner le changement ?", options: ["Imposer le changement par la contrainte hiérarchique", "Communiquer le pourquoi de façon répétée et impliquer les personnes concernées", "Minimiser les préoccupations exprimées par les équipes", "Promettre des résultats irréalistes pour obtenir une adhésion rapide"], correct: 1, explanation: "Communiquer le pourquoi et impliquer les personnes concernées sont des stratégies recommandées ; les trois autres options sont explicitement déconseillées." },
+          { question: "Quelle est une source courante de résistance mentionnée dans ce chapitre ?", options: ["Un excès de confiance dans le changement", "La perte perçue de statut, de contrôle ou de compétences valorisées", "Un excès de communication de la direction", "Une trop grande clarté sur les objectifs"], correct: 1, explanation: "La perte perçue de statut, de contrôle ou de compétences valorisées est une source fréquente de résistance au changement." },
+        ],
+      },
+      {
+        id: "icpcat-final-exam",
+        title: "Examen final — Évaluation ICP-CAT d'entraînement",
+        duration: "50 min",
+        isFinalExam: true,
+        examDurationMinutes: 50,
+        passingScorePercent: 80,
+        content: `<h2>Examen final — Évaluation ICP-CAT d'entraînement</h2>
+<p>Examen chronométré couvrant l'ensemble du cours, avec un seuil de réussite de <strong>80 %</strong>.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important :</strong> le parcours officiel ICP-CAT d'ICAgile repose sur un programme participatif et expérientiel dispensé par des formateurs accrédités, évalué en grande partie sur la pratique en situation réelle — pas uniquement sur un examen écrit. Cet examen est un entraînement personnel indépendant, non délivré ni approuvé par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-CAT.
+</p>`,
+        quiz: [
+          { question: "Une transformation agile durable touche principalement :", options: ["Uniquement les pratiques d'une seule équipe", "La structure, la culture, les mesures et le leadership de l'organisation", "Uniquement les outils logiciels utilisés", "Uniquement le budget informatique"], correct: 1, explanation: "Une transformation durable touche l'ensemble du système organisationnel, pas seulement les pratiques d'une équipe isolée." },
+          { question: "Quel est le rôle principal du sponsor exécutif dans une transformation ?", options: ["Approuver chaque tâche de chaque équipe", "Lever les obstacles organisationnels hors de portée des équipes seules", "Remplacer le coach de transformation", "Rédiger le Product Backlog"], correct: 1, explanation: "Le sponsor agit sur des leviers (budget, structure, RH) que les équipes seules ne peuvent pas déplacer." },
+          { question: "Quel outil est utilisé pour visualiser le parcours de la valeur dans un diagnostic organisationnel ?", options: ["La cartographie de flux de valeur", "Le tableau de bord financier annuel", "L'organigramme hiérarchique", "Le plan de formation individuel"], correct: 0, explanation: "La cartographie de flux de valeur (value stream mapping) est l'outil de diagnostic mentionné pour visualiser le parcours de la valeur." },
+          { question: "Quelle approche de déploiement est recommandée pour une transformation ?", options: ["Déploiement immédiat à grande échelle", "Pilotes ciblés, apprentissage, puis extension progressive", "Attendre l'unanimité avant tout changement", "Copier intégralement un modèle externe"], correct: 1, explanation: "Commencer petit avec des pilotes ciblés, apprendre, puis étendre est l'approche recommandée dans une logique empirique." },
+          { question: "Pourquoi la résistance au changement doit-elle être comprise plutôt que combattue ?", options: ["Parce qu'elle est illégale", "Parce qu'elle est une réaction humaine normale révélant souvent des préoccupations légitimes", "Parce qu'elle n'existe pas réellement", "Parce que la combattre est toujours plus rapide"], correct: 1, explanation: "La résistance révèle souvent des préoccupations légitimes (perte de statut, manque de clarté, expériences passées négatives) qu'il vaut mieux comprendre qu'ignorer." },
+          { question: "Que risque un changement de pratiques non accompagné d'un changement de structure et d'incitations ?", options: ["Rien, cela fonctionne toujours", "De ne pas tenir dans la durée, les anciennes incitations renforçant les anciens comportements", "D'être immédiatement interdit par la direction", "D'accélérer artificiellement les résultats"], correct: 1, explanation: "Sans alignement structurel et incitatif, le changement de pratiques a peu de chances de perdurer." },
+          { question: "Quel type de diagnostic augmente le mieux l'adhésion des équipes ?", options: ["Un diagnostic purement descendant imposé par la direction", "Un diagnostic co-construit avec les personnes concernées à tous les niveaux", "Un diagnostic réalisé sans aucun entretien", "Un diagnostic gardé confidentiel par le coach seul"], correct: 1, explanation: "Un diagnostic co-construit avec les équipes et managers augmente l'adhésion, contrairement à un diagnostic purement top-down." },
+        ],
+      },
+    ],
+  },
 ];
+
+/** Courses shown on the public homepage and in every student's dashboard. */
+export const PUBLIC_COURSES: Course[] = COURSES.filter((c) => c.visibility !== "admin");
+
+/** Personal courses visible only in the Admin Dashboard, accessible only to the admin account. */
+export const ADMIN_ONLY_COURSES: Course[] = COURSES.filter((c) => c.visibility === "admin");
 
 export function getCourseBySlug(slug: string): Course | undefined {
   return COURSES.find((c) => c.slug === slug);

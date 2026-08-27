@@ -15,39 +15,111 @@ export default function Signup() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (password.length < 8) { setError("Le mot de passe doit contenir au moins 8 caractères."); return; }
+    if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/signup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, password }) });
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Erreur lors de l'inscription");
+      if (!res.ok) throw new Error(data.error || "Registration failed");
       router.push("/dashboard");
-    } catch (e: any) { setError(e.message); } finally { setLoading(false); }
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <>
-      <Head><title>S'inscrire — Agir sur sa Foi</title></Head>
+      <Head>
+        <title>Enroll Free — ASF Academy</title>
+        <meta name="description" content="Create your free account and begin walking in the power of God." />
+      </Head>
       <NavBar />
-      <div style={{ minHeight: "calc(100vh - 56px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem 1rem" }}>
+      <div style={{
+        minHeight: "calc(100vh - 56px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "2rem 1rem",
+      }}>
         <div className="card" style={{ width: "100%", maxWidth: 420 }}>
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
-            <h1 style={{ fontSize: "1.5rem", marginBottom: 6 }}>Commencez votre parcours</h1>
-            <p style={{ fontSize: 14, color: "var(--text-muted)" }}>Inscription gratuite — trois cours bibliques complets</p>
+            <h1 style={{ fontSize: "1.5rem", marginBottom: 6 }}>Start Your Journey</h1>
+            <p style={{ fontSize: 14, color: "var(--text-muted)" }}>
+              Free enrollment — three complete biblical courses
+            </p>
           </div>
-          <div style={{ background: "var(--cream-dark)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "12px 16px", marginBottom: "1.5rem" }}>
-            <p style={{ fontSize: 13, color: "var(--text-secondary)", margin: 0 }}>✓ Accès gratuit aux 3 cours &nbsp;·&nbsp; ✓ Quiz après chaque chapitre &nbsp;·&nbsp; ✓ Certificat</p>
+
+          {/* Benefits */}
+          <div style={{
+            background: "var(--gold-light)",
+            border: "1px solid #e0c87a",
+            borderRadius: "var(--radius)",
+            padding: "12px 16px",
+            marginBottom: "1.5rem",
+          }}>
+            <p style={{ fontSize: 13, color: "#6a4a00", margin: 0 }}>
+              ✓ Free access to all 3 courses &nbsp;·&nbsp; ✓ Quizzes after each chapter &nbsp;·&nbsp; ✓ Completion certificate
+            </p>
           </div>
+
           <form onSubmit={handleSubmit}>
-            <div className="form-group"><label className="form-label">Nom complet</label><input className="form-input" type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Votre nom" /></div>
-            <div className="form-group"><label className="form-label">Email</label><input className="form-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="votre@email.com" /></div>
-            <div className="form-group"><label className="form-label">Mot de passe</label><input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Min. 8 caractères" /></div>
+            <div className="form-group">
+              <label className="form-label">Full Name</label>
+              <input
+                className="form-input"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder="Your full name"
+                autoComplete="name"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input
+                className="form-input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="your@email.com"
+                autoComplete="email"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input
+                className="form-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Min. 8 characters"
+                autoComplete="new-password"
+              />
+            </div>
             {error && <p className="form-error" style={{ marginBottom: 12 }}>{error}</p>}
-            <button type="submit" className="btn-primary" disabled={loading} style={{ width: "100%", marginTop: 4 }}>{loading ? "Création..." : "Créer mon compte gratuit"}</button>
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={loading}
+              style={{ width: "100%", marginTop: 4 }}
+            >
+              {loading ? "Creating account..." : "Create Free Account"}
+            </button>
           </form>
           <p style={{ textAlign: "center", marginTop: "1.25rem", fontSize: 14, color: "var(--text-muted)" }}>
-            Déjà un compte ?{" "}
-            <Link href="/auth/login" style={{ color: "var(--text-primary)", textDecoration: "underline" }}>Se connecter</Link>
+            Already have an account?{" "}
+            <Link href="/auth/login" style={{ color: "var(--text-primary)", textDecoration: "underline" }}>
+              Sign in
+            </Link>
           </p>
         </div>
       </div>

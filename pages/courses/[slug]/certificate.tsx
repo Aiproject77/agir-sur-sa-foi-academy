@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { getCourseBySlug, COURSES } from "../../../lib/courses";
+import { getCourseBySlug, COURSES, PUBLIC_COURSES } from "../../../lib/courses";
 import NavBar from "../../../components/NavBar";
 
 export default function CertificatePage() {
@@ -27,6 +27,19 @@ export default function CertificatePage() {
 
   if (loading || !course) return <div style={{ padding: "3rem", textAlign: "center" }}>Loading...</div>;
 
+  const isAdminOnlyCourse = course.visibility === "admin";
+  if (user && isAdminOnlyCourse && user.role !== "admin") {
+    return (
+      <>
+        <NavBar user={user} />
+        <div style={{ maxWidth: 600, margin: "4rem auto", padding: "2rem", textAlign: "center" }}>
+          <h2 style={{ marginBottom: "1rem" }}>Certificate Not Found</h2>
+          <Link href="/dashboard" className="btn-primary">Back to Dashboard</Link>
+        </div>
+      </>
+    );
+  }
+
   const progress = user?.progress?.[course.id];
 
   if (!progress?.completedAt) {
@@ -44,12 +57,13 @@ export default function CertificatePage() {
     );
   }
 
-  const completedDate = new Date(progress.completedAt).toLocaleDateString("fr-FR", {
+  const completedDate = new Date(progress.completedAt).toLocaleDateString("en-US", {
     year: "numeric", month: "long", day: "numeric",
   });
 
-  const courseIndex = COURSES.findIndex((c) => c.id === course.id);
-  const nextCourse = COURSES[courseIndex + 1];
+  const listForCourse = isAdminOnlyCourse ? COURSES.filter((c) => c.visibility === "admin") : PUBLIC_COURSES;
+  const courseIndex = listForCourse.findIndex((c) => c.id === course.id);
+  const nextCourse = listForCourse[courseIndex + 1];
 
   function handlePrint() {
     window.print();
@@ -108,7 +122,7 @@ export default function CertificatePage() {
           <div style={{ position: "absolute", bottom: 12, right: 12, width: 48, height: 48, borderBottom: "2px solid var(--gold)", borderRight: "2px solid var(--gold)" }} />
 
           <p style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: "1rem" }}>
-            Agir sur sa Foi Academy
+            Acting on His Word Academy
           </p>
 
           <p style={{ fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "1.5rem" }}>
@@ -118,7 +132,7 @@ export default function CertificatePage() {
           <div style={{ width: 1, height: 30, background: "var(--border)", margin: "0 auto 1.5rem" }} />
 
           <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", color: "var(--text-primary)", marginBottom: "0.5rem" }}>
-            Agir sur sa Foi Academy
+            Acting on His Word Academy
           </h1>
 
           <p style={{ fontSize: 15, color: "var(--text-muted)", marginBottom: "2rem" }}>
@@ -150,11 +164,11 @@ export default function CertificatePage() {
           <div style={{ display: "flex", justifyContent: "center", gap: "3rem", flexWrap: "wrap" }}>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Agir sur sa Foi Academy</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>John F. Shroyer<br />Acting on His Word Academy</p>
             </div>
             <div style={{ textAlign: "center" }}>
               <div style={{ width: 120, height: 1, background: "var(--black)", marginBottom: 6 }} />
-              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Agir sur sa Foi Academy</p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)" }}>Wayne G. Clapp<br />Acting on His Word Academy</p>
             </div>
           </div>
 
@@ -164,6 +178,12 @@ export default function CertificatePage() {
             </p>
           </div>
         </div>
+
+        {course.certTrack && (
+          <p className="no-print" style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "center", marginTop: "1rem", maxWidth: 600, marginLeft: "auto", marginRight: "auto" }}>
+            This is a certificate of completion issued by this platform for personal study purposes. It references {course.certTrack.split("—")[0].trim()} as its subject matter, but it is not produced, endorsed, or issued by that certification body, and it does not itself confer that official credential.
+          </p>
+        )}
 
         {/* Next steps */}
         {nextCourse && (
