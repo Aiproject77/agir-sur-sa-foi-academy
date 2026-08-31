@@ -1160,134 +1160,298 @@ export const COURSES: Course[] = [
     slug: "psm1-scrum-master-prep",
     order: 4,
     visibility: "admin",
-    certTrack: "Scrum.org PSM I — Préparation (non officielle)",
-    language: "bilingual",
-    titleFr: "Professional Scrum Master I — Préparation",
-    subtitleFr: "Cours bilingue basé sur le Guide Scrum",
-    descriptionFr:
-      "Un cours personnel de préparation à l'examen PSM I : théorie Scrum, équipe, événements, artefacts, et un examen final chronométré dans des conditions proches de l'évaluation officielle. Ceci est une préparation indépendante — non affiliée à Scrum.org.",
+    certTrack: "Scrum.org PSM I — Prep (unofficial)",
+    language: "en",
     title: "Professional Scrum Master I — Prep",
-    subtitle: "Bilingual course based on the Scrum Guide",
+    subtitle: "A complete, guide-based course with a timed practice assessment",
     description:
-      "A personal prep course for the PSM I assessment: Scrum theory, the Scrum Team, events, artifacts, and a timed final exam under conditions similar to the official assessment. This is independent, unofficial exam prep — not affiliated with Scrum.org.",
+      "A thorough personal prep course for the PSM I assessment, built chapter-by-chapter around every section of the official Scrum Guide (2020): theory, values, the Scrum Team, all five events, all three artifacts and their commitments — plus a long, timed, scenario-based final exam scored against an 85% passing threshold. Independent, unofficial exam prep — not affiliated with Scrum.org.",
     longDescription:
-      "This course walks through the Scrum Guide (2020) in depth — empiricism and Scrum values, the Scrum Team and its accountabilities, the five events, the three artifacts and their commitments, and how a Scrum Master serves the team, the Product Owner, and the organization. Each chapter ends with a mastery quiz, and the course closes with a timed, scenario-based final exam scored against an 85% passing threshold — the same bar used by the real assessment. Note: this is independent self-study material. It is not produced, endorsed, or licensed by Scrum.org, and completing it does not grant the official PSM I credential — only Scrum.org's own proctored assessment can do that.",
+      "This course is organized to mirror the structure of the Scrum Guide (Schwaber & Sutherland, November 2020) section by section, so nothing important is skipped: what Scrum is and why it's deliberately incomplete; the empirical pillars and the five Scrum values; the Scrum Team and its three accountabilities (Developers, Product Owner, Scrum Master); the Sprint and all four inspect-and-adapt events inside it; and the three artifacts with their commitments (Product Goal, Sprint Goal, Definition of Done). Every lesson chapter ends with a short mastery quiz you must pass at 100% to move on. The course closes with a long, timed final exam — 40 scenario-based questions, a 60-minute countdown, and an 85% passing score, matching the rigor (though not the exact question bank) of the real assessment. Note: this is independent self-study material written for this platform. It is not produced, endorsed, or licensed by Scrum.org, and completing it does not grant the official PSM I credential — only Scrum.org's own proctored assessment, taken on their platform, can do that.",
     color: "#0a3d62",
     icon: "target",
     chapters: [
       {
         id: "psm1-1",
-        title: "Empiricism, Scrum Values, and Why Scrum Exists",
-        duration: "40 min",
-        content: `<h2>Empiricism, Scrum Values, and Why Scrum Exists</h2>
-<p>Scrum is a lightweight framework for developing, delivering, and sustaining complex products, grounded in <strong>empiricism</strong>: knowledge comes from experience, and decisions are based on what is observed. Empiricism rests on three pillars:</p>
-<ul>
-<li><strong>Transparency</strong> — the process and work must be visible to those responsible for the outcome.</li>
-<li><strong>Inspection</strong> — artifacts and progress must be inspected frequently to detect problems.</li>
-<li><strong>Adaptation</strong> — if inspection reveals a deviation, the process or product must be adjusted quickly.</li>
-</ul>
-<h3>Scrum Is Not a Process, Technique, or Method</h3>
-<p>Scrum is a framework. It deliberately leaves many decisions to the people using it: specific practices, techniques, and methods are chosen by the team based on their context. Scrum only defines the minimal set of roles (accountabilities), events, and artifacts needed to make empirical process control work.</p>
-<h3>The Five Scrum Values</h3>
-<p>Successful use of Scrum depends on people becoming more proficient in living five values:</p>
-<ul>
-<li><strong>Commitment</strong> — to the goals of the Scrum Team.</li>
-<li><strong>Focus</strong> — on the work of the Sprint and the goals of the Scrum Team.</li>
-<li><strong>Openness</strong> — about the work and the challenges.</li>
-<li><strong>Respect</strong> — for each other as capable, independent people.</li>
-<li><strong>Courage</strong> — to do the right thing and work on tough problems.</li>
-</ul>
-<p>These values give direction for how the team works, acts, and behaves. Decisions made, steps taken, and how Scrum is played out should reinforce these values, not diminish or undermine them.</p>`,
-        contentFr: `<h2>Empirisme, valeurs Scrum, et raison d'être de Scrum</h2>
-<p>Scrum est un cadre léger pour développer, livrer et maintenir des produits complexes, fondé sur l'<strong>empirisme</strong> : la connaissance vient de l'expérience, et les décisions sont prises à partir de ce qui est observé. L'empirisme repose sur trois piliers :</p>
-<ul>
-<li><strong>Transparence</strong> — le processus et le travail doivent être visibles pour les personnes responsables du résultat.</li>
-<li><strong>Inspection</strong> — les artefacts et l'avancement doivent être inspectés fréquemment pour détecter les problèmes.</li>
-<li><strong>Adaptation</strong> — si l'inspection révèle un écart, le processus ou le produit doit être ajusté rapidement.</li>
-</ul>
-<h3>Scrum n'est pas un processus, une technique ou une méthode</h3>
-<p>Scrum est un cadre (framework). Il laisse volontairement de nombreuses décisions aux personnes qui l'utilisent : les pratiques, techniques et méthodes précises sont choisies par l'équipe selon son contexte. Scrum ne définit que l'ensemble minimal de rôles (responsabilités), d'événements et d'artefacts nécessaires au contrôle empirique du processus.</p>
-<h3>Les cinq valeurs Scrum</h3>
-<p>L'usage réussi de Scrum dépend de la capacité des personnes à vivre cinq valeurs :</p>
-<ul>
-<li><strong>Engagement</strong> — envers les objectifs de la Scrum Team.</li>
-<li><strong>Focalisation</strong> — sur le travail du Sprint et les objectifs de l'équipe.</li>
-<li><strong>Ouverture</strong> — sur le travail et les difficultés rencontrées.</li>
-<li><strong>Respect</strong> — envers chacun, en tant que personne compétente et autonome.</li>
-<li><strong>Courage</strong> — pour faire ce qui est juste et affronter les problèmes difficiles.</li>
-</ul>
-<p>Ces valeurs orientent la façon dont l'équipe travaille, agit et se comporte. Chaque décision, chaque étape et la manière dont Scrum est appliqué doivent renforcer ces valeurs, jamais les affaiblir.</p>`,
+        title: "What Scrum Is — Definition and Purpose",
+        duration: "25 min",
+        content: `<h2>What Scrum Is — Definition and Purpose</h2>
+<p>Scrum is a lightweight framework that helps people, teams, and organizations generate value through adaptive solutions for complex problems. It was developed in the early 1990s by Ken Schwaber and Jeff Sutherland, who first presented it publicly at the OOPSLA conference in 1995, and it has been refined continuously since.</p>
+<h3>The Simple Loop at the Center of Scrum</h3>
+<p>At its core, Scrum sets up a small, repeating cycle:</p>
+<ol>
+<li>A Product Owner orders the work for a complex problem into a Product Backlog.</li>
+<li>The Scrum Team turns a selection of that work into a usable Increment during a Sprint.</li>
+<li>The Scrum Team and its stakeholders inspect the result and adapt for the next Sprint.</li>
+<li>Repeat.</li>
+</ol>
+<h3>Scrum Is Deliberately Incomplete</h3>
+<p>Scrum only defines the minimum set of roles, events, and artifacts needed to make empirical process control work. It does not tell you how to estimate, which engineering practices to use, or how to design your architecture — those choices are left to the people doing the work, who bring their own techniques, methods, and practices into the framework. Scrum wraps around existing practices, or renders some of them unnecessary, and it makes the real effectiveness of current ways of working visible so that improvements can be identified.</p>
+<h3>Not a Methodology, Not a Silver Bullet</h3>
+<p>Because Scrum is a framework rather than a full methodology, changing its core design, skipping elements, or not following its rules tends to hide the very problems Scrum is meant to surface — which limits its benefits and can make it ineffective. Scrum itself doesn't guarantee success; it guarantees visibility into whether what you're doing is working.</p>`,
         quiz: [
-          { question: "What are the three pillars of empiricism in Scrum?", options: ["Planning, execution, review", "Transparency, inspection, adaptation", "Speed, quality, cost", "Roles, events, artifacts"], correct: 1, explanation: "The three pillars are transparency, inspection, and adaptation — they support empirical process control." },
-          { question: "Which statement best describes Scrum?", options: ["A detailed, prescriptive methodology", "A lightweight framework that leaves many practices to the team", "A software tool for tracking tasks", "A certification body"], correct: 1, explanation: "Scrum is deliberately incomplete — a framework, not a full methodology — leaving specific practices to the team." },
-          { question: "Which of these is one of the five Scrum values?", options: ["Efficiency", "Courage", "Profitability", "Hierarchy"], correct: 1, explanation: "The five Scrum values are Commitment, Focus, Openness, Respect, and Courage." },
-        ],
-        quizFr: [
-          { question: "Quels sont les trois piliers de l'empirisme dans Scrum ?", options: ["Planification, exécution, revue", "Transparence, inspection, adaptation", "Vitesse, qualité, coût", "Rôles, événements, artefacts"], correct: 1, explanation: "Les trois piliers sont la transparence, l'inspection et l'adaptation." },
-          { question: "Quelle affirmation décrit le mieux Scrum ?", options: ["Une méthodologie détaillée et prescriptive", "Un cadre léger qui laisse de nombreuses pratiques à l'équipe", "Un outil logiciel de suivi de tâches", "Un organisme de certification"], correct: 1, explanation: "Scrum est volontairement incomplet — un cadre, pas une méthodologie complète." },
-          { question: "Laquelle de ces valeurs fait partie des cinq valeurs Scrum ?", options: ["L'efficacité", "Le courage", "La rentabilité", "La hiérarchie"], correct: 1, explanation: "Les cinq valeurs Scrum sont l'Engagement, la Focalisation, l'Ouverture, le Respect et le Courage." },
+          { question: "Which best completes the loop Scrum sets up at its core?", options: ["Plan everything up front, then execute without changes", "Order the work, build an Increment in a Sprint, inspect and adapt, repeat", "Assign tasks to individuals and track hours", "Write full documentation before any development starts"], correct: 1, explanation: "Scrum's core loop is: order the work into a Product Backlog, turn a selection into an Increment during a Sprint, inspect and adapt, and repeat." },
+          { question: "Why is Scrum described as 'purposefully incomplete'?", options: ["Because it is still being finished by Scrum.org", "Because it deliberately leaves practices like estimation and engineering techniques to the people doing the work", "Because only certified practitioners may complete it", "Because it lacks a definition of roles"], correct: 1, explanation: "Scrum defines only the minimum structure needed for empirical process control, leaving specific practices and techniques to the team." },
+          { question: "What tends to happen when teams change Scrum's core design or skip elements?", options: ["Nothing — Scrum is fully customizable with no trade-offs", "It hides the very problems Scrum is designed to surface, limiting its benefits", "It always improves delivery speed", "It automatically becomes a different certified framework"], correct: 1, explanation: "Modifying the core framework or leaving out elements tends to cover up problems rather than solve them." },
         ],
       },
       {
         id: "psm1-2",
-        title: "The Scrum Team and Accountabilities",
-        duration: "45 min",
-        content: `<h2>The Scrum Team and Accountabilities</h2>
-<p>A Scrum Team consists of one <strong>Scrum Master</strong>, one <strong>Product Owner</strong>, and <strong>Developers</strong>. It is a cohesive unit of professionals focused on one objective at a time: the Product Goal. Scrum Teams are cross-functional and self-managing — they choose who does what, when, and how, without direction from outside the team.</p>
-<h3>The Product Owner</h3>
-<p>Accountable for maximizing the value of the product resulting from the work of the Scrum Team. The Product Owner is one person, not a committee, and owns the Product Backlog: developing and communicating the Product Goal, creating and ordering Product Backlog items, and ensuring the Product Backlog is transparent and understood.</p>
-<h3>Developers</h3>
-<p>The people in the Scrum Team committed to creating any aspect of a usable Increment each Sprint. Developers are accountable for creating a plan for the Sprint (the Sprint Backlog), instilling quality by adhering to a Definition of Done, adapting their plan daily toward the Sprint Goal, and holding each other accountable as professionals.</p>
-<h3>The Scrum Master</h3>
-<p>Accountable for establishing Scrum as defined in the Scrum Guide. The Scrum Master does this by helping everyone understand Scrum theory and practice, both within the Scrum Team and the organization. The Scrum Master is a true leader who serves the Scrum Team and the larger organization — serving the team by coaching, removing impediments, and facilitating events; serving the Product Owner by helping with backlog management and stakeholder understanding; serving the organization by leading, training, and coaching adoption of Scrum.</p>
-<h3>Team Size</h3>
-<p>Scrum Teams are typically small enough to remain nimble and large enough to complete significant work within a Sprint, typically 10 or fewer people. Smaller teams communicate better and are more productive; if Scrum Teams grow too large, they should consider splitting into multiple cohesive teams, sharing the same Product Goal, Product Backlog, and Product Owner.</p>`,
+        title: "Scrum Theory — Empiricism, Lean Thinking, and the Three Pillars",
+        duration: "30 min",
+        content: `<h2>Scrum Theory — Empiricism, Lean Thinking, and the Three Pillars</h2>
+<p>Scrum is founded on two ideas: <strong>empiricism</strong> and <strong>lean thinking</strong>. Empiricism holds that knowledge comes from experience, and that decisions should be based on what has actually been observed — not on upfront prediction. Lean thinking is about reducing waste and focusing effort on what's essential. Together, they lead Scrum to use an iterative, incremental approach: build a bit, learn from it, adjust, and build the next bit — which optimizes predictability and helps control risk in complex, uncertain work.</p>
+<h3>The Three Pillars</h3>
+<p>Empiricism in Scrum rests on three supporting pillars, and they build on each other in order:</p>
+<ul>
+<li><strong>Transparency</strong> — the process and the work must be visible both to the people doing it and to the people receiving it. Important decisions in Scrum are based on the perceived state of its three artifacts; if an artifact isn't genuinely transparent, decisions made from it can end up diminishing value and increasing risk.</li>
+<li><strong>Inspection</strong> — the artifacts and progress toward agreed goals must be inspected frequently and carefully enough to catch undesirable variances or problems early. Scrum's five events exist largely to create a regular cadence for this inspection.</li>
+<li><strong>Adaptation</strong> — when inspection shows that something has drifted outside acceptable limits, or that the resulting product isn't acceptable, the process or the materials being produced must be adjusted — and as soon as possible, to limit further drift.</li>
+</ul>
+<p>These pillars form a chain: transparency is what makes inspection meaningful (inspecting something that isn't visible is misleading and a waste of time), and inspection is what makes adaptation possible (inspecting without ever adapting is pointless). Adaptation itself becomes much harder when the people involved aren't empowered or self-managing — which is exactly why Scrum Teams are expected to be both.</p>`,
         quiz: [
-          { question: "Who is accountable for maximizing the value of the product?", options: ["The Scrum Master", "The Developers", "The Product Owner", "The stakeholders"], correct: 2, explanation: "The Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team's work." },
-          { question: "How does the Scrum Master primarily serve the Scrum Team?", options: ["By assigning tasks to Developers", "By coaching, removing impediments, and facilitating events", "By writing the Product Backlog", "By approving the Sprint Backlog before work begins"], correct: 1, explanation: "The Scrum Master serves the team through coaching, removing impediments, and facilitating Scrum events — not by directing the work." },
-          { question: "What is the recommended approach if a Scrum Team grows too large?", options: ["Add a second Scrum Master to manage the size", "Split into multiple cohesive Scrum Teams sharing the same Product Goal and Backlog", "Reduce the length of the Sprint", "Move to a different framework"], correct: 1, explanation: "Large teams should consider splitting into multiple Scrum Teams that share the same Product Goal, Product Backlog, and Product Owner." },
+          { question: "What two ideas is Scrum theory founded on?", options: ["Waterfall sequencing and fixed contracts", "Empiricism and lean thinking", "Six Sigma and critical path analysis", "Command-and-control management and detailed upfront specs"], correct: 1, explanation: "Scrum is founded on empiricism (decisions based on observed experience) and lean thinking (reducing waste, focusing on essentials)." },
+          { question: "Put the three pillars in the order in which each one enables the next.", options: ["Adaptation → Inspection → Transparency", "Inspection → Adaptation → Transparency", "Transparency → Inspection → Adaptation", "Transparency → Adaptation → Inspection"], correct: 2, explanation: "Transparency enables meaningful inspection, and inspection enables useful adaptation — in that order." },
+          { question: "Why does inspection without adaptation add little value?", options: ["Because inspection is only a formality in Scrum", "Because catching a problem without ever adjusting course wastes the information gained", "Because inspection is banned once adaptation begins", "Because adaptation must always happen before inspection"], correct: 1, explanation: "Inspecting the work only pays off if the team is willing and able to adapt based on what's found." },
         ],
       },
       {
         id: "psm1-3",
-        title: "The Five Scrum Events",
-        duration: "50 min",
-        content: `<h2>The Five Scrum Events</h2>
-<p>Scrum events create regularity and minimize the need for meetings not defined in Scrum. All events are opportunities to inspect and adapt.</p>
-<h3>The Sprint</h3>
-<p>A container for all other events, typically one month or less. Sprints are consistent in length and start immediately after the previous one ends. During the Sprint no changes are made that would endanger the Sprint Goal, quality does not decrease, scope may be clarified with the Product Owner as more is learned, and progress toward the Sprint Goal is tracked daily.</p>
-<h3>Sprint Planning</h3>
-<p>Initiates the Sprint by laying out the work to be performed. Addresses three topics: <em>Why</em> is this Sprint valuable (leading to the Sprint Goal), <em>What</em> can be Done this Sprint (selected Product Backlog items), and <em>How</em> will the chosen work get done. Time-boxed to a maximum of eight hours for a one-month Sprint.</p>
-<h3>Daily Scrum</h3>
-<p>A 15-minute event for the Developers to inspect progress toward the Sprint Goal and adapt the Sprint Backlog as necessary, adjusting the upcoming planned work. It is an internal event for the Developers; if others are present, the Scrum Master ensures they do not disrupt it.</p>
-<h3>Sprint Review</h3>
-<p>Held at the end of the Sprint to inspect the outcome and determine future adaptations. The Scrum Team presents the results of their work to key stakeholders and progress toward the Product Goal is discussed. Time-boxed to a maximum of four hours for a one-month Sprint.</p>
-<h3>Sprint Retrospective</h3>
-<p>Concludes the Sprint. The Scrum Team inspects how the last Sprint went with regard to individuals, interactions, processes, tools, and their Definition of Done, and identifies the most helpful changes to improve effectiveness. Time-boxed to a maximum of three hours for a one-month Sprint.</p>`,
+        title: "The Five Scrum Values",
+        duration: "20 min",
+        content: `<h2>The Five Scrum Values</h2>
+<p>Successful use of Scrum depends less on following its mechanics correctly and more on the people involved becoming genuinely proficient in five values: <strong>Commitment, Focus, Openness, Respect,</strong> and <strong>Courage</strong>.</p>
+<ul>
+<li><strong>Commitment</strong> — the Scrum Team commits to achieving its goals and to supporting one another along the way.</li>
+<li><strong>Focus</strong> — everyone's primary attention is on the work of the current Sprint, making the best possible progress toward the Scrum Team's goals.</li>
+<li><strong>Openness</strong> — the Scrum Team and its stakeholders stay open about the work itself and about the challenges they're facing.</li>
+<li><strong>Respect</strong> — team members respect one another as capable, independent people, and are respected the same way by the people they work with.</li>
+<li><strong>Courage</strong> — team members have the courage to do the right thing and to take on tough problems rather than avoid them.</li>
+</ul>
+<h3>Why the Values Matter More Than the Mechanics</h3>
+<p>These values give direction to how the Scrum Team works, acts, and behaves. Every decision made and every step taken while using Scrum should reinforce these values — never quietly undermine them. Team members learn and grow into these values gradually, through actually working with the Scrum events and artifacts, not by memorizing a definition. When the values genuinely take hold, the three empirical pillars — transparency, inspection, and adaptation — come alive, because people are willing to be honest about problems (openness), take ownership of fixing them (commitment, courage), and trust each other enough to act on what's found (respect) — all of which builds trust over time.</p>`,
         quiz: [
-          { question: "What is the maximum length of Sprint Planning for a one-month Sprint?", options: ["Four hours", "Eight hours", "Fifteen minutes", "Three hours"], correct: 1, explanation: "Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint." },
-          { question: "Who is the Daily Scrum primarily for?", options: ["Stakeholders", "The Product Owner alone", "The Developers", "The Scrum Master"], correct: 2, explanation: "The Daily Scrum is an internal event for the Developers to inspect progress and adapt the Sprint Backlog." },
-          { question: "What is the primary purpose of the Sprint Retrospective?", options: ["To demo the Increment to stakeholders", "To plan the next Sprint's backlog items", "To inspect how the Sprint went and identify improvements", "To re-estimate the Product Backlog"], correct: 2, explanation: "The Sprint Retrospective is where the Scrum Team inspects itself and plans improvements for effectiveness and quality." },
+          { question: "Which five values does successful use of Scrum depend on?", options: ["Speed, Accuracy, Cost, Scope, Time", "Commitment, Focus, Openness, Respect, Courage", "Planning, Execution, Monitoring, Control, Closure", "Discipline, Hierarchy, Documentation, Process, Compliance"], correct: 1, explanation: "The five Scrum values are Commitment, Focus, Openness, Respect, and Courage." },
+          { question: "Which value most directly supports being honest about problems and challenges as they arise?", options: ["Focus", "Openness", "Respect", "Commitment"], correct: 1, explanation: "Openness is about the Scrum Team and stakeholders being transparent about the work and the difficulties they encounter." },
+          { question: "According to this chapter, how do the Scrum values relate to the three empirical pillars?", options: ["They are unrelated concepts from different frameworks", "Living the values is what makes transparency, inspection, and adaptation actually work in practice", "The values replace the need for the three pillars", "The pillars must be mastered before the values can be introduced"], correct: 1, explanation: "The values give people the honesty, ownership, and trust needed for transparency, inspection, and adaptation to function in real teams." },
         ],
       },
       {
         id: "psm1-4",
-        title: "The Three Artifacts and Their Commitments",
-        duration: "45 min",
-        content: `<h2>The Three Artifacts and Their Commitments</h2>
-<p>Scrum's artifacts represent work or value, and are designed to maximize transparency of key information. Each artifact contains a commitment to ensure it provides information that enhances transparency and focus.</p>
-<h3>Product Backlog — Product Goal</h3>
-<p>An emergent, ordered list of what is needed to improve the product. The Product Goal describes a future state of the product which can serve as a target for the Scrum Team to plan against; it is the long-term objective for the Scrum Team, and they must fulfill (or abandon) one objective before taking on the next.</p>
-<h3>Sprint Backlog — Sprint Goal</h3>
-<p>Composed of the Sprint Goal (why), the set of Product Backlog items selected for the Sprint (what), and an actionable plan for delivering the Increment (how). It is a plan by and for the Developers — a highly visible, real-time picture of the work the Developers plan to accomplish.</p>
-<h3>Increment — Definition of Done</h3>
-<p>A concrete stepping stone toward the Product Goal. Each Increment is additive to all prior Increments and thoroughly verified, ensuring that all Increments work together. The Definition of Done is a formal description of the state of the Increment when it meets the quality measures required for the product; a Product Backlog item is not considered Done until it conforms to the Definition of Done.</p>
-<h3>Why Commitments Matter</h3>
-<p>These commitments exist to reinforce empiricism and the Scrum values for the Scrum Team and their stakeholders. Without a shared Definition of Done, for example, teams cannot reliably know whether an Increment is truly usable — undermining transparency.</p>`,
+        title: "The Scrum Team — Structure, Size, and Shared Accountability",
+        duration: "30 min",
+        content: `<h2>The Scrum Team — Structure, Size, and Shared Accountability</h2>
+<p>The fundamental unit of Scrum is a small team of people called a Scrum Team, made up of one Scrum Master, one Product Owner, and Developers. There are no sub-teams or hierarchies within it — it's a single cohesive unit of professionals focused on one objective at a time: the Product Goal.</p>
+<h3>Cross-Functional and Self-Managing</h3>
+<p>Scrum Teams are <strong>cross-functional</strong>, meaning the members collectively hold all the skills necessary to create value each Sprint. They are also <strong>self-managing</strong>, meaning the team decides internally who does what, when, and how — without being directed by anyone outside the team.</p>
+<h3>Size</h3>
+<p>A Scrum Team is kept small enough to stay nimble, yet large enough to get meaningful work done within a Sprint — typically 10 or fewer people. Smaller teams tend to communicate better and be more productive. When a Scrum Team grows too large, the usual recommendation is to reorganize into multiple cohesive Scrum Teams working on the same product, sharing the same Product Goal, Product Backlog, and Product Owner — rather than trying to scale a single oversized team.</p>
+<h3>Scope of Responsibility</h3>
+<p>The Scrum Team is responsible for all product-related activities: stakeholder collaboration, verification, maintenance, operations, experimentation, research and development — essentially anything the product needs. The organization structures and empowers the team to manage its own work, and working at a sustainable pace within Sprints helps the team stay focused and consistent over time.</p>
+<h3>One Shared Accountability</h3>
+<p>The entire Scrum Team — not just the Scrum Master or the Product Owner — is accountable for creating a valuable, useful Increment every single Sprint. Within that shared accountability, Scrum names three specific accountabilities: the Developers, the Product Owner, and the Scrum Master, each covered in depth in the next three chapters.</p>`,
         quiz: [
-          { question: "What is the commitment associated with the Product Backlog?", options: ["Sprint Goal", "Definition of Done", "Product Goal", "Increment"], correct: 2, explanation: "The Product Goal is the commitment for the Product Backlog — the long-term objective the Scrum Team plans against." },
-          { question: "Who owns and creates the Sprint Backlog plan?", options: ["The Product Owner alone", "The Scrum Master", "Stakeholders", "The Developers"], correct: 3, explanation: "The Sprint Backlog is a plan by and for the Developers, giving a real-time picture of the work they plan to accomplish." },
-          { question: "When is a Product Backlog item considered 'Done'?", options: ["When the Developers say it feels finished", "When it conforms to the team's Definition of Done", "When the Sprint ends", "When the Product Owner approves the design"], correct: 1, explanation: "An item is Done only when it conforms to the agreed Definition of Done — this creates transparency about the actual state of work." },
+          { question: "What are the three accountabilities that make up a Scrum Team?", options: ["Manager, Analyst, Tester", "Scrum Master, Product Owner, Developers", "Team Lead, Architect, QA Lead", "Sponsor, Coach, Facilitator"], correct: 1, explanation: "A Scrum Team consists of one Scrum Master, one Product Owner, and Developers — no sub-teams or hierarchies." },
+          { question: "What does it mean for a Scrum Team to be 'self-managing'?", options: ["It reports to no one in the organization", "It decides internally who does what, when, and how, without external direction", "It sets its own budget independently of the organization", "It has no Product Owner"], correct: 1, explanation: "Self-managing means the team makes its own decisions about who does what work, when, and how — internally." },
+          { question: "What is the recommended approach when a Scrum Team grows too large?", options: ["Add a project manager to coordinate the larger team", "Reorganize into multiple cohesive Scrum Teams sharing the same Product Goal, Backlog, and Product Owner", "Extend the Sprint length to compensate", "Split the Product Backlog into unrelated backlogs per sub-team"], correct: 1, explanation: "Rather than scale a single large team, Scrum recommends splitting into multiple cohesive teams that still share the same Product Goal, Product Backlog, and Product Owner." },
+        ],
+      },
+      {
+        id: "psm1-5",
+        title: "Developers",
+        duration: "20 min",
+        content: `<h2>Developers</h2>
+<p>Developers are the people in the Scrum Team who are committed to creating any aspect of a usable Increment each Sprint. Their specific skills are often broad and vary a lot depending on the domain of work — but regardless of domain, Developers are always accountable for four things:</p>
+<ul>
+<li>Creating a plan for the Sprint — the Sprint Backlog.</li>
+<li>Instilling quality by holding to a shared Definition of Done.</li>
+<li>Adapting their plan every day toward the Sprint Goal.</li>
+<li>Holding each other accountable as professionals.</li>
+</ul>
+<h3>No One Tells Developers How</h3>
+<p>A key idea running through the Scrum Guide is that no one outside the Developers tells them how to turn Product Backlog items into Increments of value. The Product Owner decides <em>what</em> is needed and in what order; the Developers decide <em>how</em> to build it. This is what makes the team genuinely self-managing rather than self-managing in name only.</p>
+<h3>Developers Participate Beyond "Coding"</h3>
+<p>Because Scrum's use has spread well beyond software, "Developers" doesn't mean only programmers — it's a simplifying term for whoever is doing the work of turning Backlog items into a usable Increment, whether that's researchers, analysts, scientists, designers, or engineers. If you get value from Scrum by doing this kind of work, you're included under this accountability.</p>`,
+        quiz: [
+          { question: "Which of these is NOT one of the four things Developers are always accountable for?", options: ["Creating the Sprint Backlog", "Instilling quality via a Definition of Done", "Setting the organization's overall budget", "Holding each other accountable as professionals"], correct: 2, explanation: "Developers are accountable for the Sprint Backlog, quality via the Definition of Done, adapting daily toward the Sprint Goal, and mutual professional accountability — not for organizational budgeting." },
+          { question: "Who decides HOW Product Backlog items get turned into an Increment?", options: ["The Product Owner", "The Scrum Master", "The Developers, with no one else directing them", "The stakeholders, by majority vote"], correct: 2, explanation: "The Developers alone decide how to do the work; the Product Owner decides what and in what order." },
+          { question: "Why does the Scrum Guide use the word 'Developers' broadly?", options: ["To restrict Scrum to software programmers only", "To simplify language while including anyone doing the work of creating the Increment — researchers, analysts, designers, etc.", "Because only certified developers may join a Scrum Team", "Because the term is a legal requirement of the framework"], correct: 1, explanation: "\"Developers\" is used as a simplifying term, not an exclusionary one — it covers anyone doing the work of building the Increment." },
+        ],
+      },
+      {
+        id: "psm1-6",
+        title: "The Product Owner",
+        duration: "25 min",
+        content: `<h2>The Product Owner</h2>
+<p>The Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team's work — though exactly how that's done can vary a great deal across organizations, teams, and individuals.</p>
+<h3>Product Backlog Management</h3>
+<p>The Product Owner is accountable for effective Product Backlog management, which includes:</p>
+<ul>
+<li>Developing and clearly communicating the Product Goal.</li>
+<li>Creating and clearly communicating Product Backlog items.</li>
+<li>Ordering Product Backlog items by priority.</li>
+<li>Making sure the Product Backlog stays transparent, visible, and understood by everyone who needs it.</li>
+</ul>
+<p>The Product Owner can do this work personally or delegate parts of it to others — but either way, the accountability itself always stays with the Product Owner.</p>
+<h3>One Person, Not a Committee</h3>
+<p>The Product Owner is a single person, not a committee. They may represent the needs of many stakeholders inside the Product Backlog, but anyone who wants to change the Backlog's priorities has to do so by convincing the Product Owner — not by going around them.</p>
+<h3>Authority Requires Organizational Respect</h3>
+<p>For a Product Owner to be effective, the whole organization has to respect their decisions. Those decisions become visible through the content and ordering of the Product Backlog, and through the inspectable Increment shown at each Sprint Review — which is where the real consequences of prioritization choices become concrete.</p>`,
+        quiz: [
+          { question: "What is the Product Owner ultimately accountable for?", options: ["Writing all the code personally", "Maximizing the value of the product resulting from the Scrum Team's work", "Running the Daily Scrum", "Approving the Definition of Done on behalf of the Developers"], correct: 1, explanation: "The Product Owner is accountable for maximizing product value — not for doing all the work personally." },
+          { question: "Can the Product Owner delegate Product Backlog work to others?", options: ["No, it must always be done personally", "Yes, but the accountability for the outcome still remains with the Product Owner", "Yes, and accountability transfers fully to whoever does the work", "No, only the Scrum Master may assist"], correct: 1, explanation: "The Product Owner may delegate the work, but remains accountable regardless of who actually performs it." },
+          { question: "How should someone go about changing the priority of a Product Backlog item?", options: ["Escalate directly to the Scrum Master", "Convince the Product Owner, since the Backlog is not a committee decision", "Vote among the Developers", "Change it directly during the Daily Scrum"], correct: 1, explanation: "Since the Product Owner is one person (not a committee), influencing the Backlog means convincing that person." },
+        ],
+      },
+      {
+        id: "psm1-7",
+        title: "The Scrum Master — Servant Leadership",
+        duration: "30 min",
+        content: `<h2>The Scrum Master — Servant Leadership</h2>
+<p>The Scrum Master is accountable for establishing Scrum as it's defined in the Scrum Guide. They do this primarily by helping everyone — inside the Scrum Team and across the wider organization — understand Scrum theory and practice. The Scrum Master is also accountable for the Scrum Team's overall effectiveness, which they pursue by enabling the team to keep improving its practices, always within the boundaries of the Scrum framework.</p>
+<p>Scrum Masters are described as true leaders who <em>serve</em> — both the Scrum Team and the larger organization. This service happens on three levels.</p>
+<h3>Serving the Scrum Team</h3>
+<ul>
+<li>Coaching team members in self-management and cross-functionality.</li>
+<li>Helping the team focus on creating high-value Increments that meet the Definition of Done.</li>
+<li>Causing the removal of impediments to the team's progress.</li>
+<li>Ensuring all Scrum events happen, stay positive and productive, and are kept within their time-box.</li>
+</ul>
+<h3>Serving the Product Owner</h3>
+<ul>
+<li>Helping find techniques for effective Product Goal definition and Backlog management.</li>
+<li>Helping the team understand the need for clear, concise Backlog items.</li>
+<li>Helping establish empirical product planning in a complex environment.</li>
+<li>Facilitating stakeholder collaboration when requested or needed.</li>
+</ul>
+<h3>Serving the Organization</h3>
+<ul>
+<li>Leading, training, and coaching the wider organization's Scrum adoption.</li>
+<li>Planning and advising on Scrum implementations across the organization.</li>
+<li>Helping employees and stakeholders understand and apply an empirical approach to complex work.</li>
+<li>Removing barriers between stakeholders and Scrum Teams.</li>
+</ul>
+<h3>What the Scrum Master Is Not</h3>
+<p>The Scrum Master has no authority over the Developers' technical decisions and doesn't assign tasks or manage people in the traditional sense — the role leads through service, coaching, and removing obstacles, not through command.</p>`,
+        quiz: [
+          { question: "What is the Scrum Master primarily accountable for?", options: ["Assigning daily tasks to Developers", "Establishing Scrum as defined in the Scrum Guide and the Scrum Team's effectiveness", "Writing the Product Backlog", "Approving the Increment before release"], correct: 1, explanation: "The Scrum Master is accountable for establishing Scrum correctly and for the team's overall effectiveness — achieved through coaching and enabling, not direct control." },
+          { question: "At how many levels does the Scrum Master serve, according to this chapter?", options: ["One — only the Developers", "Two — the team and the Product Owner", "Three — the Scrum Team, the Product Owner, and the organization", "Four — including external stakeholders separately"], correct: 2, explanation: "The Scrum Master serves the Scrum Team, the Product Owner, and the wider organization, each in distinct ways." },
+          { question: "Which of these is true of the Scrum Master role?", options: ["They have direct authority to assign work to Developers", "They lead through service and coaching, not command", "They own the Product Backlog", "They are optional in a proper Scrum implementation"], correct: 1, explanation: "The Scrum Master is a servant-leader — they remove impediments and coach, but have no authority over how Developers do their work." },
+        ],
+      },
+      {
+        id: "psm1-8",
+        title: "Scrum Events — The Sprint",
+        duration: "30 min",
+        content: `<h2>Scrum Events — The Sprint</h2>
+<p>Scrum has five events in total, and the Sprint is the container for the other four. Each event is a formal, scheduled opportunity to inspect and adapt one or more Scrum artifacts — and skipping any of them as prescribed means losing that opportunity. Events exist to create regularity and to reduce the need for extra meetings that Scrum doesn't define. Ideally, they're all held at the same time and place each cycle, to keep things simple.</p>
+<h3>Sprints Are the Heartbeat of Scrum</h3>
+<p>A Sprint is where ideas actually turn into value. Sprints are fixed-length, one month or less, to create a consistent cadence — and a new Sprint begins immediately once the previous one ends. All the other work needed to reach the Product Goal — Sprint Planning, Daily Scrums, the Sprint Review, and the Sprint Retrospective — happens inside Sprints.</p>
+<h3>Rules That Hold During a Sprint</h3>
+<ul>
+<li>No changes are made that would put the Sprint Goal in danger.</li>
+<li>Quality does not decrease, even under pressure.</li>
+<li>The Product Backlog is refined as needed, as an ongoing activity.</li>
+<li>Scope can be clarified and renegotiated with the Product Owner as the team learns more — without endangering the Sprint Goal itself.</li>
+</ul>
+<h3>Why One Month or Less?</h3>
+<p>Shorter Sprints keep risk contained to a smaller window of cost and effort, and generate more learning cycles overall. If a Sprint's horizon stretches too long, the Sprint Goal risks becoming invalid, complexity tends to rise, and risk increases. Teams can use forecasting techniques like burn-downs or burn-ups to visualize progress, but these are supplements to empiricism, not a replacement for it — in complex work, you can only make forward-looking decisions based on what has actually already happened.</p>
+<h3>Cancelling a Sprint</h3>
+<p>A Sprint can be cancelled if its Sprint Goal becomes obsolete — but only the Product Owner has the authority to make that call.</p>`,
+        quiz: [
+          { question: "What is the maximum length of a Sprint?", options: ["Two weeks", "One month", "Three months", "There is no maximum, only a minimum of one week"], correct: 1, explanation: "Sprints are fixed-length events of one month or less, to create a consistent cadence." },
+          { question: "Who has the authority to cancel a Sprint?", options: ["Any Developer, by majority vote", "The Scrum Master", "Only the Product Owner", "The organization's senior management"], correct: 2, explanation: "Only the Product Owner has the authority to cancel a Sprint, typically because the Sprint Goal has become obsolete." },
+          { question: "During a Sprint, what is explicitly allowed to happen as more is learned?", options: ["The Sprint Goal may be replaced entirely at any time", "Quality standards may be relaxed to hit the deadline", "Scope may be clarified and renegotiated with the Product Owner without endangering the Sprint Goal", "The Sprint length may be extended to fit more work"], correct: 2, explanation: "Scope can be clarified and renegotiated with the Product Owner as understanding improves, as long as the Sprint Goal itself isn't put at risk." },
+        ],
+      },
+      {
+        id: "psm1-9",
+        title: "Sprint Planning",
+        duration: "30 min",
+        content: `<h2>Sprint Planning</h2>
+<p>Sprint Planning kicks off the Sprint by laying out the work to be done. It's a collaborative effort of the whole Scrum Team, and it's organized around three topics.</p>
+<h3>Topic One: Why Is This Sprint Valuable?</h3>
+<p>The Product Owner proposes how the product could grow in value and utility during the coming Sprint. The whole Scrum Team then works together to craft a Sprint Goal — a single objective that explains to stakeholders why this Sprint matters. The Sprint Goal must be finalized before Sprint Planning ends.</p>
+<h3>Topic Two: What Can Be Done This Sprint?</h3>
+<p>Through discussion with the Product Owner, the Developers select the Product Backlog items to bring into the Sprint. The team may refine these items along the way, which builds shared understanding and confidence. Forecasting exactly how much can be completed is genuinely hard — but the more the Developers know about their own past performance, upcoming capacity, and Definition of Done, the more confident their forecast can be.</p>
+<h3>Topic Three: How Will the Chosen Work Get Done?</h3>
+<p>For each selected item, the Developers plan the work needed to produce an Increment that meets the Definition of Done — usually by breaking items down into smaller pieces of a day or less. Crucially, how this gets done is entirely up to the Developers; no one outside the team dictates it.</p>
+<h3>The Result: The Sprint Backlog</h3>
+<p>Together, the Sprint Goal (why), the selected Backlog items (what), and the delivery plan (how) make up the Sprint Backlog.</p>
+<h3>Time-Box</h3>
+<p>Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint — shorter Sprints usually need proportionally less time.</p>`,
+        quiz: [
+          { question: "What are the three topics addressed during Sprint Planning?", options: ["Budget, Schedule, Risk", "Why is this Sprint valuable? What can be Done? How will it get done?", "Scope, Time, Cost", "Roles, Rituals, Reports"], correct: 1, explanation: "Sprint Planning covers why the Sprint is valuable (Sprint Goal), what can be Done (selected items), and how the work will get done (the plan)." },
+          { question: "What must be finalized before Sprint Planning ends?", options: ["The full year's roadmap", "The Sprint Goal", "Every task's exact hour estimate", "The next Sprint's Product Backlog order"], correct: 1, explanation: "The Sprint Goal must be finalized prior to the end of Sprint Planning." },
+          { question: "What is the maximum time-box for Sprint Planning in a one-month Sprint?", options: ["Four hours", "Eight hours", "Fifteen minutes", "Three hours"], correct: 1, explanation: "Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint." },
+        ],
+      },
+      {
+        id: "psm1-10",
+        title: "The Daily Scrum",
+        duration: "20 min",
+        content: `<h2>The Daily Scrum</h2>
+<p>The purpose of the Daily Scrum is to inspect progress toward the Sprint Goal and adapt the Sprint Backlog as needed, adjusting the upcoming planned work. It's a 15-minute event for the Developers, held at the same time and place every working day of the Sprint to keep things simple.</p>
+<h3>Who Attends, and How</h3>
+<p>The Daily Scrum is for the Developers. If the Product Owner or Scrum Master are actively doing hands-on work in the Sprint Backlog, they take part as Developers for that purpose — not in their other accountability. Developers are free to choose whatever structure and technique they like, as long as the event stays focused on progress toward the Sprint Goal and results in an actionable plan for the next day's work. This structure creates focus and strengthens self-management.</p>
+<h3>What It Achieves</h3>
+<p>Daily Scrums improve communication, surface impediments quickly, promote fast decision-making, and — because of all that — reduce the need for other meetings altogether. Importantly, the Daily Scrum isn't the only moment Developers are allowed to adapt their plan; they often have more detailed conversations throughout the day whenever re-planning the rest of the Sprint's work is needed.</p>`,
+        quiz: [
+          { question: "How long is the Daily Scrum time-boxed to?", options: ["5 minutes", "15 minutes", "30 minutes", "1 hour"], correct: 1, explanation: "The Daily Scrum is a 15-minute event for the Developers." },
+          { question: "If the Scrum Master is actively working on Sprint Backlog items, in what capacity do they participate in the Daily Scrum?", options: ["As an observer only, with no speaking role", "As a Developer, for that work", "They may not participate at all", "As the meeting's facilitator with veto power"], correct: 1, explanation: "If the Product Owner or Scrum Master are doing hands-on Sprint Backlog work, they participate as Developers." },
+          { question: "Is the Daily Scrum the only time Developers may adapt their plan?", options: ["Yes, all re-planning must wait for the next Daily Scrum", "No — Developers often meet throughout the day for more detailed re-planning as needed", "No, but re-planning may only happen during Sprint Review", "Yes, this is a strict Scrum rule with no exceptions"], correct: 1, explanation: "The Daily Scrum is a formal checkpoint, but Developers can and often do adapt their plan throughout the day as needed." },
+        ],
+      },
+      {
+        id: "psm1-11",
+        title: "The Sprint Review and the Sprint Retrospective",
+        duration: "30 min",
+        content: `<h2>The Sprint Review and the Sprint Retrospective</h2>
+<h3>Sprint Review — Inspecting the Product</h3>
+<p>The Sprint Review's purpose is to inspect the outcome of the Sprint and determine what to adapt going forward. The Scrum Team presents the results of its work to key stakeholders, and progress toward the Product Goal is discussed together. It's meant to be a genuine working session, not a one-way presentation: the Scrum Team and stakeholders review what was accomplished and what has changed in their environment, then collaborate on what to do next, adjusting the Product Backlog to reflect new opportunities. The Sprint Review is the second-to-last event of the Sprint and is time-boxed to a maximum of four hours for a one-month Sprint.</p>
+<h3>Sprint Retrospective — Inspecting the Team's Own Way of Working</h3>
+<p>The Sprint Retrospective's purpose is to plan ways to increase quality and effectiveness. The Scrum Team looks back at how the last Sprint went with regard to individuals, interactions, processes, tools, and its Definition of Done — the exact elements inspected can vary by domain. The team discusses what went well, what problems came up, and how (or whether) those problems were resolved, tracing any faulty assumptions back to their source. From this, the team identifies the most helpful changes to improve effectiveness, addressing the highest-impact ones as soon as possible — sometimes even adding them directly to the next Sprint's Backlog. The Sprint Retrospective concludes the Sprint, and is time-boxed to a maximum of three hours for a one-month Sprint.</p>
+<h3>Why Both Matter</h3>
+<p>Together, these two events close the inspect-and-adapt loop for a Sprint: the Review inspects the <em>product</em> and adjusts the plan for the product, while the Retrospective inspects the <em>team's process</em> and adjusts how the team works. Skipping either one means losing a distinct kind of feedback.</p>`,
+        quiz: [
+          { question: "What does the Sprint Review primarily inspect?", options: ["The team's internal working relationships", "The outcome of the Sprint, with stakeholders, to determine future adaptations", "Each Developer's individual performance", "The organization's annual budget"], correct: 1, explanation: "The Sprint Review inspects the Sprint's outcome with key stakeholders and adapts the Product Backlog as needed." },
+          { question: "What is the maximum time-box for the Sprint Retrospective in a one-month Sprint?", options: ["One hour", "Two hours", "Three hours", "Four hours"], correct: 2, explanation: "The Sprint Retrospective is time-boxed to a maximum of three hours for a one-month Sprint." },
+          { question: "What is the key difference in focus between the Sprint Review and the Sprint Retrospective?", options: ["There is no difference — they cover identical ground", "The Review inspects the product with stakeholders; the Retrospective inspects the team's own process", "The Review is optional while the Retrospective is mandatory", "The Retrospective happens before the Sprint starts"], correct: 1, explanation: "The Sprint Review inspects the product/outcome with stakeholders; the Sprint Retrospective inspects the team's internal process and effectiveness." },
+        ],
+      },
+      {
+        id: "psm1-12",
+        title: "Scrum Artifacts (1) — Product Backlog and Sprint Backlog",
+        duration: "30 min",
+        content: `<h2>Scrum Artifacts (1) — Product Backlog and Sprint Backlog</h2>
+<p>Scrum's artifacts represent work or value, and each one is designed to maximize the transparency of key information — so that everyone inspecting it has the same basis for adapting. Each artifact carries a specific <strong>commitment</strong>: a target that gives the artifact focus and lets progress be measured against it.</p>
+<h3>Product Backlog → Commitment: the Product Goal</h3>
+<p>The Product Backlog is an emergent, ordered list of everything needed to improve the product — the single source of work the Scrum Team draws from. Items become "ready" for a Sprint once the Scrum Team judges they can be Done within one Sprint, usually after refinement — the ongoing activity of breaking items down and adding detail such as description, order, and size.</p>
+<p>The Product Backlog's commitment is the <strong>Product Goal</strong>: a description of a future state of the product that the Scrum Team can plan against. It's the long-term objective for the team — they fulfill (or deliberately abandon) one Product Goal before taking on the next. A product itself is simply a vehicle for delivering value; it has a clear boundary, known stakeholders, and well-defined users or customers, and it might be a service, a physical product, or something more abstract.</p>
+<h3>Sprint Backlog → Commitment: the Sprint Goal</h3>
+<p>The Sprint Backlog is made up of the Sprint Goal (why), the Product Backlog items selected for the Sprint (what), and an actionable delivery plan (how). It's a plan by and for the Developers — a highly visible, real-time picture of what they intend to accomplish, updated continuously as they learn more during the Sprint, with enough detail to support inspection at the Daily Scrum.</p>
+<p>Its commitment is the <strong>Sprint Goal</strong> — the single objective for the Sprint. While it's a commitment made by the Developers, it still leaves room for flexibility in exactly what work is needed to achieve it, and it creates coherence: it pulls the whole team toward one shared aim rather than scattering effort across separate initiatives. The Sprint Goal is set during Sprint Planning and then guides the Developers throughout the Sprint; if reality diverges from the plan, they negotiate scope with the Product Owner — without compromising the Sprint Goal itself.</p>`,
+        quiz: [
+          { question: "What commitment is attached to the Product Backlog?", options: ["The Sprint Goal", "The Definition of Done", "The Product Goal", "The Increment"], correct: 2, explanation: "The Product Goal is the commitment for the Product Backlog — the long-term target the Scrum Team plans against." },
+          { question: "Who creates the Sprint Backlog's actionable plan?", options: ["The Product Owner alone", "The Scrum Master", "Stakeholders", "The Developers, for themselves"], correct: 3, explanation: "The Sprint Backlog is a plan by and for the Developers, updated as they learn more during the Sprint." },
+          { question: "If work turns out to be harder than expected mid-Sprint, what is the correct response?", options: ["Extend the Sprint length", "Silently drop quality standards", "Negotiate scope with the Product Owner without endangering the Sprint Goal", "Cancel the Sprint immediately"], correct: 2, explanation: "The Sprint Goal provides flexibility on exact scope — Developers renegotiate scope with the Product Owner rather than compromising the goal or quality." },
+        ],
+      },
+      {
+        id: "psm1-13",
+        title: "Scrum Artifacts (2) — Increment, Definition of Done, and Immutability",
+        duration: "30 min",
+        content: `<h2>Scrum Artifacts (2) — Increment, Definition of Done, and Immutability</h2>
+<h3>Increment → Commitment: the Definition of Done</h3>
+<p>An Increment is a concrete stepping stone toward the Product Goal. Each new Increment is additive to every prior one and thoroughly verified, so that all Increments genuinely work together — and to provide real value, an Increment must be usable. Multiple Increments can be created within a single Sprint, and the sum of them is presented at the Sprint Review; importantly, an Increment can also be delivered to stakeholders before the Sprint even ends — the Sprint Review is never meant to be treated as a gate that blocks releasing value.</p>
+<p>Work only counts as part of an Increment once it meets the <strong>Definition of Done</strong> — a formal description of the state an Increment must be in to meet the required quality measures for the product. The moment a Product Backlog item meets the Definition of Done, an Increment is born. This shared definition is what creates transparency: everyone has the same understanding of what "finished" actually means. If an item doesn't meet the Definition of Done, it cannot be released or even shown at the Sprint Review — it simply returns to the Product Backlog for future consideration.</p>
+<p>If the organization already has a standard Definition of Done, every Scrum Team must follow it at minimum. If there's no organizational standard, the Scrum Team creates one appropriate to the product themselves — and if multiple Scrum Teams are working on the same product, they must agree on and follow one shared Definition of Done together.</p>
+<h3>Scrum Is Immutable — and Free</h3>
+<p>The Scrum Guide's closing note makes a strong claim: the Scrum framework as defined is immutable. You can choose to implement only parts of it, but the result of doing so is not Scrum — Scrum only exists, and only functions well as a container for other techniques and practices, when used in its entirety. Scrum itself is offered free of charge in the Guide, for anyone to use.</p>`,
+        quiz: [
+          { question: "What commitment is attached to the Increment?", options: ["The Product Goal", "The Sprint Goal", "The Definition of Done", "The Sprint Backlog"], correct: 2, explanation: "The Increment's commitment is the Definition of Done — the quality bar it must meet to count as an Increment." },
+          { question: "What happens to a Product Backlog item that does not meet the Definition of Done?", options: ["It is released anyway with a warning label", "It is shown at the Sprint Review as 'in progress'", "It returns to the Product Backlog for future consideration", "It is automatically marked complete at the Sprint boundary"], correct: 2, explanation: "An item that doesn't meet the Definition of Done cannot be released or presented as done — it goes back to the Product Backlog." },
+          { question: "According to the Scrum Guide's End Note, what happens if you implement only parts of Scrum?", options: ["It is still considered full Scrum as long as events are kept", "The result is not Scrum, since the framework is meant to be used in its entirety", "It becomes a certified 'Scrum-lite' variant", "There is no effect, since Scrum has no fixed core"], correct: 1, explanation: "The Scrum Guide states that Scrum's framework is immutable — using only parts of it produces something other than Scrum." },
         ],
       },
       {
@@ -1298,26 +1462,50 @@ export const COURSES: Course[] = [
         examDurationMinutes: 60,
         passingScorePercent: 85,
         content: `<h2>Final Exam — PSM I Practice Assessment</h2>
-<p>This is a timed practice assessment covering everything from this course, styled after the format of the official PSM I assessment: single/multiple-choice questions, a strict time limit, and an <strong>85% passing score</strong>. You'll see your score immediately and can review any question you missed.</p>
+<p>A long, timed practice assessment covering every chapter of this course — Scrum theory, values, the Scrum Team and its accountabilities, all five events, and all three artifacts with their commitments. It's styled after the format of the official PSM I assessment: scenario and definition-based multiple-choice questions, a strict 60-minute time limit, and an <strong>85% passing score</strong>. Your score is shown immediately, with the ability to review anything you missed.</p>
 <p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
-<strong>Important:</strong> This is independent practice material created for this platform. It is not the official Scrum.org assessment, and passing it does not grant the official PSM I credential. Only Scrum.org's own proctored exam, taken directly on their platform, can issue that certification.
-</p>`,
-        contentFr: `<h2>Examen final — Évaluation d'entraînement PSM I</h2>
-<p>Ceci est une évaluation d'entraînement chronométrée couvrant l'ensemble du cours, dans un format inspiré de l'évaluation officielle PSM I : questions à choix unique ou multiple, temps limité strict, et un <strong>score de passage de 85 %</strong>. Le score s'affiche immédiatement, avec la possibilité de revoir chaque question manquée.</p>
-<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
-<strong>Important :</strong> ceci est un contenu d'entraînement indépendant créé pour cette plateforme. Ce n'est pas l'évaluation officielle de Scrum.org, et la réussir n'accorde pas la certification officielle PSM I. Seul l'examen surveillé propre à Scrum.org, passé directement sur leur plateforme, peut délivrer cette certification.
+<strong>Important:</strong> this is independent practice material created for this platform, based on general Scrum knowledge. It is not the official Scrum.org assessment, doesn't reuse Scrum.org's real question bank, and passing it does not grant the official PSM I credential. Only Scrum.org's own proctored exam, taken directly on their platform, can issue that certification.
 </p>`,
         quiz: [
-          { question: "Scrum is founded on which theory?", options: ["Waterfall theory", "Empiricism and lean thinking", "Critical path theory", "Six Sigma"], correct: 1, explanation: "Scrum is founded on empiricism and lean thinking." },
-          { question: "Who is accountable for the overall Definition of Done if the organization has no standard?", options: ["The stakeholders", "The Scrum Team", "The Scrum Master alone", "The Product Owner alone"], correct: 1, explanation: "If there is no organizational standard, the Scrum Team creates a Definition of Done appropriate for the product." },
-          { question: "What happens to incomplete work at the end of a Sprint?", options: ["It is automatically added to the next Sprint's backlog by the Scrum Master", "It always extends the Sprint", "It returns to the Product Backlog and is re-evaluated for future Sprints", "It is discarded"], correct: 2, explanation: "Incomplete Product Backlog items are returned to the Product Backlog and reassessed for future Sprints — Sprints are not extended." },
-          { question: "Can the Sprint Goal be changed during the Sprint?", options: ["Yes, whenever the Product Owner wants", "No — the Sprint Goal is fixed and scope may only be clarified/renegotiated with the Product Owner as more is learned, without endangering the Sprint Goal", "Yes, but only by the Scrum Master", "No, it can never be renegotiated even before the Sprint starts"], correct: 1, explanation: "The Sprint Goal creates coherence and focus; scope may be clarified, but changes that would endanger the Sprint Goal are avoided." },
-          { question: "Who can cancel a Sprint?", options: ["Any Developer", "Only the Scrum Master", "Only the Product Owner", "Only external stakeholders"], correct: 2, explanation: "Only the Product Owner has the authority to cancel a Sprint, and would do so if the Sprint Goal becomes obsolete." },
-          { question: "What is the purpose of the Sprint Review?", options: ["To assign story points", "To inspect the outcome of the Sprint and determine future adaptations", "To evaluate individual Developer performance", "To finalize the Definition of Done"], correct: 1, explanation: "The Sprint Review inspects the outcome of the Sprint with stakeholders and adapts the Product Backlog if needed." },
-          { question: "Is the Scrum Master a project manager?", options: ["Yes, with authority to assign tasks", "No — the Scrum Master is a servant-leader with no authority over the Developers' work choices", "Yes, but only during Sprint Planning", "No, the Scrum Master has no role during the Sprint"], correct: 1, explanation: "The Scrum Master leads through service, not authority. The team is self-managing." },
-          { question: "How often should the Product Backlog be refined?", options: ["Only once, at project kickoff", "It is an ongoing activity to add detail, estimates, and order", "Only during the Sprint Retrospective", "Never — it is fixed after creation"], correct: 1, explanation: "Product Backlog refinement is the ongoing act of breaking down and further defining items into smaller, more precise items — an ongoing activity, not a one-time event." },
-          { question: "What best describes a self-managing Scrum Team?", options: ["A team managed entirely by the Scrum Master", "A team that decides who does what, when, and how, internally", "A team without a Product Owner", "A team that reports daily to a project manager"], correct: 1, explanation: "Self-managing teams choose who does what, when, and how — without being told by anyone outside the team." },
-          { question: "What is the maximum recommended Sprint length?", options: ["Two weeks always", "One month", "Three months", "There is no maximum"], correct: 1, explanation: "Sprints are one month or less to provide a consistent cadence and limit risk to a calendar-month timeframe." },
+          { question: "Scrum is founded on which two ideas?", options: ["Waterfall sequencing and Six Sigma", "Empiricism and lean thinking", "Critical path method and PERT", "Command-and-control and detailed specification"], correct: 1, explanation: "Scrum is founded on empiricism and lean thinking." },
+          { question: "Put the three pillars of empiricism in the order each enables the next.", options: ["Inspection, Transparency, Adaptation", "Transparency, Inspection, Adaptation", "Adaptation, Transparency, Inspection", "Transparency, Adaptation, Inspection"], correct: 1, explanation: "Transparency enables inspection, and inspection enables adaptation." },
+          { question: "Which of these is one of the five Scrum values?", options: ["Efficiency", "Courage", "Profitability", "Hierarchy"], correct: 1, explanation: "The five Scrum values are Commitment, Focus, Openness, Respect, and Courage." },
+          { question: "How many people typically make up a Scrum Team, per the Scrum Guide's general guidance?", options: ["Exactly 5", "Typically 10 or fewer", "Always exactly 7, plus or minus 2", "There is no guidance on size"], correct: 1, explanation: "Scrum Teams are typically 10 or fewer people, small enough to remain nimble." },
+          { question: "Who is accountable for maximizing the value of the product?", options: ["The Scrum Master", "The Developers", "The Product Owner", "The stakeholders as a group"], correct: 2, explanation: "The Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team's work." },
+          { question: "Who decides HOW selected Product Backlog items will be turned into an Increment?", options: ["The Product Owner", "The Scrum Master", "The Developers alone", "The organization's PMO"], correct: 2, explanation: "The Developers decide how to do the work; no one outside the team dictates their approach." },
+          { question: "How does the Scrum Master primarily serve the Scrum Team?", options: ["By assigning tasks to Developers", "By coaching, removing impediments, and facilitating events", "By writing the Product Backlog", "By approving the Sprint Backlog before work begins"], correct: 1, explanation: "The Scrum Master serves through coaching, impediment removal, and facilitation — not by directing the work." },
+          { question: "Is the Scrum Master a project manager with authority over the Developers' work choices?", options: ["Yes, with full authority to assign tasks", "No — the Scrum Master is a servant-leader with no such authority", "Yes, but only during Sprint Planning", "No, the Scrum Master has no role during the Sprint at all"], correct: 1, explanation: "The Scrum Master leads through service, not authority. The team is self-managing." },
+          { question: "What is the maximum length of a Sprint?", options: ["Two weeks always", "One month", "Three months", "There is no maximum"], correct: 1, explanation: "Sprints are one month or less to keep a consistent, risk-limiting cadence." },
+          { question: "Who alone has the authority to cancel a Sprint?", options: ["Any Developer", "The Scrum Master", "The Product Owner", "External stakeholders"], correct: 2, explanation: "Only the Product Owner can cancel a Sprint, typically when the Sprint Goal becomes obsolete." },
+          { question: "What happens to incomplete Product Backlog items at the end of a Sprint?", options: ["They automatically extend the Sprint", "They return to the Product Backlog and are reassessed for future Sprints", "They are discarded permanently", "They are marked Done regardless of the Definition of Done"], correct: 1, explanation: "Incomplete items return to the Product Backlog for future consideration; Sprints are not extended to finish them." },
+          { question: "During the Sprint, can the Sprint Goal be changed at the Product Owner's whim?", options: ["Yes, at any time for any reason", "No — scope may be clarified/renegotiated as more is learned, but without endangering the Sprint Goal itself", "Yes, but only by the Scrum Master", "No, and scope can never be discussed once the Sprint starts"], correct: 1, explanation: "The Sprint Goal provides focus; scope can be clarified, but changes that would endanger the Sprint Goal are avoided." },
+          { question: "What are the three topics of Sprint Planning, in order?", options: ["What, How, Why", "Why is this Sprint valuable? What can be Done? How will it get done?", "Budget, Scope, Schedule", "Backlog, Sprint, Retrospective"], correct: 1, explanation: "Sprint Planning addresses why the Sprint is valuable, what can be Done, and how the chosen work will get done." },
+          { question: "What is the maximum time-box for Sprint Planning in a one-month Sprint?", options: ["Four hours", "Eight hours", "Fifteen minutes", "Three hours"], correct: 1, explanation: "Sprint Planning is time-boxed to a maximum of eight hours for a one-month Sprint." },
+          { question: "How long is the Daily Scrum, and who is it for?", options: ["30 minutes, for the whole organization", "15 minutes, for the Developers", "One hour, for the Product Owner only", "5 minutes, for the Scrum Master only"], correct: 1, explanation: "The Daily Scrum is a 15-minute event for the Developers to inspect progress and adapt the Sprint Backlog." },
+          { question: "If the Product Owner is doing hands-on Sprint Backlog work, how do they participate in the Daily Scrum?", options: ["They may not participate", "As a Developer, for that work", "As the meeting chair with final say", "Only by written report beforehand"], correct: 1, explanation: "Anyone doing hands-on Sprint Backlog work, including the Product Owner or Scrum Master, participates as a Developer in the Daily Scrum." },
+          { question: "What is the primary purpose of the Sprint Review?", options: ["To assign story points for the next Sprint", "To inspect the outcome of the Sprint with stakeholders and determine future adaptations", "To evaluate individual Developer performance", "To finalize the Definition of Done for the first time"], correct: 1, explanation: "The Sprint Review inspects the Sprint's outcome with stakeholders and adapts the Product Backlog if needed." },
+          { question: "What is the maximum time-box for the Sprint Review in a one-month Sprint?", options: ["One hour", "Two hours", "Four hours", "Eight hours"], correct: 2, explanation: "The Sprint Review is time-boxed to a maximum of four hours for a one-month Sprint." },
+          { question: "What is the primary purpose of the Sprint Retrospective?", options: ["To demo the Increment to stakeholders", "To plan the next Sprint's Backlog items from scratch", "To inspect how the Sprint went and plan ways to increase quality and effectiveness", "To re-estimate the entire Product Backlog"], correct: 2, explanation: "The Sprint Retrospective is where the Scrum Team inspects itself and plans concrete improvements." },
+          { question: "What is the maximum time-box for the Sprint Retrospective in a one-month Sprint?", options: ["One hour", "Two hours", "Three hours", "Four hours"], correct: 2, explanation: "The Sprint Retrospective is time-boxed to a maximum of three hours for a one-month Sprint." },
+          { question: "How often should Product Backlog refinement happen?", options: ["Only once, at project kickoff", "It is an ongoing activity, not a one-time event", "Only during the Sprint Retrospective", "Never — it is fixed after creation"], correct: 1, explanation: "Refinement is an ongoing activity of breaking down and adding detail to Product Backlog items over time." },
+          { question: "What is the commitment associated with the Product Backlog?", options: ["Sprint Goal", "Definition of Done", "Product Goal", "Increment"], correct: 2, explanation: "The Product Goal is the long-term target the Scrum Team plans against, carried by the Product Backlog." },
+          { question: "Who owns and creates the Sprint Backlog's delivery plan?", options: ["The Product Owner alone", "The Scrum Master", "Stakeholders as a group", "The Developers, for themselves"], correct: 3, explanation: "The Sprint Backlog is a plan by and for the Developers." },
+          { question: "What is the commitment associated with the Increment?", options: ["The Sprint Goal", "The Product Goal", "The Definition of Done", "The Sprint Backlog"], correct: 2, explanation: "The Definition of Done is the quality commitment attached to the Increment." },
+          { question: "When is a Product Backlog item considered 'Done'?", options: ["When the Developers feel it is finished", "When it conforms to the team's Definition of Done", "When the Sprint ends, regardless of state", "When the Product Owner likes the visual design"], correct: 1, explanation: "An item is only Done once it conforms to the agreed Definition of Done." },
+          { question: "If the organization already has a standard Definition of Done, what must Scrum Teams do?", options: ["Ignore it and create their own", "Follow it as a minimum standard", "Only apply it to the first Sprint", "Apply it only if the Product Owner agrees"], correct: 1, explanation: "If an organizational standard Definition of Done exists, all Scrum Teams must follow it as a minimum." },
+          { question: "Can an Increment be released to stakeholders before the Sprint ends?", options: ["No, only at the Sprint Review", "Yes — the Sprint Review is never meant to be a gate blocking the release of value", "No, releases are forbidden mid-Sprint under any circumstance", "Only if the Scrum Master personally approves each release"], correct: 1, explanation: "An Increment may be delivered to stakeholders before the Sprint ends; the Sprint Review should not be treated as a release gate." },
+          { question: "According to the Scrum Guide's End Note, is the Scrum framework itself changeable?", options: ["Yes, freely, and it remains 'Scrum' regardless", "No — it is described as immutable; implementing only parts of it means the result is not Scrum", "Only Scrum Masters may modify it", "Only the Product Owner may modify it"], correct: 1, explanation: "The Scrum Guide states the framework is immutable — using only parts of it is not Scrum." },
+          { question: "What best describes a self-managing Scrum Team?", options: ["A team managed entirely by the Scrum Master", "A team that decides internally who does what, when, and how", "A team without a Product Owner", "A team that reports daily to a project manager"], correct: 1, explanation: "Self-managing teams choose who does what, when, and how — internally, without outside direction." },
+          { question: "Which practices does Scrum itself define in detail?", options: ["Estimation techniques and specific engineering practices", "Only the minimum roles, events, and artifacts needed for empirical process control", "Detailed HR policies for team members", "Exact software tools every team must use"], correct: 1, explanation: "Scrum deliberately leaves specific practices, techniques, and tools to the people using it." },
+          { question: "What happens to transparency if an artifact is not genuinely visible to those who need it?", options: ["Nothing — Scrum events compensate automatically", "Decisions made from it can diminish value and increase risk", "It only affects the Scrum Master's own understanding", "It has no impact as long as the Increment ships on time"], correct: 1, explanation: "Low transparency in an artifact leads to decisions based on a false picture, which can diminish value and increase risk." },
+          { question: "What is required for adaptation to actually happen effectively?", options: ["A dedicated change-management department", "People who are empowered and self-managing", "A quarterly steering committee review", "Formal sign-off from every stakeholder"], correct: 1, explanation: "Adaptation becomes much harder when people involved are not empowered or self-managing." },
+          { question: "What does the Sprint Goal provide to the Scrum Team during the Sprint?", options: ["A rigid, unchangeable task list", "Coherence and focus, while leaving flexibility in exact scope", "A guaranteed deadline extension if missed", "Permission to skip the Daily Scrum"], correct: 1, explanation: "The Sprint Goal creates coherence and focus for the team while allowing flexibility in the exact work needed to achieve it." },
+          { question: "Which accountability is responsible for ordering the Product Backlog?", options: ["The Developers", "The Scrum Master", "The Product Owner", "Whichever stakeholder shouts loudest"], correct: 2, explanation: "Ordering Product Backlog items is one of the Product Owner's core accountabilities." },
+          { question: "What is one way the Scrum Master serves the organization (not just the team)?", options: ["Approving the annual company budget", "Leading, training, and coaching the organization's Scrum adoption", "Hiring and firing Developers", "Negotiating vendor contracts"], correct: 1, explanation: "At the organizational level, the Scrum Master leads, trains, and coaches broader Scrum adoption." },
+          { question: "Which of the following is an example of the value of 'Courage' in practice?", options: ["Avoiding difficult conversations to keep the peace", "Taking on a tough technical problem and being honest about a mistake", "Following every instruction from management without question", "Working overtime silently instead of raising a concern"], correct: 1, explanation: "Courage means having the nerve to do the right thing and tackle hard problems — not avoiding them." },
+          { question: "What is the relationship between a product and the Product Goal?", options: ["They are the same thing", "The Product Goal describes a future state of the product the team plans toward", "The Product Goal is set once and never changes for the life of the product", "The Product Goal is owned by the Scrum Master"], correct: 1, explanation: "The Product Goal is a target future state of the product, living inside the Product Backlog, that the Scrum Team plans against." },
+          { question: "According to Scrum theory, what should forward-looking decisions in complex work be based on?", options: ["Detailed long-range forecasts made at project start", "What has already happened, observed through inspection", "Industry benchmarks alone", "Gut instinct of senior leadership"], correct: 1, explanation: "In complex environments, only what has already happened can reliably inform forward-looking decisions — this is empiricism in practice." },
+          { question: "What is one consequence of the Scrum Team being cross-functional?", options: ["Every member must know how to do every task equally well", "The team collectively holds all the skills needed to create value each Sprint", "The team no longer needs a Product Owner", "The team can skip the Definition of Done"], correct: 1, explanation: "Cross-functional means the team collectively has all necessary skills — not that every individual is equally skilled at everything." },
         ],
       },
     ],
@@ -1327,32 +1515,43 @@ export const COURSES: Course[] = [
     slug: "icp-fun-agile-fundamentals",
     order: 5,
     visibility: "admin",
-    certTrack: "ICAgile ICP-FUN — Préparation (non officielle)",
-    language: "fr",
+    certTrack: "ICAgile ICP-FUN — Prep (unofficial)",
+    language: "bilingual",
     titleFr: "Fondamentaux Agiles (ICP-FUN) — Préparation",
     subtitleFr: "L'état d'esprit agile, le Manifeste, et les cadres courants",
     descriptionFr:
-      "Cours personnel en français couvrant les fondamentaux évalués dans le parcours ICAgile ICP-FUN : Manifeste Agile, valeurs et principes, Scrum, Kanban et XP en vue d'ensemble, et un examen final chronométré. Préparation indépendante — non affiliée à ICAgile.",
+      "Cours personnel bilingue couvrant les fondamentaux évalués dans le parcours ICAgile ICP-FUN : Manifeste Agile, valeurs et principes, rôles et cadences, Scrum, Kanban et XP, livraison itérative et incrémentale, et un examen final chronométré. Préparation indépendante — non affiliée à ICAgile.",
     title: "Agile Fundamentals (ICP-FUN) — Prep",
     subtitle: "The agile mindset, the Manifesto, and common frameworks",
     description:
-      "French-language personal course covering the fundamentals assessed in the ICAgile ICP-FUN track. Independent prep — not affiliated with ICAgile.",
+      "Bilingual personal course covering the fundamentals assessed in the ICAgile ICP-FUN track: the Agile Manifesto, values and principles, roles and cadences, Scrum, Kanban and XP, iterative and incremental delivery, and a timed final exam. Independent prep — not affiliated with ICAgile.",
     longDescription:
-      "Ce cours couvre les bases de la pensée agile telles qu'abordées dans un parcours de type ICP-FUN : l'historique et le Manifeste Agile, les 4 valeurs et 12 principes, une vue d'ensemble de Scrum, Kanban et XP, et les fondements de la livraison itérative et incrémentale. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : il s'agit d'un contenu d'auto-formation indépendant. Il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-FUN — seul un cours suivi auprès d'un formateur accrédité ICAgile peut délivrer cette certification.",
+      "This course covers the foundations of agile thinking as addressed in a typical ICP-FUN track: the history and the Agile Manifesto, its 4 values and 12 principles, common roles and cadences, an overview of Scrum, Kanban, and XP, and the principle of iterative and incremental delivery. Every chapter ends with a mastery quiz, and the course closes with a timed final exam with an 80% passing threshold. Note: this is independent self-study content. It is not produced, endorsed, or issued by ICAgile, and passing it does not grant the official ICP-FUN badge — only a course taken with an ICAgile-accredited trainer can issue that certification.",
     color: "#2d6a4f",
     icon: "compass",
     chapters: [
       {
         id: "icpfun-1",
-        title: "D'où vient l'agilité — contexte et historique",
+        title: "Where Agility Comes From — Context and History",
         duration: "35 min",
-        content: `<h2>D'où vient l'agilité — contexte et historique</h2>
+        content: `<h2>Where Agility Comes From — Context and History</h2>
+<p>In the 1990s, many software teams found that sequential, heavily-documented approaches (waterfall-style) tended to deliver late, over budget, and with products that no longer matched the real need by the time they shipped. Several lightweight movements emerged in response: Scrum, XP (Extreme Programming), DSDM, Crystal, FDD, and others.</p>
+<h3>The Agile Manifesto (2001)</h3>
+<p>In February 2001, seventeen practitioners met in Utah and wrote the <em>Manifesto for Agile Software Development</em>. This short document formalized a set of values and principles shared across these different lightweight approaches, without forcing everyone onto a single method.</p>
+<h3>A Shift in Posture, Not Just Method</h3>
+<p>Agility isn't primarily a set of practices (daily stand-ups, iterations, a Kanban board) — it's primarily a shift in posture: accepting uncertainty, learning through short cycles, and continuously adjusting based on real feedback rather than the initial plan. Practices are tools in service of that posture, not an end in themselves.</p>`,
+        contentFr: `<h2>D'où vient l'agilité — contexte et historique</h2>
 <p>Dans les années 1990, de nombreuses équipes de développement logiciel constataient que les approches séquentielles et fortement documentées (type cascade) livraient souvent tard, hors budget, et avec des produits qui ne répondaient plus au besoin réel une fois livrés. Plusieurs mouvements légers sont nés en réaction : Scrum, XP (Extreme Programming), DSDM, Crystal, FDD, et d'autres.</p>
 <h3>Le Manifeste Agile (2001)</h3>
 <p>En février 2001, dix-sept praticiens se sont réunis dans l'Utah et ont rédigé le <em>Manifeste pour le développement Agile de logiciels</em>. Ce court texte a formalisé un ensemble de valeurs et de principes partagés par ces différentes approches légères, sans imposer une méthode unique.</p>
 <h3>Un changement de posture, pas seulement de méthode</h3>
 <p>L'agilité n'est pas d'abord un ensemble de pratiques (daily stand-up, itérations, tableau Kanban) — c'est d'abord un changement de posture : accepter l'incertitude, apprendre par cycles courts, et ajuster continuellement en fonction du retour réel plutôt que du plan initial. Les pratiques sont des outils au service de cette posture, pas une fin en soi.</p>`,
         quiz: [
+          { question: "In what year was the Agile Manifesto written?", options: ["1995", "2001", "2008", "2010"], correct: 1, explanation: "The Agile Manifesto was written in February 2001 by seventeen practitioners meeting in Utah." },
+          { question: "What problem were agile approaches trying to solve?", options: ["A lack of computing tools", "Late deliveries and products that no longer matched the real need", "Projects being too cheap", "A lack of contractual documentation"], correct: 1, explanation: "Sequential approaches often delivered late, over budget, with products disconnected from the real need at delivery time." },
+          { question: "Agility is primarily:", options: ["A fixed set of mandatory practices", "A shift in posture toward uncertainty and continuous learning", "A mandatory certification for developers", "A single method replacing all others"], correct: 1, explanation: "Agility is primarily a posture — practices (stand-ups, iterations, etc.) are tools in service of that posture." },
+        ],
+        quizFr: [
           { question: "En quelle année le Manifeste Agile a-t-il été rédigé ?", options: ["1995", "2001", "2008", "2010"], correct: 1, explanation: "Le Manifeste Agile a été rédigé en février 2001 par dix-sept praticiens réunis dans l'Utah." },
           { question: "Quel problème les approches agiles cherchaient-elles à résoudre ?", options: ["Le manque d'outils informatiques", "Les livraisons tardives et les produits ne répondant plus au besoin réel", "Le coût trop faible des projets", "L'absence de documentation contractuelle"], correct: 1, explanation: "Les approches séquentielles livraient souvent tard, hors budget, avec des produits déconnectés du besoin réel au moment de la livraison." },
           { question: "L'agilité est avant tout :", options: ["Un ensemble fixe de pratiques obligatoires", "Un changement de posture face à l'incertitude et à l'apprentissage continu", "Une certification obligatoire pour les développeurs", "Une méthode unique remplaçant toutes les autres"], correct: 1, explanation: "L'agilité est d'abord une posture — les pratiques (stand-up, itérations, etc.) sont des outils au service de cette posture." },
@@ -1360,9 +1559,28 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpfun-2",
-        title: "Les 4 valeurs et les 12 principes du Manifeste",
+        title: "The 4 Values and 12 Principles of the Manifesto",
         duration: "40 min",
-        content: `<h2>Les 4 valeurs et les 12 principes du Manifeste</h2>
+        content: `<h2>The 4 Values and 12 Principles of the Manifesto</h2>
+<h3>The Four Values</h3>
+<ul>
+<li>Individuals and interactions <strong>over</strong> processes and tools</li>
+<li>Working software <strong>over</strong> comprehensive documentation</li>
+<li>Customer collaboration <strong>over</strong> contract negotiation</li>
+<li>Responding to change <strong>over</strong> following a plan</li>
+</ul>
+<p>The Manifesto is explicit that the items on the right still have value — but the items on the left are valued more.</p>
+<h3>Key Principles (Selection)</h3>
+<ul>
+<li>The highest priority is satisfying the customer through early and continuous delivery of value.</li>
+<li>Welcome changing requirements, even late in the effort.</li>
+<li>Deliver working software frequently, with a preference for shorter timescales.</li>
+<li>Business people and developers must work together daily.</li>
+<li>Build projects around motivated people, giving them the environment and support they need, and trusting them.</li>
+<li>Simplicity — the art of maximizing the amount of work not done — is essential.</li>
+<li>At regular intervals, the team reflects on how to become more effective, then adjusts its behavior.</li>
+</ul>`,
+        contentFr: `<h2>Les 4 valeurs et les 12 principes du Manifeste</h2>
 <h3>Les quatre valeurs</h3>
 <ul>
 <li>Les individus et leurs interactions <strong>plus que</strong> les processus et les outils</li>
@@ -1382,6 +1600,11 @@ export const COURSES: Course[] = [
 <li>À intervalles réguliers, l'équipe réfléchit aux moyens de devenir plus efficace, puis ajuste son comportement.</li>
 </ul>`,
         quiz: [
+          { question: "According to the Manifesto, what is valued more than following a plan?", options: ["Strict budget adherence", "Responding to change", "Comprehensive documentation", "Contract negotiation"], correct: 1, explanation: "One of the four values is: \"Responding to change over following a plan.\"" },
+          { question: "Does the Manifesto claim the items on the right (process, documentation, contracts, plan) have no value at all?", options: ["Yes, they are useless", "No, they still have value, but the items on the left are valued more", "Yes, they must be eliminated entirely", "The Manifesto doesn't address this"], correct: 1, explanation: "The Manifesto explicitly states the right-hand items retain value, even though priority goes to the left-hand items." },
+          { question: "What does the principle of simplicity mean according to the Manifesto?", options: ["Using as few tools as possible", "The art of maximizing the amount of work not done", "Reducing the size of the team", "Avoiding all documentation"], correct: 1, explanation: "Simplicity is defined in the Manifesto as 'the art of maximizing the amount of work not done.'" },
+        ],
+        quizFr: [
           { question: "Selon le Manifeste, que valorise-t-on davantage que le suivi d'un plan ?", options: ["Le respect strict du budget", "L'adaptation au changement", "La documentation exhaustive", "La négociation contractuelle"], correct: 1, explanation: "L'une des quatre valeurs est : 'L'adaptation au changement plus que le suivi d'un plan.'" },
           { question: "Le Manifeste affirme-t-il que les éléments de droite (processus, documentation, contrats, plan) n'ont aucune valeur ?", options: ["Oui, ils sont inutiles", "Non, ils gardent de la valeur, mais les éléments de gauche sont valorisés davantage", "Oui, ils doivent être supprimés systématiquement", "Le Manifeste ne mentionne pas cette nuance"], correct: 1, explanation: "Le Manifeste précise explicitement que les éléments de droite gardent de la valeur, même si la priorité va aux éléments de gauche." },
           { question: "Que signifie le principe de simplicité selon le Manifeste ?", options: ["Utiliser le moins d'outils possible", "L'art de maximiser la quantité de travail non fait", "Réduire la taille de l'équipe", "Éviter toute documentation"], correct: 1, explanation: "La simplicité est définie dans le Manifeste comme 'l'art de maximiser la quantité de travail non fait'." },
@@ -1389,15 +1612,26 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpfun-3",
-        title: "Vue d'ensemble de Scrum",
+        title: "Overview of Scrum",
         duration: "35 min",
-        content: `<h2>Vue d'ensemble de Scrum</h2>
+        content: `<h2>Overview of Scrum</h2>
+<p>Scrum is the most widely used agile framework. It organizes work into Sprints — short, regular cycles (often 1 to 4 weeks) — with three roles (Product Owner, Scrum Master, Developers), five events (the Sprint, Planning, Daily Scrum, Review, Retrospective), and three artifacts (Product Backlog, Sprint Backlog, Increment).</p>
+<h3>The Central Idea</h3>
+<p>Rather than planning everything in detail upfront, Scrum organizes a short learning cycle: plan a small slice of value, build it, inspect it with stakeholders, then adjust. This empirical cycle catches wrong turns quickly instead of discovering them at the very end of a project.</p>
+<h3>What Scrum Doesn't Dictate</h3>
+<p>Scrum doesn't say how to estimate, how to design the architecture, or which tools to use — those technical and practical decisions belong to the team. Scrum provides the minimal structure; everything else is the team's responsibility.</p>`,
+        contentFr: `<h2>Vue d'ensemble de Scrum</h2>
 <p>Scrum est le cadre agile le plus utilisé. Il organise le travail en Sprints — des cycles courts et réguliers (souvent 1 à 4 semaines) — avec trois rôles (Product Owner, Scrum Master, Développeurs), cinq événements (Sprint, Planification, Daily Scrum, Revue, Rétrospective) et trois artefacts (Product Backlog, Sprint Backlog, Incrément).</p>
 <h3>L'idée centrale</h3>
 <p>Plutôt que de tout planifier à l'avance dans le détail, Scrum organise un cycle court d'apprentissage : planifier un petit morceau de valeur, le construire, l'inspecter avec les parties prenantes, puis ajuster. Ce cycle empirique permet de détecter rapidement les erreurs de direction plutôt que de les découvrir en fin de projet.</p>
 <h3>Ce que Scrum ne dicte pas</h3>
 <p>Scrum ne dit pas comment estimer, comment concevoir l'architecture, ou quels outils utiliser — ces décisions techniques et pratiques reviennent à l'équipe. Scrum fournit la structure minimale ; le reste est de la responsabilité de l'équipe.</p>`,
         quiz: [
+          { question: "How many roles (accountabilities) does Scrum define?", options: ["1", "2", "3", "5"], correct: 2, explanation: "Scrum defines three accountabilities: Product Owner, Scrum Master, and Developers." },
+          { question: "What is the main goal of Scrum's short cycle?", options: ["To eliminate meetings entirely", "To enable fast learning and frequent adaptation", "To eliminate all planning", "To guarantee a fixed plan for the whole project"], correct: 1, explanation: "The short cycle allows frequent inspection of the work and quick adaptation — the heart of the empirical approach." },
+          { question: "What does the Scrum framework NOT dictate?", options: ["The number of roles", "Which estimation or architecture techniques to use", "The existence of a Sprint", "The existence of a Product Backlog"], correct: 1, explanation: "Scrum leaves technical decisions (estimation, architecture, tools) to the team's responsibility." },
+        ],
+        quizFr: [
           { question: "Combien de rôles (accountabilities) définit Scrum ?", options: ["1", "2", "3", "5"], correct: 2, explanation: "Scrum définit trois rôles : Product Owner, Scrum Master, et Développeurs." },
           { question: "Quel est l'objectif principal du cycle court en Scrum ?", options: ["Réduire le nombre de réunions à zéro", "Permettre un apprentissage rapide et une adaptation fréquente", "Éliminer toute planification", "Garantir un plan figé sur toute la durée du projet"], correct: 1, explanation: "Le cycle court permet d'inspecter fréquemment le travail et de s'adapter rapidement — c'est le cœur de l'approche empirique." },
           { question: "Que ne dicte PAS le cadre Scrum ?", options: ["Le nombre de rôles", "Les techniques d'estimation ou d'architecture à utiliser", "L'existence d'un Sprint", "L'existence d'un Product Backlog"], correct: 1, explanation: "Scrum laisse les décisions techniques (estimation, architecture, outils) à la responsabilité de l'équipe." },
@@ -1405,9 +1639,16 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpfun-4",
-        title: "Vue d'ensemble de Kanban et d'Extreme Programming (XP)",
+        title: "Overview of Kanban and Extreme Programming (XP)",
         duration: "38 min",
-        content: `<h2>Vue d'ensemble de Kanban et d'Extreme Programming (XP)</h2>
+        content: `<h2>Overview of Kanban and Extreme Programming (XP)</h2>
+<h3>Kanban</h3>
+<p>Kanban is a flow-management method rather than a framework built around fixed iterations. Its key principles include: visualizing the work (often via a column-based board), limiting work in progress (WIP), managing flow, making policies explicit, building feedback loops, and improving collectively through experimentation. Kanban can be introduced gradually onto an existing process, without necessarily changing existing roles.</p>
+<h3>Extreme Programming (XP)</h3>
+<p>XP focuses on the technical engineering practices that support agility: pair programming, test-driven development (TDD), continuous integration, refactoring, simple design, and a sustainable pace. XP shares the Manifesto's values but places particular emphasis on technical quality as the condition for being able to change direction quickly.</p>
+<h3>Complementary, Not Competing</h3>
+<p>Many teams combine elements: Scrum's event structure, Kanban's flow visualization, and XP's engineering practices. There's no obligation to apply a single "pure" framework — what matters is fit with the team's own context.</p>`,
+        contentFr: `<h2>Vue d'ensemble de Kanban et d'Extreme Programming (XP)</h2>
 <h3>Kanban</h3>
 <p>Kanban est une méthode de gestion de flux, plutôt qu'un cadre basé sur des itérations fixes. Ses principes clés incluent : visualiser le travail (souvent via un tableau à colonnes), limiter le travail en cours (WIP), gérer le flux, rendre les politiques explicites, mettre en place des boucles de rétroaction, et améliorer collectivement en expérimentant. Kanban peut être introduit progressivement sur un processus existant, sans nécessairement changer les rôles en place.</p>
 <h3>Extreme Programming (XP)</h3>
@@ -1415,24 +1656,81 @@ export const COURSES: Course[] = [
 <h3>Complémentarité, pas opposition</h3>
 <p>De nombreuses équipes combinent des éléments : la structure d'événements de Scrum, la visualisation du flux de Kanban, et les pratiques d'ingénierie de XP. Il n'y a pas d'obligation d'appliquer un seul cadre « pur » — l'important reste l'adéquation avec le contexte de l'équipe.</p>`,
         quiz: [
+          { question: "What is a central principle of Kanban?", options: ["Mandatory two-week Sprints", "Limiting work in progress (WIP)", "The complete absence of a visual board", "Replacing the Product Owner"], correct: 1, explanation: "Limiting work in progress (WIP) is one of Kanban's central principles, along with visualizing flow." },
+          { question: "Which practice is typically associated with XP (Extreme Programming)?", options: ["The Kanban board", "Test-driven development (TDD)", "The Sprint Retrospective", "The Sprint Backlog"], correct: 1, explanation: "TDD, pair programming, and continuous integration are engineering practices characteristic of XP." },
+          { question: "Can elements of Scrum, Kanban, and XP be combined within the same team?", options: ["No, these approaches are strictly incompatible", "Yes, many teams combine elements depending on their context", "Only if an external consultant authorizes it", "No, this always violates the Agile Manifesto"], correct: 1, explanation: "These approaches aren't mutually exclusive; many teams combine complementary elements." },
+        ],
+        quizFr: [
           { question: "Quel est un principe central de Kanban ?", options: ["Des Sprints obligatoires de deux semaines", "Limiter le travail en cours (WIP)", "L'absence totale de tableau visuel", "Le remplacement du Product Owner"], correct: 1, explanation: "Limiter le travail en cours (WIP) est l'un des principes centraux de Kanban, avec la visualisation du flux." },
           { question: "Quelle pratique est typiquement associée à XP (Extreme Programming) ?", options: ["Le tableau Kanban", "Le développement piloté par les tests (TDD)", "La rétrospective de Sprint", "Le Sprint Backlog"], correct: 1, explanation: "TDD, le pair programming et l'intégration continue sont des pratiques techniques caractéristiques d'XP." },
           { question: "Peut-on combiner des éléments de Scrum, Kanban et XP au sein d'une même équipe ?", options: ["Non, ce sont des approches strictement incompatibles", "Oui, de nombreuses équipes combinent des éléments selon leur contexte", "Seulement si un consultant externe l'autorise", "Non, cela viole toujours le Manifeste Agile"], correct: 1, explanation: "Ces approches ne s'excluent pas mutuellement ; beaucoup d'équipes combinent des éléments complémentaires." },
         ],
       },
       {
+        id: "icpfun-5",
+        title: "Delivering Value Iteratively and Incrementally",
+        duration: "30 min",
+        content: `<h2>Delivering Value Iteratively and Incrementally</h2>
+<p>Two ideas sit underneath almost every agile framework: <strong>iterative</strong> and <strong>incremental</strong> delivery. They're related but distinct, and worth telling apart clearly.</p>
+<h3>Incremental: Building Piece by Piece</h3>
+<p>An incremental approach delivers a product in usable pieces over time — each piece adds to what came before, so the product grows feature by feature. Think of building a house room by room, each one fully finished before moving to the next.</p>
+<h3>Iterative: Refining Through Repeated Passes</h3>
+<p>An iterative approach delivers something rough for the whole scope early, then improves it in repeated passes based on feedback. Think of sculpting: a rough shape emerges first, then details are refined pass after pass.</p>
+<h3>Agile Frameworks Combine Both</h3>
+<p>Scrum, for example, is both: each Sprint produces an Increment (incremental), and the product itself evolves iteratively as feedback from each Sprint Review reshapes what comes next. This combination is what allows early, frequent delivery of real value instead of one large delivery at the very end — reducing risk, because problems and misunderstandings surface early, while there's still time and budget to correct course.</p>
+<h3>Why This Matters for the Certification</h3>
+<p>Being able to distinguish "iterative" from "incremental" — and to explain why combining both reduces risk compared to a single big-bang delivery — is a foundational, frequently tested agile fundamental.</p>`,
+        contentFr: `<h2>Livrer la valeur de façon itérative et incrémentale</h2>
+<p>Deux idées se trouvent à la base de presque tous les cadres agiles : la livraison <strong>incrémentale</strong> et la livraison <strong>itérative</strong>. Elles sont liées mais distinctes, et il vaut la peine de bien les différencier.</p>
+<h3>Incrémental : construire morceau par morceau</h3>
+<p>Une approche incrémentale livre un produit par morceaux utilisables au fil du temps — chaque morceau s'ajoute à ce qui précède, si bien que le produit grandit fonctionnalité par fonctionnalité. C'est comme construire une maison pièce par pièce, chacune entièrement terminée avant de passer à la suivante.</p>
+<h3>Itératif : affiner par passages successifs</h3>
+<p>Une approche itérative livre d'abord une version grossière de l'ensemble du périmètre, puis l'améliore par passages successifs à partir des retours reçus. C'est comme sculpter : une forme grossière apparaît d'abord, puis les détails sont affinés passage après passage.</p>
+<h3>Les cadres agiles combinent les deux</h3>
+<p>Scrum, par exemple, combine les deux approches : chaque Sprint produit un Incrément (aspect incrémental), et le produit lui-même évolue de façon itérative à mesure que les retours de chaque Revue de Sprint façonnent la suite. Cette combinaison permet une livraison précoce et fréquente de valeur réelle, plutôt qu'une seule grande livraison à la toute fin — ce qui réduit le risque, car les problèmes et malentendus apparaissent tôt, pendant qu'il reste encore du temps et du budget pour corriger le tir.</p>
+<h3>Pourquoi c'est important pour la certification</h3>
+<p>Savoir distinguer « itératif » d'« incrémental » — et expliquer pourquoi combiner les deux réduit le risque par rapport à une livraison unique en fin de projet — est un fondamental agile de base, fréquemment évalué.</p>`,
+        quiz: [
+          { question: "What best describes an incremental approach?", options: ["Delivering a rough version of the whole scope, then refining it repeatedly", "Building a product in usable pieces that add up over time", "Delivering only at the very end of the project", "Skipping feedback entirely"], correct: 1, explanation: "Incremental delivery builds the product piece by piece, each piece adding to what came before." },
+          { question: "What best describes an iterative approach?", options: ["Building one feature completely before starting the next", "Delivering a rough version of the whole scope early, then refining it through repeated passes", "Delivering the full, finished product only once", "Ignoring stakeholder feedback until the end"], correct: 1, explanation: "Iterative delivery starts with something rough covering the whole scope, then refines it pass after pass based on feedback." },
+          { question: "Why does combining iterative and incremental delivery reduce risk?", options: ["It removes the need for any planning", "Problems and misunderstandings surface early, while there is still time and budget to correct course", "It guarantees the product will never change", "It eliminates the need for stakeholder feedback"], correct: 1, explanation: "Frequent, early delivery of real value surfaces problems while there's still room to adjust, unlike one big delivery at the end." },
+        ],
+        quizFr: [
+          { question: "Qu'est-ce qui décrit le mieux une approche incrémentale ?", options: ["Livrer une version grossière de tout le périmètre, puis l'affiner à répétition", "Construire un produit par morceaux utilisables qui s'additionnent au fil du temps", "Livrer uniquement à la toute fin du projet", "Ignorer complètement les retours"], correct: 1, explanation: "La livraison incrémentale construit le produit morceau par morceau, chaque morceau s'ajoutant à ce qui précède." },
+          { question: "Qu'est-ce qui décrit le mieux une approche itérative ?", options: ["Terminer complètement une fonctionnalité avant de commencer la suivante", "Livrer tôt une version grossière de tout le périmètre, puis l'affiner par passages successifs", "Livrer le produit final complet une seule fois", "Ignorer les retours des parties prenantes jusqu'à la fin"], correct: 1, explanation: "La livraison itérative part d'une version grossière de l'ensemble, puis l'affine passage après passage à partir des retours." },
+          { question: "Pourquoi combiner livraison itérative et incrémentale réduit-il le risque ?", options: ["Cela supprime le besoin de toute planification", "Les problèmes et malentendus apparaissent tôt, pendant qu'il reste du temps et du budget pour corriger le tir", "Cela garantit que le produit ne changera jamais", "Cela élimine le besoin de retours des parties prenantes"], correct: 1, explanation: "Une livraison fréquente et précoce de valeur réelle fait apparaître les problèmes tôt, contrairement à une seule grande livraison finale." },
+        ],
+      },
+      {
         id: "icpfun-final-exam",
-        title: "Examen final — Évaluation ICP-FUN d'entraînement",
-        duration: "45 min",
+        title: "Final Exam — ICP-FUN Practice Assessment",
+        duration: "50 min",
         isFinalExam: true,
-        examDurationMinutes: 45,
+        examDurationMinutes: 50,
         passingScorePercent: 80,
-        content: `<h2>Examen final — Évaluation ICP-FUN d'entraînement</h2>
+        content: `<h2>Final Exam — ICP-FUN Practice Assessment</h2>
+<p>A timed exam covering the whole course, with an <strong>80%</strong> passing threshold. Your score is shown immediately.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important:</strong> this content is independent practice material created for this platform. It is neither issued nor endorsed by ICAgile. The official ICP-FUN badge can only be earned by taking a course delivered by an ICAgile-accredited trainer.
+</p>`,
+        contentFr: `<h2>Examen final — Évaluation ICP-FUN d'entraînement</h2>
 <p>Examen chronométré couvrant l'ensemble du cours, avec un seuil de réussite de <strong>80 %</strong>. Le score s'affiche immédiatement.</p>
 <p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
 <strong>Important :</strong> ce contenu est un entraînement indépendant créé pour cette plateforme. Il n'est ni délivré ni approuvé par ICAgile. Le badge officiel ICP-FUN ne peut être obtenu qu'en suivant un cours dispensé par un formateur accrédité ICAgile.
 </p>`,
         quiz: [
+          { question: "The Agile Manifesto was written by:", options: ["A single person, in 1990", "Seventeen practitioners, in 2001", "An international standards committee", "Scrum.org"], correct: 1, explanation: "Seventeen practitioners wrote the Agile Manifesto in February 2001." },
+          { question: "Which of these matches one of the Manifesto's four values?", options: ["Processes over individuals", "Comprehensive documentation over working software", "Responding to change over following a plan", "Contract negotiation over customer collaboration"], correct: 2, explanation: "This is one of the four official values of the Agile Manifesto." },
+          { question: "Which agile framework emphasizes limiting work in progress and visualizing flow?", options: ["Scrum", "Kanban", "XP", "PRINCE2"], correct: 1, explanation: "Kanban focuses on flow management, with visualization and WIP limits." },
+          { question: "How many events does the Scrum framework define?", options: ["3", "4", "5", "7"], correct: 2, explanation: "Scrum defines five events: the Sprint, Planning, Daily Scrum, Review, and Retrospective." },
+          { question: "Which technical practice is typical of Extreme Programming?", options: ["Pair programming", "The Kanban board", "The Sprint Goal", "The Product Backlog"], correct: 0, explanation: "Pair programming is a practice characteristic of XP." },
+          { question: "One of the twelve agile principles concerns delivery frequency. Which one?", options: ["Deliver only once, at the very end of the project", "Deliver working software frequently, with a preference for shorter timescales", "Deliver only on customer demand", "Deliver only after complete documentation"], correct: 1, explanation: "The Manifesto recommends frequent delivery, with a preference for shorter cycles." },
+          { question: "What is the main criticism of sequential (waterfall-style) approaches that motivated the agile movement?", options: ["They were too fast", "They often delivered late, over budget, with products disconnected from the real need", "They produced no documentation at all", "They were too poorly documented"], correct: 1, explanation: "Waterfall approaches often delivered late, with a product that no longer matched the need by delivery time." },
+          { question: "In Kanban, what does 'limiting WIP' mean?", options: ["Limiting the number of team members", "Limiting the amount of work in progress at the same time", "Limiting the project budget", "Limiting meeting length"], correct: 1, explanation: "WIP means 'Work In Progress' — limiting work in progress improves flow and reduces multitasking." },
+          { question: "What best distinguishes an incremental approach from an iterative one?", options: ["There is no real difference between them", "Incremental builds piece by piece; iterative refines the whole scope through repeated passes", "Incremental only applies to Kanban; iterative only applies to Scrum", "Incremental means no feedback is used at all"], correct: 1, explanation: "Incremental delivery adds usable pieces over time; iterative delivery starts rough and refines through repeated passes." },
+          { question: "Why does combining iterative and incremental delivery reduce project risk?", options: ["It removes the need for any stakeholder involvement", "It surfaces problems and misunderstandings early, while there's still time to correct course", "It guarantees a fixed, unchangeable scope", "It eliminates the need for a Product Backlog"], correct: 1, explanation: "Frequent early delivery of real value surfaces issues while there's still room to adjust, unlike a single big delivery at project end." },
+        ],
+        quizFr: [
           { question: "Le Manifeste Agile a été rédigé par :", options: ["Une seule personne, en 1990", "Dix-sept praticiens, en 2001", "Un comité international de normalisation", "Scrum.org"], correct: 1, explanation: "Dix-sept praticiens ont rédigé le Manifeste Agile en février 2001." },
           { question: "Laquelle de ces affirmations correspond aux quatre valeurs du Manifeste ?", options: ["Les processus plus que les individus", "La documentation exhaustive plus que le logiciel fonctionnel", "L'adaptation au changement plus que le suivi d'un plan", "La négociation contractuelle plus que la collaboration client"], correct: 2, explanation: "C'est l'une des quatre valeurs officielles du Manifeste Agile." },
           { question: "Quel cadre agile met l'accent sur la limitation du travail en cours et la visualisation du flux ?", options: ["Scrum", "Kanban", "XP", "PRINCE2"], correct: 1, explanation: "Kanban se concentre sur la gestion du flux, avec la visualisation du travail et la limitation du WIP." },
@@ -1441,6 +1739,8 @@ export const COURSES: Course[] = [
           { question: "Un des douze principes agiles concerne la fréquence de livraison. Lequel ?", options: ["Livrer une seule fois, à la toute fin du projet", "Livrer fréquemment un logiciel fonctionnel, avec une préférence pour les cycles courts", "Livrer uniquement sur demande du client", "Livrer seulement après documentation complète"], correct: 1, explanation: "Le Manifeste recommande de livrer fréquemment, avec une préférence pour des cycles plus courts." },
           { question: "Quel est le principal reproche fait aux approches séquentielles (type cascade) qui a motivé le mouvement agile ?", options: ["Elles étaient trop rapides", "Elles livraient souvent tard, hors budget, avec des produits déconnectés du besoin réel", "Elles ne produisaient aucune documentation", "Elles étaient trop peu documentées"], correct: 1, explanation: "Les approches cascade livraient souvent en retard, avec un produit qui ne correspondait plus au besoin au moment de la livraison." },
           { question: "Dans Kanban, que signifie 'limiter le WIP' ?", options: ["Limiter le nombre de membres de l'équipe", "Limiter la quantité de travail en cours simultanément", "Limiter le budget du projet", "Limiter la durée des réunions"], correct: 1, explanation: "WIP signifie 'Work In Progress' — limiter le travail en cours améliore le flux et réduit le multitâche." },
+          { question: "Qu'est-ce qui distingue le mieux une approche incrémentale d'une approche itérative ?", options: ["Il n'y a pas vraiment de différence entre elles", "L'incrémental construit morceau par morceau ; l'itératif affine l'ensemble du périmètre par passages successifs", "L'incrémental ne s'applique qu'à Kanban ; l'itératif qu'à Scrum", "L'incrémental signifie qu'aucun retour n'est utilisé"], correct: 1, explanation: "La livraison incrémentale ajoute des morceaux utilisables au fil du temps ; la livraison itérative part d'une version grossière et l'affine par passages successifs." },
+          { question: "Pourquoi combiner livraison itérative et incrémentale réduit-il le risque du projet ?", options: ["Cela supprime le besoin d'impliquer les parties prenantes", "Cela fait apparaître les problèmes et malentendus tôt, pendant qu'il reste du temps pour corriger le tir", "Cela garantit un périmètre fixe et immuable", "Cela élimine le besoin d'un Product Backlog"], correct: 1, explanation: "Une livraison fréquente et précoce de valeur réelle fait apparaître les problèmes tôt, contrairement à une seule grande livraison en fin de projet." },
         ],
       },
     ],
@@ -1450,26 +1750,39 @@ export const COURSES: Course[] = [
     slug: "icp-cat-coaching-transitions-agiles",
     order: 6,
     visibility: "admin",
-    certTrack: "ICAgile ICP-CAT — Préparation (non officielle)",
-    language: "fr",
+    certTrack: "ICAgile ICP-CAT — Prep (unofficial)",
+    language: "bilingual",
     titleFr: "Coacher les Transitions Agiles (ICP-CAT) — Préparation",
-    subtitleFr: "Diagnostiquer, concevoir et accompagner une transformation organisationnelle",
+    subtitleFr: "Diagnostiquer, concevoir, accompagner et mesurer une transformation organisationnelle",
     descriptionFr:
-      "Cours personnel avancé en français couvrant les compétences visées par le parcours ICAgile ICP-CAT : diagnostic organisationnel, conception d'une stratégie de transition, gestion du changement et des résistances, et mesure d'impact. Comprend un examen final chronométré. Préparation indépendante — non affiliée à ICAgile. Ce parcours est normalement participatif et expérientiel ; ce cours en propose une version d'auto-formation rigoureuse, avec évaluation écrite dans les mêmes conditions que les autres modules de cette plateforme.",
+      "Cours personnel bilingue avancé couvrant les compétences visées par le parcours ICAgile ICP-CAT : diagnostic organisationnel, conception d'une stratégie de transition, gestion du changement et des résistances, mesure d'impact et pérennisation. Comprend un examen final chronométré. Préparation indépendante — non affiliée à ICAgile. Ce parcours est normalement participatif et expérientiel ; ce cours en propose une version d'auto-formation rigoureuse.",
     title: "Coaching Agile Transitions (ICP-CAT) — Prep",
-    subtitle: "Diagnosing, designing, and guiding an organizational transformation",
+    subtitle: "Diagnosing, designing, guiding, and measuring an organizational transformation",
     description:
-      "Advanced French-language personal course on the competencies targeted by the ICAgile ICP-CAT track. Independent prep — not affiliated with ICAgile.",
+      "Advanced bilingual personal course on the competencies targeted by the ICAgile ICP-CAT track: organizational diagnosis, transition strategy design, change and resistance management, and measuring/sustaining impact. Independent prep — not affiliated with ICAgile.",
     longDescription:
-      "Ce cours avancé aborde le rôle du coach de transformation agile au niveau organisationnel : comprendre les systèmes organisationnels, diagnostiquer l'état actuel, co-concevoir une stratégie de transition avec les sponsors, accompagner le changement et les résistances, et mesurer l'impact dans la durée. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : le parcours officiel ICP-CAT d'ICAgile est un programme participatif dispensé par des formateurs accrédités, évalué notamment sur la pratique en situation réelle — il ne se limite pas à un examen écrit. Ce cours est une préparation personnelle et un contenu d'auto-formation rigoureux ; il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-CAT.",
+      "This advanced course covers the role of an agile transformation coach at the organizational level: understanding organizational systems, diagnosing the current state, co-designing a transition strategy with sponsors, guiding change and resistance, and measuring and sustaining impact over time. Every chapter ends with a mastery quiz, and the course closes with a timed final exam with an 80% passing threshold. Note: ICAgile's official ICP-CAT track is a participatory program delivered by accredited trainers, assessed largely on real-world practice — not on a written exam alone. This course is a personal study aid; it is not produced, endorsed, or issued by ICAgile, and passing it does not grant the official ICP-CAT badge.",
     color: "#6a4c93",
     icon: "compass",
     chapters: [
       {
         id: "icpcat-1",
-        title: "Le système organisationnel : comprendre avant d'agir",
+        title: "The Organizational System — Understanding Before Acting",
         duration: "45 min",
-        content: `<h2>Le système organisationnel : comprendre avant d'agir</h2>
+        content: `<h2>The Organizational System — Understanding Before Acting</h2>
+<p>An agile transformation is never just about changing one team's practices — it touches structure, culture, measurement systems, incentives, and leadership style across an entire organization. Before proposing any plan, a transformation coach seeks to understand the whole system first.</p>
+<h3>Seeing the System, Not Just the Symptoms</h3>
+<p>A slow team isn't necessarily the problem itself — it may be a symptom of a rigid annual funding cycle, a siloed structure, or individual performance metrics that discourage collaboration. The coach looks for systemic causes before proposing local fixes.</p>
+<h3>Organizational Levers</h3>
+<ul>
+<li><strong>Structure</strong> — how teams and departments are organized (silos vs. value-stream-aligned teams)</li>
+<li><strong>Culture</strong> — shared beliefs and behaviors, often invisible but highly influential</li>
+<li><strong>Measures and incentives</strong> — what gets measured and rewarded strongly shapes behavior</li>
+<li><strong>Leadership</strong> — the governance and decision-making style in place</li>
+</ul>
+<h3>The Sponsor's Role</h3>
+<p>A lasting transformation needs an engaged executive sponsor, capable of removing organizational obstacles the team alone cannot move — budget, structure, HR policy. The coach partners with this sponsor without replacing their role.</p>`,
+        contentFr: `<h2>Le système organisationnel : comprendre avant d'agir</h2>
 <p>Une transformation agile ne se limite pas à changer les pratiques d'une équipe : elle touche la structure, la culture, les systèmes de mesure, les incitations, et le style de leadership de toute une organisation. Avant de proposer un plan, un coach de transformation cherche à comprendre le système dans son ensemble.</p>
 <h3>Voir le système, pas seulement les symptômes</h3>
 <p>Une équipe lente n'est pas nécessairement le problème — elle peut être le symptôme d'un système de financement annuel rigide, d'une structure en silos, ou d'indicateurs de performance individuels qui découragent la collaboration. Le coach cherche les causes systémiques avant de proposer des solutions locales.</p>
@@ -1483,6 +1796,11 @@ export const COURSES: Course[] = [
 <h3>Le rôle du sponsor</h3>
 <p>Une transformation durable nécessite un sponsor exécutif engagé, capable de lever les obstacles organisationnels que l'équipe seule ne peut pas déplacer (budget, structure, politiques RH). Le coach travaille en partenariat avec ce sponsor, sans se substituer à lui.</p>`,
         quiz: [
+          { question: "From a systemic perspective, a slow team is:", options: ["Always due to a lack of individual skill", "Potentially a symptom of a larger organizational problem", "Always solved by adding more members", "Unrelated to organizational structure"], correct: 1, explanation: "A transformation coach looks for systemic causes (funding, silos, incentives) before proposing a local fix." },
+          { question: "Which of these is NOT cited as an organizational lever in this chapter?", options: ["Structure", "Culture", "Measures and incentives", "The weather"], correct: 3, explanation: "The levers cited are structure, culture, measures/incentives, and leadership." },
+          { question: "Why is an engaged executive sponsor important in a transformation?", options: ["Because they must approve every team's every task", "Because they can remove organizational obstacles beyond the reach of teams alone", "Because it's legally required", "Because they replace the coach's role"], correct: 1, explanation: "The sponsor acts on levers (budget, structure, HR) that teams alone don't control." },
+        ],
+        quizFr: [
           { question: "Selon une approche systémique, une équipe lente est :", options: ["Toujours due à un manque de compétence individuelle", "Potentiellement le symptôme d'un problème organisationnel plus large", "Toujours résolue en ajoutant plus de membres", "Sans lien avec la structure organisationnelle"], correct: 1, explanation: "Le coach de transformation cherche les causes systémiques (financement, silos, incitations) avant de proposer une solution locale." },
           { question: "Lequel de ces éléments n'est PAS cité comme un levier organisationnel dans ce chapitre ?", options: ["La structure", "La culture", "Les mesures et incitations", "La météo"], correct: 3, explanation: "Les leviers cités sont la structure, la culture, les mesures/incitations et le leadership." },
           { question: "Pourquoi un sponsor exécutif engagé est-il important dans une transformation ?", options: ["Parce qu'il doit approuver chaque tâche de chaque équipe", "Parce qu'il peut lever des obstacles organisationnels hors de portée des équipes seules", "Parce que la loi l'exige", "Parce qu'il remplace le rôle du coach"], correct: 1, explanation: "Le sponsor peut agir sur le budget, la structure et les politiques RH — des leviers que les équipes seules ne contrôlent pas." },
@@ -1490,9 +1808,20 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpcat-2",
-        title: "Diagnostiquer l'état actuel",
+        title: "Diagnosing the Current State",
         duration: "42 min",
-        content: `<h2>Diagnostiquer l'état actuel</h2>
+        content: `<h2>Diagnosing the Current State</h2>
+<p>Before designing a transition strategy, the coach runs a structured diagnosis of the organization: interviews with stakeholders at different levels, observation of actual working practices, analysis of existing value streams, and a review of current metrics (lead time, quality, team satisfaction).</p>
+<h3>Common Diagnostic Tools</h3>
+<ul>
+<li><strong>Value stream mapping</strong> — visualizing the journey from an idea to value delivered to the customer</li>
+<li><strong>Interviews and surveys</strong> — gathering perceptions at every level (leadership, middle management, teams)</li>
+<li><strong>Analysis of existing metrics</strong> — delivery lead times, defect rates, employee engagement</li>
+<li><strong>Organizational maturity models</strong> — used carefully, as a starting point for discussion rather than a final verdict</li>
+</ul>
+<h3>Avoiding an Imposed Diagnosis</h3>
+<p>A good diagnosis involves the people affected rather than being imposed on them from outside. A diagnosis co-built with teams and managers increases buy-in for what follows, while a purely top-down diagnosis often triggers resistance.</p>`,
+        contentFr: `<h2>Diagnostiquer l'état actuel</h2>
 <p>Avant de concevoir une stratégie de transition, le coach mène un diagnostic structuré de l'organisation : entretiens avec les parties prenantes à différents niveaux, observation des pratiques de travail réelles, analyse des flux de valeur existants, et étude des indicateurs actuels (délais, qualité, satisfaction des équipes).</p>
 <h3>Outils de diagnostic courants</h3>
 <ul>
@@ -1504,6 +1833,11 @@ export const COURSES: Course[] = [
 <h3>Éviter le diagnostic imposé</h3>
 <p>Un bon diagnostic implique les personnes concernées plutôt que de leur être imposé de l'extérieur. Un diagnostic co-construit avec les équipes et les managers augmente l'adhésion à la suite du processus, alors qu'un diagnostic purement descendant (top-down) provoque souvent des résistances.</p>`,
         quiz: [
+          { question: "Which tool visualizes the journey from an idea to delivered value?", options: ["A personal Kanban board", "Value stream mapping", "The Sprint Backlog", "An HR org chart"], correct: 1, explanation: "Value stream mapping visualizes the full journey of value from idea to delivery." },
+          { question: "Why involve teams in the diagnosis rather than imposing it?", options: ["It doesn't matter either way", "It increases buy-in and reduces resistance", "It's a legal requirement", "It always speeds up the project timeline"], correct: 1, explanation: "A co-built diagnosis increases buy-in; a purely top-down diagnosis often triggers resistance." },
+          { question: "How should organizational maturity models be used?", options: ["As a definitive, unquestionable verdict", "Carefully, as a starting point for discussion", "They should never be used", "Only by leadership, without sharing with teams"], correct: 1, explanation: "Maturity models are useful as a discussion starting point, not as a final judgment on a team or organization." },
+        ],
+        quizFr: [
           { question: "Quel outil permet de visualiser le parcours d'une idée jusqu'à la valeur livrée ?", options: ["Le tableau Kanban personnel", "La cartographie de flux de valeur", "Le Sprint Backlog", "L'organigramme RH"], correct: 1, explanation: "La cartographie de flux de valeur (value stream mapping) visualise l'ensemble du parcours de la valeur." },
           { question: "Pourquoi impliquer les équipes dans le diagnostic plutôt que de l'imposer ?", options: ["Cela n'a aucune importance", "Cela augmente l'adhésion et réduit les résistances", "C'est une obligation légale", "Cela accélère toujours le calendrier du projet"], correct: 1, explanation: "Un diagnostic co-construit augmente l'adhésion ; un diagnostic purement top-down provoque souvent des résistances." },
           { question: "Comment les modèles de maturité organisationnelle doivent-ils être utilisés ?", options: ["Comme un verdict définitif et intangible", "Avec prudence, comme point de départ de discussion", "Ils ne doivent jamais être utilisés", "Uniquement par la direction, sans partage avec les équipes"], correct: 1, explanation: "Les modèles de maturité sont utiles comme point de départ de discussion, pas comme jugement définitif sur une équipe ou une organisation." },
@@ -1511,9 +1845,20 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpcat-3",
-        title: "Concevoir une stratégie de transition",
+        title: "Designing a Transition Strategy",
         duration: "45 min",
-        content: `<h2>Concevoir une stratégie de transition</h2>
+        content: `<h2>Designing a Transition Strategy</h2>
+<p>A transition strategy translates the diagnosis into a realistic, sequenced action plan, adapted to context — there is no universal transformation plan that applies as-is to every organization.</p>
+<h3>Design Principles</h3>
+<ul>
+<li><strong>Start small, learn, expand</strong> — targeted pilots allow learning before scaling up</li>
+<li><strong>Sequence by value and feasibility</strong> — prioritize high-impact changes with manageable resistance</li>
+<li><strong>Align structure and incentives</strong> — a change in practices without a matching change in structure or incentives is unlikely to hold over time</li>
+<li><strong>Build in checkpoints</strong> — regular inspection milestones that let the strategy itself be adjusted, in an empirical spirit</li>
+</ul>
+<h3>The Copy-Paste Trap</h3>
+<p>Reproducing another organization's model as-is (even a well-known one) without adapting it to context is a common mistake. The transition strategy must be co-designed with local stakeholders, not fully imported from outside.</p>`,
+        contentFr: `<h2>Concevoir une stratégie de transition</h2>
 <p>Une stratégie de transition traduit le diagnostic en un plan d'action réaliste, séquencé, et adapté au contexte — il n'existe pas de plan de transformation universel applicable tel quel à toute organisation.</p>
 <h3>Principes de conception</h3>
 <ul>
@@ -1525,6 +1870,11 @@ export const COURSES: Course[] = [
 <h3>Le piège du copier-coller</h3>
 <p>Reproduire tel quel le modèle d'une autre organisation (même reconnue) sans l'adapter au contexte propre est une erreur fréquente. La stratégie de transition doit être co-conçue avec les parties prenantes locales, pas importée intégralement de l'extérieur.</p>`,
         quiz: [
+          { question: "What approach is recommended for starting a transformation?", options: ["Deploy immediately across the whole organization", "Start small with targeted pilots, learn, then expand", "Wait for unanimous employee agreement before any change", "Fully copy another company's model"], correct: 1, explanation: "Starting with targeted pilots allows learning before scaling up, in an empirical spirit." },
+          { question: "Why is a change in practices without structural change unlikely to hold?", options: ["Employees forget it quickly", "The existing structure and incentives keep pushing toward old behaviors", "It's forbidden by law", "It isn't true — structure doesn't matter"], correct: 1, explanation: "Without aligning structure and incentives, old behaviors are reinforced despite the visible change in practices." },
+          { question: "What is the main risk of 'copy-pasting' an external transformation model?", options: ["It's always cheaper", "It ignores the organization's own context, reducing its chances of success", "It's forbidden by ICAgile", "It always speeds up results"], correct: 1, explanation: "An imported model that isn't adapted ignores context-specific culture, constraints, and history, limiting its chances of success." },
+        ],
+        quizFr: [
           { question: "Quelle approche est recommandée pour démarrer une transformation ?", options: ["Déployer immédiatement à toute l'organisation", "Commencer petit avec des pilotes ciblés, apprendre, puis étendre", "Attendre l'accord unanime de tous les employés avant tout changement", "Copier intégralement le modèle d'une autre entreprise"], correct: 1, explanation: "Commencer par des pilotes ciblés permet d'apprendre avant une extension à grande échelle, dans un esprit empirique." },
           { question: "Pourquoi un changement de pratiques sans changement structurel a-t-il peu de chances de tenir ?", options: ["Parce que les employés l'oublient rapidement", "Parce que la structure et les incitations existantes continuent de pousser vers les anciens comportements", "Parce que la loi l'interdit", "Ce n'est pas vrai, la structure n'a pas d'importance"], correct: 1, explanation: "Sans alignement de la structure et des incitations, les anciens comportements sont renforcés malgré le changement de pratiques affiché." },
           { question: "Quel est le principal risque du 'copier-coller' d'un modèle de transformation externe ?", options: ["Il est toujours moins cher", "Il ignore le contexte propre de l'organisation, ce qui réduit ses chances de succès", "Il est interdit par ICAgile", "Il accélère toujours les résultats"], correct: 1, explanation: "Un modèle importé sans adaptation ignore le contexte spécifique de l'organisation — culture, contraintes, historique — ce qui limite ses chances de succès." },
@@ -1532,9 +1882,27 @@ export const COURSES: Course[] = [
       },
       {
         id: "icpcat-4",
-        title: "Accompagner le changement et les résistances",
+        title: "Guiding Change and Resistance",
         duration: "40 min",
-        content: `<h2>Accompagner le changement et les résistances</h2>
+        content: `<h2>Guiding Change and Resistance</h2>
+<p>Resistance to change is a normal human reaction, not an obstacle to be crushed by force. A transformation coach seeks to understand the sources of resistance and respond with empathy and clarity rather than authority.</p>
+<h3>Common Sources of Resistance</h3>
+<ul>
+<li>Perceived loss of status, control, or valued skills</li>
+<li>Lack of clarity about the "why" behind the change</li>
+<li>Past negative experiences with other change initiatives</li>
+<li>Existing incentives that still reward the old behavior</li>
+</ul>
+<h3>Strategies for Guiding Change</h3>
+<ul>
+<li><strong>Communicate the why</strong>, repeatedly and through multiple channels</li>
+<li><strong>Involve the people affected</strong> in designing the changes that concern them</li>
+<li><strong>Celebrate small wins</strong> to build confidence progressively</li>
+<li><strong>Stay present and available</strong> to hear concerns without dismissing them</li>
+</ul>
+<h3>What the Coach Avoids</h3>
+<p>The coach avoids imposing change through hierarchical pressure, minimizing concerns that are raised, or promising unrealistic results just to obtain surface-level buy-in.</p>`,
+        contentFr: `<h2>Accompagner le changement et les résistances</h2>
 <p>La résistance au changement est une réaction humaine normale, pas un obstacle à éliminer par la force. Un coach de transformation cherche à comprendre les sources de résistance et à y répondre avec empathie et clarté plutôt qu'avec autorité.</p>
 <h3>Sources courantes de résistance</h3>
 <ul>
@@ -1553,24 +1921,97 @@ export const COURSES: Course[] = [
 <h3>Ce que le coach évite</h3>
 <p>Le coach évite d'imposer le changement par la contrainte hiérarchique, de minimiser les préoccupations exprimées, ou de promettre des résultats irréalistes pour obtenir une adhésion de façade.</p>`,
         quiz: [
+          { question: "How does this chapter describe resistance to change?", options: ["As an obstacle to be crushed by force", "As a normal human reaction to understand and guide", "As a sign of employee incompetence", "As something to systematically ignore"], correct: 1, explanation: "Resistance is presented as a normal human reaction, to be understood with empathy rather than fought with authority." },
+          { question: "Which of these strategies is recommended for guiding change?", options: ["Imposing change through hierarchical pressure", "Communicating the why repeatedly and involving the people affected", "Minimizing concerns raised by teams", "Promising unrealistic results for quick buy-in"], correct: 1, explanation: "Communicating the why and involving affected people are recommended; the other three options are explicitly discouraged." },
+          { question: "Which is a common source of resistance mentioned in this chapter?", options: ["Excessive confidence in the change", "Perceived loss of status, control, or valued skills", "Too much communication from leadership", "Too much clarity about the objectives"], correct: 1, explanation: "Perceived loss of status, control, or valued skills is a frequent source of resistance to change." },
+        ],
+        quizFr: [
           { question: "Comment ce chapitre décrit-il la résistance au changement ?", options: ["Comme un obstacle à éliminer par la force", "Comme une réaction humaine normale à comprendre et accompagner", "Comme un signe d'incompétence des employés", "Comme quelque chose à ignorer systématiquement"], correct: 1, explanation: "La résistance est présentée comme une réaction humaine normale, à comprendre avec empathie plutôt qu'à combattre par l'autorité." },
           { question: "Laquelle de ces stratégies est recommandée pour accompagner le changement ?", options: ["Imposer le changement par la contrainte hiérarchique", "Communiquer le pourquoi de façon répétée et impliquer les personnes concernées", "Minimiser les préoccupations exprimées par les équipes", "Promettre des résultats irréalistes pour obtenir une adhésion rapide"], correct: 1, explanation: "Communiquer le pourquoi et impliquer les personnes concernées sont des stratégies recommandées ; les trois autres options sont explicitement déconseillées." },
           { question: "Quelle est une source courante de résistance mentionnée dans ce chapitre ?", options: ["Un excès de confiance dans le changement", "La perte perçue de statut, de contrôle ou de compétences valorisées", "Un excès de communication de la direction", "Une trop grande clarté sur les objectifs"], correct: 1, explanation: "La perte perçue de statut, de contrôle ou de compétences valorisées est une source fréquente de résistance au changement." },
         ],
       },
       {
+        id: "icpcat-5",
+        title: "Measuring Impact and Sustaining the Transformation",
+        duration: "38 min",
+        content: `<h2>Measuring Impact and Sustaining the Transformation</h2>
+<p>A transformation that isn't measured tends to drift, and one that isn't actively sustained tends to quietly revert once the coach or the initial energy moves on. This chapter covers the closing loop: proving impact, and making change stick.</p>
+<h3>Choosing Meaningful Metrics</h3>
+<p>Good transformation metrics connect to outcomes, not just activity. Useful categories include:</p>
+<ul>
+<li><strong>Flow metrics</strong> — lead time, cycle time, throughput: how fast value actually moves end to end</li>
+<li><strong>Quality metrics</strong> — defect rates, rework, incident frequency</li>
+<li><strong>People metrics</strong> — engagement, psychological safety, retention</li>
+<li><strong>Business outcome metrics</strong> — customer satisfaction, revenue impact, time-to-market</li>
+</ul>
+<p>A coach is cautious about vanity metrics (e.g., "number of Scrum Teams created") that show activity without proving real improvement, and avoids using metrics to rank or punish individual teams — which quickly produces gaming of the numbers instead of genuine improvement.</p>
+<h3>Sustaining the Change</h3>
+<ul>
+<li><strong>Build internal capability</strong> — train internal coaches and champions so the organization doesn't stay permanently dependent on external help.</li>
+<li><strong>Embed new habits into routines</strong> — retrospectives, reviews, and planning cadences that continue on their own once the coach steps back.</li>
+<li><strong>Revisit incentives and structure periodically</strong> — old incentive systems can silently creep back in and undo earlier structural changes.</li>
+<li><strong>Plan the coach's own exit</strong> from day one, so the organization isn't left stranded when engagement ends.</li>
+</ul>`,
+        contentFr: `<h2>Mesurer l'impact et pérenniser la transformation</h2>
+<p>Une transformation qui n'est pas mesurée a tendance à dériver, et une transformation qui n'est pas activement entretenue a tendance à s'effacer discrètement une fois que le coach ou l'énergie initiale s'en va. Ce chapitre couvre la dernière boucle : prouver l'impact, et faire en sorte que le changement tienne dans la durée.</p>
+<h3>Choisir des indicateurs pertinents</h3>
+<p>Les bons indicateurs de transformation sont liés aux résultats, pas seulement à l'activité. Catégories utiles :</p>
+<ul>
+<li><strong>Indicateurs de flux</strong> — délai de livraison, temps de cycle, débit : la vitesse réelle à laquelle la valeur circule de bout en bout</li>
+<li><strong>Indicateurs de qualité</strong> — taux de défauts, retouches, fréquence d'incidents</li>
+<li><strong>Indicateurs humains</strong> — engagement, sécurité psychologique, rétention</li>
+<li><strong>Indicateurs de résultats métier</strong> — satisfaction client, impact sur le revenu, délai de mise sur le marché</li>
+</ul>
+<p>Un coach se méfie des indicateurs de vanité (par exemple « nombre d'équipes Scrum créées ») qui montrent de l'activité sans prouver une réelle amélioration, et évite d'utiliser les indicateurs pour classer ou sanctionner des équipes individuelles — ce qui produit rapidement une manipulation des chiffres plutôt qu'une réelle amélioration.</p>
+<h3>Pérenniser le changement</h3>
+<ul>
+<li><strong>Développer la capacité interne</strong> — former des coachs et relais internes pour que l'organisation ne reste pas durablement dépendante d'une aide externe.</li>
+<li><strong>Ancrer les nouvelles habitudes dans les routines</strong> — rétrospectives, revues et cadences de planification qui se poursuivent d'elles-mêmes une fois le coach retiré.</li>
+<li><strong>Revoir périodiquement les incitations et la structure</strong> — d'anciens systèmes d'incitation peuvent revenir discrètement et annuler des changements structurels antérieurs.</li>
+<li><strong>Planifier dès le premier jour le retrait du coach</strong>, pour que l'organisation ne se retrouve pas démunie une fois la mission terminée.</li>
+</ul>`,
+        quiz: [
+          { question: "What distinguishes a good transformation metric from a vanity metric?", options: ["Vanity metrics are always more precise", "A good metric connects to real outcomes, not just activity", "Vanity metrics are illegal to use", "There is no meaningful difference"], correct: 1, explanation: "Good metrics tie to outcomes (flow, quality, people, business results); vanity metrics show activity without proving improvement." },
+          { question: "Why should a coach avoid using metrics to rank or punish individual teams?", options: ["It's against ICAgile's trademark policy", "It quickly leads to gaming the numbers instead of genuine improvement", "It makes reporting too slow", "It has no real downside"], correct: 1, explanation: "Using metrics punitively encourages teams to manipulate the numbers rather than genuinely improve." },
+          { question: "Why should a coach plan their own exit from day one?", options: ["To reduce their own workload immediately", "So the organization isn't left stranded and dependent once the engagement ends", "Because ICAgile requires a fixed contract length", "Because sponsors always request it explicitly"], correct: 1, explanation: "Planning the exit and building internal capability ensures the change survives after the coach leaves." },
+        ],
+        quizFr: [
+          { question: "Qu'est-ce qui distingue un bon indicateur de transformation d'un indicateur de vanité ?", options: ["Les indicateurs de vanité sont toujours plus précis", "Un bon indicateur est lié à de vrais résultats, pas seulement à l'activité", "Les indicateurs de vanité sont illégaux", "Il n'y a pas de différence significative"], correct: 1, explanation: "Les bons indicateurs sont liés aux résultats (flux, qualité, humain, résultats métier) ; les indicateurs de vanité montrent de l'activité sans prouver d'amélioration." },
+          { question: "Pourquoi un coach devrait-il éviter d'utiliser les indicateurs pour classer ou sanctionner des équipes individuelles ?", options: ["C'est contraire à la politique de marque d'ICAgile", "Cela mène rapidement à une manipulation des chiffres plutôt qu'à une réelle amélioration", "Cela ralentit trop les rapports", "Cela n'a aucun inconvénient réel"], correct: 1, explanation: "Utiliser les indicateurs de façon punitive encourage les équipes à manipuler les chiffres plutôt qu'à réellement s'améliorer." },
+          { question: "Pourquoi un coach devrait-il planifier son propre retrait dès le premier jour ?", options: ["Pour réduire immédiatement sa charge de travail", "Pour que l'organisation ne se retrouve pas démunie et dépendante une fois la mission terminée", "Parce qu'ICAgile exige une durée de contrat fixe", "Parce que les sponsors le demandent toujours explicitement"], correct: 1, explanation: "Planifier le retrait et développer la capacité interne garantit que le changement survit après le départ du coach." },
+        ],
+      },
+      {
         id: "icpcat-final-exam",
-        title: "Examen final — Évaluation ICP-CAT d'entraînement",
-        duration: "50 min",
+        title: "Final Exam — ICP-CAT Practice Assessment",
+        duration: "55 min",
         isFinalExam: true,
-        examDurationMinutes: 50,
+        examDurationMinutes: 55,
         passingScorePercent: 80,
-        content: `<h2>Examen final — Évaluation ICP-CAT d'entraînement</h2>
+        content: `<h2>Final Exam — ICP-CAT Practice Assessment</h2>
+<p>A timed exam covering the whole course, with an <strong>80%</strong> passing threshold.</p>
+<p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
+<strong>Important:</strong> ICAgile's official ICP-CAT track is built on a participatory, experiential program delivered by accredited trainers, assessed largely on real-world practice — not solely on a written exam. This exam is independent personal practice, not issued or endorsed by ICAgile, and passing it does not grant the official ICP-CAT badge.
+</p>`,
+        contentFr: `<h2>Examen final — Évaluation ICP-CAT d'entraînement</h2>
 <p>Examen chronométré couvrant l'ensemble du cours, avec un seuil de réussite de <strong>80 %</strong>.</p>
 <p style="padding:12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:8px;font-size:14px;">
 <strong>Important :</strong> le parcours officiel ICP-CAT d'ICAgile repose sur un programme participatif et expérientiel dispensé par des formateurs accrédités, évalué en grande partie sur la pratique en situation réelle — pas uniquement sur un examen écrit. Cet examen est un entraînement personnel indépendant, non délivré ni approuvé par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-CAT.
 </p>`,
         quiz: [
+          { question: "A lasting agile transformation primarily touches:", options: ["Only one team's practices", "The organization's structure, culture, measures, and leadership", "Only the software tools used", "Only the IT budget"], correct: 1, explanation: "A lasting transformation touches the whole organizational system, not just one isolated team's practices." },
+          { question: "What is the executive sponsor's main role in a transformation?", options: ["Approving every team's every task", "Removing organizational obstacles beyond the reach of teams alone", "Replacing the transformation coach", "Writing the Product Backlog"], correct: 1, explanation: "The sponsor acts on levers (budget, structure, HR) that teams alone cannot move." },
+          { question: "Which tool is used to visualize the value journey in an organizational diagnosis?", options: ["Value stream mapping", "The annual financial dashboard", "The hierarchical org chart", "The individual training plan"], correct: 0, explanation: "Value stream mapping is the diagnostic tool mentioned for visualizing the value journey." },
+          { question: "Which deployment approach is recommended for a transformation?", options: ["Immediate large-scale deployment", "Targeted pilots, learning, then progressive expansion", "Waiting for unanimity before any change", "Fully copying an external model"], correct: 1, explanation: "Starting small with targeted pilots, learning, then expanding is the recommended approach in an empirical mindset." },
+          { question: "Why should resistance to change be understood rather than fought?", options: ["Because it's illegal to resist", "Because it's a normal human reaction often revealing legitimate concerns", "Because it doesn't really exist", "Because fighting it is always faster"], correct: 1, explanation: "Resistance often reveals legitimate concerns (loss of status, lack of clarity, past negative experiences) that are better understood than ignored." },
+          { question: "What is the risk of a practice change unaccompanied by structural and incentive change?", options: ["Nothing, it always works", "It's unlikely to last, as old incentives reinforce old behaviors", "It's immediately forbidden by leadership", "It artificially speeds up results"], correct: 1, explanation: "Without structural and incentive alignment, a change in practices is unlikely to hold over time." },
+          { question: "Which type of diagnosis best increases team buy-in?", options: ["A purely top-down diagnosis imposed by leadership", "A diagnosis co-built with the people affected at every level", "A diagnosis run with no interviews at all", "A diagnosis kept confidential by the coach alone"], correct: 1, explanation: "A diagnosis co-built with teams and managers increases buy-in, unlike a purely top-down one." },
+          { question: "What distinguishes a good transformation metric from a vanity metric?", options: ["Vanity metrics are always more precise", "A good metric ties to real outcomes, not just visible activity", "Vanity metrics are illegal", "There's no real difference"], correct: 1, explanation: "Good metrics connect to real outcomes (flow, quality, people, business results); vanity metrics only show activity." },
+          { question: "Why should a coach plan their own exit from the start of an engagement?", options: ["To reduce billed hours", "So the organization can sustain the change without becoming permanently dependent", "Because it's contractually mandatory everywhere", "Because sponsors always insist on it"], correct: 1, explanation: "Planning the exit and building internal capability from day one ensures the transformation survives after the coach leaves." },
+          { question: "Why does using metrics to punish individual teams tend to backfire?", options: ["It has no real effect either way", "It encourages teams to game the numbers instead of genuinely improving", "It's against copyright law", "It makes reporting more accurate"], correct: 1, explanation: "Punitive use of metrics incentivizes manipulating the numbers rather than real improvement." },
+        ],
+        quizFr: [
           { question: "Une transformation agile durable touche principalement :", options: ["Uniquement les pratiques d'une seule équipe", "La structure, la culture, les mesures et le leadership de l'organisation", "Uniquement les outils logiciels utilisés", "Uniquement le budget informatique"], correct: 1, explanation: "Une transformation durable touche l'ensemble du système organisationnel, pas seulement les pratiques d'une équipe isolée." },
           { question: "Quel est le rôle principal du sponsor exécutif dans une transformation ?", options: ["Approuver chaque tâche de chaque équipe", "Lever les obstacles organisationnels hors de portée des équipes seules", "Remplacer le coach de transformation", "Rédiger le Product Backlog"], correct: 1, explanation: "Le sponsor agit sur des leviers (budget, structure, RH) que les équipes seules ne peuvent pas déplacer." },
           { question: "Quel outil est utilisé pour visualiser le parcours de la valeur dans un diagnostic organisationnel ?", options: ["La cartographie de flux de valeur", "Le tableau de bord financier annuel", "L'organigramme hiérarchique", "Le plan de formation individuel"], correct: 0, explanation: "La cartographie de flux de valeur (value stream mapping) est l'outil de diagnostic mentionné pour visualiser le parcours de la valeur." },
@@ -1578,6 +2019,9 @@ export const COURSES: Course[] = [
           { question: "Pourquoi la résistance au changement doit-elle être comprise plutôt que combattue ?", options: ["Parce qu'elle est illégale", "Parce qu'elle est une réaction humaine normale révélant souvent des préoccupations légitimes", "Parce qu'elle n'existe pas réellement", "Parce que la combattre est toujours plus rapide"], correct: 1, explanation: "La résistance révèle souvent des préoccupations légitimes (perte de statut, manque de clarté, expériences passées négatives) qu'il vaut mieux comprendre qu'ignorer." },
           { question: "Que risque un changement de pratiques non accompagné d'un changement de structure et d'incitations ?", options: ["Rien, cela fonctionne toujours", "De ne pas tenir dans la durée, les anciennes incitations renforçant les anciens comportements", "D'être immédiatement interdit par la direction", "D'accélérer artificiellement les résultats"], correct: 1, explanation: "Sans alignement structurel et incitatif, le changement de pratiques a peu de chances de perdurer." },
           { question: "Quel type de diagnostic augmente le mieux l'adhésion des équipes ?", options: ["Un diagnostic purement descendant imposé par la direction", "Un diagnostic co-construit avec les personnes concernées à tous les niveaux", "Un diagnostic réalisé sans aucun entretien", "Un diagnostic gardé confidentiel par le coach seul"], correct: 1, explanation: "Un diagnostic co-construit avec les équipes et managers augmente l'adhésion, contrairement à un diagnostic purement top-down." },
+          { question: "Qu'est-ce qui distingue un bon indicateur de transformation d'un indicateur de vanité ?", options: ["Les indicateurs de vanité sont toujours plus précis", "Un bon indicateur est lié à de vrais résultats, pas seulement à l'activité visible", "Les indicateurs de vanité sont illégaux", "Il n'y a pas de différence réelle"], correct: 1, explanation: "Les bons indicateurs sont liés à de vrais résultats (flux, qualité, humain, résultats métier) ; les indicateurs de vanité ne montrent que de l'activité." },
+          { question: "Pourquoi un coach devrait-il planifier son retrait dès le début d'une mission ?", options: ["Pour réduire les heures facturées", "Pour que l'organisation puisse pérenniser le changement sans devenir durablement dépendante", "Parce que c'est contractuellement obligatoire partout", "Parce que les sponsors l'exigent toujours"], correct: 1, explanation: "Planifier le retrait et développer la capacité interne dès le premier jour garantit que la transformation survit après le départ du coach." },
+          { question: "Pourquoi utiliser les indicateurs pour sanctionner des équipes individuelles a-t-il tendance à se retourner contre l'objectif visé ?", options: ["Cela n'a aucun effet réel", "Cela encourage les équipes à manipuler les chiffres plutôt qu'à réellement s'améliorer", "C'est contraire au droit d'auteur", "Cela rend les rapports plus précis"], correct: 1, explanation: "Un usage punitif des indicateurs incite à manipuler les chiffres plutôt qu'à progresser réellement." },
         ],
       },
     ],

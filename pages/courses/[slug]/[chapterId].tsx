@@ -239,6 +239,9 @@ export default function ChapterPage() {
 
       {/* Chapter nav bar */}
       <div style={{
+        position: "sticky",
+        top: 56,
+        zIndex: 90,
         background: "var(--cream-dark)",
         borderBottom: "1px solid var(--border)",
         padding: "0.6rem 1.5rem",
@@ -317,7 +320,7 @@ export default function ChapterPage() {
         </div>
       )}
 
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1.5rem", display: "grid", gridTemplateColumns: "1fr min(280px, 30%)", gap: "2rem" }}>
+      <div className="grid-chapter" style={{ maxWidth: 860, margin: "0 auto", padding: "1.5rem 1rem", display: "grid", gridTemplateColumns: "1fr min(280px, 30%)", gap: "2rem", alignItems: "start" }}>
         {/* Main content */}
         <div style={{ minWidth: 0 }}>
           {phase === "reading" && (
@@ -382,7 +385,15 @@ export default function ChapterPage() {
 
           {phase === "quiz" && (
             <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: "0.5rem" }}>
+              <div style={{
+                position: "sticky",
+                top: 108,
+                zIndex: 80,
+                background: "var(--cream)",
+                display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8,
+                marginBottom: "0.5rem", padding: "0.5rem 0",
+                borderBottom: examSecondsLeft !== null ? "1px solid var(--border)" : "none",
+              }}>
                 <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.5rem", margin: 0 }}>
                   {isExam ? (lang === "fr" ? "Examen final" : "Final Exam") : "Chapter Quiz"}
                 </h2>
@@ -509,7 +520,7 @@ export default function ChapterPage() {
         </div>
 
         {/* Sidebar */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div className="chapter-sidebar" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           {/* Chapter list */}
           <div className="card" style={{ padding: "1rem" }}>
             <p style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", marginBottom: "0.75rem" }}>
@@ -548,10 +559,28 @@ export default function ChapterPage() {
         </div>
       </div>
 
-      {/* Mobile-only: collapse sidebar */}
+      {/* Responsive layout rules */}
       <style>{`
+        .chapter-sidebar {
+          min-width: 0;
+        }
+        @media (min-width: 641px) {
+          .chapter-sidebar {
+            position: sticky;
+            top: 116px;
+            max-height: calc(100vh - 132px);
+            overflow-y: auto;
+          }
+        }
         @media (max-width: 640px) {
-          .grid-chapter { grid-template-columns: 1fr !important; }
+          .grid-chapter {
+            grid-template-columns: 1fr !important;
+            padding: 1rem 0.85rem !important;
+            gap: 1.25rem !important;
+          }
+          .chapter-sidebar {
+            order: 2;
+          }
         }
       `}</style>
     </>

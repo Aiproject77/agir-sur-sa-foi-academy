@@ -269,5 +269,15 @@ input, textarea, select {
 
 /* Mobile */
 @media (max-width: 640px) {
-  .nav { padding: 0 1rem; }
+  .nav { padding: 0 0.85rem; }
+  .nav-logo { font-size: 12px; flex-shrink: 0; }
+  .nav-links {
+    gap: 0.6rem;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    max-width: 62vw;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 13px; white-space: nowrap; }
 }
