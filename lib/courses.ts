@@ -11,6 +11,8 @@ export interface Chapter {
   duration: string;
   content: string;
   quiz: QuizQuestion[];
+  /** Optional French translation of the chapter title, for bilingual courses. */
+  titleFr?: string;
   /** Optional French translation of content, for bilingual courses. */
   contentFr?: string;
   /** Optional French translation of the quiz, for bilingual courses. */
@@ -27,6 +29,8 @@ export interface Course {
   titleFr?: string;
   subtitleFr?: string;
   descriptionFr?: string;
+  /** Optional French translation of longDescription, for bilingual courses. */
+  longDescriptionFr?: string;
   id: string;
   slug: string;
   order: number;
@@ -1527,12 +1531,15 @@ export const COURSES: Course[] = [
       "Bilingual personal course covering the fundamentals assessed in the ICAgile ICP-FUN track: the Agile Manifesto, values and principles, roles and cadences, Scrum, Kanban and XP, iterative and incremental delivery, and a timed final exam. Independent prep — not affiliated with ICAgile.",
     longDescription:
       "This course covers the foundations of agile thinking as addressed in a typical ICP-FUN track: the history and the Agile Manifesto, its 4 values and 12 principles, common roles and cadences, an overview of Scrum, Kanban, and XP, and the principle of iterative and incremental delivery. Every chapter ends with a mastery quiz, and the course closes with a timed final exam with an 80% passing threshold. Note: this is independent self-study content. It is not produced, endorsed, or issued by ICAgile, and passing it does not grant the official ICP-FUN badge — only a course taken with an ICAgile-accredited trainer can issue that certification.",
+    longDescriptionFr:
+      "Ce cours couvre les bases de la pensée agile telles qu'abordées dans un parcours de type ICP-FUN : l'historique et le Manifeste Agile, ses 4 valeurs et 12 principes, les rôles et cadences courants, une vue d'ensemble de Scrum, Kanban et XP, et le principe de livraison itérative et incrémentale. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : il s'agit d'un contenu d'auto-formation indépendant. Il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-FUN — seul un cours suivi auprès d'un formateur accrédité ICAgile peut délivrer cette certification.",
     color: "#2d6a4f",
     icon: "compass",
     chapters: [
       {
         id: "icpfun-1",
         title: "Where Agility Comes From — Context and History",
+        titleFr: "D'où vient l'agilité — contexte et historique",
         duration: "35 min",
         content: `<h2>Where Agility Comes From — Context and History</h2>
 <p>In the 1990s, many software teams found that sequential, heavily-documented approaches (waterfall-style) tended to deliver late, over budget, and with products that no longer matched the real need by the time they shipped. Several lightweight movements emerged in response: Scrum, XP (Extreme Programming), DSDM, Crystal, FDD, and others.</p>
@@ -1560,6 +1567,7 @@ export const COURSES: Course[] = [
       {
         id: "icpfun-2",
         title: "The 4 Values and 12 Principles of the Manifesto",
+        titleFr: "Les 4 valeurs et les 12 principes du Manifeste",
         duration: "40 min",
         content: `<h2>The 4 Values and 12 Principles of the Manifesto</h2>
 <h3>The Four Values</h3>
@@ -1613,6 +1621,7 @@ export const COURSES: Course[] = [
       {
         id: "icpfun-3",
         title: "Overview of Scrum",
+        titleFr: "Vue d'ensemble de Scrum",
         duration: "35 min",
         content: `<h2>Overview of Scrum</h2>
 <p>Scrum is the most widely used agile framework. It organizes work into Sprints — short, regular cycles (often 1 to 4 weeks) — with three roles (Product Owner, Scrum Master, Developers), five events (the Sprint, Planning, Daily Scrum, Review, Retrospective), and three artifacts (Product Backlog, Sprint Backlog, Increment).</p>
@@ -1640,6 +1649,7 @@ export const COURSES: Course[] = [
       {
         id: "icpfun-4",
         title: "Overview of Kanban and Extreme Programming (XP)",
+        titleFr: "Vue d'ensemble de Kanban et d'Extreme Programming (XP)",
         duration: "38 min",
         content: `<h2>Overview of Kanban and Extreme Programming (XP)</h2>
 <h3>Kanban</h3>
@@ -1669,6 +1679,7 @@ export const COURSES: Course[] = [
       {
         id: "icpfun-5",
         title: "Delivering Value Iteratively and Incrementally",
+        titleFr: "Livrer la valeur de façon itérative et incrémentale",
         duration: "30 min",
         content: `<h2>Delivering Value Iteratively and Incrementally</h2>
 <p>Two ideas sit underneath almost every agile framework: <strong>iterative</strong> and <strong>incremental</strong> delivery. They're related but distinct, and worth telling apart clearly.</p>
@@ -1704,6 +1715,7 @@ export const COURSES: Course[] = [
       {
         id: "icpfun-final-exam",
         title: "Final Exam — ICP-FUN Practice Assessment",
+        titleFr: "Examen final — Évaluation ICP-FUN d'entraînement",
         duration: "50 min",
         isFinalExam: true,
         examDurationMinutes: 50,
@@ -1762,12 +1774,15 @@ export const COURSES: Course[] = [
       "Advanced bilingual personal course on the competencies targeted by the ICAgile ICP-CAT track: organizational diagnosis, transition strategy design, change and resistance management, and measuring/sustaining impact. Independent prep — not affiliated with ICAgile.",
     longDescription:
       "This advanced course covers the role of an agile transformation coach at the organizational level: understanding organizational systems, diagnosing the current state, co-designing a transition strategy with sponsors, guiding change and resistance, and measuring and sustaining impact over time. Every chapter ends with a mastery quiz, and the course closes with a timed final exam with an 80% passing threshold. Note: ICAgile's official ICP-CAT track is a participatory program delivered by accredited trainers, assessed largely on real-world practice — not on a written exam alone. This course is a personal study aid; it is not produced, endorsed, or issued by ICAgile, and passing it does not grant the official ICP-CAT badge.",
+    longDescriptionFr:
+      "Ce cours avancé aborde le rôle du coach de transformation agile au niveau organisationnel : comprendre les systèmes organisationnels, diagnostiquer l'état actuel, co-concevoir une stratégie de transition avec les sponsors, accompagner le changement et les résistances, et mesurer et pérenniser l'impact dans la durée. Chaque chapitre se termine par un quiz de maîtrise, et le cours se conclut par un examen final chronométré avec un seuil de réussite de 80 %. Remarque : le parcours officiel ICP-CAT d'ICAgile est un programme participatif dispensé par des formateurs accrédités, évalué en grande partie sur la pratique en situation réelle — pas uniquement sur un examen écrit. Ce cours est une aide à l'auto-formation personnelle ; il n'est ni produit, ni approuvé, ni délivré par ICAgile, et sa réussite n'accorde pas le badge officiel ICP-CAT.",
     color: "#6a4c93",
     icon: "compass",
     chapters: [
       {
         id: "icpcat-1",
         title: "The Organizational System — Understanding Before Acting",
+        titleFr: "Le système organisationnel : comprendre avant d'agir",
         duration: "45 min",
         content: `<h2>The Organizational System — Understanding Before Acting</h2>
 <p>An agile transformation is never just about changing one team's practices — it touches structure, culture, measurement systems, incentives, and leadership style across an entire organization. Before proposing any plan, a transformation coach seeks to understand the whole system first.</p>
@@ -1809,6 +1824,7 @@ export const COURSES: Course[] = [
       {
         id: "icpcat-2",
         title: "Diagnosing the Current State",
+        titleFr: "Diagnostiquer l'état actuel",
         duration: "42 min",
         content: `<h2>Diagnosing the Current State</h2>
 <p>Before designing a transition strategy, the coach runs a structured diagnosis of the organization: interviews with stakeholders at different levels, observation of actual working practices, analysis of existing value streams, and a review of current metrics (lead time, quality, team satisfaction).</p>
@@ -1846,6 +1862,7 @@ export const COURSES: Course[] = [
       {
         id: "icpcat-3",
         title: "Designing a Transition Strategy",
+        titleFr: "Concevoir une stratégie de transition",
         duration: "45 min",
         content: `<h2>Designing a Transition Strategy</h2>
 <p>A transition strategy translates the diagnosis into a realistic, sequenced action plan, adapted to context — there is no universal transformation plan that applies as-is to every organization.</p>
@@ -1883,6 +1900,7 @@ export const COURSES: Course[] = [
       {
         id: "icpcat-4",
         title: "Guiding Change and Resistance",
+        titleFr: "Accompagner le changement et les résistances",
         duration: "40 min",
         content: `<h2>Guiding Change and Resistance</h2>
 <p>Resistance to change is a normal human reaction, not an obstacle to be crushed by force. A transformation coach seeks to understand the sources of resistance and respond with empathy and clarity rather than authority.</p>
@@ -1934,6 +1952,7 @@ export const COURSES: Course[] = [
       {
         id: "icpcat-5",
         title: "Measuring Impact and Sustaining the Transformation",
+        titleFr: "Mesurer l'impact et pérenniser la transformation",
         duration: "38 min",
         content: `<h2>Measuring Impact and Sustaining the Transformation</h2>
 <p>A transformation that isn't measured tends to drift, and one that isn't actively sustained tends to quietly revert once the coach or the initial energy moves on. This chapter covers the closing loop: proving impact, and making change stick.</p>
@@ -1985,6 +2004,7 @@ export const COURSES: Course[] = [
       {
         id: "icpcat-final-exam",
         title: "Final Exam — ICP-CAT Practice Assessment",
+        titleFr: "Examen final — Évaluation ICP-CAT d'entraînement",
         duration: "55 min",
         isFinalExam: true,
         examDurationMinutes: 55,

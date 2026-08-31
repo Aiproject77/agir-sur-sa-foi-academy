@@ -11,8 +11,12 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<any>(null);
   const [students, setStudents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [lang, setLang] = useState<"en" | "fr">("en");
 
   useEffect(() => {
+    const saved = typeof window !== "undefined" ? localStorage.getItem("asf_lang") : null;
+    if (saved === "fr" || saved === "en") setLang(saved);
+
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then((d) => {
@@ -32,26 +36,54 @@ export default function AdminDashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div style={{ padding: "3rem", textAlign: "center" }}>Loading...</div>;
+  const t = {
+    loading: lang === "fr" ? "Chargement..." : "Loading...",
+    pageTitle: lang === "fr" ? "Tableau de bord Admin — Agir sur sa Foi" : "Admin Dashboard — ASF Academy",
+    heading: lang === "fr" ? "Tableau de bord Admin" : "Admin Dashboard",
+    subheading: lang === "fr" ? "Vue d'ensemble et gestion des apprenants" : "Overview and student management",
+    myPersonalCourses: lang === "fr" ? "Mes cours personnels" : "My Personal Courses",
+    personalCoursesNote: lang === "fr"
+      ? "Visibles uniquement ici, dans votre tableau de bord Admin — masqués du site public et des tableaux de bord des apprenants."
+      : "Visible only here in your Admin Dashboard — hidden from the public site and from student dashboards.",
+    completedWord: lang === "fr" ? "Terminé" : "Completed",
+    notStarted: lang === "fr" ? "Non commencé" : "Not started",
+    chaptersWord: lang === "fr" ? "chapitres" : "chapters",
+    review: lang === "fr" ? "Revoir" : "Review",
+    continueBtn: lang === "fr" ? "Continuer" : "Continue",
+    start: lang === "fr" ? "Commencer" : "Start",
+    certificate: lang === "fr" ? "Certificat" : "Certificate",
+    totalStudents: lang === "fr" ? "Total apprenants" : "Total Students",
+    totalDonations: lang === "fr" ? "Total des dons" : "Total Donations",
+    enrolled: lang === "fr" ? "inscrits" : "Enrolled",
+    completedStat: lang === "fr" ? "terminés" : "Completed",
+    studentsHeading: (n: number) => lang === "fr" ? `Apprenants (${n})` : `Students (${n})`,
+    thName: lang === "fr" ? "Nom" : "Name",
+    thEmail: lang === "fr" ? "E-mail" : "Email",
+    thJoined: lang === "fr" ? "Inscrit le" : "Joined",
+    thDonations: lang === "fr" ? "Dons" : "Donations",
+    noStudentsYet: lang === "fr" ? "Aucun apprenant inscrit pour le moment." : "No students enrolled yet.",
+  };
+
+  if (loading) return <div style={{ padding: "3rem", textAlign: "center" }}>{t.loading}</div>;
   if (!user) return null;
 
   return (
     <>
-      <Head><title>Admin Dashboard — ASF Academy</title></Head>
-      <NavBar user={user} />
+      <Head><title>{t.pageTitle}</title></Head>
+      <NavBar user={user} lang={lang} setLang={setLang} />
 
-      <div style={{ maxWidth: 960, margin: "0 auto", padding: "2rem 1.5rem" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "1.5rem 1rem" }}>
         <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.75rem", marginBottom: 4 }}>Admin Dashboard</h1>
-          <p style={{ color: "var(--text-muted)" }}>Overview and student management</p>
+          <h1 style={{ fontSize: "1.75rem", marginBottom: 4 }}>{t.heading}</h1>
+          <p style={{ color: "var(--text-muted)" }}>{t.subheading}</p>
         </div>
 
         {/* Personal courses — visible only here, only to the admin */}
         {ADMIN_ONLY_COURSES.length > 0 && (
           <div className="card" style={{ marginBottom: "2.5rem", padding: "1.5rem" }}>
-            <h2 style={{ fontSize: "1.1rem", marginBottom: 4 }}>My Personal Courses</h2>
+            <h2 style={{ fontSize: "1.1rem", marginBottom: 4 }}>{t.myPersonalCourses}</h2>
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: "1.25rem" }}>
-              Visible only here in your Admin Dashboard — hidden from the public site and from student dashboards.
+              {t.personalCoursesNote}
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {ADMIN_ONLY_COURSES.map((c) => {
@@ -59,24 +91,25 @@ export default function AdminDashboard() {
                 const completedChapters = p?.completedChapters?.length || 0;
                 const pct = Math.round((completedChapters / c.chapters.length) * 100);
                 const isDone = !!p?.completedAt;
+                const cTitle = lang === "fr" && c.titleFr ? c.titleFr : c.title;
                 return (
                   <div key={c.id} style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap",
                     padding: "12px 16px", background: "var(--cream)", border: "1px solid var(--border)", borderRadius: "var(--radius)",
                   }}>
                     <div>
-                      <p style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>{c.title}</p>
+                      <p style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>{cTitle}</p>
                       <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
-                        {c.certTrack} · {isDone ? "Completed" : p ? `${pct}% (${completedChapters}/${c.chapters.length} chapters)` : "Not started"}
+                        {c.certTrack} · {isDone ? t.completedWord : p ? `${pct}% (${completedChapters}/${c.chapters.length} ${t.chaptersWord})` : t.notStarted}
                       </p>
                     </div>
                     <div style={{ display: "flex", gap: 8 }}>
                       <Link href={`/courses/${c.slug}`} className="btn-secondary" style={{ fontSize: 13, padding: "6px 14px" }}>
-                        {isDone ? "Review" : p ? "Continue" : "Start"}
+                        {isDone ? t.review : p ? t.continueBtn : t.start}
                       </Link>
                       {isDone && (
                         <Link href={`/courses/${c.slug}/certificate`} className="btn-primary" style={{ fontSize: 13, padding: "6px 14px" }}>
-                          Certificate
+                          {t.certificate}
                         </Link>
                       )}
                     </div>
@@ -88,16 +121,16 @@ export default function AdminDashboard() {
         )}
 
         {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginBottom: "2.5rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: "2.5rem" }}>
           {[
-            { label: "Total Students", value: stats?.totalStudents || 0 },
-            { label: "Total Donations", value: `$${(stats?.totalDonations || 0).toFixed(2)} USD` },
+            { label: t.totalStudents, value: stats?.totalStudents || 0 },
+            { label: t.totalDonations, value: `$${(stats?.totalDonations || 0).toFixed(2)} USD` },
             ...PUBLIC_COURSES.map((c) => ({
-              label: `${c.title} Enrolled`,
+              label: `${lang === "fr" && c.titleFr ? c.titleFr : c.title} — ${t.enrolled}`,
               value: stats?.courseEnrollments?.[c.id] || 0,
             })),
             ...PUBLIC_COURSES.map((c) => ({
-              label: `${c.title} Completed`,
+              label: `${lang === "fr" && c.titleFr ? c.titleFr : c.title} — ${t.completedStat}`,
               value: stats?.courseCompletions?.[c.id] || 0,
             })),
           ].slice(0, 8).map((s) => (
@@ -116,14 +149,20 @@ export default function AdminDashboard() {
         {/* Students table */}
         <div className="card" style={{ padding: 0, overflow: "hidden" }}>
           <div style={{ padding: "1.25rem 1.5rem", borderBottom: "1px solid var(--border)" }}>
-            <h2 style={{ fontSize: "1rem", margin: 0 }}>Students ({students.length})</h2>
+            <h2 style={{ fontSize: "1rem", margin: 0 }}>{t.studentsHeading(students.length)}</h2>
           </div>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ background: "var(--cream)" }}>
-                  {["Name", "Email", "Joined", "Course 1", "Course 2", "Course 3", "Donations"].map((h) => (
-                    <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 12, color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid var(--border)" }}>
+                  {[
+                    t.thName,
+                    t.thEmail,
+                    t.thJoined,
+                    ...PUBLIC_COURSES.map((c) => lang === "fr" && c.titleFr ? c.titleFr : c.title),
+                    t.thDonations,
+                  ].map((h, i) => (
+                    <th key={`${h}-${i}`} style={{ padding: "10px 14px", textAlign: "left", fontSize: 12, color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: "1px solid var(--border)", whiteSpace: "nowrap" }}>
                       {h}
                     </th>
                   ))}
@@ -132,8 +171,8 @@ export default function AdminDashboard() {
               <tbody>
                 {students.length === 0 ? (
                   <tr>
-                    <td colSpan={7} style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>
-                      No students enrolled yet.
+                    <td colSpan={4 + PUBLIC_COURSES.length} style={{ padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: 14 }}>
+                      {t.noStudentsYet}
                     </td>
                   </tr>
                 ) : students.map((s) => (
@@ -141,7 +180,7 @@ export default function AdminDashboard() {
                     <td style={{ padding: "10px 14px", fontSize: 14, fontWeight: 500 }}>{s.name}</td>
                     <td style={{ padding: "10px 14px", fontSize: 13, color: "var(--text-muted)" }}>{s.email}</td>
                     <td style={{ padding: "10px 14px", fontSize: 13, color: "var(--text-muted)" }}>
-                      {new Date(s.createdAt).toLocaleDateString()}
+                      {new Date(s.createdAt).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}
                     </td>
                     {PUBLIC_COURSES.map((c) => {
                       const p = s.progress?.[c.id];
@@ -151,14 +190,14 @@ export default function AdminDashboard() {
                           {p ? (
                             <div>
                               <div style={{ fontSize: 12, color: p.completedAt ? "var(--green)" : "var(--text-muted)" }}>
-                                {p.completedAt ? "Completed" : `${pct}%`}
+                                {p.completedAt ? t.completedWord : `${pct}%`}
                               </div>
                               <div className="progress-bar" style={{ width: 60, marginTop: 3 }}>
                                 <div className="progress-fill" style={{ width: pct + "%" }} />
                               </div>
                             </div>
                           ) : (
-                            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Not started</span>
+                            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{t.notStarted}</span>
                           )}
                         </td>
                       );

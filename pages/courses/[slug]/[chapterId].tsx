@@ -19,6 +19,7 @@ export default function ChapterPage() {
   const [elapsed, setElapsed] = useState(0);
   const [showContact, setShowContact] = useState(false);
   const [lang, setLang] = useState<"en" | "fr">("en");
+  const [fontScale, setFontScale] = useState(1);
   const [examSecondsLeft, setExamSecondsLeft] = useState<number | null>(null);
   const [lastScorePercent, setLastScorePercent] = useState<number | null>(null);
   const examIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -38,11 +39,34 @@ export default function ChapterPage() {
   const displayQuiz: QuizQuestionType[] = (lang === "fr" && chapter?.quizFr ? chapter.quizFr : chapter?.quiz) || [];
   const passingScorePercent = chapter?.passingScorePercent ?? 100;
   const isExam = !!chapter?.isFinalExam;
+  const chTitle = (lang === "fr" && chapter?.titleFr) ? chapter.titleFr : (chapter?.title || "");
+  const courseTitleLocalized = (lang === "fr" && course?.titleFr) ? course.titleFr : (course?.title || "");
 
   // French-only courses (no English variant) always render their UI copy in French.
   useEffect(() => {
     if (course?.language === "fr") setLang("fr");
   }, [course?.language]);
+
+  // Restore saved language and reading font-size preferences.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const savedLang = localStorage.getItem("asf_lang");
+    if (savedLang === "fr" || savedLang === "en") setLang(savedLang);
+    const savedScale = parseFloat(localStorage.getItem("asf_font_scale") || "");
+    if (!isNaN(savedScale) && savedScale >= 0.85 && savedScale <= 1.5) setFontScale(savedScale);
+  }, []);
+
+  const FONT_SCALE_STEPS = [0.9, 1, 1.15, 1.3, 1.45];
+  function adjustFontScale(direction: 1 | -1) {
+    setFontScale((prev) => {
+      const idx = FONT_SCALE_STEPS.reduce((closest, val, i) =>
+        Math.abs(val - prev) < Math.abs(FONT_SCALE_STEPS[closest] - prev) ? i : closest, 0);
+      const nextIdx = Math.min(FONT_SCALE_STEPS.length - 1, Math.max(0, idx + direction));
+      const next = FONT_SCALE_STEPS[nextIdx];
+      if (typeof window !== "undefined") localStorage.setItem("asf_font_scale", String(next));
+      return next;
+    });
+  }
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -233,7 +257,7 @@ export default function ChapterPage() {
   return (
     <>
       <Head>
-        <title>{chapter.title} — {course.title} — ASF Academy</title>
+        <title>{chTitle} — {courseTitleLocalized} — ASF Academy</title>
       </Head>
       <NavBar user={user} />
 
@@ -251,13 +275,41 @@ export default function ChapterPage() {
         flexWrap: "wrap",
       }}>
         <Link href={`/courses/${slug}`} style={{ fontSize: 13, color: "var(--text-muted)" }}>
-          ← {course.title}
+          ← {courseTitleLocalized}
         </Link>
         <span style={{ fontSize: 13, color: "var(--text-muted)" }}>
-          Chapter {chapterIndex + 1} of {course.chapters.length}
+          {lang === "fr" ? "Chapitre" : "Chapter"} {chapterIndex + 1} {lang === "fr" ? "sur" : "of"} {course.chapters.length}
         </span>
         {/* Timer */}
-        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 12 }}>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          {/* Reading font-size control */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: 2,
+            border: "1px solid var(--border)", borderRadius: 20, padding: 2,
+          }} title={lang === "fr" ? "Ajuster la taille du texte" : "Adjust text size"}>
+            <button
+              onClick={() => adjustFontScale(-1)}
+              disabled={fontScale <= FONT_SCALE_STEPS[0]}
+              aria-label={lang === "fr" ? "Réduire la police" : "Decrease font size"}
+              style={{
+                fontSize: 12, fontWeight: 600, width: 26, height: 26, borderRadius: "50%",
+                border: "none", background: "transparent",
+                color: fontScale <= FONT_SCALE_STEPS[0] ? "var(--border-dark)" : "var(--text-secondary)",
+                cursor: fontScale <= FONT_SCALE_STEPS[0] ? "default" : "pointer",
+              }}
+            >A−</button>
+            <button
+              onClick={() => adjustFontScale(1)}
+              disabled={fontScale >= FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1]}
+              aria-label={lang === "fr" ? "Augmenter la police" : "Increase font size"}
+              style={{
+                fontSize: 15, fontWeight: 600, width: 26, height: 26, borderRadius: "50%",
+                border: "none", background: "transparent",
+                color: fontScale >= FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1] ? "var(--border-dark)" : "var(--text-secondary)",
+                cursor: fontScale >= FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1] ? "default" : "pointer",
+              }}
+            >A+</button>
+          </div>
           <span style={{
             background: "var(--black)",
             color: "#fff",
@@ -280,7 +332,7 @@ export default function ChapterPage() {
               cursor: "pointer",
             }}
           >
-            {autoScroll ? "Stop Scroll" : "Auto-Scroll"}
+            {autoScroll ? (lang === "fr" ? "Arrêter le défilement" : "Stop Scroll") : (lang === "fr" ? "Défilement auto" : "Auto-Scroll")}
           </button>
           <button
             onClick={() => setShowContact(!showContact)}
@@ -294,7 +346,7 @@ export default function ChapterPage() {
               cursor: "pointer",
             }}
           >
-            Contact Instructor
+            {lang === "fr" ? "Contacter l'instructeur" : "Contact Instructor"}
           </button>
         </div>
       </div>
@@ -328,10 +380,10 @@ export default function ChapterPage() {
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
                 <div>
                   <h1 style={{ fontSize: "clamp(1.4rem, 3vw, 1.9rem)", marginBottom: "0.5rem" }}>
-                    {chapter.title}
+                    {chTitle}
                   </h1>
                   <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: "1.75rem" }}>
-                    {chapter.duration} · Chapter {chapterIndex + 1}
+                    {chapter.duration} · {lang === "fr" ? "Chapitre" : "Chapter"} {chapterIndex + 1}
                   </p>
                 </div>
                 {isBilingual && (
@@ -355,7 +407,7 @@ export default function ChapterPage() {
                 ref={contentRef}
                 className="chapter-content"
                 dangerouslySetInnerHTML={{ __html: displayContent }}
-                style={{ fontSize: 16, lineHeight: 1.8, color: "var(--text-secondary)" }}
+                style={{ fontSize: 16 * fontScale, lineHeight: 1.8, color: "var(--text-secondary)" }}
               />
               <div style={{ marginTop: "2.5rem", padding: "1.5rem", background: isExam ? "#fff3cd" : "var(--gold-light)", border: `1px solid ${isExam ? "#ffe69c" : "#e0c87a"}`, borderRadius: "var(--radius-lg)" }}>
                 <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", marginBottom: "0.5rem" }}>
@@ -407,7 +459,7 @@ export default function ChapterPage() {
                 )}
               </div>
               <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: "2rem" }}>
-                {chapter.title} · Answer all {displayQuiz.length} questions{isExam ? ` · ${passingScorePercent}% to pass` : ""}
+                {chTitle} · {lang === "fr" ? "Répondez à toutes les" : "Answer all"} {displayQuiz.length} {lang === "fr" ? "questions" : "questions"}{isExam ? ` · ${passingScorePercent}% ${lang === "fr" ? "pour réussir" : "to pass"}` : ""}
               </p>
               {displayQuiz.map((q, i) => (
                 <QuizQuestion
@@ -416,6 +468,7 @@ export default function ChapterPage() {
                   index={i}
                   selected={quizAnswers[i]}
                   onSelect={(val) => setQuizAnswers((prev) => ({ ...prev, [i]: val }))}
+                  fontScale={fontScale}
                 />
               ))}
               <button
@@ -437,7 +490,7 @@ export default function ChapterPage() {
                     ? `${lang === "fr" ? "Score" : "Score"}: ${lastScorePercent}% (${passingScorePercent}% ${lang === "fr" ? "requis" : "required"})`
                     : `${failedQuestions.length} question${failedQuestions.length > 1 ? "s" : ""} need review`}
                 </h3>
-                <p style={{ color: "#dc2626", fontSize: 14, margin: 0 }}>
+                <p style={{ color: "#dc2626", fontSize: 14 * fontScale, margin: 0 }}>
                   {isExam
                     ? (lang === "fr"
                         ? "Vous n'avez pas atteint le seuil de réussite. Révisez les explications ci-dessous et retentez l'examen."
@@ -449,24 +502,24 @@ export default function ChapterPage() {
                 const failed = failedQuestions.includes(i);
                 if (!failed) return (
                   <div key={i} style={{ marginBottom: 16, padding: "12px 16px", background: "#dcfce7", border: "1px solid #86efac", borderRadius: "var(--radius)" }}>
-                    <p style={{ fontSize: 14, color: "#15803d", margin: 0 }}>
+                    <p style={{ fontSize: 14 * fontScale, color: "#15803d", margin: 0 }}>
                       ✓ Question {i + 1}: Correct!
                     </p>
                   </div>
                 );
                 return (
                   <div key={i} style={{ marginBottom: 20, padding: "1rem 1.25rem", background: "#fff", border: "2px solid #fca5a5", borderRadius: "var(--radius-lg)" }}>
-                    <p style={{ fontSize: 14, color: "var(--text-primary)", fontWeight: 600, marginBottom: 8 }}>
+                    <p style={{ fontSize: 14 * fontScale, color: "var(--text-primary)", fontWeight: 600, marginBottom: 8 }}>
                       Question {i + 1}: {q.question}
                     </p>
-                    <p style={{ fontSize: 13, color: "#b91c1c", marginBottom: 8 }}>
+                    <p style={{ fontSize: 13 * fontScale, color: "#b91c1c", marginBottom: 8 }}>
                       Your answer: <em>{q.options[quizAnswers[i]] || "Not answered"}</em>
                     </p>
-                    <p style={{ fontSize: 13, color: "#15803d", marginBottom: 8 }}>
+                    <p style={{ fontSize: 13 * fontScale, color: "#15803d", marginBottom: 8 }}>
                       Correct answer: <strong>{q.options[q.correct]}</strong>
                     </p>
                     <div style={{ background: "#fffbf0", padding: "10px 14px", borderRadius: "var(--radius)", border: "1px solid #f0e0a0" }}>
-                      <p style={{ fontSize: 13, color: "#7a5c00", margin: 0 }}>
+                      <p style={{ fontSize: 13 * fontScale, color: "#7a5c00", margin: 0 }}>
                         <strong>Explanation:</strong> {q.explanation}
                       </p>
                     </div>
@@ -490,7 +543,7 @@ export default function ChapterPage() {
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.75rem", marginBottom: "0.75rem" }}>
                 Chapter Complete!
               </h2>
-              <p style={{ color: "var(--text-secondary)", marginBottom: "2rem" }}>
+              <p style={{ color: "var(--text-secondary)", marginBottom: "2rem", fontSize: 16 * fontScale }}>
                 {lastScorePercent !== null
                   ? (lang === "fr"
                       ? `Vous avez obtenu ${lastScorePercent}% à ${isExam ? "l'examen" : "au quiz"}. Bravo !`
@@ -508,10 +561,10 @@ export default function ChapterPage() {
               ) : (
                 <div>
                   <p style={{ color: "var(--text-muted)", fontSize: 15, marginBottom: "1.5rem" }}>
-                    You have completed <strong>{course.title}</strong>! Your certificate is ready.
+                    {lang === "fr" ? <>Vous avez terminé <strong>{courseTitleLocalized}</strong> ! Votre certificat est prêt.</> : <>You have completed <strong>{courseTitleLocalized}</strong>! Your certificate is ready.</>}
                   </p>
                   <Link href={`/courses/${slug}/certificate`} className="btn-primary" style={{ fontSize: 16, padding: "14px 32px" }}>
-                    Get Your Certificate
+                    {lang === "fr" ? "Obtenir votre certificat" : "Get Your Certificate"}
                   </Link>
                 </div>
               )}
@@ -524,7 +577,7 @@ export default function ChapterPage() {
           {/* Chapter list */}
           <div className="card" style={{ padding: "1rem" }}>
             <p style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", marginBottom: "0.75rem" }}>
-              Chapters
+              {lang === "fr" ? "Chapitres" : "Chapters"}
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {course.chapters.map((ch, i) => {
@@ -547,7 +600,7 @@ export default function ChapterPage() {
                     }}
                   >
                     <span style={{ flexShrink: 0, fontSize: 11 }}>{isDone ? "✓" : i + 1}</span>
-                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{ch.title}</span>
+                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{(lang === "fr" && ch.titleFr) ? ch.titleFr : ch.title}</span>
                   </Link>
                 );
               })}
@@ -587,15 +640,16 @@ export default function ChapterPage() {
   );
 }
 
-function QuizQuestion({ question, index, selected, onSelect }: {
+function QuizQuestion({ question, index, selected, onSelect, fontScale = 1 }: {
   question: QuizQuestionType;
   index: number;
   selected: number | undefined;
   onSelect: (val: number) => void;
+  fontScale?: number;
 }) {
   return (
     <div style={{ marginBottom: "2rem" }}>
-      <p style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)", marginBottom: "1rem" }}>
+      <p style={{ fontSize: 15 * fontScale, fontWeight: 600, color: "var(--text-primary)", marginBottom: "1rem" }}>
         {index + 1}. {question.question}
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -610,7 +664,7 @@ function QuizQuestion({ question, index, selected, onSelect }: {
               background: selected === i ? "var(--black)" : "#fff",
               color: selected === i ? "#fff" : "var(--text-secondary)",
               textAlign: "left",
-              fontSize: 14,
+              fontSize: 14 * fontScale,
               cursor: "pointer",
               transition: "all 0.15s",
             }}
